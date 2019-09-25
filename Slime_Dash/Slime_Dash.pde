@@ -9,5 +9,5 @@ void setup() {
 }
 
 void draw() {
-  HealthBar();
+  drawHealthBar();
 }

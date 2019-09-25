@@ -1,13 +1,13 @@
 //healthbar
-int hpLength, hpHeight;
+int healthL, healthH;
 
   void HUDsettings() {
-  hpLength = 250;
-  hpHeight = 40;
+  healthL = 250;
+  healthH = 40;
 }
 
-void HealthBar() {
+void drawHealthBar() {
   strokeWeight(2);
   fill(#FF0000);
-  rect(50, 50, hpLength, hpHeight, 20);
+  rect(50, 50, healthL, healthH, 20);
 }
