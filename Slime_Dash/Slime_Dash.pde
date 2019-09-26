@@ -1,13 +1,10 @@
 //remember, ctrl+a, ctrl+t
 
 void setup() {
-  size(1920, 1080);
+  size(1920, 1200);
   background(255);
-  
-  //tab settings
-  HUDsettings();
-}
+  }
 
 void draw() {
-  drawHealthBar();
+  drawHealthBar(99);
 }
