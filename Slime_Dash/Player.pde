@@ -6,14 +6,14 @@ class Player {
   float playerVx = 0;
   float playerVy = 0;
   float playerGravity = 0;
-  float playerDashSpeed;
+  float playerDashSpeed = 30;
   float ground = 980;
 
   boolean onGround;
   boolean reset;
   void movement() {
     playerVy += playerGravity;
-    playerX += playerVx + playerDashSpeed;
+    playerX += playerVx;
     playerY += playerVy;
 
     //controls left + right
@@ -42,14 +42,14 @@ class Player {
       reset = true;
     } else reset = false;
 
+    //dash ability
+    if (inputs.hasValue(90) == true && playerVx < 0) {
+      playerX -= playerDashSpeed;
+    } else if (inputs.hasValue(90) == true && playerVx > 0) {
+      playerX += playerDashSpeed;
+    } 
+
     fill(255, 255, 255);
     rect(playerX, playerY, playerL, playerH);
   }
-
-
-  /*dash ability
-   if (inputs.hasValue(90) == true) {
-   player.playerDashSpeed = 10;
-   println("yes");
-   } else player.playerDashSpeed = 0; */
 }
