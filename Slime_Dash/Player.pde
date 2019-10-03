@@ -23,6 +23,9 @@ class Player {
     dashCooldown = 20;
   }
   void update() {
+    vy *= frameSpeed;
+    vx *= frameSpeed;
+    gravity *= frameSpeed;
     vy += gravity;
     x += vx;
     y += vy;
@@ -58,8 +61,9 @@ class Player {
       x -= dashSpeed;
     } else if (inputs.hasValue(90) == true && vx > 0) {
       x += dashSpeed;
-    } 
-
+    }
+  }
+  void draw() {
     fill(0, 255, 0);
     rect(x, y, size, size);
   }
