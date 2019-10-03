@@ -14,10 +14,11 @@ void keyReleased() {
   }
 }
 /* Je kan dit gebruiken door:
-vul bij keyCode gewoon het nummer van de key in
-keyCodes kan je krijgen op https://keycode.info
+
 if (inputs.hasValue(keyCode) == true) {
   //de code die jij wil gebruiken wanneer er een toets ingedrukt wordt
 }
+vul bij keyCode gewoon het nummer van de key in.
+keyCodes kan je krijgen op: https://keycode.info
 
 */
