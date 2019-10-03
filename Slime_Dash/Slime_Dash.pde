@@ -8,6 +8,6 @@ void setup() {
 void draw() {
 
   background(255);
-  player.movement();
+  player.update();
   drawHealthBar(99);
 }
