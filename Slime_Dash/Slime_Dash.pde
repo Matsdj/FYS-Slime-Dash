@@ -1,14 +1,15 @@
 //remember, ctrl+t
-Player player = new Player();
+Player player;
 float frameSpeed, globalScale;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 
 void setup() {
-  size(1920, 1080);
+  size(1280, 720);
   frameRate(60);
   globalScale = height/9;
+  player = new Player();
 }
 
 void updateGame() {
