@@ -12,14 +12,14 @@ class Player {
   boolean onGround, reset;
 
   Player() {
-    ground = 980;
-    size = 100;
-    x = 1920/4;
-    y = 500;
-    vx = 0;
+    ground = height;
+    size = height/9;
+    x = width/4;
+    y = height/2;
+    vx = 2;
     vy = 20;
     gravity = 1.5;
-    dashSpeed = 30;
+    dashSpeed = width/ 8;
     dashCooldown = 20;
   }
   void update() {
@@ -27,15 +27,23 @@ class Player {
     vx *= frameSpeed;
     gravity *= frameSpeed;
     vy += gravity;
-    x += vx;
     y += vy;
+    dashCooldown --;
 
     //controls left + right
     if (inputs.hasValue(LEFT) == true) {
-      vx = -8;
+      x -= vx;
+      if (inputs.hasValue(90) == true && dashCooldown < 0) {
+        x -= dashSpeed;
+        dashCooldown = 20;
+      }
     } else if (inputs.hasValue(RIGHT) == true) {
-      vx = 8;
-    } else vx = 0;
+      x += vx;
+      if (inputs.hasValue(90) == true && dashCooldown < 0) {
+        x += dashSpeed;
+        dashCooldown = 20;
+      }
+    } 
 
     //jumping
     if (inputs.hasValue(UP) == true && onGround) {
@@ -55,13 +63,7 @@ class Player {
       y = ground - size;
       reset = true;
     } else reset = false;
-
-    //dash ability
-    if (inputs.hasValue(90) == true && vx < 0) {
-      x -= dashSpeed;
-    } else if (inputs.hasValue(90) == true && vx > 0) {
-      x += dashSpeed;
-    }
+    //reset makes if statement run once when landing on ground
   }
   void draw() {
     fill(0, 255, 0);
