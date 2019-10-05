@@ -18,17 +18,16 @@ void updateGame() {
   //globalScale is hoe groot een block wordt in de hoogte en de breedte gebruik deze variable om de grootte van alles te scalen
   globalScale = height/9;
   player.update();
+  interfaces.update();
 }
 void drawGame() {
   background(255);
   player.draw();
+  interfaces.draw();
 }
 
 void draw() {
   updateGame();
   drawGame();
 
-  //moet in ^^^ verwerkt worden
-
-  drawHealthBar(99);
 }

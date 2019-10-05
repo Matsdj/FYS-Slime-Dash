@@ -66,6 +66,8 @@ class Player {
     //reset makes if statement run once when landing on ground
   }
   void draw() {
+    stroke(0);
+    strokeWeight(2);
     fill(0, 255, 0);
     rect(x, y, size, size);
   }
