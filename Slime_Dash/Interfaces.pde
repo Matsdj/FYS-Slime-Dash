@@ -8,10 +8,10 @@ class Interfaces {
   float healthX, healthY, healthR, healthRNormal, healthL, healthH;
   //score
   int score;
-  float scoreX, scoreY,scoreSize;
+  float scoreX, scoreY, scoreSize;
   //game over
   String gOver;
-  float gOverX, gOverY;
+  float gOverX, gOverY, goFadeIn,gOSize;
   boolean death;
 
   Interfaces() {
@@ -36,6 +36,8 @@ class Interfaces {
     gOver = "";
     gOverX = width/2;
     gOverY = height/2;
+    gOSize = width*0.04;
+    goFadeIn = 0;
     death = false;
   }
 
@@ -55,9 +57,12 @@ class Interfaces {
       death = true;
       healthMain = 0;
     }
-    /*stop bewegen*/
+
     if (death == true) {
+      /*makes GO text fade in*/
       gOver = "Game over";
+      goFadeIn += 3;
+      /*stops player movement*/
       player.gravity = 0;
       player.dashSpeed = 0;
       player.vx = 0;
@@ -87,8 +92,9 @@ class Interfaces {
     text(score, scoreX, scoreY);
     line(width-(width/8), scoreY+20, width, scoreY+20);
     //Game Over
+    fill(0, 0, 0, goFadeIn);
     textAlign(CENTER);
-    textSize(50);
+    textSize(gOSize);
     text(gOver, gOverX, gOverY);
 
     if (mousePressed ==true)
