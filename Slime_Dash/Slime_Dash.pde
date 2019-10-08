@@ -11,6 +11,7 @@ void setup() {
   globalScale = height/9;
   playerSetup();
   interfacesSetup();
+  mapSetup();
 }
 
 void updateGame() {
@@ -20,11 +21,13 @@ void updateGame() {
   globalScale = height/9;
   player.update();
   interfaces.update();
+  mapUpdate();
 }
 void drawGame() {
   background(255);
   player.draw();
   interfaces.draw();
+  tempBlockDraw();
 }
 
 void draw() {
