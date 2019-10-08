@@ -22,11 +22,11 @@ class Player {
   boolean onGround, reset, dashActive;
 
   Player() {
-    ground = height;
+    ground = height - globalScale;
     size = height/9;
     x = width/4;
-    y = height/2;
-    vx = 2;
+    y = height/4;
+    vx = 1;
     vy = 20;
     gravity = 1.5;
     dashSpeed = width/ 50;
@@ -86,6 +86,14 @@ class Player {
       dashActive = false;
       dashTime = DASH_TIME;
     }
+    
+  }
+  
+  //method die checkt of collision met player waar is
+  boolean playerCollision(float cX, float cY, float cSize) {
+    if (x + size > cX && x < cX + cSize && y + size > cY && y < cY + cSize) {
+      return true;
+    } else return false;
   }
   void draw() {
     stroke(0);
