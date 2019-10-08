@@ -1,5 +1,5 @@
-void playerSetup(){
-    player = new Player();
+void playerSetup() {
+  player = new Player();
 }
 
 Player player;
@@ -12,9 +12,14 @@ class Player {
     vy, 
     gravity, 
     dashSpeed, 
-    dashCooldown;
+    dashCooldown, 
+    dashTime;
 
-  boolean onGround, reset;
+  //terugzet waardes van de dashCooldown en dashTime
+  final float DASH_COOLDOWN = 20;
+  final float DASH_TIME = 10;
+
+  boolean onGround, reset, dashActive;
 
   Player() {
     ground = height;
@@ -24,8 +29,9 @@ class Player {
     vx = 2;
     vy = 20;
     gravity = 1.5;
-    dashSpeed = width/ 8;
-    dashCooldown = 20;
+    dashSpeed = width/ 50;
+    dashCooldown = DASH_COOLDOWN;
+    dashTime = DASH_TIME;
   }
   void update() {
     vy *= frameSpeed;
@@ -38,16 +44,8 @@ class Player {
     //controls left + right
     if (inputs.hasValue(LEFT) == true) {
       x -= vx;
-      if (inputs.hasValue(90) == true && dashCooldown < 0) {
-        x -= dashSpeed;
-        dashCooldown = 20;
-      }
     } else if (inputs.hasValue(RIGHT) == true) {
       x += vx;
-      if (inputs.hasValue(90) == true && dashCooldown < 0) {
-        x += dashSpeed;
-        dashCooldown = 20;
-      }
     } 
 
     //jumping
@@ -69,6 +67,25 @@ class Player {
       reset = true;
     } else reset = false;
     //reset makes if statement run once when landing on ground
+
+    /*dash ability, starts when you press Z, and keeps going until dash timer 
+     has gone under 0. Once that is true, playerX will stop increasing with the dashSpeed
+     */
+    if (inputs.hasValue(90) == true && dashCooldown < 0 || dashActive && dashTime > 0) {
+      if (inputs.hasValue(LEFT) == true) {
+        x -= dashSpeed;
+        dashCooldown = DASH_COOLDOWN;
+      }
+      if (inputs.hasValue(RIGHT) == true) {
+        x += dashSpeed;
+        dashCooldown = DASH_COOLDOWN;
+      }
+      dashActive = true;
+      dashTime--;
+    } else {
+      dashActive = false;
+      dashTime = DASH_TIME;
+    }
   }
   void draw() {
     stroke(0);
