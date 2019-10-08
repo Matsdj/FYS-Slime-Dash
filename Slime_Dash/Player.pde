@@ -1,3 +1,8 @@
+void playerSetup(){
+    player = new Player();
+}
+
+Player player;
 class Player {
   float ground, 
     size, 
