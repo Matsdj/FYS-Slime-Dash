@@ -5,11 +5,10 @@ Interfaces interfaces;
 class Interfaces {
   //healthbar
   int healthMain, noHealth;
-  float healthX, healthY;
-  float healthR,healthRNormal, healthL, healthH;
+  float healthX, healthY, healthR, healthRNormal, healthL, healthH;
   //score
   int score;
-  float scoreX, scoreY;
+  float scoreX, scoreY,scoreSize;
   //game over
   String gOver;
   float gOverX, gOverY;
@@ -17,8 +16,8 @@ class Interfaces {
 
   Interfaces() {
     //healthbar
-    healthX=width*0.039;
-    healthY= width*0.039;
+    healthX= width*0.02;
+    healthY= width*0.02;
     healthL = width*0.195;
     healthH = height*0.056;
     healthR = 20;
@@ -28,9 +27,10 @@ class Interfaces {
     /*als je jou object of enemy damage wil laten gebruik je healthMain*/
     healthMain = 100;
     //score
-    scoreX = width-healthX;
+    scoreX = width*0.98;
     scoreY = width*0.039;
     score = 000000000;
+    scoreSize = width*0.025;
 
     //game over
     gOver = "";
@@ -81,16 +81,17 @@ class Interfaces {
     strokeWeight(2);
     rect(healthX, healthY, healthL, healthH, healthRNormal);
     //score
+    textAlign(RIGHT);
     fill(0);
-    textSize(30);
+    textSize(scoreSize);
     text(score, scoreX, scoreY);
+    line(width-(width/8), scoreY+20, width, scoreY+20);
     //Game Over
     textAlign(CENTER);
     textSize(50);
     text(gOver, gOverX, gOverY);
-/*
+
     if (mousePressed ==true)
-      score +=2;
-      */
+      score +=100;
   }
 }
