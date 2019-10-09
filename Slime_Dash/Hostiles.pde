@@ -44,6 +44,11 @@ class Hostile {
     } else if (x>= width-size) {
       x = width-size;
     }
+    //checkt collision met player
+    if (player.Collision(x, y, size) && player.dmgCooldown < 0) {
+      player.enemyDamage = true;
+      player.dmgCooldown = player.DMG_COOLDOWN;
+    }
   }
 
 

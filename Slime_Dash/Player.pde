@@ -97,11 +97,7 @@ class Player {
       dashTime = DASH_TIME;
     }
 
-    //checkt collision met player
-    if (Collision(hostile.x, hostile.y, hostile.size) && dmgCooldown < 0) {
-      enemyDamage = true;
-      dmgCooldown = DMG_COOLDOWN;
-    }
+
   }
 
   //method die checkt of collision met player waar is
