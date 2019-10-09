@@ -34,8 +34,6 @@ class Player {
     dashTime = DASH_TIME;
   }
   void update() {
-    vy *= frameSpeed;
-    vx *= frameSpeed;
     gravity *= frameSpeed;
     vy += gravity;
     y += vy;
@@ -43,9 +41,9 @@ class Player {
 
     //controls left + right
     if (inputs.hasValue(LEFT) == true) {
-      x -= vx;
+      x -= vx*frameSpeed;
     } else if (inputs.hasValue(RIGHT) == true) {
-      x += vx;
+      x += vx*frameSpeed;
     } 
 
     //jumping
