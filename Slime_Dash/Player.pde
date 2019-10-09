@@ -12,14 +12,16 @@ class Player {
     y, 
     vx, 
     vy, 
+    vyReset, 
     gravity, 
+    gravityReset, 
     dashSpeed, 
     dashCooldown, 
-    dashTime,
+    dashTime, 
     pColor;
   //terugzet waardes van de dashCooldown en dashTime
-  final float DASH_COOLDOWN = 20;
-  final float DASH_TIME = 10;
+  final float DASH_COOLDOWN = 40;
+  final float DASH_TIME = 15;
 
   boolean onGround, reset, dashActive;
 
@@ -28,17 +30,18 @@ class Player {
     size = globalScale;
     x = width/4;
     y = height/4;
-    vx = 1;
-    vy = 20;
-    gravity = 1.5;
+    vx = globalScale/5;
+    vy = globalScale/2;
+    vyReset = -globalScale;
+    gravity = globalScale/15;
+    gravityReset = globalScale/15;
     dashSpeed = width/ 50;
     dashCooldown = DASH_COOLDOWN;
     dashTime = DASH_TIME;
     pColor = 255;
   }
   void update() {
-    gravity *= frameSpeed;
-    vy += gravity;
+    //vy += gravity;
     y += vy;
     dashCooldown --;
 
@@ -51,8 +54,10 @@ class Player {
 
     //jumping
     if (inputs.hasValue(UP) == true && onGround) {
-      vy = -40;
-      gravity = 1.5;
+      vy = vyReset;
+    }
+    if(!onGround){
+      vy += gravity* frameSpeed;
     }
 
     //checks if player is on ground
@@ -63,7 +68,6 @@ class Player {
     //stops falling once player hits ground
     if (y + size > ground && reset == false) {
       vy *= 0;
-      gravity *= 0;
       y = ground - size;
       reset = true;
     } else reset = false;
@@ -87,9 +91,8 @@ class Player {
       dashActive = false;
       dashTime = DASH_TIME;
     }
-    
   }
-  
+
   //method die checkt of collision met player waar is
   boolean Collision(float cX, float cY, float cSize) {
     if (x + size >= cX && x <= cX + cSize && y + size >= cY && y <= cY + cSize) {
