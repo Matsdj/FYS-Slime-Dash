@@ -1,3 +1,5 @@
+//laurens
+
 void interfacesSetup() {
   interfaces = new Interfaces();
 }
@@ -53,10 +55,12 @@ class Interfaces {
     } else {
       healthR = 0;
     }
-    /*enemy damage*/
+    /*wanneer enemy collision heeft met player dan damage*/
+    
     if (hostile.enemyDamage==true) {
-      healthMain = healthMain-10;
       hostile.enemyDamage= false;
+      /*verander deze om enemy damage aan te passen*/
+            healthMain = healthMain-1;
     }
     
     //game over

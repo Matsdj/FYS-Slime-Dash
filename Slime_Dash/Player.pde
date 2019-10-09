@@ -1,3 +1,5 @@
+//Chris
+
 void playerSetup() {
   player = new Player();
 }
@@ -23,7 +25,7 @@ class Player {
 
   Player() {
     ground = height - globalScale;
-    size = height/9;
+    size = globalScale;
     x = width/4;
     y = height/4;
     vx = 1;

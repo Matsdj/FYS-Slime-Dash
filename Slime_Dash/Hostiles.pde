@@ -1,17 +1,12 @@
+//Laurens
+
 void hostileSetup() {
   hostile = new Hostile();
 }
 
 Hostile hostile;
 class Hostile {
-  float ground, 
-    size, 
-    x, 
-    y, 
-    vx, 
-    vy, 
-    gravity, 
-    cooldown;
+  float ground, size, x, y, vx, vy, gravity, cooldown;
 
 
 
@@ -20,7 +15,7 @@ class Hostile {
 
   Hostile() {
     ground = height - globalScale;
-    size = height/9;
+    size = globalScale;
     x = width/2;
     y = height/4;
     vx = 1;
@@ -50,12 +45,17 @@ class Hostile {
       reset = true;
     } else reset = false;
     //reset makes if statement run once when landing on ground
+    if (x<=0) {
+      x =0;
+    }
+else if(x>= width-size){
+        x = width-size;
 
-    if (player.Collision(x,y,size)){
+}
+    //checkt collision met player
+    if (player.Collision(x, y, size)) {
       enemyDamage=true;
     }
-
-    
   }
 
 
