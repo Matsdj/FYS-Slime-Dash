@@ -52,17 +52,10 @@ class Hostile {
     //reset makes if statement run once when landing on ground
 
     if (player.Collision(x,y,size)){
-      player.pColor= 0;
+      enemyDamage=true;
     }
-      else player.pColor = 255;
-      interfaces.healthMain +=2;
-    
-     
 
     
-    if(player.pColor==0){
-        enemyDamage = true;
-    }
   }
 
 
