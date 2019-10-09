@@ -1,4 +1,4 @@
-//laurens
+//Laurens
 
 void interfacesSetup() {
   interfaces = new Interfaces();
@@ -56,13 +56,13 @@ class Interfaces {
       healthR = 0;
     }
     /*wanneer enemy collision heeft met player dan damage*/
-    
+
     if (hostile.enemyDamage==true) {
       hostile.enemyDamage= false;
       /*verander deze om enemy damage aan te passen*/
-            healthMain = healthMain-1;
+      healthMain = healthMain-1;
     }
-    
+
     //game over
     /*game over text*/
     if (healthMain <= noHealth) {
@@ -112,5 +112,33 @@ class Interfaces {
 
     if (mousePressed ==true)
       score +=100;
+  }
+}
+
+void menuSetup() {
+  menu = new Menu();
+}
+Menu menu;
+//MAIN MENU//////////////////////////////////////////
+class Menu {
+  int SpikeLX, spikeLY, SpikeRX, SpikeRY, SpikeTX, SpikeTY;
+  Menu() {
+    SpikeLX = 530;
+    spikeLY = 575;
+    SpikeRX = 558;
+    SpikeRY = 520;
+    SpikeTX = 586;
+    SpikeTY = 575;
+  }
+
+  void update() {
+    if (inputs.hasValue(81) && room == "mainMenu") {
+      room = "game";
+    }
+  }
+
+  void draw() {
+    background(0);
+    triangle(SpikeLX, spikeLY, SpikeTX, SpikeTY, SpikeRX, SpikeRY);
   }
 }

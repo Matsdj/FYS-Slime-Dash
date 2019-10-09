@@ -6,12 +6,13 @@ void hostileSetup() {
 
 Hostile hostile;
 class Hostile {
-  float ground, size, x, y, vx, vy, gravity;
+  float ground, size, x, y, vx, vy, gravity,size2;
   boolean onGround, reset, enemyDamage;
 
   Hostile() {
     ground = height - globalScale;
     size = globalScale;
+    size2 = globalScale*2;
     x = width/2;
     y = height/4;
     vx = 1;
@@ -36,7 +37,7 @@ class Hostile {
     if (y + size > ground && reset == false) {
       vy *= 0;
       gravity *= 0;
-      y = ground - size;
+      y = ground - size2;
       reset = true;
     } else reset = false;
     //reset makes if statement run once when landing on ground
@@ -58,6 +59,6 @@ else if(x>= width-size){
     stroke(0);
     strokeWeight(2);
     fill(255, 0, 0);
-    rect(x, y, size, size);
+    rect(x, y, size, size2);
   }
 }
