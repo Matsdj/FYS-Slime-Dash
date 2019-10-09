@@ -16,14 +16,17 @@ class Player {
     gravity, 
     gravityReset, 
     dashSpeed, 
-    dashCooldown, 
-    dashTime, 
     pColor;
-  //terugzet waardes van de dashCooldown en dashTime
-  final float DASH_COOLDOWN = 40;
-  final float DASH_TIME = 15;
 
-  boolean onGround, reset, dashActive;
+  int dashCooldown, 
+    dashTime, 
+    dmgCooldown;
+  //terugzet waardes van de dashCooldown en dashTime
+  final int DASH_COOLDOWN = 40;
+  final int DASH_TIME = 15;
+  final int DMG_COOLDOWN = 30;
+
+  boolean onGround, reset, dashActive, enemyDamage;
 
   Player() {
     ground = height - globalScale;
@@ -38,13 +41,15 @@ class Player {
     dashSpeed = width/ 50;
     dashCooldown = DASH_COOLDOWN;
     dashTime = DASH_TIME;
+    dmgCooldown = 50;
+    enemyDamage = false;
     pColor = 255;
   }
   void update() {
     //vy += gravity;
     y += vy;
     dashCooldown --;
-
+    dmgCooldown--;
     //controls left + right
     if (inputs.hasValue(LEFT) == true) {
       x -= vx*frameSpeed;
@@ -56,7 +61,7 @@ class Player {
     if (inputs.hasValue(UP) == true && onGround) {
       vy = vyReset;
     }
-    if(!onGround){
+    if (!onGround) {
       vy += gravity* frameSpeed;
     }
 
@@ -90,6 +95,12 @@ class Player {
     } else {
       dashActive = false;
       dashTime = DASH_TIME;
+    }
+
+    //checkt collision met player
+    if (Collision(hostile.x, hostile.y, hostile.size) && dmgCooldown < 0) {
+      enemyDamage = true;
+      dmgCooldown = DMG_COOLDOWN;
     }
   }
 
