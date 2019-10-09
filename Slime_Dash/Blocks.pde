@@ -16,3 +16,12 @@ class Block {
 }
 //Lijst met blocks
 ArrayList<Block> blocks = new ArrayList();
+//block draw
+void blockDraw() {
+  //loopt door de lijst en tekent elke block
+  for (int n = 0; n<blocks.size(); n++) {
+    Block block = blocks.get(n);
+    block.draw();
+    rect(block.x, block.y, globalScale, globalScale);
+  }
+}
