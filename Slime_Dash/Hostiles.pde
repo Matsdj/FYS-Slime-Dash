@@ -18,7 +18,6 @@ class Hostile {
     vx = 1;
     vy = 20;
     gravity = 1.5;
-    enemyDamage = false;
   }
   void update() {
     vy *= frameSpeed;
@@ -43,14 +42,13 @@ class Hostile {
     //reset makes if statement run once when landing on ground
     if (x<=0) {
       x =0;
+    } else if (x>= width-size) {
+      x = width-size;
     }
-else if(x>= width-size){
-        x = width-size;
-
-}
     //checkt collision met player
-    if (player.Collision(x, y, size)) {
-      enemyDamage=true;
+    if (player.Collision(x, y, size) && player.dmgCooldown < 0) {
+      player.enemyDamage = true;
+      player.dmgCooldown = player.DMG_COOLDOWN;
     }
   }
 

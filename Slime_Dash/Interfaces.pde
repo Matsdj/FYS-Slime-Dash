@@ -109,9 +109,6 @@ class Interfaces {
     textAlign(CENTER);
     textSize(gOSize);
     text(gOver, gOverX, gOverY);
-
-    if (mousePressed ==true)
-      score +=100;
   }
 }
 
