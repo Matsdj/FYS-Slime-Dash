@@ -31,6 +31,7 @@ void updateMenu() {
 }
 void drawMenu() {
   menu.draw();
+  pickupsSetup();
 }
 
 //GAME
@@ -43,19 +44,16 @@ void updateGame() {
   interfaces.update();
   mapUpdate();
   hostile.update();
+  pickups.update();
 }
 
 void drawGame() {
   background(255);
   player.draw();
   interfaces.draw();
-  tempBlockDraw();
+  blockDraw();
   hostile.draw();
-}
-//PAUSE
-void updatePause() {
-}
-void drawPause() {
+  pickups.draw();
 }
 
 void draw() {
