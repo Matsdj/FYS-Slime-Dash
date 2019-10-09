@@ -6,11 +6,7 @@ void hostileSetup() {
 
 Hostile hostile;
 class Hostile {
-  float ground, size, x, y, vx, vy, gravity, cooldown;
-
-
-
-  //terugzet waardes van de dashCooldown en dashTime
+  float ground, size, x, y, vx, vy, gravity;
   boolean onGround, reset, enemyDamage;
 
   Hostile() {
@@ -30,7 +26,6 @@ class Hostile {
     vy += gravity;
     y += vy;
     x -=2;
-
 
     //checks if hostile is on ground
     if (y + size >= ground) {
