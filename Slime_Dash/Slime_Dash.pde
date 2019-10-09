@@ -18,6 +18,7 @@ void setup() {
   interfacesSetup();
   mapSetup();
   hostileSetup();
+  spikeSetup();
 }
 
 void updateGame() {
@@ -36,6 +37,7 @@ void drawGame() {
   interfaces.draw();
   tempBlockDraw();
   hostile.draw();
+
 }
 
 void draw() {
