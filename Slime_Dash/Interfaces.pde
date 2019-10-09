@@ -57,8 +57,8 @@ class Interfaces {
     }
     /*wanneer enemy collision heeft met player dan damage*/
 
-    if (hostile.enemyDamage==true) {
-      hostile.enemyDamage= false;
+    if (player.enemyDamage==true) {
+      player.enemyDamage= false;
       /*verander deze om enemy damage aan te passen*/
       healthMain = healthMain-1;
     }

@@ -24,6 +24,7 @@ void setup() {
   hostileSetup();
   spikeSetup();
   menuSetup();
+  pickupsSetup();
 }
 //MAIN MENU
 void updateMenu() {
@@ -31,7 +32,7 @@ void updateMenu() {
 }
 void drawMenu() {
   menu.draw();
-  pickupsSetup();
+
 }
 
 //GAME
