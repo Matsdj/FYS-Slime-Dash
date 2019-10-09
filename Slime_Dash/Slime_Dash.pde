@@ -35,7 +35,7 @@ void drawGame() {
   background(255);
   player.draw();
   interfaces.draw();
-  tempBlockDraw();
+  blockDraw();
   hostile.draw();
 
 }
