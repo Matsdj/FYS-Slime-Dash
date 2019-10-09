@@ -19,6 +19,7 @@ void setup() {
   mapSetup();
   hostileSetup();
   spikeSetup();
+  pickupsSetup();
 }
 
 void updateGame() {
@@ -30,6 +31,7 @@ void updateGame() {
   interfaces.update();
   mapUpdate();
   hostile.update();
+  pickups.update();
 }
 void drawGame() {
   background(255);
@@ -37,7 +39,7 @@ void drawGame() {
   interfaces.draw();
   tempBlockDraw();
   hostile.draw();
-
+  pickups.draw();
 }
 
 void draw() {
