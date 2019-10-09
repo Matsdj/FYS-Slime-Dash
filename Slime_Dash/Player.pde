@@ -90,8 +90,8 @@ class Player {
   }
   
   //method die checkt of collision met player waar is
-  boolean playerCollision(float cX, float cY, float cSize) {
-    if (x + size > cX && x < cX + cSize && y + size > cY && y < cY + cSize) {
+  boolean Collision(float cX, float cY, float cSize) {
+    if (x + size >= cX && x <= cX + cSize && y + size >= cY && y <= cY + cSize) {
       return true;
     } else return false;
   }
