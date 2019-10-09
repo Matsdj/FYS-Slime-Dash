@@ -11,9 +11,9 @@ class Hostile {
     vx, 
     vy, 
     gravity, 
-    dashSpeed, 
+    cooldown;
 
-    dashTime;
+
 
   //terugzet waardes van de dashCooldown en dashTime
   boolean onGround, reset, enemyDamage;
@@ -51,21 +51,21 @@ class Hostile {
     } else reset = false;
     //reset makes if statement run once when landing on ground
 
-    if (player.x+player.size >= x){
+    if (player.Collision(x,y,size)){
       player.pColor= 0;
-
     }
+      else player.pColor = 255;
+      interfaces.healthMain +=2;
+    
+     
+
+    
     if(player.pColor==0){
         enemyDamage = true;
     }
   }
 
-  //method die checkt of collision met hostile waar is
-  boolean hostileCollision(float cX, float cY, float cSize) {
-    if (x + size > cX && x < cX + cSize && y + size > cY && y < cY + cSize) {
-      return true;
-    } else return false;
-  }
+
   void draw() {
     stroke(0);
     strokeWeight(2);

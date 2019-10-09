@@ -77,6 +77,9 @@ class Interfaces {
       player.vx = 0;
       player.vy = 0;
     }
+    if (healthMain >=100){
+    healthMain = healthMain+0;
+    }
   }
   void draw() {
     //healthbar
