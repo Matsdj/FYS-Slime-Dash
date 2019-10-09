@@ -35,7 +35,6 @@ void tempBlockDraw() {
   for (int n = 0; n<tempBlocks.size(); n++) {
     TempBlock block = tempBlocks.get(n);
     block.draw();
-    println(block);
     rect(block.x, block.y, globalScale, globalScale);
   }
 }

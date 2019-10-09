@@ -11,7 +11,7 @@ class Interfaces {
   float scoreX, scoreY, scoreSize;
   //game over
   String gOver;
-  float gOverX, gOverY, goFadeIn,gOSize;
+  float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
 
   Interfaces() {
@@ -26,11 +26,14 @@ class Interfaces {
     noHealth = 0;
     /*als je jou object of enemy damage wil laten gebruik je healthMain*/
     healthMain = 100;
+
+
+
     //score
     scoreX = width*0.98;
     scoreY = width*0.039;
-    score = 000000000;
     scoreSize = width*0.025;
+    score = 000000000;
 
     //game over
     gOver = "";
@@ -50,13 +53,19 @@ class Interfaces {
     } else {
       healthR = 0;
     }
-
+    /*enemy damage*/
+    if (hostile.enemyDamage==true) {
+      healthMain = healthMain-10;
+      hostile.enemyDamage= false;
+    }
+    
     //game over
     /*game over text*/
     if (healthMain <= noHealth) {
       death = true;
       healthMain = 0;
     }
+
 
     if (death == true) {
       /*makes GO text fade in*/
