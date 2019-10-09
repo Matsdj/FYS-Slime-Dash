@@ -15,10 +15,11 @@ class Spikes {
 
     for (int i = 0; i <a; i++) {
 
+      /* 
       if (spikes[i].draw == 1) {
         spikes[i].x = xtest;
         spikes[i].y = ytest;
-      }
+      }*/
     }
   }
 }
