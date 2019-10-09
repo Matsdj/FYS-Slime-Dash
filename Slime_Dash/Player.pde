@@ -13,8 +13,8 @@ class Player {
     gravity, 
     dashSpeed, 
     dashCooldown, 
-    dashTime;
-
+    dashTime,
+    pColor;
   //terugzet waardes van de dashCooldown en dashTime
   final float DASH_COOLDOWN = 20;
   final float DASH_TIME = 10;
@@ -32,6 +32,7 @@ class Player {
     dashSpeed = width/ 50;
     dashCooldown = DASH_COOLDOWN;
     dashTime = DASH_TIME;
+    pColor = 255;
   }
   void update() {
     vy *= frameSpeed;
@@ -98,7 +99,7 @@ class Player {
   void draw() {
     stroke(0);
     strokeWeight(2);
-    fill(0, 255, 0);
+    fill(0, pColor, 0);
     rect(x, y, size, size);
   }
 }

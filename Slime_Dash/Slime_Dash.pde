@@ -6,12 +6,13 @@ final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 
 void setup() {
-  size(1280,720);
+  size(1280, 720);
   frameRate(60);
   globalScale = height/9;
   playerSetup();
   interfacesSetup();
   mapSetup();
+  hostileSetup();
 }
 
 void updateGame() {
@@ -22,12 +23,14 @@ void updateGame() {
   player.update();
   interfaces.update();
   mapUpdate();
+  hostile.update();
 }
 void drawGame() {
   background(255);
   player.draw();
   interfaces.draw();
   tempBlockDraw();
+  hostile.draw();
 }
 
 void draw() {
