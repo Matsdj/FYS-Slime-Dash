@@ -52,6 +52,7 @@ void updateGame() {
   mapUpdate();
   hostile.update();
   pickupUpdate();
+
 }
 
 void drawGame() {
@@ -61,6 +62,7 @@ void drawGame() {
   blockDraw();
   hostile.draw();
   pickupDraw();
+  spikeDraw();
 }
 
 void draw() {
