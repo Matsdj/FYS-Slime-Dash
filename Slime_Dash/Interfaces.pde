@@ -60,7 +60,7 @@ class Interfaces {
     if (player.enemyDamage==true) {
       player.enemyDamage= false;
       /*verander deze om enemy damage aan te passen*/
-      healthMain = healthMain-1;
+      healthMain = healthMain-20;
     }
 
     //game over
@@ -118,14 +118,8 @@ void menuSetup() {
 Menu menu;
 //MAIN MENU//////////////////////////////////////////
 class Menu {
-  int SpikeLX, spikeLY, SpikeRX, SpikeRY, SpikeTX, SpikeTY;
   Menu() {
-    SpikeLX = 530;
-    spikeLY = 575;
-    SpikeRX = 558;
-    SpikeRY = 520;
-    SpikeTX = 586;
-    SpikeTY = 575;
+
   }
 
   void update() {
@@ -136,6 +130,9 @@ class Menu {
 
   void draw() {
     background(0);
-    triangle(SpikeLX, spikeLY, SpikeTX, SpikeTY, SpikeRX, SpikeRY);
+    fill(255);
+    textAlign(CENTER);
+    textSize(50);
+    text("press 'Q' to play", width/2, height*0.8);
   }
 }
