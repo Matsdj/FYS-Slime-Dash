@@ -123,8 +123,13 @@ class Menu {
   }
 
   void update() {
-    if (inputs.hasValue(81) && room == "mainMenu") {
+        /*druk op 'q' om naar game te gaan*/
+    if (room == "mainMenu" && inputs.hasValue(81)==true) {
       room = "game";
+    }
+    /*druk op 'w' om naar game te gaan*/
+        else if (room == "game" && inputs.hasValue(87)) {
+      room = "mainMenu";
     }
   }
 
@@ -136,3 +141,36 @@ class Menu {
     text("press 'Q' to play", width/2, height*0.8);
   }
 }
+
+//PAUSE//////////////////////////////////////////
+/*
+void pauseSetup() {
+  pause = new Pause();
+}
+Pause pause;
+
+class Pause {
+  Pause() {
+
+  }
+
+  void update() {
+ 
+    if (room == "game" && inputs.hasValue(80)==true) {
+      room = "pause";
+    }
+
+        else if (room == "pause" && inputs.hasValue(80)) {
+      room = "game";
+    }
+  }
+
+  void draw() {
+    rect(0,0,width*0.7,height*0.7);
+    fill(255);
+    textAlign(CENTER);
+    textSize(50);
+    text("press 'Q' to play", width/2, height*0.8);
+  }
+}
+*/
