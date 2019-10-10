@@ -4,7 +4,7 @@ Alle mogelijke strings
  "Empty"
  "Block"
  "Spike"
- 
+ "Coin1"
  */
 String[][] mapTemplateExample() {
   int exampleHeight = 12;

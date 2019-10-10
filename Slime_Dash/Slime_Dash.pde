@@ -52,7 +52,7 @@ void updateGame() {
   interfaces.update();
   mapUpdate();
   hostile.update();
-  pickups.update();
+  pickupUpdate();
 }
 
 void drawGame() {
@@ -61,7 +61,7 @@ void drawGame() {
   interfaces.draw();
   blockDraw();
   hostile.draw();
-  pickups.draw();
+  pickupDraw();
 }
 
 void draw() {
