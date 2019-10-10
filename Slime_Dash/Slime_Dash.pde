@@ -21,7 +21,7 @@ void setup() {
   playerSetup();
   interfacesSetup();
   hostileSetup();
-  spikeSetup();
+//  spikeSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
