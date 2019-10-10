@@ -23,16 +23,16 @@ void setup() {
   mapSetup();
   hostileSetup();
   spikeSetup();
-  menuSetup();
+  pauseSetup();
   pickupsSetup();
 
 }
 //MAIN MENU
 void updateMenu() {
-  menu.update();
+  pause.update();
 }
 void drawMenu() {
-  menu.draw();
+  pause.draw();
 }
 /*
 void updatePause() {
@@ -65,7 +65,7 @@ void drawGame() {
 }
 
 void draw() {
-  if (room == "mainMenu") {
+  if (room == "pause") {
     updateMenu();
     drawMenu();
   } /*else if  (room =="pause") {

@@ -111,66 +111,76 @@ class Interfaces {
     text(gOver, gOverX, gOverY);
   }
 }
-
-void menuSetup() {
-  menu = new Menu();
+//PAUSE//////////////////////////////////////////
+void pauseSetup() {
+  pause = new Menu();
 }
-Menu menu;
-//MAIN MENU//////////////////////////////////////////
-class Menu {
-  Menu() {
+Menu pause;
 
+class Menu {
+  float pauseV,fade;
+  Menu() {
+    //fade voor pause
+    fade = 2;
+    pauseV +=fade;
   }
 
   void update() {
-        /*druk op 'q' om naar game te gaan*/
-    if (room == "mainMenu" && inputs.hasValue(81)==true) {
+    /*druk op 'q' om naar game te gaan*/
+    if (room == "pause" && inputs.hasValue(81)==true) {
       room = "game";
     }
     /*druk op 'w' om naar game te gaan*/
-        else if (room == "game" && inputs.hasValue(87)) {
-      room = "mainMenu";
+    else if (room == "game" && inputs.hasValue(87)) {
+      room = "pause";
     }
+    
+    if (pauseV >=20)
+    println("p");
+    pauseV +=0;
   }
 
   void draw() {
-    background(0);
+    fill(0,0,0,pauseV);
+    rect(0,0,width,height);
     fill(255);
     textAlign(CENTER);
-    textSize(50);
-    text("press 'Q' to play", width/2, height*0.8);
+    textSize(100);
+    text("PAUSED", width/2, height/2);
+    textSize(60);
+    text("PRESS 'Q' TO RESUME", width/2, height*0.82);
   }
 }
 
 //PAUSE//////////////////////////////////////////
 /*
 void pauseSetup() {
-  pause = new Pause();
-}
-Pause pause;
-
-class Pause {
-  Pause() {
-
-  }
-
-  void update() {
+ pause = new Pause();
+ }
+ Pause pause;
  
-    if (room == "game" && inputs.hasValue(80)==true) {
-      room = "pause";
-    }
-
-        else if (room == "pause" && inputs.hasValue(80)) {
-      room = "game";
-    }
-  }
-
-  void draw() {
-    rect(0,0,width*0.7,height*0.7);
-    fill(255);
-    textAlign(CENTER);
-    textSize(50);
-    text("press 'Q' to play", width/2, height*0.8);
-  }
-}
-*/
+ class Pause {
+ Pause() {
+ 
+ }
+ 
+ void update() {
+ 
+ if (room == "game" && inputs.hasValue(80)==true) {
+ room = "pause";
+ }
+ 
+ else if (room == "pause" && inputs.hasValue(80)) {
+ room = "game";
+ }
+ }
+ 
+ void draw() {
+ rect(0,0,width*0.7,height*0.7);
+ fill(255);
+ textAlign(CENTER);
+ textSize(50);
+ text("press 'Q' to play", width/2, height*0.8);
+ }
+ }
+ */
