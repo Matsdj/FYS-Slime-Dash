@@ -51,9 +51,9 @@ class Player {
     dashCooldown --;
     dmgCooldown--;
     //controls left + right
-    if (inputs.hasValue(LEFT) == true) {
+    if (inputs.hasValue(LEFT) == true && !blockCollision(x,y,size)) {
       x -= vx*frameSpeed;
-    } else if (inputs.hasValue(RIGHT) == true) {
+    } else if (inputs.hasValue(RIGHT) == true && !blockCollision(x,y,size)) {
       x += vx*frameSpeed;
     } 
 
