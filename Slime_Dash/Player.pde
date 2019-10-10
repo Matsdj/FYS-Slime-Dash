@@ -51,10 +51,16 @@ class Player {
     dashCooldown --;
     dmgCooldown--;
     //controls left + right
-    if (inputs.hasValue(LEFT) == true && !blockCollision(x,y,size)) {
+    if (inputs.hasValue(LEFT) == true && (blockCollision(x-vx, y, size) == null)) {
       x -= vx*frameSpeed;
-    } else if (inputs.hasValue(RIGHT) == true && !blockCollision(x,y,size)) {
-      x += vx*frameSpeed;
+    } else if (inputs.hasValue(RIGHT) == true) {
+      if (blockCollision(x+vx, y, size) == null) {
+        x += vx*frameSpeed;
+      } else {
+        while (blockCollision(x+=vx, y, size) != null) {
+          x += blockCollision(x+=vx, y, size).x - x+size;
+        }
+      }
     } 
 
     //jumping
@@ -96,8 +102,6 @@ class Player {
       dashActive = false;
       dashTime = DASH_TIME;
     }
-
-
   }
 
   //method die checkt of collision met player waar is

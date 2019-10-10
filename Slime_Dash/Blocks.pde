@@ -14,11 +14,11 @@ class Block {
 }
 //Lijst met blocks
 ArrayList<Block> blocks = new ArrayList();
-boolean blockCollision(float x, float y, float size) {
-  boolean Collision = false;
+Block blockCollision(float x, float y, float size) {
+  Block Collision = null;
   for (int blockNumber = 0; blockNumber < blocks.size(); blockNumber++) {
     if (blocks.get(blockNumber).x < x+size && blocks.get(blockNumber).x+size > x && blocks.get(blockNumber).y < y+size && blocks.get(blockNumber).y+size > y) {
-      Collision = true;
+      Collision = blocks.get(blockNumber);
     }
   }
   return Collision;
