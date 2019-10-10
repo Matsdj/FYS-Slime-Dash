@@ -19,6 +19,9 @@ void mapSetup() {
       if (mapTemplate[templateY][templateX] == "Coin1"){
         CoinList[10] = new PCoin(x,y);
       }
+      if (mapTemplate[templateY][templateX] == "Heart"){
+        HealthList[10] = new PHealth(x,y);
+      }
     }
   }
   GenerateDistance += mapTemplate[0].length;
