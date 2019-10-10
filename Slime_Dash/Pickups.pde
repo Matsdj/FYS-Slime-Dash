@@ -2,13 +2,13 @@
 
 void pickupsSetup() {
   int PCoinsSize = 100, PHealthSize = 100;
-  pickupCoinList = new PCoins[PCoinsSize];
+  CoinList = new PCoin[PCoinsSize];
   pickupHealthList = new PHealth[PHealthSize];
 }
 void pickupUpdate() {
-  for (int cU = 0; cU < pickupCoinList.length; cU++) {
-    if (pickupCoinList[cU] != null) {
-      pickupCoinList[cU].update();
+  for (int cU = 0; cU < CoinList.length; cU++) {
+    if (CoinList[cU] != null) {
+      CoinList[cU].update();
     }
   }
   for (int hU = 0; hU < pickupHealthList.length; hU++) {
@@ -18,9 +18,9 @@ void pickupUpdate() {
   }
 }
 void pickupDraw() {
-  for (int cD = 0; cD < pickupCoinList.length; cD++) {
-    if (pickupCoinList[cD] != null) {
-      pickupCoinList[cD].draw();
+  for (int cD = 0; cD < CoinList.length; cD++) {
+    if (CoinList[cD] != null) {
+      CoinList[cD].draw();
     }
   }
   for (int hD = 0; hD < pickupHealthList.length; hD++) {
@@ -30,23 +30,22 @@ void pickupDraw() {
   }
 }
 
-PCoins[] pickupCoinList;
+PCoin[] CoinList;
 PHealth[] pickupHealthList;
 
-class PCoins {
-  float x, y, pickupSize;
+class PCoin {
+  float x, y, size;
   boolean pickedUp;
   color c = color(255, 255, 0);
-  PCoins(float cx, float cy, color cc) {
-    x = cx;
-    y = cy;
-    c = cc;
-    pickupSize = globalScale;
+  PCoin(float cx, float cy) {
+    size = globalScale;
+    x = cx+size/2;
+    y = cy+size/2;
     pickedUp = false;
   }
   // collision check of de player de coin aanraakt 
   void update() {
-    if (player.Collision(x - (0.5 * globalScale), y - (0.5 * globalScale), pickupSize)) {
+    if (player.Collision(x - (0.5 * globalScale), y - (0.5 * globalScale), size)) {
       pickedUp = true;
     }
     // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden    
@@ -59,7 +58,7 @@ class PCoins {
 
   void draw() {
     fill(c);
-    ellipse(x, y, pickupSize, pickupSize);
+    ellipse(x, y, size, size);
   }
 }
 

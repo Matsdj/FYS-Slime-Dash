@@ -20,12 +20,11 @@ void setup() {
 
   playerSetup();
   interfacesSetup();
-  mapSetup();
   hostileSetup();
   spikeSetup();
   pauseSetup();
   pickupsSetup();
-
+  mapSetup();
 }
 //MAIN MENU
 void updateMenu() {
