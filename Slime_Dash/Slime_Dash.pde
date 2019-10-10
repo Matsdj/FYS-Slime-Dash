@@ -25,7 +25,7 @@ void setup() {
   spikeSetup();
   menuSetup();
   pickupsSetup();
-  pauseSetup();
+
 }
 //MAIN MENU
 void updateMenu() {
