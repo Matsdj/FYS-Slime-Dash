@@ -8,6 +8,7 @@ class Interfaces {
   //healthbar
   int healthMain, noHealth;
   float healthX, healthY, healthR, healthRNormal, healthL, healthH;
+  color healthC = color(255, 0, 0, 255);
   //score
   int score;
   float scoreX, scoreY, scoreSize;
@@ -24,13 +25,10 @@ class Interfaces {
     healthH = height*0.056;
     healthR = 20;
     healthRNormal = 20;
-
     noHealth = 0;
     /*als je jou object of enemy damage wil laten gebruik je healthMain*/
     healthMain = 100;
-
-
-
+    death = false;
     //score
     scoreX = width*0.98;
     scoreY = width*0.039;
@@ -43,11 +41,13 @@ class Interfaces {
     gOverY = height/2;
     gOSize = width*0.04;
     goFadeIn = 0;
-    death = false;
   }
 
   void update() {
     //healthbar
+/* zorgt er voor dat health niet boven 100 gaat*/
+    healthMain = constrain(healthMain, 0, 100);
+
     /*zorgt ervoor dat de healthbar altijd de juiste ronding heeft*/
     noStroke();
     if (healthMain >= 95) {
@@ -87,11 +87,11 @@ class Interfaces {
 
     /*healthbar backdrop*/
     noStroke();
-    fill(255, 255, 0);
+    fill(0, 0, 0, 30);
     rect(healthX, healthY, healthL, healthH, healthRNormal);
     /*actual health indicator*/
     noStroke();
-    fill(255, 0, 0);
+    fill(healthC);
     rect(healthX, healthY, healthL*(float(healthMain)/100), healthH, healthRNormal, healthR, healthR, healthRNormal);
     /*static border*/
     stroke(0);
@@ -118,7 +118,7 @@ void pauseSetup() {
 Menu pause;
 
 class Menu {
-  float pauseV,fade;
+  float pauseV, fade;
   Menu() {
     //fade voor pause
     fade = 2;
@@ -134,15 +134,14 @@ class Menu {
     else if (room == "game" && inputs.hasValue(87)) {
       room = "pause";
     }
-    
+
     if (pauseV >=20)
-    println("p");
     pauseV +=0;
   }
 
   void draw() {
-    fill(0,0,0,pauseV);
-    rect(0,0,width,height);
+    fill(0, 0, 0, pauseV);
+    rect(0, 0, width, height);
     fill(255);
     textAlign(CENTER);
     textSize(100);
@@ -151,36 +150,3 @@ class Menu {
     text("PRESS 'Q' TO RESUME", width/2, height*0.82);
   }
 }
-
-//PAUSE//////////////////////////////////////////
-/*
-void pauseSetup() {
- pause = new Pause();
- }
- Pause pause;
- 
- class Pause {
- Pause() {
- 
- }
- 
- void update() {
- 
- if (room == "game" && inputs.hasValue(80)==true) {
- room = "pause";
- }
- 
- else if (room == "pause" && inputs.hasValue(80)) {
- room = "game";
- }
- }
- 
- void draw() {
- rect(0,0,width*0.7,height*0.7);
- fill(255);
- textAlign(CENTER);
- textSize(50);
- text("press 'Q' to play", width/2, height*0.8);
- }
- }
- */
