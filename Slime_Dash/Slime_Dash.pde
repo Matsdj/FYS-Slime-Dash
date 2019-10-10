@@ -17,7 +17,7 @@ void setup() {
   frameRate(60);
   globalScale = height/12;
   room = "game";
-  
+
   playerSetup();
   interfacesSetup();
   mapSetup();
@@ -25,6 +25,7 @@ void setup() {
   spikeSetup();
   menuSetup();
   pickupsSetup();
+  pauseSetup();
 }
 //MAIN MENU
 void updateMenu() {
@@ -32,9 +33,15 @@ void updateMenu() {
 }
 void drawMenu() {
   menu.draw();
-
 }
-
+/*
+void updatePause() {
+  pause.update();
+}
+void drawPause() {
+  pause.draw();
+}
+*/
 //GAME
 void updateGame() {
   //Doe alle snelheden x frameSpeed zodat wanneer de frames omlaag gaan het spel niet trager wordt
@@ -61,8 +68,15 @@ void draw() {
   if (room == "mainMenu") {
     updateMenu();
     drawMenu();
-  } else if (room =="game") {
+  } /*else if  (room =="pause") {
+   drawGame();
+   drawPause();
+   updatePause();
+
+} */ else if(room =="game") {
+    updateMenu();
     updateGame();
     drawGame();
-  }
+
+  } 
 }
