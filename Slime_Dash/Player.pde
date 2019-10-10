@@ -58,7 +58,7 @@ class Player {
         x += vx*frameSpeed;
       } else {
         while (blockCollision(x+=vx, y, size) != null) {
-          x += blockCollision(x+=vx, y, size).x - x+size;
+          x += blockCollision(x+=vx, y, size).x - (x+size);
         }
       }
     } 
