@@ -22,7 +22,7 @@ void setup() {
   interfacesSetup();
   mapSetup();
   hostileSetup();
-  spikeSetup();
+//  spikeSetup();
   pauseSetup();
   pickupsSetup();
 
