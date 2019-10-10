@@ -21,7 +21,7 @@ void setup() {
   playerSetup();
   interfacesSetup();
   hostileSetup();
-//  spikeSetup();
+  //  spikeSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
@@ -35,12 +35,12 @@ void drawMenu() {
 }
 /*
 void updatePause() {
-  pause.update();
-}
-void drawPause() {
-  pause.draw();
-}
-*/
+ pause.update();
+ }
+ void drawPause() {
+ pause.draw();
+ }
+ */
 //GAME
 void updateGame() {
   //Doe alle snelheden x frameSpeed zodat wanneer de frames omlaag gaan het spel niet trager wordt
@@ -69,15 +69,9 @@ void draw() {
   if (room == "pause") {
     updateMenu();
     drawMenu();
-  } /*else if  (room =="pause") {
-   drawGame();
-   drawPause();
-   updatePause();
-
-} */ else if(room =="game") {
+  } else if (room =="game") {
     updateMenu();
     updateGame();
     drawGame();
-
-  } 
+  }
 }
