@@ -26,21 +26,13 @@ void setup() {
   pickupsSetup();
   mapSetup();
 }
-//MAIN MENU
+//MENUS
 void updateMenu() {
   pause.update();
 }
 void drawMenu() {
   pause.draw();
 }
-/*
-void updatePause() {
- pause.update();
- }
- void drawPause() {
- pause.draw();
- }
- */
 //GAME
 void updateGame() {
   //Doe alle snelheden x frameSpeed zodat wanneer de frames omlaag gaan het spel niet trager wordt

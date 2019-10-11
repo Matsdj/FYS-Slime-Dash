@@ -97,6 +97,10 @@ class Player {
       dashActive = false;
       dashTime = DASH_TIME;
     }
+    //zorgt er voor dat je dood gaat als je uit de map valt
+    if (y>height){
+    interfaces.death =true;
+    }
   }
 
   //method die checkt of collision met player waar is

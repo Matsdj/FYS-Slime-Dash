@@ -45,7 +45,7 @@ class Interfaces {
 
   void update() {
     //healthbar
-/* zorgt er voor dat health niet boven 100 gaat*/
+    /* zorgt er voor dat health niet boven 100 gaat*/
     healthMain = constrain(healthMain, 0, 100);
 
     /*zorgt ervoor dat de healthbar altijd de juiste ronding heeft*/
@@ -81,11 +81,13 @@ class Interfaces {
       gOver = "Game over";
       goFadeIn += 3;
       /*stops player movement*/
-      player.gravity = 0;
-      player.dashSpeed = 0;
-      player.vx = 0;
-      player.vy = 0;
+    player.moveSpeed = 0;
     }
+    if (death ==true && inputs.hasValue(32)==true){
+    death = false;
+     setup();   
+    }
+    
   }
   void draw() {
     //healthbar
@@ -116,6 +118,7 @@ class Interfaces {
     text(gOver, gOverX, gOverY);
   }
 }
+
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
   pause = new Menu();
@@ -141,7 +144,7 @@ class Menu {
     }
 
     if (pauseV >=20)
-    pauseV +=0;
+      pauseV +=0;
   }
 
   void draw() {
