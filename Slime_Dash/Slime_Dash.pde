@@ -1,5 +1,5 @@
 /*ig101-5 
- Chris, Collin, Ivano, Julius, Mats, Laurens
+ Chris, Collin, Ivano, Mats, Laurens
  */
 
 
@@ -9,7 +9,6 @@ float frameSpeed, globalScale;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
-boolean mainMenu;
 String room;
 
 void setup() {
@@ -27,10 +26,10 @@ void setup() {
   mapSetup();
 }
 //MENUS
-void updateMenu() {
+void updatePause() {
   pause.update();
 }
-void drawMenu() {
+void drawPause() {
   pause.draw();
 }
 //GAME
@@ -59,10 +58,10 @@ void drawGame() {
 
 void draw() {
   if (room == "pause") {
-    updateMenu();
-    drawMenu();
+    updatePause();
+    drawPause();
   } else if (room =="game") {
-    updateMenu();
+    updatePause();
     updateGame();
     drawGame();
   }

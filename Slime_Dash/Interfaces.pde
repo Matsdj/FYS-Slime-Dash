@@ -1,10 +1,10 @@
 //Laurens
 
 void interfacesSetup() {
-  interfaces = new Interfaces();
+  interfaces = new HUD();
 }
-Interfaces interfaces;
-class Interfaces {
+HUD interfaces;
+class HUD {
   //healthbar
   int healthMain, noHealth;
   float healthX, healthY, healthR, healthRNormal, healthL, healthH;
@@ -17,7 +17,7 @@ class Interfaces {
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
 
-  Interfaces() {
+  HUD() {
     //healthbar
     healthX= width*0.02;
     healthY= width*0.02;
@@ -121,13 +121,13 @@ class Interfaces {
 
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
-  pause = new Menu();
+  pause = new Pause();
 }
-Menu pause;
+Pause pause;
 
-class Menu {
+class Pause {
   float pauseV, fade;
-  Menu() {
+  Pause() {
     //fade voor pause
     fade = 2;
     pauseV +=fade;
