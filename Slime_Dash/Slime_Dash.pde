@@ -21,7 +21,7 @@ void setup() {
   playerSetup();
   interfacesSetup();
   hostileSetup();
-  //  spikeSetup();
+  spikeSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
@@ -52,7 +52,7 @@ void updateGame() {
   mapUpdate();
   hostile.update();
   pickupUpdate();
-
+  spike.update();
 }
 
 void drawGame() {
@@ -62,7 +62,7 @@ void drawGame() {
   blockDraw();
   hostile.draw();
   pickupDraw();
-  spikeDraw();
+  spike.draw();
 }
 
 void draw() {
