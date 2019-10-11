@@ -6,14 +6,7 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float ground, 
-    size, 
-    x, 
-    y, 
-    vx, 
-    vy, 
-    vyReset, 
-    gravity, 
+  float ground, size, x, y, vx, vy, vyReset, gravity, 
     gravityReset, 
     dashSpeed, 
     pColor;
@@ -37,7 +30,6 @@ class Player {
     vy = globalScale/2;
     vyReset = -globalScale;
     gravity = globalScale/15;
-    gravityReset = globalScale/15;
     dashSpeed = width/ 50;
     dashCooldown = DASH_COOLDOWN;
     dashTime = DASH_TIME;
@@ -51,7 +43,7 @@ class Player {
     dashCooldown --;
     dmgCooldown--;
     //controls left + right
-    if (inputs.hasValue(LEFT) == true && (blockCollision(x-vx, y, size) == null)) {
+    /*if (inputs.hasValue(LEFT) == true && (blockCollision(x-vx, y, size) == null)) {
       x -= vx*frameSpeed;
     } else if (inputs.hasValue(RIGHT) == true) {
       if (blockCollision(x+vx, y, size) == null) {
@@ -61,14 +53,18 @@ class Player {
           x += blockCollision(x+=vx, y, size).x - (x+size);
         }
       }
-    } 
+    } */
+    
+    if (inputs.hasValue(LEFT) == true){
+      
+    }
 
     //jumping
     if (inputs.hasValue(UP) == true && onGround) {
       vy = vyReset;
     }
     if (!onGround) {
-      vy += gravity* frameSpeed;
+      vy += gravity;
     }
 
     //checks if player is on ground
