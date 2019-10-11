@@ -21,23 +21,25 @@ class Player {
   final int DMG_COOLDOWN = 30;
 
   final float JUMPSPEED = globalScale/1.2;
-
+  final float DASHSPEED = globalScale/2;
+  final float MOVESPEED = globalScale/8;
+  
   Player() {
     ground = height - globalScale;
     size = globalScale;
     x = width/5;
     y = height/4;
-    moveSpeed = globalScale/5;
+    moveSpeed = MOVESPEED;
     vx = 0;
     vy = 0;
     gravity = globalScale/15;
-    dashSpeed = globalScale/50;
     dashCooldown = DASH_COOLDOWN;
     dashTime = DASH_TIME;
     dmgCooldown = 50;
     enemyDamage = false;
     pColor = 255;
   }
+
   int sign(float v) {
     int vel = 0; 
     if (v < 0) vel = -1;
@@ -73,6 +75,7 @@ class Player {
       vx = 0;
     }
     x+= vx;
+
     //Vertical collision
     if (blockCollision(x, y+vy, size) != null) {
       while (blockCollision(x, y+sign(vy), size) == null) {
@@ -85,11 +88,12 @@ class Player {
     dashCooldown --;
     dmgCooldown--;
     if (inputs.hasValue(90) == true && dashCooldown < 0 || dashActive && dashTime > 0) {
-      moveSpeed += dashSpeed;
+      moveSpeed = DASHSPEED;
       dashCooldown = DASH_COOLDOWN;
       dashActive = true;
       dashTime--;
     } else {
+      moveSpeed = MOVESPEED;
       dashActive = false;
       dashTime = DASH_TIME;
     }
