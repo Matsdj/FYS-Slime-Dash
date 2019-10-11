@@ -21,14 +21,12 @@ class Spike {
   //controleerd op player aanraking
   void update() {
 
-if((player.x > spike.x && player.x < spike.x+size && player.y < spike.y && player.y > spike.y) || (player.x+globalScale > spike.x && player.x+globalScale < spike.x+size && player.y < spike.y && player.y > spike.y)) {
-spike.Damage=true;
+if( player.Collision(x,y,size)&& player.dmgCooldown < 0){
+ Damage=true;
+ player.dmgCooldown = player.DMG_COOLDOWN;
 
 }
-if((player.x > spike.x && player.x < spike.x+size && player.y+globalScale < spike.y && player.y+globalScale > spike.y) || (player.x+globalScale > spike.x && player.x+globalScale < spike.x+size && player.y+globalScale < spike.y && player.y+globalScale > spike.y)) {
-spike.Damage=true;
 
-}
 
   
 
