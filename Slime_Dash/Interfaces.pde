@@ -1,10 +1,10 @@
 //Laurens
 
 void interfacesSetup() {
-  interfaces = new Interfaces();
+  interfaces = new HUD();
 }
-Interfaces interfaces;
-class Interfaces {
+HUD interfaces;
+class HUD {
   //healthbar
   int healthMain, noHealth;
   float healthX, healthY, healthR, healthRNormal, healthL, healthH;
@@ -17,7 +17,7 @@ class Interfaces {
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
 
-  Interfaces() {
+  HUD() {
     //healthbar
     healthX= width*0.02;
     healthY= width*0.02;
@@ -45,7 +45,7 @@ class Interfaces {
 
   void update() {
     //healthbar
-/* zorgt er voor dat health niet boven 100 gaat*/
+    /* zorgt er voor dat health niet boven 100 gaat*/
     healthMain = constrain(healthMain, 0, 100);
 
     /*zorgt ervoor dat de healthbar altijd de juiste ronding heeft*/
@@ -81,10 +81,12 @@ class Interfaces {
       gOver = "Game over";
       goFadeIn += 3;
       /*stops player movement*/
-      player.gravity = 0;
-      player.dashSpeed = 0;
-      player.vx = 0;
-      player.vy = 0;
+      player.moveSpeed = 0;
+    }
+    /* spacebar om te resetten*/
+    if (death ==true && inputs.hasValue(32)==true) {
+      death = false;
+      setup();
     }
   }
   void draw() {
@@ -114,34 +116,43 @@ class Interfaces {
     textAlign(CENTER);
     textSize(gOSize);
     text(gOver, gOverX, gOverY);
+    //fade out on death
+    if (death == true) {
+      player.fade -= 3;
+    }
   }
 }
+
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
-  pause = new Menu();
+  pause = new Pause();
 }
-Menu pause;
+Pause pause;
 
-class Menu {
+class Pause {
   float pauseV, fade;
-  Menu() {
+  Pause() {
     //fade voor pause
     fade = 2;
     pauseV +=fade;
   }
 
   void update() {
-    /*druk op 'q' om naar game te gaan*/
-    if (room == "pause" && inputs.hasValue(81)==true) {
+    /*druk op spacebar om naar game te gaan*/
+    if (room == "pause" && inputs.hasValue(32)==true) {
       room = "game";
     }
-    /*druk op 'w' om naar game te gaan*/
-    else if (room == "game" && inputs.hasValue(87)) {
+    /*druk op 'p' om naar pause te gaan*/
+    else if (room == "game" && inputs.hasValue(80)) {
       room = "pause";
+    } else if (room == "pause" && inputs.hasValue(81)) {
+      setup();
+      room = "mainM";
     }
 
-    if (pauseV >=20)
-    pauseV +=0;
+    if (pauseV >=20) {
+      pauseV +=0;
+    }
   }
 
   void draw() {
@@ -150,8 +161,77 @@ class Menu {
     fill(255);
     textAlign(CENTER);
     textSize(100);
-    text("PAUSED", width/2, height/2);
+    text("PAUSED", width/2, height/4);
     textSize(60);
-    text("PRESS 'Q' TO RESUME", width/2, height*0.82);
+    text("resume = spacebar", width/2, height*0.70);
+    text("main menu = q", width/2, height*0.82);
+  }
+}
+void mainMSetup() {
+  main = new MainM();
+}
+MainM main;
+
+class MainM {
+  float bx, by, sizeW, sizeH, tx, ty, tSize, sdColor, blink;
+  boolean hover, blinkC;
+  // PFont font;
+
+
+  MainM() {
+    /* sizeH = height/7;
+     sizeW = width/2.8;
+     bx = (width/2)-(sizeW/2);
+     by = (height/2)-(sizeH/2);*/
+    //   font = loadFont("vlw");
+    //  textFont(font);
+
+    background(0);
+    tSize = 50;
+    tx = width/2;
+    ty = height/4*3;
+    sdColor = 255;
+    blink = 255;
+    blinkC = false;
+  }
+  void update() {
+    if (room == "mainM" && inputs.hasValue(32)==true) {
+      room = "game";
+    }
+    //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
+    if (blink >=255){
+    blinkC = false;
+    }
+    if (blinkC==false) {
+      blink -=5;
+    } 
+    if (blink <= 0) {
+      blinkC =true;
+    }
+    if (blinkC == true) {
+      blink +=5;
+    }
+    
+  }
+  void draw() {
+    /* fill(20);
+     rect(bx, by, sizeW, sizeH);
+     fill(255);*/
+
+    //stars
+    fill(0, 3);
+    rect(0, 0, width, height);
+    fill(255);
+    ellipse(random(width), random(height), 3, 3);
+    //text
+    textAlign(CENTER, CENTER);    
+    textSize(tSize/2);
+    text("pause = p", 100, height-50);
+    textSize(tSize*2);
+    fill(0, sdColor, 0);
+    text("Slime Dash", width/2, height/4);
+    textSize(tSize);
+    fill(blink,blink,blink);
+    text("press SPACEBAR to play", tx, ty);
   }
 }

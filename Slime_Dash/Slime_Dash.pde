@@ -1,5 +1,5 @@
 /*ig101-5 
- Chris, Collin, Ivano, Julius, Mats, Laurens
+ Chris, Collin, Ivano, Mats, Laurens
  */
 
 
@@ -9,38 +9,23 @@ float frameSpeed, globalScale;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
-boolean mainMenu;
 String room;
 
 void setup() {
-  size(1280, 720);
+fullScreen();
   frameRate(60);
   globalScale = height/12;
-  room = "game";
+  room = "mainM";
 
   playerSetup();
   interfacesSetup();
+  mainMSetup();
   hostileSetup();
   spikeSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
 }
-//MAIN MENU
-void updateMenu() {
-  pause.update();
-}
-void drawMenu() {
-  pause.draw();
-}
-/*
-void updatePause() {
- pause.update();
- }
- void drawPause() {
- pause.draw();
- }
- */
 //GAME
 void updateGame() {
   //Doe alle snelheden x frameSpeed zodat wanneer de frames omlaag gaan het spel niet trager wordt
@@ -67,11 +52,15 @@ void drawGame() {
 
 void draw() {
   if (room == "pause") {
-    updateMenu();
-    drawMenu();
+    pause.draw();
+    pause.update();
   } else if (room =="game") {
-    updateMenu();
+    pause.update();
     updateGame();
     drawGame();
+  }
+  else if (room == "mainM"){
+    main.update();
+    main.draw();
   }
 }
