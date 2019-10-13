@@ -175,14 +175,15 @@ class MainM {
 
 
   MainM() {
-    background(0);
-    tSize = 50;
     /* sizeH = height/7;
      sizeW = width/2.8;
      bx = (width/2)-(sizeW/2);
      by = (height/2)-(sizeH/2);*/
     //   font = loadFont("vlw");
     //  textFont(font);
+    
+    background(0);
+    tSize = 50;
     tx = width/2;
     ty = height/4*3;
     sdColor = 255;
@@ -193,18 +194,21 @@ class MainM {
     }
   }
   void draw() {
+    /* fill(20);
+     rect(bx, by, sizeW, sizeH);
+     fill(255);*/
+
     //stars
     fill(0, 3);
     rect(0, 0, width, height);
     fill(255);
     ellipse(random(width), random(height), 3, 3);
-
-    /* fill(20);
-     rect(bx, by, sizeW, sizeH);
-     fill(255);*/
+    //text
     textAlign(CENTER, CENTER);
     textSize(tSize);
     text("press SPACEBAR to play", tx, ty);
+    textSize(tSize/2);
+    text("pause = p",100,height-50);
     textSize(tSize*2);
     fill(0, sdColor, 0);
     text("Slime Dash", width/2, height/4);
