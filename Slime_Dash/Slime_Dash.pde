@@ -21,7 +21,7 @@ fullScreen();
   interfacesSetup();
   mainMSetup();
   hostileSetup();
-  spikeSetup();
+  //spikeSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
@@ -37,7 +37,7 @@ void updateGame() {
   mapUpdate();
   hostile.update();
   pickupUpdate();
-  spike.update();
+  //spike.update();
 }
 
 void drawGame() {
@@ -47,7 +47,7 @@ void drawGame() {
   blockDraw();
   hostile.draw();
   pickupDraw();
-  spike.draw();
+  //spike.draw();
 }
 
 void draw() {
