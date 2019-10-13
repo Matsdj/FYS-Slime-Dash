@@ -134,17 +134,21 @@ class Pause {
   }
 
   void update() {
-    /*druk op 'q' om naar game te gaan*/
-    if (room == "pause" && inputs.hasValue(81)==true) {
+    /*druk op spacebar om naar game te gaan*/
+    if (room == "pause" && inputs.hasValue(32)==true) {
       room = "game";
     }
-    /*druk op 'w' om naar game te gaan*/
-    else if (room == "game" && inputs.hasValue(87)) {
+    /*druk op 'p' om naar pause te gaan*/
+    else if (room == "game" && inputs.hasValue(80)) {
       room = "pause";
+    } else if (room == "pause" && inputs.hasValue(81)) {
+      setup();
+      room = "mainM";
     }
 
-    if (pauseV >=20)
+    if (pauseV >=20) {
       pauseV +=0;
+    }
   }
 
   void draw() {
@@ -153,9 +157,10 @@ class Pause {
     fill(255);
     textAlign(CENTER);
     textSize(100);
-    text("PAUSED", width/2, height/2);
+    text("PAUSED", width/2, height/4);
     textSize(60);
-    text("PRESS 'Q' TO RESUME", width/2, height*0.82);
+    text("resume = spacebar", width/2, height*0.70);
+    text("main menu = q", width/2, height*0.82);
   }
 }
 void mainMSetup() {

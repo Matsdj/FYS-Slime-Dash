@@ -12,7 +12,7 @@ boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 
 void setup() {
-size(1280,720);
+fullScreen();
   frameRate(60);
   globalScale = height/12;
   room = "mainM";
