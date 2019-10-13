@@ -12,25 +12,19 @@ boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 
 void setup() {
-  size(1280, 720);
+size(1280,720);
   frameRate(60);
   globalScale = height/12;
-  room = "game";
+  room = "mainM";
 
   playerSetup();
   interfacesSetup();
+  mainMSetup();
   hostileSetup();
   spikeSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
-}
-//MENUS
-void updatePause() {
-  pause.update();
-}
-void drawPause() {
-  pause.draw();
 }
 //GAME
 void updateGame() {
@@ -58,11 +52,15 @@ void drawGame() {
 
 void draw() {
   if (room == "pause") {
-    updatePause();
-    drawPause();
+    pause.draw();
+    pause.update();
   } else if (room =="game") {
-    updatePause();
+    pause.update();
     updateGame();
     drawGame();
+  }
+  else if (room == "mainM"){
+    main.update();
+    main.draw();
   }
 }

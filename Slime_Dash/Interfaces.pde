@@ -81,13 +81,13 @@ class HUD {
       gOver = "Game over";
       goFadeIn += 3;
       /*stops player movement*/
-    player.moveSpeed = 0;
+      player.moveSpeed = 0;
     }
-    if (death ==true && inputs.hasValue(32)==true){
-    death = false;
-     setup();   
+    /* spacebar om te resetten*/
+    if (death ==true && inputs.hasValue(32)==true) {
+      death = false;
+      setup();
     }
-    
   }
   void draw() {
     //healthbar
@@ -156,5 +156,52 @@ class Pause {
     text("PAUSED", width/2, height/2);
     textSize(60);
     text("PRESS 'Q' TO RESUME", width/2, height*0.82);
+  }
+}
+void mainMSetup() {
+  main = new MainM();
+}
+MainM main;
+
+class MainM {
+  float bx, by, sizeW, sizeH, tx, ty, tSize, sdColor;
+  boolean hover;
+  // PFont font;
+
+
+  MainM() {
+    background(0);
+    tSize = 50;
+    /* sizeH = height/7;
+     sizeW = width/2.8;
+     bx = (width/2)-(sizeW/2);
+     by = (height/2)-(sizeH/2);*/
+    //   font = loadFont("vlw");
+    //  textFont(font);
+    tx = width/2;
+    ty = height/4*3;
+    sdColor = 255;
+  }
+  void update() {
+    if (room == "mainM" && inputs.hasValue(32)==true) {
+      room = "game";
+    }
+  }
+  void draw() {
+    //stars
+    fill(0, 3);
+    rect(0, 0, width, height);
+    fill(255);
+    ellipse(random(width), random(height), 3, 3);
+
+    /* fill(20);
+     rect(bx, by, sizeW, sizeH);
+     fill(255);*/
+    textAlign(CENTER, CENTER);
+    textSize(tSize);
+    text("press SPACEBAR to play", tx, ty);
+    textSize(tSize*2);
+    fill(0, sdColor, 0);
+    text("Slime Dash", width/2, height/4);
   }
 }
