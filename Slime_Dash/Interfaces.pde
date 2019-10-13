@@ -82,7 +82,7 @@ class HUD {
       goFadeIn += 3;
       /*stops player movement*/
       player.moveSpeed = 0;
-    }
+        }
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
       death = false;
@@ -116,6 +116,10 @@ class HUD {
     textAlign(CENTER);
     textSize(gOSize);
     text(gOver, gOverX, gOverY);
+    //fade out on death
+    if (death == true){
+    player.fade -= 3;
+    }
   }
 }
 

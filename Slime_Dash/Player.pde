@@ -6,7 +6,7 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float ground, size, x, y, moveSpeed, vx, vy, gravity, 
+  float ground, size, x, y, moveSpeed, vx, vy, gravity,fade, 
     gravityReset, 
     dashSpeed, 
     pColor;
@@ -38,6 +38,7 @@ class Player {
     dmgCooldown = 50;
     enemyDamage = false;
     pColor = 255;
+    fade = constrain(255,0,255);
   }
 
   int sign(float v) {
@@ -111,9 +112,9 @@ class Player {
     } else return false;
   }
   void draw() {
-    stroke(0);
+    stroke(0,0,0,fade);
     strokeWeight(2);
-    fill(0, pColor, 0);
+    fill(0, pColor, 0,fade);
     rect(x, y, size, size);
   }
 }
