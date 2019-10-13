@@ -82,7 +82,7 @@ class HUD {
       goFadeIn += 3;
       /*stops player movement*/
       player.moveSpeed = 0;
-        }
+    }
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
       death = false;
@@ -117,8 +117,8 @@ class HUD {
     textSize(gOSize);
     text(gOver, gOverX, gOverY);
     //fade out on death
-    if (death == true){
-    player.fade -= 3;
+    if (death == true) {
+      player.fade -= 3;
     }
   }
 }
@@ -173,8 +173,8 @@ void mainMSetup() {
 MainM main;
 
 class MainM {
-  float bx, by, sizeW, sizeH, tx, ty, tSize, sdColor;
-  boolean hover;
+  float bx, by, sizeW, sizeH, tx, ty, tSize, sdColor, blink;
+  boolean hover, blinkC;
   // PFont font;
 
 
@@ -185,17 +185,33 @@ class MainM {
      by = (height/2)-(sizeH/2);*/
     //   font = loadFont("vlw");
     //  textFont(font);
-    
+
     background(0);
     tSize = 50;
     tx = width/2;
     ty = height/4*3;
     sdColor = 255;
+    blink = 255;
+    blinkC = false;
   }
   void update() {
     if (room == "mainM" && inputs.hasValue(32)==true) {
       room = "game";
     }
+    //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
+    if (blink >=255){
+    blinkC = false;
+    }
+    if (blinkC==false) {
+      blink -=5;
+    } 
+    if (blink <= 0) {
+      blinkC =true;
+    }
+    if (blinkC == true) {
+      blink +=5;
+    }
+    
   }
   void draw() {
     /* fill(20);
@@ -208,13 +224,14 @@ class MainM {
     fill(255);
     ellipse(random(width), random(height), 3, 3);
     //text
-    textAlign(CENTER, CENTER);
-    textSize(tSize);
-    text("press SPACEBAR to play", tx, ty);
+    textAlign(CENTER, CENTER);    
     textSize(tSize/2);
-    text("pause = p",100,height-50);
+    text("pause = p", 100, height-50);
     textSize(tSize*2);
     fill(0, sdColor, 0);
     text("Slime Dash", width/2, height/4);
+    textSize(tSize);
+    fill(blink,blink,blink);
+    text("press SPACEBAR to play", tx, ty);
   }
 }
