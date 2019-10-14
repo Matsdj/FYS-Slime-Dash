@@ -87,6 +87,7 @@ class HUD {
     if (death ==true && inputs.hasValue(32)==true) {
       death = false;
       setup();
+      room = "game";
     }
   }
   void draw() {
