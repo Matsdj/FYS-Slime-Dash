@@ -20,7 +20,7 @@ void setup() {
   interfacesSetup();
   mainMSetup();
   hostileSetup();
-//  spikeSetup();
+  spikeSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
@@ -36,7 +36,7 @@ void updateGame() {
   mapUpdate();
   hostileUpdate();
   pickupUpdate();
-  //spike.update();
+  spike.update();
 }
 
 void drawGame() {

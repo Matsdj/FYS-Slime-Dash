@@ -62,11 +62,11 @@ class HUD {
       /*verander deze om enemy damage aan te passen*/
       healthMain = healthMain-20;
     }
-//    if (spike.Damage==true) {
+    if (spike.Damage==true) {
       spike.Damage= false;
       /*verander deze om enemy damage aan te passen*/
-//      healthMain = healthMain-20;
-  //  }
+      healthMain = healthMain-20;
+    }
 
     //game over
     /*game over text*/
@@ -181,12 +181,12 @@ class MainM {
 
 
   MainM() {
-    /* sizeH = height/7;
+     sizeH = height/7;
      sizeW = width/2.8;
      bx = (width/2)-(sizeW/2);
-     by = (height/2)-(sizeH/2);*/
-    //   font = loadFont("vlw");
-    //  textFont(font);
+     by = (height/2)-(sizeH/2);
+       font = loadFont("vlw");
+      textFont(font);
 
     background(0);
     tSize = 50;
@@ -236,4 +236,4 @@ class MainM {
     fill(blink,blink,blink);
     text("press SPACEBAR to play", tx, ty);
   }
-}
+}}

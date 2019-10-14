@@ -1,5 +1,5 @@
 //collin
-/*
+
 Spike[] spike;
 int ce = 1;
 int c =0;
@@ -27,17 +27,17 @@ class Spike {
  float x, y ;
   float size;
   boolean Damage;
-/*
+
   Spike() {
     
     x[0] = globalScale*6;
     y[0] = globalScale*10;
     x[1] = globalScale*7;
     y[1] = globalScale*10;
-    *//*
+    
     size = globalScale;
     Damage = false;
-  {}
+  }
   //controleerd op player aanraking
   void update() {
 
@@ -68,4 +68,4 @@ class Spike {
   }
 
 
-*/
+}
