@@ -25,7 +25,7 @@ void makeMap() {
         blocks.add(new Block(x, y));
       }
       if (mapTemplate[templateY][templateX] == "Spike") {
-        //
+        addspike(x,y);
       }
       if (mapTemplate[templateY][templateX] == "Coin1") {
         CoinList[10] = new PCoin(x, y);

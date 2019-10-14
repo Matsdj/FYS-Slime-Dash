@@ -39,7 +39,7 @@ void updateGame() {
   mapUpdate();
   hostileUpdate();
   pickupUpdate();
-  spike.update();
+  spikeUpdate();
 }
 
 void drawGame() {
