@@ -31,7 +31,6 @@ void hostileDraw() {
 }
 class Hostile {
   float size, x, y, vx;
-
   Hostile(float enemyX, float enemyY) {
     size = globalScale;
     x = enemyX;

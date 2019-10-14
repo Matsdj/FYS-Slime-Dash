@@ -11,10 +11,10 @@ boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 
 void setup() {
-  fullScreen();
+  size(1280, 720);
   frameRate(60);
   globalScale = height/12;
-  globalScrollSpeed = globalScale/120;
+  globalScrollSpeed = globalScale/30;
   room = "mainM";
 
   playerSetup();
@@ -65,8 +65,8 @@ void draw() {
     main.draw();
   }
   if (inputs.hasValue(128) == true) {
-  fill(255,0,0);
-  textSize(40);
-  text(frameRate, width/2, 50);
+    fill(255, 0, 0);
+    textSize(40);
+    text(frameRate, width/2, 50);
   }
 }
