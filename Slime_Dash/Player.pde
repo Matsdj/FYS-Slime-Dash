@@ -26,7 +26,7 @@ class Player {
   
   Player() {
     ground = height - globalScale;
-    size = globalScale;
+    size = globalScale-1;
     x = width/5;
     y = height/4;
     moveSpeed = MOVESPEED;

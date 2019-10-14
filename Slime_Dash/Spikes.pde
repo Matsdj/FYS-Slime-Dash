@@ -1,5 +1,5 @@
 //collin
-/*
+
 int ce = 1;
 int c =0;
   void spikeSetup()
@@ -16,10 +16,12 @@ class Spike {
   boolean Damage;
 
   Spike() {
+    /*
     x[0] = globalScale*6;
     y[0] = globalScale*10;
     x[1] = globalScale*7;
     y[1] = globalScale*10;
+    */
     size = globalScale;
     Damage = false;
   }
@@ -52,4 +54,3 @@ class Spike {
     }
   }
 }
-*/

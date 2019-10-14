@@ -21,7 +21,7 @@ fullScreen();
   interfacesSetup();
   mainMSetup();
   hostileSetup();
-  //spikeSetup();
+  spikeSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
