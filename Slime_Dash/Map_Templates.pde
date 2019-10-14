@@ -7,6 +7,7 @@ Alle mogelijke strings
  "Coin1"
  */
 void templateSetup(){
+  mapTemplateList.clear();
   mapTemplateList.add(mapTemplateExample());
 }
 String[][] mapTemplateExample() {
