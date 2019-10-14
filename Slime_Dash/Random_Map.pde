@@ -1,32 +1,38 @@
 //Mats
 //hier maak ik de lijsten aan
-int GenerateDistance = 0;
+int GenerateDistance;
 //Makes a line of blocks at the bottom of the screen
 ArrayList<String[][]> mapTemplateList = new ArrayList<String[][]>();
 void mapSetup() {
-  mapTemplateList.add(mapTemplateExample());
-  String[][] mapTemplate = mapTemplateExample();
+  GenerateDistance = 0;
+  makeMap();
+}
+
+void mapUpdate() {
+  if (GenerateDistance < width/globalScale) {
+    makeMap();
+  }
+}
+void makeMap() {
+  templateSetup();
+  String[][] mapTemplate = mapTemplateList.get(floor(random(mapTemplateList.size())));
   for (int templateY = 0; templateY < mapTemplate.length; templateY++) {
     for (int templateX = 0; templateX < mapTemplate[templateY].length; templateX++) {
-      float x = (GenerateDistance+templateX)*globalScale,
-            y = templateY*globalScale;
-      if (mapTemplate[templateY][templateX] == "Block"){
-        blocks.add(new Block(x,y));
+      float x = (GenerateDistance+templateX)*globalScale, 
+        y = templateY*globalScale;
+      if (mapTemplate[templateY][templateX] == "Block") {
+        blocks.add(new Block(x, y));
       }
-      if (mapTemplate[templateY][templateX] == "Spike"){
-        //blocks.add(new Spike(x,y));
+      if (mapTemplate[templateY][templateX] == "Spike") {
+        //
       }
-      if (mapTemplate[templateY][templateX] == "Coin1"){
-        CoinList[10] = new PCoin(x,y);
+      if (mapTemplate[templateY][templateX] == "Coin1") {
+        CoinList[10] = new PCoin(x, y);
       }
-      if (mapTemplate[templateY][templateX] == "Heart"){
-        HealthList[10] = new PHealth(x,y);
+      if (mapTemplate[templateY][templateX] == "Heart") {
+        HealthList[10] = new PHealth(x, y);
       }
     }
   }
   GenerateDistance += mapTemplate[0].length;
-}
-
-void mapUpdate() {
-  GenerateDistance = floor(player.x/globalScale);
 }

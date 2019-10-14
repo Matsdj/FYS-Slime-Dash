@@ -1,7 +1,6 @@
-/*ig101-5 
+/*ig101-5
  Chris, Collin, Ivano, Mats, Laurens
  */
-
 
 //remember, ctrl+t
 
@@ -12,7 +11,7 @@ boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 
 void setup() {
-fullScreen();
+  fullScreen();
   frameRate(60);
   globalScale = height/12;
   room = "mainM";
@@ -35,19 +34,19 @@ void updateGame() {
   player.update();
   interfaces.update();
   mapUpdate();
-  hostile.update();
+  hostileUpdate();
   pickupUpdate();
-  spike.update();
+  //spike.update();
 }
 
 void drawGame() {
   background(255);
   player.draw();
-  interfaces.draw();
   blockDraw();
-  hostile.draw();
+  hostileDraw();
   pickupDraw();
-  spike.draw();
+  interfaces.draw();
+  //spike.draw();
 }
 
 void draw() {
@@ -58,9 +57,9 @@ void draw() {
     pause.update();
     updateGame();
     drawGame();
-  }
-  else if (room == "mainM"){
+  } else if (room == "mainM") {
     main.update();
     main.draw();
   }
+  text(frameRate, width/2, 50);
 }
