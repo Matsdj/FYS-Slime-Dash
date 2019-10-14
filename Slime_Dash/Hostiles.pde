@@ -15,20 +15,16 @@ class Hostile {
     vx = 2;
   }
   void update() {
-    if(blockCollision(x+vx,y,size) != null){
-      while(blockCollision(x+sign(vx),y,size) == null){
+    if (blockCollision(x+vx, y, size) != null) {
+      while (blockCollision(x+sign(vx), y, size) == null) {
         x += sign(vx);
       }
+      vx *= -1;
+    } else if(blockCollision(x-size, y+1, size) == null || blockCollision(x+size, y+1, size) == null){
       vx *= -1;
     }
     x += vx;
 
-    //reset makes if statement run once when landing on ground
-    if (x<=0) {
-      x =0;
-    } else if (x>= width-size) {
-      x = width-size;
-    }
     //checkt collision met player
     if (player.Collision(x, y, size) && player.dmgCooldown < 0) {
       player.enemyDamage = true;
