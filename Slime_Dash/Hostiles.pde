@@ -6,39 +6,23 @@ void hostileSetup() {
 
 Hostile hostile;
 class Hostile {
-  float ground, size, x, y, vx, vy, gravity,size2;
-  boolean onGround, reset, enemyDamage;
+  float size, x, y, vx;
 
   Hostile() {
-    ground = height - globalScale;
     size = globalScale;
-    size2 = globalScale*2;
-    x = width/2;
-    y = height/4;
-    vx = 1;
-    vy = 20;
-    gravity = 1.5;
+    x = globalScale * 3;
+    y = globalScale*10;
+    vx = 2;
   }
   void update() {
-    vy *= frameSpeed;
-    vx *= frameSpeed;
-    gravity *= frameSpeed;
-    vy += gravity;
-    y += vy;
-    x -=2;
+    if(blockCollision(x+vx,y,size) != null){
+      while(blockCollision(x+sign(vx),y,size) == null){
+        x += sign(vx);
+      }
+      vx *= -1;
+    }
+    x += vx;
 
-    //checks if hostile is on ground
-    if (y + size >= ground) {
-      onGround = true;
-    } else onGround = false;
-
-    //stops falling once hostile hits ground
-    if (y + size > ground && reset == false) {
-      vy *= 0;
-      gravity *= 0;
-      y = ground - size2;
-      reset = true;
-    } else reset = false;
     //reset makes if statement run once when landing on ground
     if (x<=0) {
       x =0;
@@ -57,6 +41,6 @@ class Hostile {
     stroke(0);
     strokeWeight(2);
     fill(255, 0, 0);
-    rect(x, y, size, size2);
+    rect(x, y, size, size);
   }
 }

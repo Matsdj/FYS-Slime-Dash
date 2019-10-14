@@ -6,7 +6,7 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float ground, size, x, y, moveSpeed, vx, vy, gravity,fade, 
+  float ground, size, x, y, moveSpeed, vx, vy, gravity, fade, 
     gravityReset, 
     dashSpeed, 
     pColor;
@@ -20,35 +20,26 @@ class Player {
   final int DASH_TIME = 15;
   final int DMG_COOLDOWN = 30;
 
-  final float JUMPSPEED = globalScale/1.2;
+  final float JUMPSPEED = globalScale/1.6;
   final float DASHSPEED = globalScale/2;
   final float MOVESPEED = globalScale/8;
-  
+
   Player() {
-    ground = height - globalScale;
     size = globalScale-1;
     x = width/5;
     y = height/4;
     moveSpeed = MOVESPEED;
     vx = 0;
     vy = 0;
-    gravity = globalScale/15;
+    gravity = globalScale/21;
     dashCooldown = DASH_COOLDOWN;
     dashTime = DASH_TIME;
     dmgCooldown = 50;
     enemyDamage = false;
     pColor = 255;
-    fade = constrain(255,0,255);
+    fade = constrain(255, 0, 255);
   }
 
-  int sign(float v) {
-    int vel = 0; 
-    if (v < 0) vel = -1;
-    else if (v > 0) vel = 1;
-    else vel = 0;
-
-    return vel;
-  }
   void update() {
     //checkt input of player links of rechts gaat. -1 is links, 1 is rechts en 0 is stil
     if (inputs.hasValue(LEFT) == true) {
@@ -99,9 +90,9 @@ class Player {
       dashTime = DASH_TIME;
     }
     //zorgt er voor dat je dood gaat als je uit de map valt
-    if (y>height){
+    if (y>height) {
       interfaces.healthMain -=10;
-    interfaces.death =true;
+      interfaces.death =true;
     }
   }
 
@@ -112,9 +103,18 @@ class Player {
     } else return false;
   }
   void draw() {
-    stroke(0,0,0,fade);
+    stroke(0, 0, 0, fade);
     strokeWeight(2);
-    fill(0, pColor, 0,fade);
+    fill(0, pColor, 0, fade);
     rect(x, y, size, size);
   }
+}
+
+int sign(float v) {
+  int vel = 0; 
+  if (v < 0) vel = -1;
+  else if (v > 0) vel = 1;
+  else vel = 0;
+
+  return vel;
 }
