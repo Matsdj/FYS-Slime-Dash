@@ -10,6 +10,8 @@ void addHostile(float x, float y) {
     if (hostile[iHostile] == null){
       hostile[iHostile] = new Hostile(x,y);
       break;
+    } else if(hostile[iHostile].x < 0 - hostile[iHostile].size){
+      hostile[iHostile]= null;
     }
   }
 }
