@@ -39,6 +39,7 @@ class Hostile {
     vx = 2;
   }
   void update() {
+    x -= globalScrollSpeed;
     if (blockCollision(x+vx, y, size) != null) {
       while (blockCollision(x+sign(vx), y, size) == null) {
         x += sign(vx);
