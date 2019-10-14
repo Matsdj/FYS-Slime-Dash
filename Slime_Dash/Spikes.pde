@@ -25,6 +25,8 @@ void addspike(float x, float y) {
 Spike Spike;
 class Spike {
  float x, y ;
+  float[] x = new float[c] ;
+  float[] y = new float[c] ; 
   float size;
   boolean Damage;
 

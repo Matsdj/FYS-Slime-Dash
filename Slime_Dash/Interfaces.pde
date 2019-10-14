@@ -201,8 +201,8 @@ class MainM {
       room = "game";
     }
     //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
-    if (blink >=255){
-    blinkC = false;
+    if (blink >=255) {
+      blinkC = false;
     }
     if (blinkC==false) {
       blink -=5;
@@ -213,7 +213,6 @@ class MainM {
     if (blinkC == true) {
       blink +=5;
     }
-    
   }
   void draw() {
     /* fill(20);
@@ -233,7 +232,7 @@ class MainM {
     fill(0, sdColor, 0);
     text("Slime Dash", width/2, height/4);
     textSize(tSize);
-    fill(blink,blink,blink);
+    fill(blink, blink, blink);
     text("press SPACEBAR to play", tx, ty);
   }
 }}

@@ -23,11 +23,15 @@ Block blockCollision(float x, float y, float size) {
   }
   return Collision;
 }
+void blockSetup(){
+  blocks.clear();
+}
 //block draw
 void blockUpdate() {
   //loopt door de lijst en tekent elke block
   for (int n = 0; n<blocks.size(); n++) {
     Block block = blocks.get(n);
+    block.x -= globalScrollSpeed;
   }
 }
 //block draw

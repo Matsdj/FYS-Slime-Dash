@@ -1,6 +1,6 @@
 //Mats
 //hier maak ik de lijsten aan
-int GenerateDistance;
+float GenerateDistance;
 //Makes a line of blocks at the bottom of the screen
 ArrayList<String[][]> mapTemplateList = new ArrayList<String[][]>();
 void mapSetup() {
@@ -9,9 +9,10 @@ void mapSetup() {
 }
 
 void mapUpdate() {
-  if (GenerateDistance < width/globalScale) {
+  if (GenerateDistance < width/1.2/globalScale) {
     makeMap();
   }
+  GenerateDistance-=globalScrollSpeed/globalScale;
 }
 void makeMap() {
   templateSetup();
@@ -31,6 +32,9 @@ void makeMap() {
       }
       if (mapTemplate[templateY][templateX] == "Heart") {
         HealthList[10] = new PHealth(x, y);
+      }
+      if (mapTemplate[templateY][templateX] == "Enemy") {
+        addHostile(x,y);
       }
     }
   }

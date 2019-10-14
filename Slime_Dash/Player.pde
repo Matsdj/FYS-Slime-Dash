@@ -41,6 +41,7 @@ class Player {
   }
 
   void update() {
+    x -= globalScrollSpeed;
     //checkt input of player links of rechts gaat. -1 is links, 1 is rechts en 0 is stil
     if (inputs.hasValue(LEFT) == true) {
       keyDirection = -1;

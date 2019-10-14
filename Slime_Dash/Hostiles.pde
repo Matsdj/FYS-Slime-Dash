@@ -7,10 +7,10 @@ void hostileSetup() {
 }
 void addHostile(float x, float y) {
   for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
-    if (hostile[iHostile] == null){
-      hostile[iHostile] = new Hostile(x,y);
+    if (hostile[iHostile] == null) {
+      hostile[iHostile] = new Hostile(x, y);
       break;
-    } else if(hostile[iHostile].x < 0 - hostile[iHostile].size){
+    } else if (hostile[iHostile].x < 0 - hostile[iHostile].size) {
       hostile[iHostile]= null;
     }
   }
@@ -31,7 +31,6 @@ void hostileDraw() {
 }
 class Hostile {
   float size, x, y, vx;
-
   Hostile(float enemyX, float enemyY) {
     size = globalScale;
     x = enemyX;
@@ -39,6 +38,7 @@ class Hostile {
     vx = 2;
   }
   void update() {
+    x -= globalScrollSpeed;
     if (blockCollision(x+vx, y, size) != null) {
       while (blockCollision(x+sign(vx), y, size) == null) {
         x += sign(vx);
