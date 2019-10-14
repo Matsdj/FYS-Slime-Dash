@@ -1,10 +1,20 @@
-//Laurens
+//Chris
+Hostile[] hostile;
 
 void hostileSetup() {
-  hostile = new Hostile();
+  int hostileSize = 50;
+  hostile = new Hostile[hostileSize];
 }
-
-Hostile hostile;
+void hostileUpdate() {
+  for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
+    hostile[iHostile].update();
+  }
+}
+void hostileDraw() {
+  for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
+    hostile[iHostile].draw();
+  }
+}
 class Hostile {
   float size, x, y, vx;
 
@@ -20,7 +30,7 @@ class Hostile {
         x += sign(vx);
       }
       vx *= -1;
-    } else if(blockCollision(x-size, y+1, size) == null || blockCollision(x+size, y+1, size) == null){
+    } else if (blockCollision(x-size, y+1, size) == null || blockCollision(x+size, y+1, size) == null) {
       vx *= -1;
     }
     x += vx;

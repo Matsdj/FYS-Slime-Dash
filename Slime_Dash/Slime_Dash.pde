@@ -34,7 +34,7 @@ void updateGame() {
   player.update();
   interfaces.update();
   mapUpdate();
-  hostile.update();
+  hostileUpdate();
   pickupUpdate();
   //spike.update();
 }
@@ -44,7 +44,7 @@ void drawGame() {
   player.draw();
   interfaces.draw();
   blockDraw();
-  hostile.draw();
+  hostileDraw();
   pickupDraw();
   //spike.draw();
 }
