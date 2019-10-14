@@ -7,12 +7,16 @@ void hostileSetup() {
 }
 void hostileUpdate() {
   for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
-    hostile[iHostile].update();
+    if (hostile[iHostile] != null) {
+      hostile[iHostile].update();
+    }
   }
 }
 void hostileDraw() {
   for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
-    hostile[iHostile].draw();
+    if (hostile[iHostile] != null) {
+      hostile[iHostile].draw();
+    }
   }
 }
 class Hostile {
