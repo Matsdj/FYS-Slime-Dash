@@ -1,9 +1,16 @@
 //Chris
 Hostile[] hostile;
-  int hostileSize = 50;
-  
+int hostileSize = 50;
+
 void hostileSetup() {
   hostile = new Hostile[hostileSize];
+}
+void addHostile(float x, float y) {
+  for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
+    if (hostile[iHostile] == null){
+      hostile[iHostile] = new Hostile(x,y);
+    }
+  }
 }
 void hostileUpdate() {
   for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
