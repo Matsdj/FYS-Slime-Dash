@@ -1,5 +1,6 @@
 //collin
-
+/*
+Spike[] spike;
 int ce = 1;
 int c =0;
   void spikeSetup()
@@ -8,23 +9,35 @@ int c =0;
   spike = new Spike();
 }
 
-Spike spike;
+// dit heb ik gecopieerd in de hoop dat ik het werkende kon krijgen
+void addspike(float x, float y) {
+  for (int iSpike = 0; iSpike < hostile.length; iSpike++) {
+    if (spike[iSpike] == null){
+      spike[iSpike] = new spike(x,y);
+      break;
+    } else if(hostile[iSpike].x < 0 - hostile[iSpike].size){
+      hostile[iSpike]= null;
+    }
+  }
+}
+
+
+Spike Spike;
 class Spike {
-  spike[] x = new float[c] ;
-  spike[] y = new float[c] ; 
+ float x, y ;
   float size;
   boolean Damage;
-
+/*
   Spike() {
-    /*
+    
     x[0] = globalScale*6;
     y[0] = globalScale*10;
     x[1] = globalScale*7;
     y[1] = globalScale*10;
-    */
+    *//*
     size = globalScale;
     Damage = false;
-  }
+  {}
   //controleerd op player aanraking
   void update() {
 
@@ -53,4 +66,6 @@ class Spike {
       c=0;
     }
   }
-}
+
+
+*/

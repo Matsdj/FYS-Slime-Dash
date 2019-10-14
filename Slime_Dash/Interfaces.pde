@@ -62,11 +62,11 @@ class HUD {
       /*verander deze om enemy damage aan te passen*/
       healthMain = healthMain-20;
     }
-    if (spike.Damage==true) {
+//    if (spike.Damage==true) {
       spike.Damage= false;
       /*verander deze om enemy damage aan te passen*/
-      healthMain = healthMain-20;
-    }
+//      healthMain = healthMain-20;
+  //  }
 
     //game over
     /*game over text*/
@@ -123,7 +123,7 @@ class HUD {
       player.fade -= 3;
     }
   }
-}
+//}
 
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {

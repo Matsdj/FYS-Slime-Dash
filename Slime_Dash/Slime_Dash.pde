@@ -20,7 +20,7 @@ void setup() {
   interfacesSetup();
   mainMSetup();
   hostileSetup();
-  spikeSetup();
+//  spikeSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
