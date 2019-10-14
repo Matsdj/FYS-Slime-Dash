@@ -11,7 +11,7 @@ boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 
 void setup() {
-fullScreen();
+  fullScreen();
   frameRate(60);
   globalScale = height/12;
   room = "mainM";
@@ -42,10 +42,10 @@ void updateGame() {
 void drawGame() {
   background(255);
   player.draw();
-  interfaces.draw();
   blockDraw();
   hostileDraw();
   pickupDraw();
+  interfaces.draw();
   //spike.draw();
 }
 
@@ -57,10 +57,9 @@ void draw() {
     pause.update();
     updateGame();
     drawGame();
-  }
-  else if (room == "mainM"){
+  } else if (room == "mainM") {
     main.update();
     main.draw();
   }
-  text(frameRate,width/2,50);
+  text(frameRate, width/2, 50);
 }
