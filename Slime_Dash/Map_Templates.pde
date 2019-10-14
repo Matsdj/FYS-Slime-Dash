@@ -6,6 +6,9 @@ Alle mogelijke strings
  "Spike"
  "Coin1"
  */
+void templateSetup(){
+  mapTemplateList.add(mapTemplateExample());
+}
 String[][] mapTemplateExample() {
   int exampleHeight = 12;
   int exampleWidth = 10;

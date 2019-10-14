@@ -1,7 +1,6 @@
-/*ig101-5 
+/*ig101-5
  Chris, Collin, Ivano, Mats, Laurens
  */
-
 
 //remember, ctrl+t
 
@@ -63,4 +62,5 @@ void draw() {
     main.update();
     main.draw();
   }
+  text(frameRate,width/2,50);
 }
