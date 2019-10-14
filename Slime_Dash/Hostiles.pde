@@ -1,8 +1,8 @@
 //Chris
 Hostile[] hostile;
-
-void hostileSetup() {
   int hostileSize = 50;
+  
+void hostileSetup() {
   hostile = new Hostile[hostileSize];
 }
 void hostileUpdate() {
@@ -22,10 +22,10 @@ void hostileDraw() {
 class Hostile {
   float size, x, y, vx;
 
-  Hostile() {
+  Hostile(float enemyX, float enemyY) {
     size = globalScale;
-    x = globalScale * 3;
-    y = globalScale*10;
+    x = enemyX;
+    y = enemyY;
     vx = 2;
   }
   void update() {
