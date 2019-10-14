@@ -10,8 +10,8 @@ int c =0;
 
 Spike spike;
 class Spike {
-  float[] x = new float[c] ;
-  float[] y = new float[c] ; 
+  spike[] x = new float[c] ;
+  spike[] y = new float[c] ; 
   float size;
   boolean Damage;
 
