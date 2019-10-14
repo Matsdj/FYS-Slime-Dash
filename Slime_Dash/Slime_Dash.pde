@@ -4,7 +4,7 @@
 
 //remember, ctrl+t
 
-float frameSpeed, globalScale;
+float frameSpeed, globalScale, globalScrollSpeed;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -14,12 +14,14 @@ void setup() {
   fullScreen();
   frameRate(60);
   globalScale = height/12;
+  globalScrollSpeed = globalScale/120;
   room = "mainM";
 
   playerSetup();
   interfacesSetup();
   mainMSetup();
   hostileSetup();
+  blockSetup();
   spikeSetup();
   pauseSetup();
   pickupsSetup();
@@ -33,6 +35,7 @@ void updateGame() {
   globalScale = height/12;
   player.update();
   interfaces.update();
+  blockUpdate();
   mapUpdate();
   hostileUpdate();
   pickupUpdate();
@@ -61,5 +64,9 @@ void draw() {
     main.update();
     main.draw();
   }
+  if (inputs.hasValue(128) == true) {
+  fill(255,0,0);
+  textSize(40);
   text(frameRate, width/2, 50);
+  }
 }
