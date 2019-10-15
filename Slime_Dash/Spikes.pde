@@ -16,13 +16,20 @@ void spikeUpdate() {
     }
   }
 }
-// dit heb ik gecopieerd in de hoop dat ik het werkende kon krijgen
+
 void addspike(float x, float y) {
   for (int iSpike = 0; iSpike < spikes.length; iSpike++) {
     if (spikes[iSpike] == null) {
       spikes[iSpike] = new Spike(x, y);
       break;
      
+    }
+  }
+}
+void spikeDraw() {
+  for (int iSpike = 0; iSpike < spikes.length; iSpike++) {
+    if (spikes[iSpike] != null) {
+      spikes[iSpike].draw();
     }
   }
 }
