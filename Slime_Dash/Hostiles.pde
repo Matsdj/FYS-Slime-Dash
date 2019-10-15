@@ -33,11 +33,13 @@ void hostileDraw() {
 }
 class Hostile {
   float size, x, y, vx;
+  boolean dead;
   Hostile(float enemyX, float enemyY) {
     size = globalScale;
     x = enemyX;
     y = enemyY;
     vx = 2;
+    dead = false;
   }
   void update() {
     x -= globalScrollSpeed;
@@ -52,9 +54,14 @@ class Hostile {
     x += vx;
 
     //checkt collision met player
-    if (player.Collision(x, y, size) && player.dmgCooldown < 0) {
+    if (player.Collision(x, y, size) && player.dashActive) {
+      dead = true;
+    } else if (player.Collision(x, y, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
+    } 
+    if (dead) {
+      x = -globalScale*2;
     }
   }
 
