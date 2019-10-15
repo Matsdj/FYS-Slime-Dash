@@ -75,6 +75,7 @@ class PCoin {
     // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden    
     if (pickedUp == true) {
       interfaces.score += 100;
+      x = -100;
       pickedUp = false;
     }
   }
@@ -102,6 +103,7 @@ class PHealth {
     }
     if (pickedUp == true) {
       interfaces.healthMain += 20;
+      x = -100;
       pickedUp = false;
     }
   }
