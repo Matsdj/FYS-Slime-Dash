@@ -9,7 +9,7 @@ void mapSetup() {
 }
 
 void mapUpdate() {
-  if (GenerateDistance < width/1.2/globalScale) {
+  if (GenerateDistance < width/globalScale) {
     makeMap();
   }
   GenerateDistance-=globalScrollSpeed/globalScale;

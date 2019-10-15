@@ -32,6 +32,10 @@ void blockUpdate() {
   for (int n = 0; n<blocks.size(); n++) {
     Block block = blocks.get(n);
     block.x -= globalScrollSpeed;
+    if (block.x < 0-block.size){
+      blocks.remove(n);
+    }
+    println(n);
   }
 }
 //block draw
