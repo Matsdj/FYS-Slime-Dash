@@ -102,7 +102,11 @@ class Player {
       interfaces.healthMain -=10;
       interfaces.death =true;
     }
-  }
+    
+    if(x + size < 0){
+      interfaces.death = true;
+    }
+  } 
 
   //method die checkt of collision met player waar is
   boolean Collision(float cX, float cY, float cSize) {
