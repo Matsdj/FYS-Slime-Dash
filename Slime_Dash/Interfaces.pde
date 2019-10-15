@@ -10,8 +10,7 @@ class HUD {
   float healthX, healthY, healthR, healthRNormal, healthL, healthH;
   color healthC = color(255, 0, 0, 255);
   //score
-  int score;
-  float scoreX, scoreY, scoreSize;
+  float scoreX, scoreY, scoreSize,score;
   //game over
   String gOver;
   float gOverX, gOverY, goFadeIn, gOSize;
@@ -33,7 +32,7 @@ class HUD {
     scoreX = width*0.98;
     scoreY = width*0.039;
     scoreSize = width*0.025;
-    score = 000000000;
+    score = 0;
 
     //game over
     gOver = "";
@@ -103,10 +102,11 @@ class HUD {
     strokeWeight(2);
     rect(healthX, healthY, healthL, healthH, healthRNormal);
     //score
+    score +=globalScrollSpeed;
     textAlign(RIGHT);
     fill(0);
     textSize(scoreSize);
-    text(score, scoreX, scoreY);
+    text(floor(score), scoreX, scoreY);
     line(width-(width/8), scoreY+20, width, scoreY+20);
     //Game Over
     fill(0, 0, 0, goFadeIn);

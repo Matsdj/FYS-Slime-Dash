@@ -78,9 +78,10 @@ class Player {
     }
     y += vy;
 
+    //Dash abilty
     dashCooldown --;
     dmgCooldown--;
-    if (inputs.hasValue(90) == true && dashCooldown < 0 || dashActive && dashTime > 0) {
+    if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0) {
       moveSpeed = DASHSPEED;
       dashCooldown = DASH_COOLDOWN;
       dashActive = true;

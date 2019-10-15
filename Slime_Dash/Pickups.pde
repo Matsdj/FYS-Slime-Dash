@@ -75,6 +75,7 @@ class PCoin {
     // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden    
     if (pickedUp == true) {
       interfaces.score += 100;
+      x = random(0 + (0.5 * globalScale), width - (0.5 * globalScale));
       pickedUp = false;
     }
   }
