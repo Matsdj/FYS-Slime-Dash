@@ -34,14 +34,14 @@ void updateGame() {
   //globalScale is hoe groot een block wordt in de hoogte en de breedte gebruik deze variable om de grootte van alles te scalen
   globalScale = height/12;
   globalScrollSpeed = globalScale/30;
-  globalScrollSpeed += player.moveSpeed*(pow(player.x,4)/pow(width,4));
+  globalScrollSpeed += player.moveSpeed*(pow(player.x, 4)/pow(width, 4));
   interfaces.update();
   blockUpdate();
   player.update();
   spikeUpdate();
-  mapUpdate();
   hostileUpdate();
   pickupUpdate();
+  mapUpdate();
 }
 
 void drawGame() {
