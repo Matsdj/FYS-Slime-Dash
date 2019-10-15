@@ -5,6 +5,29 @@ void pickupsSetup() {
   CoinList = new PCoin[PCoinsSize];
   HealthList = new PHealth[PHealthSize];
 }
+
+void addCoin(float x, float y) {
+  for(int iCoin = 0; iCoin < CoinList.length; iCoin++) {
+    if(CoinList[iCoin] == null) {
+      CoinList[iCoin] = new PCoin(x, y);
+      break;
+    } else if(CoinList[iCoin].x < 0 - CoinList[iCoin].size) {
+      CoinList[iCoin] = null;
+    }
+  }
+}
+
+void addHeart(float x, float y) {
+  for(int iHealth = 0; iHealth < HealthList.length; iHealth++) {
+    if(HealthList[iHealth] == null) {
+      HealthList[iHealth] = new PHealth(x, y);
+      break;
+    } else if(HealthList[iHealth].x < 0 - HealthList[iHealth].size) {
+      HealthList[iHealth] = null;
+    }
+  }
+}
+
 void pickupUpdate() {
   for (int cU = 0; cU < CoinList.length; cU++) {
     if (CoinList[cU] != null) {
@@ -45,13 +68,13 @@ class PCoin {
   }
   // collision check of de player de coin aanraakt 
   void update() {
+    x -= globalScrollSpeed;
     if (player.Collision(x - (0.5 * globalScale), y - (0.5 * globalScale), size)) {
       pickedUp = true;
     }
     // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden    
     if (pickedUp == true) {
       interfaces.score += 100;
-      x = random(0 + (0.5 * globalScale), width - (0.5 * globalScale));
       pickedUp = false;
     }
   }
@@ -73,12 +96,12 @@ class PHealth {
     pickedUp = false;
   }
   void update() {
+    x -= globalScrollSpeed;
     if (player.Collision(x - (0.5 * globalScale), y - (0.5 * globalScale), size)) {
       pickedUp = true;
     }
     if (pickedUp == true) {
       interfaces.healthMain += 20;
-      x = random(0 + (0.5 * globalScale), width - (0.5 * globalScale));
       pickedUp = false;
     }
   }
