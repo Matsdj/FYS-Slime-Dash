@@ -18,9 +18,9 @@ void hostileUpdate() {
     if (hostile[iHostile] != null) {
       hostile[iHostile].update();
       if (hostile[iHostile].x < 0 - hostile[iHostile].size) {
-      hostile[iHostile]= null;
-      println("awdawdaw");
-    }
+        hostile[iHostile]= null;
+        println("awdawdaw");
+      }
     }
   }
 }
