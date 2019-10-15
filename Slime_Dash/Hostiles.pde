@@ -10,8 +10,6 @@ void addHostile(float x, float y) {
     if (hostile[iHostile] == null) {
       hostile[iHostile] = new Hostile(x, y);
       break;
-    } else if (hostile[iHostile].x < 0 - hostile[iHostile].size) {
-      hostile[iHostile]= null;
     }
   }
 }
@@ -19,6 +17,10 @@ void hostileUpdate() {
   for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
     if (hostile[iHostile] != null) {
       hostile[iHostile].update();
+      if (hostile[iHostile].x < 0 - hostile[iHostile].size) {
+      hostile[iHostile]= null;
+      println("awdawdaw");
+    }
     }
   }
 }

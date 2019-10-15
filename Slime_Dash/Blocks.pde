@@ -36,7 +36,6 @@ void blockUpdate() {
       blocks.remove(n);
       n--;
     }
-    println(n);
   }
 }
 //block draw
