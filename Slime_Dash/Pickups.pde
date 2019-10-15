@@ -7,23 +7,19 @@ void pickupsSetup() {
 }
 
 void addCoin(float x, float y) {
-  for(int iCoin = 0; iCoin < CoinList.length; iCoin++) {
-    if(CoinList[iCoin] == null) {
+  for (int iCoin = 0; iCoin < CoinList.length; iCoin++) {
+    if (CoinList[iCoin] == null) {
       CoinList[iCoin] = new PCoin(x, y);
       break;
-    } else if(CoinList[iCoin].x < 0 - CoinList[iCoin].size) {
-      CoinList[iCoin] = null;
     }
   }
 }
 
 void addHeart(float x, float y) {
-  for(int iHealth = 0; iHealth < HealthList.length; iHealth++) {
-    if(HealthList[iHealth] == null) {
+  for (int iHealth = 0; iHealth < HealthList.length; iHealth++) {
+    if (HealthList[iHealth] == null) {
       HealthList[iHealth] = new PHealth(x, y);
       break;
-    } else if(HealthList[iHealth].x < 0 - HealthList[iHealth].size) {
-      HealthList[iHealth] = null;
     }
   }
 }
@@ -32,11 +28,17 @@ void pickupUpdate() {
   for (int cU = 0; cU < CoinList.length; cU++) {
     if (CoinList[cU] != null) {
       CoinList[cU].update();
+      if (CoinList[cU].x < 0 - CoinList[cU].size) {
+        CoinList[cU] = null;
+      }
     }
   }
   for (int hU = 0; hU < HealthList.length; hU++) {
     if (HealthList[hU] != null) {
       HealthList[hU].update();
+      if (HealthList[hU].x < 0 - HealthList[hU].size) {
+        HealthList[hU] = null;
+      }
     }
   }
 }
