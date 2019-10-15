@@ -54,7 +54,7 @@ String[][] mapTemplateExample2() {
   mapTemplateExample2[10] =new String[] {"Empty", "Spike", "Spike", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Coin1", "Empty"};
   mapTemplateExample2[11] =new String[] {"Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block"};
   if (random(2) > 1) {
-    mapTemplateExample2[2][7] = "enemy";
+    mapTemplateExample2[2][7] = "Enemy";
   }
   return mapTemplateExample2;
 }
@@ -77,7 +77,7 @@ String[][] mapTemplateExample3() {
   mapTemplateExample3[10] =new String[] {"Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty"};
   mapTemplateExample3[11] =new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Block"};
   if (random(2) > 1) {
-    mapTemplateExample3[2][7] = "enemy";
+    mapTemplateExample3[2][7] = "Enemy";
   }
   return mapTemplateExample3;
 }

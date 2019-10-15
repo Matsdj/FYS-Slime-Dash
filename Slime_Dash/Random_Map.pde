@@ -28,10 +28,10 @@ void makeMap() {
         addspike(x,y);
       }
       if (mapTemplate[templateY][templateX] == "Coin1") {
-        CoinList[10] = new PCoin(x, y);
+        addCoin(x,y);
       }
       if (mapTemplate[templateY][templateX] == "Heart") {
-        HealthList[10] = new PHealth(x, y);
+        addHeart(x,y);
       }
       if (mapTemplate[templateY][templateX] == "Enemy") {
         addHostile(x,y);
