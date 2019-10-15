@@ -106,7 +106,7 @@ class HUD {
     noStroke();
     fill(healthC);
     if (healthMain > 100) healthMain = 100;
-    rect(healthX, healthY, healthL*(float(healthMain)/100), healthH, healthRNormal, healthR, healthR, healthRNormal);
+    rect(healthX, healthY, healthL*(float(constrain(healthMain,0,100))/100), healthH, healthRNormal, healthR, healthR, healthRNormal);
     /*static border*/
     stroke(0);
     noFill();
