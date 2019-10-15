@@ -87,6 +87,7 @@ class HUD {
       goFadeIn += 3;
       /*stops player movement*/
       player.moveSpeed = 0;
+      globalScrollSpeed = 0;
     }
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
@@ -127,7 +128,7 @@ class HUD {
     rect(dashX, dashY, dashL, dashH, healthRNormal);
 
     //score
-    score +=globalScrollSpeed;
+    score +=globalScrollSpeed/10;
     textAlign(RIGHT);
     fill(0);
     textSize(scoreSize);
