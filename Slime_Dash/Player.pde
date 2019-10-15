@@ -20,7 +20,7 @@ class Player {
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
 
-  final float JUMPSPEED = globalScale/1.5;
+  final float JUMPSPEED = globalScale/1.8;
   final float DASHSPEED = globalScale/1.6;
   final float MOVESPEED = globalScale/8;
 
