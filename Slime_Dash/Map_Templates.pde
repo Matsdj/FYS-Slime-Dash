@@ -10,8 +10,8 @@ Alle mogelijke strings
 void templateSetup() {
   mapTemplateList.clear();
   mapTemplateList.add(mapTemplateExample());
-  mapTemplateList.add(mapTemplateExample2());
-  mapTemplateList.add(mapTemplateExample3());
+  //mapTemplateList.add(mapTemplateExample2());
+  //mapTemplateList.add(mapTemplateExample3());
 }
 String[][] mapTemplateExample() {
   int exampleHeight = 12;
@@ -76,8 +76,5 @@ String[][] mapTemplateExample3() {
   mapTemplateExample3[9] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty"};
   mapTemplateExample3[10] =new String[] {"Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty"};
   mapTemplateExample3[11] =new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Block"};
-  if (random(2) > 1) {
-    mapTemplateExample3[2][7] = "Enemy";
-  }
   return mapTemplateExample3;
 }

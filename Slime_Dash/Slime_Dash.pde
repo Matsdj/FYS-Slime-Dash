@@ -35,13 +35,13 @@ void updateGame() {
   globalScale = height/12;
   globalScrollSpeed = globalScale/30;
   globalScrollSpeed += player.moveSpeed*(pow(player.x, 4)/pow(width, 4));
+  mapUpdate();
   interfaces.update();
   blockUpdate();
   player.update();
   spikeUpdate();
   hostileUpdate();
   pickupUpdate();
-  mapUpdate();
 }
 
 void drawGame() {
