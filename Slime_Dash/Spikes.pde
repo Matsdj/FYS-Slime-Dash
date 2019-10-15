@@ -6,10 +6,13 @@ void spikeSetup()
 
   spikes = new Spike[100];
 }
-void spikeUpdate(){
-  for(int i =0; i< spikes.length; i++){
-    if (spikes[i] != null){
-    spikes[i].update();
+void spikeUpdate() {
+  for (int iSpike =0; iSpike< spikes.length; iSpike++) {
+    if (spikes[iSpike] != null) {
+      spikes[iSpike].update();
+      if (spikes[iSpike].x < 0 - spikes[iSpike].size) {
+        spikes[iSpike]= null;
+      }
     }
   }
 }
@@ -19,8 +22,7 @@ void addspike(float x, float y) {
     if (spikes[iSpike] == null) {
       spikes[iSpike] = new Spike(x, y);
       break;
-    } else if (spikes[iSpike].x < 0 - spikes[iSpike].size) {
-      spikes[iSpike]= null;
+     
     }
   }
 }
