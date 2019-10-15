@@ -49,7 +49,7 @@ void drawGame() {
   hostileDraw();
   pickupDraw();
   interfaces.draw();
-  spikeDraw();
+  //spike.draw();
 }
 
 void draw() {
