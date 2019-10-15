@@ -89,7 +89,7 @@ class HUD {
 
     /*healthbar backdrop*/
     noStroke();
-    fill(0, 0, 0, 30);
+    fill(0, 0, 0, 50);
     rect(healthX, healthY, healthL, healthH, healthRNormal);
     /*actual health indicator*/
     noStroke();

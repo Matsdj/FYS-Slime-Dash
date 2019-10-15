@@ -1,4 +1,4 @@
-//Chris
+//Chris (met een beetje hulp van mats)
 
 void playerSetup() {
   player = new Player();

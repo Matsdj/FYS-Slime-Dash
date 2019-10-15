@@ -1,7 +1,7 @@
 //Mats
 class Block {
   float x, y, size;
-  color c = color(255);
+  color c = color(150,150,150);
   Block(float ix, float iy) {
     x = ix;
     y = iy;
@@ -9,6 +9,7 @@ class Block {
   }
   void draw() {
     fill(c);
+    stroke(0);
     rect(x, y, size, size);
   }
 }
@@ -26,13 +27,13 @@ Block blockCollision(float x, float y, float size) {
 void blockSetup(){
   blocks.clear();
 }
-//block draw
+//block Update
 void blockUpdate() {
   //loopt door de lijst en tekent elke block
   for (int n = 0; n<blocks.size(); n++) {
     Block block = blocks.get(n);
     block.x -= globalScrollSpeed;
-    if (block.x < 0-block.size){
+    if (block.x < -globalScale*4-block.size){
       blocks.remove(n);
       n--;
     }
