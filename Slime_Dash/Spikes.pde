@@ -36,7 +36,7 @@ void spikeDraw() {
 
 class Spike {
   float x, y, size;
-  boolean Damage;
+
 
   Spike(float inputX, float inputY) {
 
@@ -44,13 +44,13 @@ class Spike {
     y = inputY;
 
     size = globalScale;
-    Damage = false;
+     player.enemyDamage = false;
   }
   //controleerd op player aanraking
   void update() {
 
     if ( player.Collision(x, y, size)&& player.dmgCooldown < 0) {
-      Damage=true;
+       player.enemyDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
     }
     x -= globalScrollSpeed;
