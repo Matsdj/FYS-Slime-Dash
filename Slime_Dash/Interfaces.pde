@@ -10,7 +10,7 @@ class HUD {
   float healthX, healthY, healthR, healthRNormal, healthL, healthH;
   color healthC = color(255, 0, 0, 255);
   //dashbar
-  float dashmain, dashH, dashL,dashL2, dashX, dashY;
+  float dashmain, dashH, dashL, dashL2, dashX, dashY;
   //score
   float scoreX, scoreY, scoreSize, score;
   //game over
@@ -33,7 +33,7 @@ class HUD {
     //dash bar
     dashH = healthH/3;
     dashL = healthL;
-    dashL2 = constrain(healthL,0,healthL);
+    dashL2 = constrain(healthL, 0, healthL);
     dashX = healthX;
     dashY = width*0.055;
     //score
@@ -71,8 +71,8 @@ class HUD {
     }
 
     //dash bar
-    dashL2 = constrain(-player.dashCooldown*50,0,dashL);
-    
+    dashL2 = constrain(-player.dashCooldown*50, 0, dashL);
+
     //game over
     /*game over text*/
     if (healthMain <= noHealth) {
@@ -246,9 +246,9 @@ class MainM {
     fill(255);
     ellipse(random(width), random(height), 3, 3);
     //text
-    textAlign(CENTER, CENTER);    
+    textAlign(CENTER, CENTER);  
     textSize(tSize/2);
-    text("pause = p", 100, height-50);
+    text("pause = p | dash = z", 200, height-50);
     textSize(tSize*2);
     fill(0, sdColor, 0);
     text("Slime Dash", width/2, height/4);

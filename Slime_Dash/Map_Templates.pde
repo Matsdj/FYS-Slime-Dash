@@ -73,7 +73,7 @@ String[][] mapTemplateExample3() {
   mapTemplateExample3[6] = new String[] {"Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty", "Empty", "Spike", "Empty", "Empty", "Block", "Spike", "Empty", "Empty"};
   mapTemplateExample3[7] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Block", "Block", "Spike", "Empty"};
   mapTemplateExample3[8] = new String[] {"Empty", "Block", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Block"};
-  mapTemplateExample3[9] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty"};
+  mapTemplateExample3[9] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty"};
   mapTemplateExample3[10] =new String[] {"Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty"};
   mapTemplateExample3[11] =new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Block"};
   if (random(2) > 1) {
