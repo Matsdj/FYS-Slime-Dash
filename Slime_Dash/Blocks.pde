@@ -34,6 +34,7 @@ void blockUpdate() {
     block.x -= globalScrollSpeed;
     if (block.x < 0-block.size){
       blocks.remove(n);
+      n--;
     }
     println(n);
   }
