@@ -89,9 +89,9 @@ String[][] mapTemplateExample4() {
   //                                       0        1         2       3        4        5        6        7        8       9
   mapTemplateExample4[0] = new String[] {"Empty", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
   mapTemplateExample4[1] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample4[2] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Coin1", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample4[3] = new String[] {"Empty", "Block", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample4[4] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Spike", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample4[2] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Coin1", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample4[3] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample4[4] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Spike", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
   mapTemplateExample4[5] = new String[] {"Empty", "Block", "Empty", "Empty", "Block", "Block", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
   mapTemplateExample4[6] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
   mapTemplateExample4[7] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block", "Coin1", "Empty", "Empty", "Empty", "Empty", "Block"};
