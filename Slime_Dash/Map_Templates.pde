@@ -10,8 +10,8 @@ Alle mogelijke strings
 void templateSetup() {
   mapTemplateList.clear();
   mapTemplateList.add(mapTemplateExample());
-  //mapTemplateList.add(mapTemplateExample2());
-  //mapTemplateList.add(mapTemplateExample3());
+  mapTemplateList.add(mapTemplateExample2());
+  mapTemplateList.add(mapTemplateExample3());
 }
 String[][] mapTemplateExample() {
   int exampleHeight = 12;
@@ -51,7 +51,7 @@ String[][] mapTemplateExample2() {
   mapTemplateExample2[7] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Block", "Block"};
   mapTemplateExample2[8] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
   mapTemplateExample2[9] = new String[] {"Empty", "Empty", "Empty", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample2[10] =new String[] {"Empty", "Spike", "Spike", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Coin1", "Empty"};
+  mapTemplateExample2[10] =new String[] {"Empty", "Empty", "Spike", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Coin1", "Empty"};
   mapTemplateExample2[11] =new String[] {"Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block"};
   if (random(2) > 1) {
     mapTemplateExample2[2][7] = "Enemy";
