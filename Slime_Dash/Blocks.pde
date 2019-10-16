@@ -5,7 +5,7 @@ class Block {
   Block(float ix, float iy) {
     x = ix;
     y = iy;
-    size = globalScale*1.5;
+    size = globalScale;
   }
   void draw() {
     fill(c);

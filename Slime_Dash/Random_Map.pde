@@ -5,7 +5,6 @@ ArrayList<String[][]> mapTemplateList = new ArrayList<String[][]>();
 //Setup allows for reset
 void mapSetup() {
   GenerateDistance = 0;
-  makeMap();
 }
 //Looks if it has generated to the edge of the screen
 void mapUpdate() {
