@@ -16,12 +16,17 @@ void mapUpdate() {
 }
 //Adds a new template behind the last generated one
 void makeMap() {
+  //Adds Template to list
   templateSetup();
+  //Grabs random Template
   String[][] mapTemplate = mapTemplateList.get(floor(random(mapTemplateList.size())));
+  //Loops through list and places blocks at the correct place
   for (int templateY = 0; templateY < mapTemplate.length; templateY++) {
     for (int templateX = 0; templateX < mapTemplate[templateY].length; templateX++) {
+      //Determines wat the X and Y of the blocks
       float x = (GenerateDistance+templateX)*globalScale, 
         y = templateY*globalScale;
+      //Places Blocks,Spikes etc.
       if (mapTemplate[templateY][templateX] == "Block") {
         blocks.add(new Block(x, y));
       }
@@ -39,5 +44,6 @@ void makeMap() {
       }
     }
   }
+  //Adds the generated distance
   GenerateDistance += mapTemplate[0].length;
 }
