@@ -59,6 +59,7 @@ PCoin[] CoinList;
 PHealth[] HealthList;
 
 class PCoin {
+  int gainScore = 100;
   float x, y, size;
   boolean pickedUp;
   color c = color(255, 255, 0);
@@ -76,7 +77,7 @@ class PCoin {
     }
     // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden    
     if (pickedUp == true) {
-      interfaces.score += 100;
+      interfaces.score += gainScore;
       x = -100;
       pickedUp = false;
     }
@@ -89,6 +90,7 @@ class PCoin {
 }
 
 class PHealth {
+  int gainHealth = 20;
   float x, y, size;
   boolean pickedUp;
   color c = color(255, 0, 0);
@@ -104,7 +106,7 @@ class PHealth {
       pickedUp = true;
     }
     if (pickedUp == true) {
-      interfaces.healthMain += 20;
+      interfaces.healthMain += gainHealth;
       x = -100;
       pickedUp = false;
     }
