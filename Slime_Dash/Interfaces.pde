@@ -135,17 +135,17 @@ class HUD {
     //Game Over
     fill(#A300FC, goFadeIn);
     textAlign(CENTER);
-    textSize(constrain(goFadeIn,0,gOSize));
+    textSize(constrain(goFadeIn,1,gOSize));
     text(gOver, gOverX-2, gOverY-2);
     text("score =" + floor(score), gOverX-2, gOverY+98);
     fill(255, 255, 0, goFadeIn);
     textAlign(CENTER);
-    textSize(constrain(goFadeIn,0,gOSize));
+    textSize(constrain(goFadeIn,1,gOSize));
     text(gOver, gOverX+2, gOverY+2);
     text("score =" + floor(score), gOverX+2, gOverY+102);
     fill(0, 0, 0, goFadeIn);
     textAlign(CENTER);
-    textSize(constrain(goFadeIn,0,gOSize));
+    textSize(constrain(goFadeIn,1,gOSize));
     text(gOver, gOverX, gOverY);
     text("score =" + floor(score), gOverX, gOverY+100);
 
