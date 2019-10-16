@@ -36,13 +36,17 @@ void updateGame() {
   time += globalScale/100;
   globalScrollSpeed = globalScale/30+ time/100000*globalScale;
   globalScrollSpeed += player.moveSpeed*(pow(player.x, 4)/pow(width, 4));
+  //Adds Terrain
   mapUpdate();
-  interfaces.update();
+  //Terrain Update
   blockUpdate();
-  player.update();
   spikeUpdate();
   hostileUpdate();
   pickupUpdate();
+  //Player
+  player.update();
+  //Overlay
+  interfaces.update();
 }
 
 void drawGame() {

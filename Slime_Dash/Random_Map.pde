@@ -1,19 +1,20 @@
 //Mats
-//hier maak ik de lijsten aan
+//hier maak ik de variabelen aan
 float GenerateDistance;
-//Makes a line of blocks at the bottom of the screen
 ArrayList<String[][]> mapTemplateList = new ArrayList<String[][]>();
+//Setup allows for reset
 void mapSetup() {
   GenerateDistance = 0;
   makeMap();
 }
-
+//Looks if it has generated to the edge of the screen
 void mapUpdate() {
   if (GenerateDistance < width/globalScale) {
     makeMap();
   }
   GenerateDistance-=globalScrollSpeed/globalScale;
 }
+//Adds a new template behind the last generated one
 void makeMap() {
   templateSetup();
   String[][] mapTemplate = mapTemplateList.get(floor(random(mapTemplateList.size())));

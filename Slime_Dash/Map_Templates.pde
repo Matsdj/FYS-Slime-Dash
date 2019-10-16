@@ -7,7 +7,9 @@ Alle mogelijke strings
  "Coin1"
  "Enemy"
  */
+//Hier worden de mogelijke templates aan de lijst toegevoegd
 void templateSetup() {
+  //Clear zodat setup kan gebruikt worden om te restarten
   mapTemplateList.clear();
   mapTemplateList.add(mapTemplateExample());
   mapTemplateList.add(mapTemplateExample2());
