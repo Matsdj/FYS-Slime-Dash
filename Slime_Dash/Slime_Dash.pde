@@ -41,8 +41,9 @@ void updateGame() {
   //Terrain Update
   blockUpdate();
   spikeUpdate();
-  hostileUpdate();
   pickupUpdate();
+  //Moving Enemy
+  hostileUpdate();
   //Player
   player.update();
   //Overlay
