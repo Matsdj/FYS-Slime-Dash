@@ -1,4 +1,4 @@
-//Chris
+//Chris (met een beetje hulp van mats)
 
 void playerSetup() {
   player = new Player();
@@ -17,11 +17,11 @@ class Player {
 
   //terugzet waardes van de dashCooldown en dashTime
   final int DASH_COOLDOWN = 40;
-  final int DASH_TIME = 15;
+  final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
 
-  final float JUMPSPEED = globalScale/1.6;
-  final float DASHSPEED = globalScale/2;
+  final float JUMPSPEED = globalScale/1.8;
+  final float DASHSPEED = globalScale/1.6;
   final float MOVESPEED = globalScale/8;
 
   Player() {
@@ -31,7 +31,7 @@ class Player {
     moveSpeed = MOVESPEED;
     vx = 0;
     vy = 0;
-    gravity = globalScale/21;
+    gravity = globalScale/25;
     dashCooldown = DASH_COOLDOWN;
     dashTime = DASH_TIME;
     dmgCooldown = 50;
@@ -54,7 +54,10 @@ class Player {
     } else keyUp = 0;
 
     vx = keyDirection * moveSpeed;
-    vy += gravity;
+
+    if (!dashActive) {
+      vy += gravity;
+    } else vy = 0;
 
     if (blockCollision(x, y + 1, size) != null) {
       vy = keyUp * -JUMPSPEED;
@@ -76,7 +79,10 @@ class Player {
       }
       vy = 0;
     }
-    y += vy;
+    
+    if (!dashActive) {
+      y += vy;
+    }
 
     //Dash abilty
     dashCooldown --;
@@ -96,7 +102,11 @@ class Player {
       interfaces.healthMain -=10;
       interfaces.death =true;
     }
-  }
+    
+    if(x + size < 0){
+      interfaces.death = true;
+    }
+  } 
 
   //method die checkt of collision met player waar is
   boolean Collision(float cX, float cY, float cSize) {

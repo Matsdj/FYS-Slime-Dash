@@ -10,8 +10,6 @@ void addHostile(float x, float y) {
     if (hostile[iHostile] == null) {
       hostile[iHostile] = new Hostile(x, y);
       break;
-    } else if (hostile[iHostile].x < 0 - hostile[iHostile].size) {
-      hostile[iHostile]= null;
     }
   }
 }
@@ -19,6 +17,10 @@ void hostileUpdate() {
   for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
     if (hostile[iHostile] != null) {
       hostile[iHostile].update();
+      if (hostile[iHostile].x < 0 - hostile[iHostile].size) {
+        hostile[iHostile]= null;
+        println("awdawdaw");
+      }
     }
   }
 }
@@ -31,11 +33,13 @@ void hostileDraw() {
 }
 class Hostile {
   float size, x, y, vx;
+  boolean dead;
   Hostile(float enemyX, float enemyY) {
     size = globalScale;
     x = enemyX;
     y = enemyY;
     vx = 2;
+    dead = false;
   }
   void update() {
     x -= globalScrollSpeed;
@@ -50,9 +54,15 @@ class Hostile {
     x += vx;
 
     //checkt collision met player
-    if (player.Collision(x, y, size) && player.dmgCooldown < 0) {
+    if (player.Collision(x, y, size) && player.dashActive) {
+      dead = true;
+    } else if (player.Collision(x, y, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
+    } 
+    if (dead) {
+      x = -globalScale*2;
+      interfaces.score +=200;
     }
   }
 
@@ -62,5 +72,6 @@ class Hostile {
     strokeWeight(2);
     fill(255, 0, 0);
     rect(x, y, size, size);
-  }
+
+}
 }

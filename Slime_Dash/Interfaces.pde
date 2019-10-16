@@ -9,8 +9,10 @@ class HUD {
   int healthMain, noHealth;
   float healthX, healthY, healthR, healthRNormal, healthL, healthH;
   color healthC = color(255, 0, 0, 255);
+  //dashbar
+  float dashmain, dashH, dashL, dashL2, dashX, dashY;
   //score
-  float scoreX, scoreY, scoreSize,score;
+  float scoreX, scoreY, scoreSize, score;
   //game over
   String gOver;
   float gOverX, gOverY, goFadeIn, gOSize;
@@ -28,6 +30,12 @@ class HUD {
     /*als je jou object of enemy damage wil laten gebruik je healthMain*/
     healthMain = 100;
     death = false;
+    //dash bar
+    dashH = healthH/3;
+    dashL = healthL;
+    dashL2 = constrain(healthL, 0, healthL);
+    dashX = healthX;
+    dashY = width*0.055;
     //score
     scoreX = width*0.98;
     scoreY = width*0.039;
@@ -62,6 +70,9 @@ class HUD {
       healthMain = healthMain-20;
     }
 
+    //dash bar
+    dashL2 = constrain(-player.dashCooldown*50, 0, dashL);
+
     //game over
     /*game over text*/
     if (healthMain <= noHealth) {
@@ -76,6 +87,7 @@ class HUD {
       goFadeIn += 3;
       /*stops player movement*/
       player.moveSpeed = 0;
+      globalScrollSpeed = 0;
     }
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
@@ -86,23 +98,37 @@ class HUD {
   }
   void draw() {
     //healthbar
-
     /*healthbar backdrop*/
     noStroke();
-    fill(0, 0, 0, 30);
+    fill(0, 0, 0, 50);
     rect(healthX, healthY, healthL, healthH, healthRNormal);
     /*actual health indicator*/
     noStroke();
     fill(healthC);
     if (healthMain > 100) healthMain = 100;
-    rect(healthX, healthY, healthL*(float(healthMain)/100), healthH, healthRNormal, healthR, healthR, healthRNormal);
+    rect(healthX, healthY, healthL*(float(constrain(healthMain,0,100))/100), healthH, healthRNormal, healthR, healthR, healthRNormal);
     /*static border*/
     stroke(0);
     noFill();
     strokeWeight(2);
     rect(healthX, healthY, healthL, healthH, healthRNormal);
+    //dash bar 
+    /*dashbar backdrop*/
+    noStroke();
+    fill(0, 0, 0, 50);
+    rect(dashX, dashY, dashL, dashH, healthRNormal);
+    /*actual dash indicator*/
+    noStroke();
+    fill(#5AFF03, 255);
+    rect(dashX, dashY, dashL2, dashH, healthRNormal);
+
+    /* border*/
+    stroke(0);
+    noFill();
+    rect(dashX, dashY, dashL, dashH, healthRNormal);
+
     //score
-    score +=globalScrollSpeed;
+    score +=globalScrollSpeed/10;
     textAlign(RIGHT);
     fill(0);
     textSize(scoreSize);
@@ -113,6 +139,7 @@ class HUD {
     textAlign(CENTER);
     textSize(gOSize);
     text(gOver, gOverX, gOverY);
+    text("score =" + floor(score), gOverX, gOverY+100);
     //fade out on death
     if (death == true) {
       player.fade -= 3;
@@ -176,12 +203,12 @@ class MainM {
 
 
   MainM() {
-     sizeH = height/7;
-     sizeW = width/2.8;
-     bx = (width/2)-(sizeW/2);
-     by = (height/2)-(sizeH/2);
-       //font = loadFont("vlw");
-      //textFont(font);
+    sizeH = height/7;
+    sizeW = width/2.8;
+    bx = (width/2)-(sizeW/2);
+    by = (height/2)-(sizeH/2);
+    //font = loadFont("vlw");
+    //textFont(font);
 
     background(0);
     tSize = 50;
@@ -220,9 +247,9 @@ class MainM {
     fill(255);
     ellipse(random(width), random(height), 3, 3);
     //text
-    textAlign(CENTER, CENTER);    
+    textAlign(CENTER, CENTER);  
     textSize(tSize/2);
-    text("pause = p", 100, height-50);
+    text("pause = p | dash = z", 200, height-50);
     textSize(tSize*2);
     fill(0, sdColor, 0);
     text("Slime Dash", width/2, height/4);
