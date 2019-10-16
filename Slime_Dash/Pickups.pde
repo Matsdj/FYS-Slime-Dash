@@ -112,7 +112,13 @@ class PHealth {
     }
   }
   void draw() {
+    rectMode(CENTER);
     fill(c);
     ellipse(x, y, size, size);
+    stroke(255);
+    fill(255);
+    rect(x, y, 10, 40);
+    rect(x, y, 40, 10);
+    rectMode(CORNER);
   }
 }
