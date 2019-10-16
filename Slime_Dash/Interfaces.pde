@@ -139,6 +139,7 @@ class HUD {
     textAlign(CENTER);
     textSize(gOSize);
     text(gOver, gOverX, gOverY);
+    text("score =" + floor(score), gOverX, gOverY+100);
     //fade out on death
     if (death == true) {
       player.fade -= 3;

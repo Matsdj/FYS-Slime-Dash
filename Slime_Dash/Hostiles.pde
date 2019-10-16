@@ -62,6 +62,7 @@ class Hostile {
     } 
     if (dead) {
       x = -globalScale*2;
+      interfaces.score +=200;
     }
   }
 
@@ -71,5 +72,6 @@ class Hostile {
     strokeWeight(2);
     fill(255, 0, 0);
     rect(x, y, size, size);
-  }
+
+}
 }
