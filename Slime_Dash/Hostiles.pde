@@ -55,7 +55,7 @@ class Hostile {
     //checkt collision met player
     if (player.Collision(x, y, size) && player.dashActive) {
       dead = true;
-    } else if (player.Collision(x, y, size) && player.dmgCooldown < 0 && !dead) {
+    } else if (player.hitboxCollision(x, y, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
     } 

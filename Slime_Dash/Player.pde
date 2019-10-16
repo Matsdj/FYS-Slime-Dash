@@ -6,7 +6,7 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float ground, size, x, y, moveSpeed, vx, vy, gravity, fade, 
+  float ground, size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, gravity, fade, 
     gravityReset, 
     dashSpeed, 
     pColor;
@@ -28,6 +28,8 @@ class Player {
     size = globalScale-1;
     x = width/5;
     y = height/4;
+    hitboxRatio = 4;
+    hitSize = size - size/hitboxRatio;
     moveSpeed = MOVESPEED;
     vx = 0;
     vy = 0;
@@ -38,7 +40,7 @@ class Player {
     enemyDamage = false;
     pColor = 255;
     fade = constrain(255, 0, 255);
-  }
+  }  
 
   void update() {
     x -= globalScrollSpeed;
@@ -111,6 +113,10 @@ class Player {
     if (x + size < 0) {
       interfaces.death = true;
     }
+
+    //hitbox gaat met player mee
+    hitX = x + size/(hitboxRatio*2);
+    hitY = y + size/(hitboxRatio*2);
   } 
 
   //method die checkt of collision met player waar is
@@ -119,11 +125,21 @@ class Player {
       return true;
     } else return false;
   }
+  
+  //zelfde method, alleen voor enemies
+  boolean hitboxCollision(float cX, float cY, float cSize) {
+    if (hitX + hitSize >= cX && hitX <= cX + cSize && hitY + hitSize >= cY && hitY <= cY + cSize) {
+      return true;
+    } else return false;
+  }
+  
   void draw() {
     stroke(0, 0, 0, fade);
     strokeWeight(2);
     fill(0, pColor, 0, fade);
     rect(x, y, size, size);
+    fill(0, 0, 0);
+    rect(hitX, hitY, hitSize, hitSize);
   }
 }
 
