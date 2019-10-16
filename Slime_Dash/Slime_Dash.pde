@@ -33,7 +33,8 @@ void updateGame() {
   frameSpeed = 60/frameRate;
   //globalScale is hoe groot een block wordt in de hoogte en de breedte gebruik deze variable om de grootte van alles te scalen
   globalScale = height/12;
-  time += globalScale/100;
+  time += globalScale/60 ;
+  println(time);
   globalScrollSpeed = globalScale/30+ time/100000*globalScale;
   globalScrollSpeed += player.moveSpeed*(pow(player.x, 4)/pow(width, 4));
   //Adds Terrain
