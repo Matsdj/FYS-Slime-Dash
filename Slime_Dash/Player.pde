@@ -42,13 +42,15 @@ class Player {
 
   void update() {
     x -= globalScrollSpeed;
+    
     //checkt input of player links of rechts gaat. -1 is links, 1 is rechts en 0 is stil
     if (inputs.hasValue(LEFT) == true) {
       keyDirection = -1;
     } else if (inputs.hasValue(RIGHT) == true) {
       keyDirection = 1;
     } else keyDirection = 0;
-
+    
+    //checkt het zelfe voor de jump
     if (inputs.hasValue(UP) == true) {
       keyUp = 1;
     } else keyUp = 0;
@@ -59,6 +61,7 @@ class Player {
       vy += gravity;
     } else vy = 0;
 
+    //checkt of player onground is door 1 pixel onder hem te kijken
     if (blockCollision(x, y + 1, size) != null) {
       vy = keyUp * -JUMPSPEED;
     }
@@ -84,7 +87,7 @@ class Player {
       y += vy;
     }
 
-    //Dash abilty
+    //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
     dashCooldown --;
     dmgCooldown--;
     if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0) {
@@ -97,12 +100,14 @@ class Player {
       dashActive = false;
       dashTime = DASH_TIME;
     }
+    
     //zorgt er voor dat je dood gaat als je uit de map valt
     if (y>height) {
       interfaces.healthMain -=10;
       interfaces.death =true;
     }
     
+    //gaat dood als player achter linker wand gaat
     if(x + size < 0){
       interfaces.death = true;
     }
@@ -122,6 +127,7 @@ class Player {
   }
 }
 
+//kijkt of speed - of + is
 int sign(float v) {
   int vel = 0; 
   if (v < 0) vel = -1;
