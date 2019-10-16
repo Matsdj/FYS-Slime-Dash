@@ -84,7 +84,7 @@ class HUD {
     if (death == true) {
       /*makes GO text fade in*/
       gOver = "Game over";
-      goFadeIn += 3;
+      goFadeIn += 2;
       /*stops player movement*/
       player.moveSpeed = 0;
       globalScrollSpeed = 0;
@@ -106,7 +106,7 @@ class HUD {
     noStroke();
     fill(healthC);
     if (healthMain > 100) healthMain = 100;
-    rect(healthX, healthY, healthL*(float(constrain(healthMain,0,100))/100), healthH, healthRNormal, healthR, healthR, healthRNormal);
+    rect(healthX, healthY, healthL*(float(constrain(healthMain, 0, 100))/100), healthH, healthRNormal, healthR, healthR, healthRNormal);
     /*static border*/
     stroke(0);
     noFill();
@@ -121,12 +121,10 @@ class HUD {
     noStroke();
     fill(#5AFF03, 255);
     rect(dashX, dashY, dashL2, dashH, healthRNormal);
-
     /* border*/
     stroke(0);
     noFill();
     rect(dashX, dashY, dashL, dashH, healthRNormal);
-
     //score
     score +=globalScrollSpeed/10;
     textAlign(RIGHT);
@@ -135,11 +133,22 @@ class HUD {
     text(floor(score), scoreX, scoreY);
     line(width-(width/8), scoreY+20, width, scoreY+20);
     //Game Over
+    fill(#A300FC, goFadeIn);
+    textAlign(CENTER);
+    textSize(constrain(goFadeIn,0,gOSize));
+    text(gOver, gOverX-2, gOverY-2);
+    text("score =" + floor(score), gOverX-2, gOverY+98);
+    fill(255, 255, 0, goFadeIn);
+    textAlign(CENTER);
+    textSize(constrain(goFadeIn,0,gOSize));
+    text(gOver, gOverX+2, gOverY+2);
+    text("score =" + floor(score), gOverX+2, gOverY+102);
     fill(0, 0, 0, goFadeIn);
     textAlign(CENTER);
-    textSize(gOSize);
+    textSize(constrain(goFadeIn,0,gOSize));
     text(gOver, gOverX, gOverY);
     text("score =" + floor(score), gOverX, gOverY+100);
+
     //fade out on death
     if (death == true) {
       player.fade -= 3;
