@@ -5,7 +5,7 @@ class Block {
   Block(float ix, float iy) {
     x = ix;
     y = iy;
-    size = globalScale;
+    size = globalScale*1.5;
   }
   void draw() {
     fill(c);
@@ -15,6 +15,7 @@ class Block {
 }
 //Lijst met blocks
 ArrayList<Block> blocks = new ArrayList();
+//Loops through all the blocks to see if there is on at the given position
 Block blockCollision(float x, float y, float size) {
   Block Collision = null;
   for (int blockNumber = 0; blockNumber < blocks.size(); blockNumber++) {
@@ -24,12 +25,13 @@ Block blockCollision(float x, float y, float size) {
   }
   return Collision;
 }
+//Block Reset
 void blockSetup(){
   blocks.clear();
 }
 //block Update
 void blockUpdate() {
-  //loopt door de lijst en tekent elke block
+  //loopt door de lijst en beweegt elke block
   for (int n = 0; n<blocks.size(); n++) {
     Block block = blocks.get(n);
     block.x -= globalScrollSpeed;
