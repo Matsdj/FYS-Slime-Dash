@@ -17,6 +17,7 @@ void templateSetup() {
   mapTemplateList.add(mapTemplateExample3());
   mapTemplateList.add(mapTemplateExample4());
   mapTemplateList.add(mapTemplateExample5());
+  mapTemplateList.add(mapTemplateExample6());
 }
 String[][] mapTemplateExample() {
   int exampleHeight = 12;
@@ -123,4 +124,24 @@ String[][] mapTemplateExample5() {
   mapTemplateExample5[11] =new String[] {"Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty"};
 
   return mapTemplateExample5;
+}
+
+String[][] mapTemplateExample6() {
+  int exampleHeight = 12;
+  int exampleWidth = 10;
+  String[][] mapTemplateExample6 = new String[exampleHeight][exampleWidth];
+  //                                       0        1         2       3        4        5        6        7        8       9
+  mapTemplateExample6[0] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample6[1] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Heart", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample6[2] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample6[3] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample6[4] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample6[5] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample6[6] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample6[7] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
+  mapTemplateExample6[8] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block"};
+  mapTemplateExample6[9] = new String[] {"Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block"};
+  mapTemplateExample6[10]= new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block"};
+  mapTemplateExample6[11]= new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
+  return mapTemplateExample6;
 }
