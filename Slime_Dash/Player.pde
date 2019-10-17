@@ -138,8 +138,6 @@ class Player {
     strokeWeight(2);
     fill(0, pColor, 0, fade);
     rect(x, y, size, size);
-    fill(0, 0, 0);
-    rect(hitX, hitY, hitSize, hitSize);
   }
 }
 
