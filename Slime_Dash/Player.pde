@@ -26,8 +26,8 @@ class Player {
 
   Player() {
     size = globalScale-1;
-    x = width/5;
-    y = height/4;
+    x = globalScale * 4;
+    y = globalScale * 2;
     hitboxRatio = 4;
     hitSize = size - size/hitboxRatio;
     moveSpeed = MOVESPEED;
