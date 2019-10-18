@@ -69,9 +69,8 @@ class HUD {
       /*verander deze om enemy damage aan te passen*/
       healthMain = healthMain-20;
       healthC = color(255);
+    } else healthC = color(255, 0, 0);
 
-    } else healthC = color(255,0,0);
-   
 
     //dash bar
     dashL2 = constrain(-player.dashCooldown*50, 0, dashL);
@@ -209,8 +208,10 @@ void mainMSetup() {
 MainM main;
 
 class MainM {
-  float bx, by, sizeW, sizeH, tx, ty, tSize, sdColor, blink;
+  float bx, by, sizeW, sizeH, tx, ty, tSize, sdColor, ay1, ay2, ay3, ax1, ax2, ax3;
+  color c1, c2, c3;
   boolean hover, blinkC;
+  int blink;
   //PFont font;
 
 
@@ -221,14 +222,22 @@ class MainM {
     by = (height/2)-(sizeH/2);
     //font = loadFont("vlw");
     //textFont(font);
-
     background(0);
     tSize = 50;
-    tx = width/2;
-    ty = height/4*3;
+    tx = width/4;
+    ty = height/3;
+    ax1 = tx-30;
+    ay1 = ty-15;
+    ax2 = ax1;
+    ay2 = ty+25;
+    ax3 = tx-15;
+    ay3 = ty+5;
     sdColor = 255;
     blink = 255;
     blinkC = false;
+    c1 = color(255);
+    c2 = color(255);
+    c3 =color(255);
   }
   void update() {
     if (room == "mainM" && inputs.hasValue(32)==true) {
@@ -247,6 +256,9 @@ class MainM {
     if (blinkC == true) {
       blink +=5;
     }
+    if (ay1 ==ty-15) {
+      c1 = blink;
+    }
   }
   void draw() {
     /* fill(20);
@@ -259,14 +271,20 @@ class MainM {
     fill(255);
     ellipse(random(width), random(height), 3, 3);
     //text
-    textAlign(CENTER, CENTER);  
+    textAlign(LEFT, CENTER);
     textSize(tSize/2);
     text("pause = p | dash = z", 200, height-50);
     textSize(tSize*2);
     fill(0, sdColor, 0);
-    text("Slime Dash", width/2, height/4);
+    text("Slime Dash", width/4, height/6);
     textSize(tSize);
-    fill(blink, blink, blink);
-    text("press SPACEBAR to play", tx, ty);
+    fill(255);
+    triangle(ax1, ay1, ax2, ay2, ax3, ay3);
+    fill(c1);
+    text("Play", tx, ty);
+    fill(c2);
+    text("Settings", tx, ty*1.5);
+    fill(c3);
+    text("press SPACEBAR to Play", tx, ty*2);
   }
 }
