@@ -1,4 +1,5 @@
 //Mats
+final color ICECOLOR = color(0,255,255);
 class Block {
   float x, y, size;
   color c = color(150);
