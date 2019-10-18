@@ -30,8 +30,7 @@ void makeMap() {
         blocks.add(new Block(x, y));
       }
       if (mapTemplate[templateY][templateX] == "BI") {
-        color ice = color(0,255,255);
-        blocks.add(new Block(x, y, ice));
+        blocks.add(new Block(x, y, ICECOLOR));
       }
       if (mapTemplate[templateY][templateX] == "SD") {
         addspike(x,y);
