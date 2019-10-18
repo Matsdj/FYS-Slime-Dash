@@ -25,6 +25,7 @@ class Player {
   final float SPEEDMULT = globalScale/56;
   final float SPEEDSLOWDOWN = globalScale/100;
   final float MAXMOVESPEED = globalScale/8;
+  final float GRAVITY = globalScale/32;
 
   Player() {
     size = globalScale-1;
@@ -35,7 +36,6 @@ class Player {
     moveSpeed = MOVESPEED;
     vx = 0;
     vy = 0;
-    gravity = globalScale/32;
     dashCooldown = DASH_COOLDOWN;
     dashTime = DASH_TIME;
     dmgCooldown = 50;
@@ -79,7 +79,7 @@ class Player {
     println(vx);
 
     if (!dashActive) {
-      vy += gravity;
+      vy += GRAVITY;
     } else vy = 0;
 
     //checkt of player onground is door 1 pixel onder hem te kijken
