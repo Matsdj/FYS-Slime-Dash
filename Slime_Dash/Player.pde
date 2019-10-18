@@ -22,7 +22,10 @@ class Player {
 
   final float JUMPSPEED = globalScale/2.2;
   final float DASHSPEED = globalScale/1.6;
-  final float MOVESPEED = globalScale/8;
+  final float MOVESPEED = globalScale/16;
+  final float SPEEDMULT = globalScale/56;
+  final float SPEEDSLOWDOWN = globalScale/68;
+  final float MAXMOVESPEED = globalScale/8;
 
   Player() {
     size = globalScale-1;
@@ -45,19 +48,36 @@ class Player {
   void update() {
     x -= globalScrollSpeed;
 
-    //checkt input of player links of rechts gaat. -1 is links, 1 is rechts en 0 is stil
+    //checkt input of player links of rechts gaat.
     if (inputs.hasValue(LEFT) == true) {
       keyDirection = -1;
+      moveSpeed *= SPEEDMULT;
+      vx -= moveSpeed;
     } else if (inputs.hasValue(RIGHT) == true) {
       keyDirection = 1;
-    } else keyDirection = 0;
+      moveSpeed *= SPEEDMULT;
+      vx += moveSpeed;
+    } else { 
+      keyDirection = 0;
+      vx *= SPEEDSLOWDOWN;
+      moveSpeed = MOVESPEED;
+    }
+
+    //Stops player from movement speed increasing to fast
+    if (vx > MAXMOVESPEED) {
+      vx = MAXMOVESPEED;
+    } else if (vx < -MAXMOVESPEED) {
+      vx = -MAXMOVESPEED;
+    }
 
     //checkt het zelfe voor de jump
     if (inputs.hasValue(UP) == true) {
       keyUp = 1;
     } else keyUp = 0;
 
-    vx = keyDirection * moveSpeed;
+    //vx = keyDirection * moveSpeed;
+
+    println(vx);
 
     if (!dashActive) {
       vy += gravity;
@@ -66,6 +86,25 @@ class Player {
     //checkt of player onground is door 1 pixel onder hem te kijken
     if (blockCollision(x, y + 1, size) != null) {
       vy = keyUp * -JUMPSPEED;
+    }
+
+    //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
+    dashCooldown --;
+    dmgCooldown--;
+    if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && keyDirection != 0) {
+      if (inputs.hasValue(LEFT) == true) {
+        vx = -DASHSPEED;
+      }
+      if (inputs.hasValue(RIGHT) == true) {
+        vx = DASHSPEED;
+      }
+      dashCooldown = DASH_COOLDOWN;
+      dashActive = true;
+      dashTime--;
+    } else {
+      moveSpeed = MOVESPEED;
+      dashActive = false;
+      dashTime = DASH_TIME;
     }
 
     //Horizontal collision
@@ -87,20 +126,6 @@ class Player {
 
     if (!dashActive) {
       y += vy;
-    }
-
-    //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
-    dashCooldown --;
-    dmgCooldown--;
-    if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && keyDirection != 0) {
-      moveSpeed = DASHSPEED;
-      dashCooldown = DASH_COOLDOWN;
-      dashActive = true;
-      dashTime--;
-    } else {
-      moveSpeed = MOVESPEED;
-      dashActive = false;
-      dashTime = DASH_TIME;
     }
 
     //zorgt er voor dat je dood gaat als je uit de map valt
@@ -125,14 +150,14 @@ class Player {
       return true;
     } else return false;
   }
-  
+
   //zelfde method, alleen voor enemies
   boolean hitboxCollision(float cX, float cY, float cSize) {
     if (hitX + hitSize >= cX && hitX <= cX + cSize && hitY + hitSize >= cY && hitY <= cY + cSize) {
       return true;
     } else return false;
   }
-  
+
   void draw() {
     stroke(0, 0, 0, fade);
     strokeWeight(2);
