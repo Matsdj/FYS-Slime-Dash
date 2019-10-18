@@ -1,11 +1,30 @@
 //Mats
 class Block {
   float x, y, size;
-  color c = color(150,150,150);
-  Block(float ix, float iy) {
+  color c = color(150);
+  boolean moving = false;
+  void blockSetup(float ix, float iy, color ic, boolean iMoving) {
     x = ix;
     y = iy;
     size = globalScale;
+    c = ic;
+    moving = iMoving;
+  }
+  //X and Y
+  Block(float ix, float iy) {
+    blockSetup(ix, iy, c, moving);
+  }
+  //X, Y and color
+  Block(float ix, float iy, color ic) {
+    blockSetup(ix, iy, ic, moving);
+  }
+  //X, Y and moving
+  Block(float ix, float iy, boolean iMoving) {
+    blockSetup(ix, iy, c, iMoving);
+  }
+  //X, Y, color and moving
+  Block(float ix, float iy, color ic, boolean iMoving) {
+    blockSetup(ix, iy, ic, iMoving);
   }
   void draw() {
     fill(c);
@@ -26,7 +45,7 @@ Block blockCollision(float x, float y, float size) {
   return Collision;
 }
 //Block Reset
-void blockSetup(){
+void blockSetup() {
   blocks.clear();
 }
 //block Update
@@ -35,7 +54,7 @@ void blockUpdate() {
   for (int n = 0; n<blocks.size(); n++) {
     Block block = blocks.get(n);
     block.x -= globalScrollSpeed;
-    if (block.x < -globalScale*4-block.size){
+    if (block.x < -globalScale*4-block.size) {
       blocks.remove(n);
       n--;
     }

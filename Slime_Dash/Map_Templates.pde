@@ -1,8 +1,9 @@
 //Mats
 /*
 Alle mogelijke strings
- "  "
+ "  " nothing
  "BD" ("B"lock "D"efault)
+ "BI" ("B"lock "I"ce)
  "SD" ("S"pike "D"efault)
  "PC" ("P"ickup "C"oin)
  "PH" ("P"ickup "H"ealth)
@@ -23,14 +24,14 @@ String[][] mapTemplateExample() {
   int exampleHeight = 12;
   int exampleWidth = 10;
   String[][] mapTemplateExample = new String[exampleHeight][exampleWidth];
-  //                                       0        1         2       3        4        5        6        7        8       9
+  //                                     0     1     2     3     4     5     6     7     8     9
   mapTemplateExample[0] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[1] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[2] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[3] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[5] = new String[] {"  ", "  ", "  ", "  ", "PH", "  ", "PC", "  ", "  ", "  "};
-  mapTemplateExample[6] = new String[] {"  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "  ", "  "};
+  mapTemplateExample[6] = new String[] {"  ", "  ", "  ", "  ", "BI", "BI", "BI", "BI", "  ", "  "};
   mapTemplateExample[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[9] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
@@ -46,7 +47,7 @@ String[][] theBigS() {
   int exampleHeight = 12;
   int exampleWidth = 16;
   String[][] theBigS = new String[exampleHeight][exampleWidth];
-  //                                       0        1         2       3        4        5        6        7        8       9
+  //                          0     1     2     3     4     5     6     7     8     9     10    11    12    13    14    15
   theBigS[0] = new String[] {"  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  "};
   theBigS[1] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   theBigS[2] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
@@ -69,7 +70,7 @@ String[][] rockyPath() {
   int exampleHeight = 12;
   int exampleWidth = 16;
   String[][] rockyPath = new String[exampleHeight][exampleWidth];
-  //                                       0        1         2       3        4        5        6        7        8       9
+  //                            0     1     2     3     4     5     6     7     8     9     10    11    12    13    14    15
   rockyPath[0] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   rockyPath[1] = new String[] {"  ", "PC", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   rockyPath[2] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
@@ -89,7 +90,7 @@ String[][] spikeyTower() {
   int exampleHeight = 12;
   int exampleWidth = 16;
   String[][] spikeyTower = new String[exampleHeight][exampleWidth];
-  //                                       0        1         2       3        4        5        6        7        8       9
+  //                              0     1     2     3     4     5     6     7     8     9     10    11    12    13    14    15
   spikeyTower[0] = new String[] {"  ", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
   spikeyTower[1] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
   spikeyTower[2] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "PC", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
@@ -109,7 +110,7 @@ String[][] spikeFall() {
   int exampleHeight = 12;
   int exampleWidth = 10;
   String[][] spikeFall = new String[exampleHeight][exampleWidth];
-  //                                       0        1         2       3        4        5        6        7        8       9
+  //                            0     1     2     3     4     5     6     7     8     9     10    11    12    13    14    15
   spikeFall[0] = new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
   spikeFall[1] = new String[] {"BD", "PH", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
   spikeFall[2] = new String[] {"BD", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
@@ -130,7 +131,7 @@ String[][] floatingPath() {
   int exampleHeight = 12;
   int exampleWidth = 10;
   String[][] floatingPath = new String[exampleHeight][exampleWidth];
-  //                                       0        1         2       3        4        5        6        7        8       9
+  //                               0     1     2     3     4     5     6     7     8     9     10    11    12    13    14
   floatingPath[0] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   floatingPath[1] = new String[] {"  ", "  ", "  ", "  ", "  ", "PH", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
   floatingPath[2] = new String[] {"  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
@@ -140,7 +141,7 @@ String[][] floatingPath() {
   floatingPath[6] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "BD", "  ", "  ", "  ", "  "};
   floatingPath[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
   floatingPath[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
-  floatingPath[9] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
+  floatingPath[9] = new String[] {"  ", "  ", "  ", "BD", "BD", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
   floatingPath[10]= new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
   floatingPath[11]= new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
   return floatingPath;

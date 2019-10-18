@@ -29,6 +29,10 @@ void makeMap() {
       if (mapTemplate[templateY][templateX] == "BD") {
         blocks.add(new Block(x, y));
       }
+      if (mapTemplate[templateY][templateX] == "BI") {
+        color ice = color(0,255,255);
+        blocks.add(new Block(x, y, ice));
+      }
       if (mapTemplate[templateY][templateX] == "SD") {
         addspike(x,y);
       }

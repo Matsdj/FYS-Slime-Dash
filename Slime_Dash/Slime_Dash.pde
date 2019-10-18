@@ -14,7 +14,6 @@ void setup() {
   size(1280,720);
   frameRate(60);
   globalScale = height/12;
-  globalScrollSpeed = globalScale/30;
   room = "mainM";
   time = 0;
   playerSetup();
@@ -35,9 +34,9 @@ void updateGame() {
   globalScale = height/12;
   time += 1 ;
   println(time);
-  globalScrollSpeed = globalScale/30+ time/100000*globalScale;
+  globalScrollSpeed = globalScale/60+ time/100000*globalScale;
   globalScrollSpeed += player.moveSpeed*(pow(player.x, 4)/pow(width, 4));
-  //globalScrollSpeed = player.moveSpeed*(pow(player.x-width/2, 1)/pow(width/2, 1));
+  globalScrollSpeed = 2*player.moveSpeed*(pow(player.x-width/2, 1)/pow(width/2, 1));
   //Adds Terrain
   mapUpdate();
   //Terrain Update
