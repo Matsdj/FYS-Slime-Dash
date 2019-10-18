@@ -1,12 +1,12 @@
 //Mats
 /*
 Alle mogelijke strings
- "Empty"
- "Block"
- "Spike"
- "Coin1"
- "Enemy"
- "Heart"
+ "  "
+ "BD" ("B"lock "D"efault)
+ "SD" ("S"pike "D"efault)
+ "PC" ("P"ickup "C"oin)
+ "PH" ("P"ickup "H"ealth)
+ "H1" ("H"ostile "1")
  */
 //Hier worden de mogelijke templates aan de lijst toegevoegd
 void templateSetup() {
@@ -24,20 +24,20 @@ String[][] mapTemplateExample() {
   int exampleWidth = 10;
   String[][] mapTemplateExample = new String[exampleHeight][exampleWidth];
   //                                       0        1         2       3        4        5        6        7        8       9
-  mapTemplateExample[0] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample[1] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample[2] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample[3] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample[4] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample[5] = new String[] {"Empty", "Empty", "Empty", "Empty", "Heart", "Empty", "Coin1", "Empty", "Empty", "Empty"};
-  mapTemplateExample[6] = new String[] {"Empty", "Empty", "Empty", "Empty", "Block", "Block", "Block", "Block", "Empty", "Empty"};
-  mapTemplateExample[7] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample[8] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  mapTemplateExample[9] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block"};
-  mapTemplateExample[10] =new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block"};
-  mapTemplateExample[11] =new String[] {"Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block"};
+  mapTemplateExample[0] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  mapTemplateExample[1] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  mapTemplateExample[2] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  mapTemplateExample[3] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  mapTemplateExample[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  mapTemplateExample[5] = new String[] {"  ", "  ", "  ", "  ", "PH", "  ", "PC", "  ", "  ", "  "};
+  mapTemplateExample[6] = new String[] {"  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "  ", "  "};
+  mapTemplateExample[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  mapTemplateExample[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  mapTemplateExample[9] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
+  mapTemplateExample[10] =new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
+  mapTemplateExample[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
   if (random(2) > 1) {
-    mapTemplateExample[10][8] = "Enemy";
+    mapTemplateExample[10][8] = "H1";
   }
   return mapTemplateExample;
 }
@@ -47,20 +47,20 @@ String[][] theBigS() {
   int exampleWidth = 16;
   String[][] theBigS = new String[exampleHeight][exampleWidth];
   //                                       0        1         2       3        4        5        6        7        8       9
-  theBigS[0] = new String[] {"Empty", "Empty", "Empty", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty", "Empty"};
-  theBigS[1] = new String[] {"Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  theBigS[2] = new String[] {"Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  theBigS[3] = new String[] {"Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty", "Empty"};
-  theBigS[4] = new String[] {"Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
-  theBigS[5] = new String[] {"Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Coin1", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
-  theBigS[6] = new String[] {"Empty", "Empty", "Empty", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Spike", "Spike"};
-  theBigS[7] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Block", "Block"};
-  theBigS[8] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
-  theBigS[9] = new String[] {"Empty", "Empty", "Empty", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty", "Empty"};
-  theBigS[10] =new String[] {"Empty", "Empty", "Spike", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Coin1", "Empty"};
-  theBigS[11] =new String[] {"Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block"};
+  theBigS[0] = new String[] {"  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  "};
+  theBigS[1] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  theBigS[2] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  theBigS[3] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  "};
+  theBigS[4] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  theBigS[5] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "PC", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  theBigS[6] = new String[] {"  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "BD", "  ", "  ", "SD", "SD"};
+  theBigS[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "BD", "BD"};
+  theBigS[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  theBigS[9] = new String[] {"  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  "};
+  theBigS[10] =new String[] {"  ", "  ", "SD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "PC", "  "};
+  theBigS[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
   if (random(2) > 1) {
-    theBigS[2][7] = "Enemy";
+    theBigS[2][7] = "H1";
   }
   return theBigS;
 }
@@ -70,18 +70,18 @@ String[][] rockyPath() {
   int exampleWidth = 16;
   String[][] rockyPath = new String[exampleHeight][exampleWidth];
   //                                       0        1         2       3        4        5        6        7        8       9
-  rockyPath[0] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  rockyPath[1] = new String[] {"Empty", "Coin1", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  rockyPath[2] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  rockyPath[3] = new String[] {"Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  rockyPath[4] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  rockyPath[5] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  rockyPath[6] = new String[] {"Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty", "Empty", "Spike", "Empty", "Empty", "Block", "Spike", "Empty", "Empty"};
-  rockyPath[7] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Block", "Block", "Spike", "Empty"};
-  rockyPath[8] = new String[] {"Empty", "Block", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Block"};
-  rockyPath[9] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty"};
-  rockyPath[10] =new String[] {"Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty"};
-  rockyPath[11] =new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Block"};
+  rockyPath[0] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  rockyPath[1] = new String[] {"  ", "PC", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  rockyPath[2] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  rockyPath[3] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  rockyPath[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  rockyPath[5] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  rockyPath[6] = new String[] {"  ", "  ", "  ", "  ", "BD", "BD", "  ", "  ", "  ", "SD", "  ", "  ", "BD", "SD", "  ", "  "};
+  rockyPath[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "BD", "BD", "SD", "  "};
+  rockyPath[8] = new String[] {"  ", "BD", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "BD"};
+  rockyPath[9] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "  ", "  ", "  "};
+  rockyPath[10] =new String[] {"BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "BD", "  ", "  "};
+  rockyPath[11] =new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "BD", "BD"};
   return rockyPath;
 }
 
@@ -90,18 +90,18 @@ String[][] spikeyTower() {
   int exampleWidth = 16;
   String[][] spikeyTower = new String[exampleHeight][exampleWidth];
   //                                       0        1         2       3        4        5        6        7        8       9
-  spikeyTower[0] = new String[] {"Empty", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeyTower[1] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeyTower[2] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Coin1", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeyTower[3] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeyTower[4] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Spike", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeyTower[5] = new String[] {"Empty", "Block", "Empty", "Empty", "Block", "Block", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeyTower[6] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeyTower[7] = new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block", "Coin1", "Empty", "Empty", "Empty", "Empty", "Block"};
-  spikeyTower[8] = new String[] {"Empty", "Block", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Block", "Block", "Block", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeyTower[9] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty"};
-  spikeyTower[10] =new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeyTower[11] =new String[] {"Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty", "Empty"};
+  spikeyTower[0] = new String[] {"  ", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeyTower[1] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeyTower[2] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "PC", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeyTower[3] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeyTower[4] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "SD", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeyTower[5] = new String[] {"  ", "BD", "  ", "  ", "BD", "BD", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeyTower[6] = new String[] {"  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeyTower[7] = new String[] {"  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "PC", "  ", "  ", "  ", "  ", "BD"};
+  spikeyTower[8] = new String[] {"  ", "BD", "BD", "  ", "  ", "BD", "  ", "  ", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  "};
+  spikeyTower[9] = new String[] {"  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  "};
+  spikeyTower[10] =new String[] {"  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeyTower[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  "};
   return spikeyTower;
 }
 
@@ -110,18 +110,18 @@ String[][] spikeFall() {
   int exampleWidth = 10;
   String[][] spikeFall = new String[exampleHeight][exampleWidth];
   //                                       0        1         2       3        4        5        6        7        8       9
-  spikeFall[0] = new String[] {"Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeFall[1] = new String[] {"Block", "Heart", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeFall[2] = new String[] {"Block", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeFall[3] = new String[] {"Empty", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeFall[4] = new String[] {"Empty", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeFall[5] = new String[] {"Empty", "Block", "Empty", "Block", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeFall[6] = new String[] {"Empty", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  spikeFall[7] = new String[] {"Empty", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block", "Empty", "Empty"};
-  spikeFall[8] = new String[] {"Empty", "Block", "Block", "Empty", "Block", "Spike", "Empty", "Empty", "Spike", "Block", "Empty", "Empty", "Empty", "Block", "Empty", "Empty"};
-  spikeFall[9] = new String[] {"Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty", "Block", "Block", "Empty", "Empty", "Block", "Block", "Empty", "Empty"};
-  spikeFall[10] =new String[] {"Empty", "Empty", "Empty", "Empty", "Block", "Coin1", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty"};
-  spikeFall[11] =new String[] {"Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Block", "Empty", "Empty"};
+  spikeFall[0] = new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeFall[1] = new String[] {"BD", "PH", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeFall[2] = new String[] {"BD", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeFall[3] = new String[] {"  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeFall[4] = new String[] {"  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeFall[5] = new String[] {"  ", "BD", "  ", "BD", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeFall[6] = new String[] {"  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  "};
+  spikeFall[7] = new String[] {"  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  "};
+  spikeFall[8] = new String[] {"  ", "BD", "BD", "  ", "BD", "SD", "  ", "  ", "SD", "BD", "  ", "  ", "  ", "BD", "  ", "  "};
+  spikeFall[9] = new String[] {"  ", "  ", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "  ", "  "};
+  spikeFall[10] =new String[] {"  ", "  ", "  ", "  ", "BD", "PC", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "BD", "  ", "  "};
+  spikeFall[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  "};
 
   return spikeFall;
 }
@@ -131,17 +131,17 @@ String[][] floatingPath() {
   int exampleWidth = 10;
   String[][] floatingPath = new String[exampleHeight][exampleWidth];
   //                                       0        1         2       3        4        5        6        7        8       9
-  floatingPath[0] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"};
-  floatingPath[1] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Heart", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
-  floatingPath[2] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
-  floatingPath[3] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
-  floatingPath[4] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
-  floatingPath[5] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
-  floatingPath[6] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Block", "Empty", "Empty", "Empty", "Empty"};
-  floatingPath[7] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
-  floatingPath[8] = new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block"};
-  floatingPath[9] = new String[] {"Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block"};
-  floatingPath[10]= new String[] {"Empty", "Block", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Block"};
-  floatingPath[11]= new String[] {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Block", "Empty", "Empty", "Empty", "Empty"};
+  floatingPath[0] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  floatingPath[1] = new String[] {"  ", "  ", "  ", "  ", "  ", "PH", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  floatingPath[2] = new String[] {"  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  floatingPath[3] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "BD", "  ", "  ", "  ", "  "};
+  floatingPath[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  floatingPath[5] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  floatingPath[6] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "BD", "  ", "  ", "  ", "  "};
+  floatingPath[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  floatingPath[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
+  floatingPath[9] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
+  floatingPath[10]= new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
+  floatingPath[11]= new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
   return floatingPath;
 }

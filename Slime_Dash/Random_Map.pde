@@ -26,19 +26,19 @@ void makeMap() {
       float x = (GenerateDistance+templateX)*globalScale, 
         y = templateY*globalScale;
       //Places Blocks,Spikes etc.
-      if (mapTemplate[templateY][templateX] == "Block") {
+      if (mapTemplate[templateY][templateX] == "BD") {
         blocks.add(new Block(x, y));
       }
-      if (mapTemplate[templateY][templateX] == "Spike") {
+      if (mapTemplate[templateY][templateX] == "SD") {
         addspike(x,y);
       }
-      if (mapTemplate[templateY][templateX] == "Coin1") {
+      if (mapTemplate[templateY][templateX] == "PC") {
         addCoin(x,y);
       }
-      if (mapTemplate[templateY][templateX] == "Heart") {
+      if (mapTemplate[templateY][templateX] == "PH") {
         addHeart(x,y);
       }
-      if (mapTemplate[templateY][templateX] == "Enemy") {
+      if (mapTemplate[templateY][templateX] == "H1") {
         addHostile(x,y);
       }
     }
