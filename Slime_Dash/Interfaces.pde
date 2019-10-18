@@ -60,17 +60,22 @@ class HUD {
     if (healthMain >= 95) {
       healthR= 20-((float(20)*(100-healthMain)/5));
     } else {
-      healthR = 0;
+      healthR = 0; 
     }
-    /*wanneer enemy collision heeft met player dan damage*/
 
+    if (player.dmgCooldown >=0) {
+      healthC = color(150, 0, 0);
+     //werkt nog niet player.pColor = color(0,150,0);
+    } else healthC = color(255, 0, 0);
+    player.pColor = color(0,255,0);
+
+    /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true) {
       player.enemyDamage= false;
+      healthC = color(255);
       /*verander deze om enemy damage aan te passen*/
       healthMain = healthMain-20;
-      healthC = color(255);
-    } else healthC = color(255, 0, 0);
-
+    } 
 
     //dash bar
     dashL2 = constrain(-player.dashCooldown*50, 0, dashL);
