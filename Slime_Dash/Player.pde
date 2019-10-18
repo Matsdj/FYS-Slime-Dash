@@ -23,7 +23,7 @@ class Player {
   final float DASHSPEED = globalScale/1.6;
   final float MOVESPEED = globalScale/16;
   final float SPEEDMULT = globalScale/56;
-  final float SPEEDSLOWDOWN = globalScale/100;
+  final float SPEEDSLOWDOWN = globalScale/80;
   final float MAXMOVESPEED = globalScale/8;
   final float GRAVITY = globalScale/32;
 
