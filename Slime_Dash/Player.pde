@@ -8,11 +8,10 @@ Player player;
 class Player {
   float ground, size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, gravity, fade, 
     gravityReset, 
-    dashSpeed, 
-    pColor;
+    dashSpeed;
 
   int dashCooldown, dashTime, dmgCooldown, keyDirection, keyUp;
-
+  color pColor;
   boolean onGround, reset, dashActive, enemyDamage;
 
   //terugzet waardes van de dashCooldown en dashTime
@@ -24,7 +23,7 @@ class Player {
   final float DASHSPEED = globalScale/1.6;
   final float MOVESPEED = globalScale/16;
   final float SPEEDMULT = globalScale/56;
-  final float SPEEDSLOWDOWN = globalScale/68;
+  final float SPEEDSLOWDOWN = globalScale/100;
   final float MAXMOVESPEED = globalScale/8;
 
   Player() {
@@ -41,7 +40,7 @@ class Player {
     dashTime = DASH_TIME;
     dmgCooldown = 50;
     enemyDamage = false;
-    pColor = 255;
+    pColor = color(0, 255, 0);
     fade = constrain(255, 0, 255);
   }  
 
@@ -161,7 +160,7 @@ class Player {
   void draw() {
     stroke(0, 0, 0, fade);
     strokeWeight(2);
-    fill(0, pColor, 0, fade);
+    fill(pColor,fade);
     rect(x, y, size, size);
   }
 }
