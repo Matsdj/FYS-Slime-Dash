@@ -20,6 +20,7 @@ void templateSetup() {
   mapTemplateList.add(spikeFall());
   mapTemplateList.add(floatingPath());
   mapTemplateList.add(quickJump());
+  mapTemplateList.add(easywalk());
 }
 String[][] mapTemplateExample() {
   int exampleHeight = 12;
@@ -166,4 +167,24 @@ String[][] quickJump() {
   quickJump[10]= new String[] {"  ", "BD", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "BD"};
   quickJump[11]= new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
   return quickJump;
+}
+
+String[][] easywalk() {
+  int exampleHeight = 12;
+  int exampleWidth = 10;
+  String[][] easywalk = new String[exampleHeight][exampleWidth];
+  //                               0     1     2     3     4     5     6     7     8     9     10    11    12    13    14
+  easywalk[0] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  easywalk[1] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  easywalk[2] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  easywalk[3] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  easywalk[4] = new String[] {"  ", "  ", "PC", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  easywalk[5] = new String[] {"  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  easywalk[6] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  easywalk[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  "};
+  easywalk[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "BD", "  ", "  ", "  ", "  "};
+  easywalk[9] = new String[] {"  ", "  ", "  ", "  ", "BD", "BD", "  ", "  ", "  ", "BD", "BD", "BD", "  ", "  ", "  "};
+  easywalk[10]= new String[] {"  ", "  ", "  ", "BD", "BD", "BD", "SD", "SD", "SD", "BD", "BD", "BD", "BD", "  ", "  "};
+  easywalk[11]= new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
+  return easywalk;
 }
