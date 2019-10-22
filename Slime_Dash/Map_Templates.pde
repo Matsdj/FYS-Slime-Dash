@@ -19,6 +19,7 @@ void templateSetup() {
   mapTemplateList.add(spikeyTower());
   mapTemplateList.add(spikeFall());
   mapTemplateList.add(floatingPath());
+  mapTemplateList.add(quickJump());
 }
 String[][] mapTemplateExample() {
   int exampleHeight = 12;
@@ -143,6 +144,26 @@ String[][] floatingPath() {
   floatingPath[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
   floatingPath[9] = new String[] {"  ", "  ", "  ", "BD", "BD", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
   floatingPath[10]= new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
-  floatingPath[11]= new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  floatingPath[11]= new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD"};
   return floatingPath;
+}
+
+String[][] quickJump() {
+  int exampleHeight = 12;
+  int exampleWidth = 10;
+  String[][] quickJump = new String[exampleHeight][exampleWidth];
+  //                               0     1     2     3     4     5     6     7     8     9     10    11    12    13    14
+  quickJump[0] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  quickJump[1] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  quickJump[2] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  quickJump[3] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  quickJump[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  quickJump[5] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  quickJump[6] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  quickJump[7] = new String[] {"  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  "};
+  quickJump[8] = new String[] {"  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "BD", "  "};
+  quickJump[9] = new String[] {"  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "BD", "BD"};
+  quickJump[10]= new String[] {"  ", "BD", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "BD"};
+  quickJump[11]= new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
+  return quickJump;
 }
