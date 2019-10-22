@@ -1,7 +1,7 @@
 //Mats
 final color ICECOLOR = color(0,255,255);
 class Block {
-  float x, y, size;
+  float x, y, size, vx = 0;
   color c = color(150);
   boolean moving = false;
   void blockSetup(float ix, float iy, color ic, boolean iMoving) {
