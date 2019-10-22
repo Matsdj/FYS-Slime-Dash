@@ -48,9 +48,15 @@ class Player {
   }  
 
   void blockTypeDetection() {
-    if ((blockCollision(x, y + 1, size) != null) && (blockCollision(x, y + 1, size).c == ICECOLOR)) {
+    //ice blocks
+    if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).c == ICECOLOR) {
       slowDown = ICESLOWDOWN;
     } else slowDown = SPEEDSLOWDOWN;
+    
+    //moving blocks
+    if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).moving) {
+      x += blockCollision(x, y + 1, size).vx;
+    }
   }
   void update() {
     x -= globalScrollSpeed;
@@ -85,9 +91,6 @@ class Player {
     } else keyUp = 0;
 
     //vx = keyDirection * moveSpeed;
-
-    println(vx);
-
     if (!dashActive) {
       vy += GRAVITY;
     } else vy = 0;
