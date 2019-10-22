@@ -37,7 +37,7 @@ class Hostile {
     size = globalScale;
     x = enemyX;
     y = enemyY;
-    vx = 2;
+    vx = globalScale/30;
     dead = false;
   }
   void update() {

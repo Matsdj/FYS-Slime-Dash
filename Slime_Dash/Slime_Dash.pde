@@ -36,9 +36,9 @@ void updateGame() {
   println(time);
   globalScrollSpeed = globalScale/60+ time/100000*globalScale;
   if (player.x > 0 && player.vx > 0){
-  globalScrollSpeed += player.vx*(pow(player.x, 2)/pow(width, 2));
+  globalScrollSpeed += player.DASHSPEED*(pow(player.x, 4)/pow(width*1.3, 4));
   }
-  //globalScrollSpeed = 2*player.moveSpeed*(pow(player.x-width/2, 1)/pow(width/2, 1));
+  //globalScrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
   //Adds Terrain
   mapUpdate();
   //Terrain Update

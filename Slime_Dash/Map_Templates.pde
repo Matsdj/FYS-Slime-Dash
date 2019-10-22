@@ -4,6 +4,7 @@ Alle mogelijke strings
  "  " nothing
  "BD" ("B"lock "D"efault)
  "BI" ("B"lock "I"ce)
+ "BM" ("B"lock "M"oving)
  "SD" ("S"pike "D"efault)
  "PC" ("P"ickup "C"oin)
  "PH" ("P"ickup "H"ealth)
@@ -33,13 +34,13 @@ String[][] mapTemplateExample() {
   mapTemplateExample[3] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[5] = new String[] {"  ", "  ", "  ", "  ", "PH", "  ", "PC", "  ", "  ", "  "};
-  mapTemplateExample[6] = new String[] {"  ", "  ", "  ", "  ", "BI", "BI", "BI", "BI", "  ", "  "};
+  mapTemplateExample[6] = new String[] {"BD", "BM", "  ", "SD", "BI", "BI", "BI", "BI", "  ", "  "};
   mapTemplateExample[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[9] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
-  mapTemplateExample[10] =new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
+  mapTemplateExample[10] =new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
-  if (random(2) > 1) {
+  if (random(2) > 2) {
     mapTemplateExample[10][8] = "H1";
   }
   return mapTemplateExample;

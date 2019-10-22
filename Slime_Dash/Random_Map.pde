@@ -8,7 +8,7 @@ void mapSetup() {
 }
 //Looks if it has generated to the edge of the screen
 void mapUpdate() {
-  if (GenerateDistance < width/globalScale) {
+  if (GenerateDistance < width/globalScale*1.5) {
     makeMap();
   }
   GenerateDistance-=globalScrollSpeed/globalScale;
@@ -31,6 +31,9 @@ void makeMap() {
       }
       if (mapTemplate[templateY][templateX] == "BI") {
         blocks.add(new Block(x, y, ICECOLOR));
+      }
+      if (mapTemplate[templateY][templateX] == "BM") {
+        blocks.add(new Block(x, y, true));
       }
       if (mapTemplate[templateY][templateX] == "SD") {
         addspike(x,y);
