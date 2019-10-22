@@ -8,7 +8,8 @@ Player player;
 class Player {
   float ground, size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, gravity, fade, 
     gravityReset, 
-    dashSpeed;
+    dashSpeed, 
+    slowDown;
 
   int dashCooldown, dashTime, dmgCooldown, keyDirection, keyUp;
   color pColor;
@@ -24,6 +25,7 @@ class Player {
   final float MOVESPEED = globalScale/16;
   final float SPEEDMULT = globalScale/56;
   final float SPEEDSLOWDOWN = globalScale/80;
+  final float ICESLOWDOWN = globalScale/62;
   final float MAXMOVESPEED = globalScale/8;
   final float GRAVITY = globalScale/32;
 
@@ -34,6 +36,7 @@ class Player {
     hitboxRatio = 4;
     hitSize = size - size/hitboxRatio;
     moveSpeed = MOVESPEED;
+    slowDown = SPEEDSLOWDOWN;
     vx = 0;
     vy = 0;
     dashCooldown = DASH_COOLDOWN;
@@ -44,8 +47,15 @@ class Player {
     fade = constrain(255, 0, 255);
   }  
 
+  void blockTypeDetection() {
+    if ((blockCollision(x, y + 1, size) != null) && (blockCollision(x, y + 1, size).c == ICECOLOR)) {
+      slowDown = ICESLOWDOWN;
+    } else slowDown = SPEEDSLOWDOWN;
+  }
   void update() {
     x -= globalScrollSpeed;
+
+    blockTypeDetection();
 
     //checkt input of player links of rechts gaat.
     if (inputs.hasValue(LEFT) == true) {
@@ -58,7 +68,7 @@ class Player {
       vx += moveSpeed;
     } else { 
       keyDirection = 0;
-      vx *= SPEEDSLOWDOWN;
+      vx *= slowDown;
       moveSpeed = MOVESPEED;
     }
 
@@ -160,7 +170,7 @@ class Player {
   void draw() {
     stroke(0, 0, 0, fade);
     strokeWeight(2);
-    fill(pColor,fade);
+    fill(pColor, fade);
     rect(x, y, size, size);
   }
 }
