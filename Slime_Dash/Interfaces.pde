@@ -65,10 +65,10 @@ class HUD {
 
     if (player.dmgCooldown >=0) {
       healthC = color(150, 0, 0);
-     //werkt nog niet player.pColor = color(0,150,0);
-    } else healthC = color(255, 0, 0);
+     player.pColor = color(0,150,0);
+    } else {healthC = color(255, 0, 0);
     player.pColor = color(0,255,0);
-
+    }
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true) {
       player.enemyDamage= false;

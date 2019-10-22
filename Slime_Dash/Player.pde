@@ -39,9 +39,9 @@ class Player {
     slowDown = SPEEDSLOWDOWN;
     vx = 0;
     vy = 0;
-    dashCooldown = DASH_COOLDOWN;
+    dashCooldown = 0;
     dashTime = DASH_TIME;
-    dmgCooldown = 50;
+    dmgCooldown = 0;
     enemyDamage = false;
     pColor = color(0, 255, 0);
     fade = constrain(255, 0, 255);
