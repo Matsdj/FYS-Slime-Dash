@@ -38,6 +38,7 @@ void updateGame() {
   if (player.x > 0 && player.vx > 0){
   globalScrollSpeed += player.DASHSPEED*(pow(player.x, 4)/pow(width*1.3, 4));
   }
+  //tutorial mode
   //globalScrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
   //Adds Terrain
   mapUpdate();

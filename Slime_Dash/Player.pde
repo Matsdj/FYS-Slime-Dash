@@ -52,11 +52,17 @@ class Player {
     if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).c == ICECOLOR) {
       slowDown = ICESLOWDOWN;
     } else slowDown = SPEEDSLOWDOWN;
-    
+
     //moving blocks
     if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).moving) {
       x += blockCollision(x, y + 1, size).vx;
     }
+  }
+
+  boolean pushingBlockFix() {
+    if ((blockCollision(x+1, y, size) != null && blockCollision(x+1, y, size).moving && blockCollision(x-1, y, size) != null) || (blockCollision(x-1, y, size) != null && blockCollision(x-1, y, size).moving && blockCollision(x+1, y, size) != null)) {
+      return true;
+    } else return false;
   }
   void update() {
     x -= globalScrollSpeed;
@@ -126,6 +132,7 @@ class Player {
       }
       vx = 0;
     }
+
     x+= vx;
 
     //Vertical collision
@@ -135,7 +142,10 @@ class Player {
       }
       vy = 0;
     }
-
+    if(pushingBlockFix()){
+      y += globalScale/2;
+      println("oof");
+    }
     if (!dashActive) {
       y += vy;
     }
@@ -183,7 +193,6 @@ int sign(float v) {
   int vel = 0; 
   if (v < 0) vel = -1;
   else if (v > 0) vel = 1;
-  else vel = 0;
 
   return vel;
 }
