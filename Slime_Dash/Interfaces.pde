@@ -183,7 +183,7 @@ class Pause {
       room = "game";
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game" && inputs.hasValue(80)) {
+    else if (room == "game" && inputs.hasValue(80) && interfaces.death != true) {
       room = "pause";
     } else if (room == "pause" && inputs.hasValue(81)) {
       setup();
