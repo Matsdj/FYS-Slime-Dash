@@ -38,7 +38,7 @@ String[][] mapTemplateExample() {
   mapTemplateExample[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[9] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
-  mapTemplateExample[10] =new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  mapTemplateExample[10] =new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
   mapTemplateExample[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
   if (random(2) > 2) {
     mapTemplateExample[10][8] = "H1";
