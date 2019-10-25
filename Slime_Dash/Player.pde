@@ -60,7 +60,7 @@ class Player {
   }
 
   boolean pushingBlockFix() {
-    if ((blockCollision(x+1, y, size) != null && blockCollision(x+1, y, size).moving && blockCollision(x-1, y, size) != null) || (blockCollision(x-1, y, size) != null && blockCollision(x-1, y, size).moving && blockCollision(x+1, y, size) != null)) {
+    if (blockCollision(x, y, size) != null && (y+size) > blockCollision(x, y, size).y) {
       return true;
     } else return false;
   }
@@ -142,12 +142,14 @@ class Player {
       }
       vy = 0;
     }
-    if(pushingBlockFix()){
-      y += globalScale/2;
-      println("oof");
-    }
+
     if (!dashActive) {
       y += vy;
+    }
+    
+    //Als moving block player in muur duwt, wordt de player terug geduwt omhoog
+    if (pushingBlockFix()) {
+      y -= GRAVITY;
     }
 
     //zorgt er voor dat je dood gaat als je uit de map valt
