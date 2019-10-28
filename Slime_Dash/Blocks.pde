@@ -1,8 +1,9 @@
 //Mats
 final color ICECOLOR = color(0, 255, 255);
+final color BLOCKCOLOR = color(150);
 class Block {
   float x, y, size, speed = globalScale/30, vx = 0, id = -1;
-  color c = color(150);
+  color c = BLOCKCOLOR;
   boolean moving = false;
   void blockSetup(float ix, float iy, color ic, boolean iMoving) {
     x = ix;
@@ -72,12 +73,13 @@ void blockUpdate() {
     Block block = blocks.get(n);
     block.id = n;
     block.update();
+    //Removes the block when it is 4 blocks outside the screen
     if (block.x < -globalScale*4-block.size) {
       blocks.remove(n);
       n--;
     }
   }
-  //loopt door de lijst en beweegt elke block
+  //loopt door de lijst en beweegt elke moving block
   for (int n = 0; n<blocks.size(); n++) {
     blocks.get(n).moving();
   }
