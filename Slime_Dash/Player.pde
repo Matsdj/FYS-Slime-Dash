@@ -143,6 +143,9 @@ class Player {
       }
       vy = 0;
     }
+    while (y <= -size+1){
+      y++;
+    }
 
     if (!dashActive) {
       y += vy;
