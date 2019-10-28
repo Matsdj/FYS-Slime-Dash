@@ -11,9 +11,9 @@ class Player {
     dashSpeed, 
     slowDown;
 
-  int dashCooldown, dashTime, dmgCooldown, keyDirection, keyUp;
+  int dashCooldown, dashTime, dmgCooldown, keyUp;
   color pColor;
-  boolean onGround, reset, dashActive, enemyDamage;
+  boolean moving, dashActive, enemyDamage;
 
   //terugzet waardes van de dashCooldown en dashTime
   final int DASH_COOLDOWN = 40;
@@ -58,7 +58,8 @@ class Player {
       x += blockCollision(x, y + 1, size).vx;
     }
   }
-
+  
+  //Boolean die detect of de player in een block geduwt is
   boolean pushingBlockFix() {
     if (blockCollision(x, y, size) != null && (y+size) > blockCollision(x, y, size).y) {
       return true;
@@ -71,15 +72,15 @@ class Player {
 
     //checkt input of player links of rechts gaat.
     if (inputs.hasValue(LEFT) == true) {
-      keyDirection = -1;
+      moving = true;
       moveSpeed *= SPEEDMULT;
       vx -= moveSpeed;
     } else if (inputs.hasValue(RIGHT) == true) {
-      keyDirection = 1;
+      moving = true;
       moveSpeed *= SPEEDMULT;
       vx += moveSpeed;
     } else { 
-      keyDirection = 0;
+      moving = false;
       vx *= slowDown;
       moveSpeed = MOVESPEED;
     }
@@ -109,7 +110,7 @@ class Player {
     //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
     dashCooldown --;
     dmgCooldown--;
-    if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && keyDirection != 0) {
+    if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && moving) {
       if (inputs.hasValue(LEFT) == true) {
         vx = -DASHSPEED;
       }
