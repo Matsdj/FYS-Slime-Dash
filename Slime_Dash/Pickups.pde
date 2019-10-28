@@ -61,6 +61,7 @@ PHealth[] HealthList;
 class PCoin {
   int gainScore = 100;
   float x, y, size;
+  float collisionCorrector = 0.5;
   boolean pickedUp;
   color c = color(255, 255, 0);
   PCoin(float cx, float cy) {
@@ -72,13 +73,13 @@ class PCoin {
   // collision check of de player de coin aanraakt 
   void update() {
     x -= globalScrollSpeed;
-    if (player.Collision(x - (0.5 * globalScale), y - (0.5 * globalScale), size)) {
+    if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
       pickedUp = true;
     }
     // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden    
     if (pickedUp == true) {
       interfaces.score += gainScore;
-      x = -100;
+      x = -globalScale * 2;
       pickedUp = false;
     }
   }
@@ -91,7 +92,8 @@ class PCoin {
 
 class PHealth {
   int gainHealth = 20;
-  float x, y, size;
+  float x, y, size, crossWidth = globalScale / 5, crossHeight = crossWidth * 4;
+  float collisionCorrector = 0.5;
   boolean pickedUp;
   color c = color(255, 0, 0);
   PHealth(float hx, float hy) {
@@ -102,12 +104,12 @@ class PHealth {
   }
   void update() {
     x -= globalScrollSpeed;
-    if (player.Collision(x - (0.5 * globalScale), y - (0.5 * globalScale), size)) {
+    if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
       pickedUp = true;
     }
     if (pickedUp == true) {
       interfaces.healthMain += gainHealth;
-      x = -100;
+      x = -globalScale * 2;
       pickedUp = false;
     }
   }
@@ -117,8 +119,8 @@ class PHealth {
     ellipse(x, y, size, size);
     stroke(255);
     fill(255);
-    rect(x, y, 10, 40);
-    rect(x, y, 40, 10);
+    rect(x, y, crossWidth, crossHeight);
+    rect(x, y, crossHeight, crossWidth);
     rectMode(CORNER);
   }
 }
