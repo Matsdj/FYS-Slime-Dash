@@ -45,7 +45,7 @@ class HUD {
     //game over
     gOver = "";
     gOverX = width/2;
-    gOverY = height/2;
+    gOverY = height/2.3;
     gOSize = width*0.04;
     goFadeIn = 0;
   }
@@ -60,14 +60,15 @@ class HUD {
     if (healthMain >= 95) {
       healthR= 20-((float(20)*(100-healthMain)/5));
     } else {
-      healthR = 0; 
+      healthR = 0;
     }
 
     if (player.dmgCooldown >=0) {
       healthC = color(150, 0, 0);
-     player.pColor = color(0,150,0);
-    } else {healthC = color(255, 0, 0);
-    player.pColor = color(0,255,0);
+      player.pColor = color(0, 150, 0);
+    } else {
+      healthC = color(255, 0, 0);
+      player.pColor = color(0, 255, 0);
     }
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true) {
@@ -101,6 +102,10 @@ class HUD {
       death = false;
       setup();
       room = "game";
+    }
+    //fade out on death
+    if (death == true) {
+      player.fade -= 3;
     }
   }
   void draw() {
@@ -155,11 +160,10 @@ class HUD {
     textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX, gOverY);
     text("score =" + floor(score), gOverX, gOverY+100);
-
-    //fade out on death
-    if (death == true) {
-      player.fade -= 3;
-    }
+    textAlign(CENTER);
+    textSize(constrain(goFadeIn, 1, gOSize));
+    text(gOver, gOverX, gOverY);
+    text("press SPACEBAR to restart", gOverX, gOverY+300);
   }
 }
 
@@ -287,9 +291,9 @@ class MainM {
     triangle(ax1, ay1, ax2, ay2, ax3, ay3);
     fill(c1);
     text("Play", tx, ty);
-    fill(c2);
-    text("Settings", tx, ty*1.5);
+    //  fill(c2);
+    //   text("Settings", tx, ty*1.5);
     fill(c3);
-    text("press SPACEBAR to Play", tx, ty*2);
+    text("press SPACEBAR to select", tx, ty*2);
   }
 }

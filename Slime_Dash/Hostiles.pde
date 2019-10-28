@@ -2,6 +2,8 @@
 Hostile[] hostile;
 int hostileSize = 50;
 
+final float ENEMYSCORE = 200;
+
 void hostileSetup() {
   hostile = new Hostile[hostileSize];
 }
@@ -61,7 +63,7 @@ class Hostile {
     } 
     if (dead) {
       x = -globalScale*2;
-      interfaces.score +=200;
+      interfaces.score += ENEMYSCORE;
     }
   }
 
