@@ -22,6 +22,7 @@ void templateSetup() {
   mapTemplateList.add(floatingPath());
   mapTemplateList.add(quickJump());
   mapTemplateList.add(easywalk());
+  mapTemplateList.add(iceBoost());
 }
 String[][] mapTemplateExample() {
   int exampleHeight = 12;
@@ -34,11 +35,11 @@ String[][] mapTemplateExample() {
   mapTemplateExample[3] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[5] = new String[] {"  ", "  ", "  ", "  ", "PH", "  ", "PC", "  ", "  ", "  "};
-  mapTemplateExample[6] = new String[] {"BD", "BM", "  ", "SD", "BI", "BI", "BI", "BI", "  ", "  "};
+  mapTemplateExample[6] = new String[] {"BD", "BM", "  ", "  ", "BI", "BI", "BI", "BI", "  ", "  "};
   mapTemplateExample[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   mapTemplateExample[9] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
-  mapTemplateExample[10] =new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
+  mapTemplateExample[10] =new String[] {"  ", "  ", "SD", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
   mapTemplateExample[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
   if (random(2) > 2) {
     mapTemplateExample[10][8] = "H1";
@@ -162,8 +163,8 @@ String[][] quickJump() {
   quickJump[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   quickJump[5] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   quickJump[6] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
-  quickJump[7] = new String[] {"  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  "};
-  quickJump[8] = new String[] {"  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "BD", "  "};
+  quickJump[7] = new String[] {"  ", "  ", "  ", "  ", "BI", "  ", "  ", "  ", "BI", "  ", "  ", "  ", "BD", "  ", "  "};
+  quickJump[8] = new String[] {"  ", "BI", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "BD", "  "};
   quickJump[9] = new String[] {"  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "BD", "BD"};
   quickJump[10]= new String[] {"  ", "BD", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "BD"};
   quickJump[11]= new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
@@ -188,4 +189,24 @@ String[][] easywalk() {
   easywalk[10]= new String[] {"  ", "  ", "  ", "BD", "BD", "BD", "SD", "SD", "SD", "BD", "BD", "BD", "BD", "  ", "  "};
   easywalk[11]= new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
   return easywalk;
+}
+
+String[][] iceBoost() {
+  int exampleHeight = 12;
+  int exampleWidth = 10;
+  String[][] iceBoost = new String[exampleHeight][exampleWidth];
+  //                               0     1     2     3     4     5     6     7     8     9     10    11    12    13    14
+  iceBoost[0] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[1] = new String[] {"  ", "BD", "  ", "  ", "  ", "SD", "  ", "  ", "  ", "PC", "PC", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[2] = new String[] {"  ", "BD", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[3] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "BD", "PH", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[4] = new String[] {"  ", "BD", "BM", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  "};
+  iceBoost[5] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[6] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[9] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[10]= new String[] {"  ", "  ", "  ", "  ", "BI", "BI", "BI", "  ", "  ", "  ", "BI", "BI", "BI", "  ", "  ", "  "};
+  iceBoost[11]= new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD"};
+  return iceBoost;
 }
