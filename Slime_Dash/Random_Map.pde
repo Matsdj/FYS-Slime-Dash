@@ -5,20 +5,24 @@ ArrayList<String[][]> mapTemplateList = new ArrayList<String[][]>();
 //Setup allows for reset
 void mapSetup() {
   GenerateDistance = 0;
+  makeMap(false);
 }
 //Looks if it has generated to the edge of the screen
 void mapUpdate() {
   if (GenerateDistance < width/globalScale*1.5) {
-    makeMap();
+    makeMap(true);
   }
   GenerateDistance-=globalScrollSpeed/globalScale;
 }
 //Adds a new template behind the last generated one
-void makeMap() {
+void makeMap(boolean random) {
   //Adds Template to list
   templateSetup();
+  String[][] mapTemplate = mapTemplateList.get(0);
+  if (random == true){
   //Grabs random Template
-  String[][] mapTemplate = mapTemplateList.get(floor(random(mapTemplateList.size())));
+  mapTemplate = mapTemplateList.get(floor(random(mapTemplateList.size())));
+  }
   //Loops through list and places blocks at the correct place
   for (int templateY = 0; templateY < mapTemplate.length; templateY++) {
     for (int templateX = 0; templateX < mapTemplate[templateY].length; templateX++) {
