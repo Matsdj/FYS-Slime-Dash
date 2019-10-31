@@ -1,5 +1,9 @@
 /*ig101-5
- Chris, Collin, Ivano, Mats, Laurens
+ Chris - 500828243,
+ Collin - ,
+ Ivano - ,
+ Mats - ,
+ Laurens - 500821318
  */
 
 //remember, ctrl+t
