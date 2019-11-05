@@ -61,24 +61,25 @@ class Player {
   } 
 
   //player sprite animatie word hier bepaalt
+  //origineel 46 breedt, 34 hoog, geplaats in 32*32 ratio
   void playerAnimation() {
     if (moving && inputs.hasValue(LEFT) == true) {
       moveLeft = true;
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[frameCounter], -x-playerSprite[0].width, y);
+      image(playerSprite[frameCounter], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
       popMatrix();
     } else if (moving && inputs.hasValue(RIGHT) == true) {
       moveLeft = false;
-      image(playerSprite[frameCounter], x, y);
+      image(playerSprite[frameCounter], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
     }
     if (moveLeft && !moving) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[0], -x-playerSprite[0].width, y);
+      image(playerSprite[0], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
       popMatrix();
     } else if (!moveLeft && !moving) {
-      image(playerSprite[0], x, y);
+      image(playerSprite[0], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
     }
   }
 
