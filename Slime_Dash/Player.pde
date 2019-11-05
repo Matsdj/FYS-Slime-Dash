@@ -1,7 +1,13 @@
 //Chris (met een beetje hulp van mats)
-
+PImage[] playerSprite;
+int playerFrameAmount = 4;
 void playerSetup() {
   player = new Player();
+  playerSprite = new PImage[playerFrameAmount];
+
+  for (int iSprite = 0; iSprite < playerFrameAmount; iSprite++) {
+    playerSprite[iSprite] = loadImage("sprites/player/player"+ iSprite +".png");
+  }
 }
 
 Player player;
@@ -9,16 +15,19 @@ class Player {
   float ground, size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, gravity, fade, 
     gravityReset, 
     dashSpeed, 
-    slowDown;
+    slowDown, 
+    spriteWidth, 
+    spriteHeight;
 
-  int dashCooldown, dashTime, dmgCooldown, keyUp;
+  int dashCooldown, dashTime, dmgCooldown, keyUp, frameCounter;
   color pColor;
-  boolean moving, dashActive, enemyDamage;
+  boolean moving, dashActive, enemyDamage, moveLeft;
 
   //terugzet waardes van de dashCooldown en dashTime
   final int DASH_COOLDOWN = 40;
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
+  final int PLAYER_SPRITE_SPEED = 10;
 
   final float JUMPSPEED = globalScale/2.2;
   final float DASHSPEED = globalScale/1.6;
@@ -31,6 +40,8 @@ class Player {
 
   Player() {
     size = globalScale-1;
+    spriteWidth = globalScale + globalScale/(32/14);
+    spriteHeight = globalScale + globalScale/16;
     x = globalScale * 4;
     y = globalScale * 2;
     hitboxRatio = 4;
@@ -45,7 +56,31 @@ class Player {
     enemyDamage = false;
     pColor = color(0, 255, 0);
     fade = constrain(255, 0, 255);
-  }  
+    moveLeft = false;
+    frameCounter = 0;
+  } 
+
+  //player sprite animatie word hier bepaalt
+  void playerAnimation() {
+    if (moving && inputs.hasValue(LEFT) == true) {
+      moveLeft = true;
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(playerSprite[frameCounter], -x-playerSprite[0].width, y);
+      popMatrix();
+    } else if (moving && inputs.hasValue(RIGHT) == true) {
+      moveLeft = false;
+      image(playerSprite[frameCounter], x, y);
+    }
+    if (moveLeft && !moving) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(playerSprite[0], -x-playerSprite[0].width, y);
+      popMatrix();
+    } else if (!moveLeft && !moving) {
+      image(playerSprite[0], x, y);
+    }
+  }
 
   void blockTypeDetection() {
     //ice blocks
@@ -58,7 +93,7 @@ class Player {
       x += blockCollision(x, y + 1, size).vx;
     }
   }
-  
+
   //Boolean die detect of de player in een block geduwt is
   boolean pushingBlockFix() {
     if (blockCollision(x, y, size) != null && (y+size) > blockCollision(x, y, size).y) {
@@ -143,14 +178,14 @@ class Player {
       }
       vy = 0;
     }
-    while (y <= -size+1){
+    while (y <= -size+1) {
       y++;
     }
 
     if (!dashActive) {
       y += vy;
     }
-    
+
     //Als moving block player in muur duwt, wordt de player terug geduwt omhoog
     if (pushingBlockFix()) {
       y -= GRAVITY;
@@ -165,6 +200,14 @@ class Player {
     //gaat dood als player achter linker wand gaat
     if (x + size < 0) {
       interfaces.death = true;
+    }
+
+    //player animatie updates
+    if (frameCount % PLAYER_SPRITE_SPEED == 0) {
+      frameCounter++;
+    }
+    if (frameCounter == playerFrameAmount) {
+      frameCounter = 0;
     }
 
     //hitbox gaat met player mee
@@ -191,6 +234,7 @@ class Player {
     strokeWeight(2);
     fill(pColor, fade);
     rect(x, y, size, size);
+    playerAnimation();
   }
 }
 
