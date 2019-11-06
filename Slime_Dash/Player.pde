@@ -1,6 +1,6 @@
 //Chris (met een beetje hulp van mats)
 PImage[] playerSprite;
-int playerFrameAmount = 4;
+int playerFrameAmount = 7;
 void playerSetup() {
   player = new Player();
   playerSprite = new PImage[playerFrameAmount];
@@ -28,6 +28,7 @@ class Player {
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int PLAYER_SPRITE_SPEED = 10;
+  final int PLAYER_WALK_SPRITE_AMOUNT = 4;
 
   final float JUMPSPEED = globalScale/2.2;
   final float DASHSPEED = globalScale/1.6;
@@ -63,17 +64,45 @@ class Player {
   //player sprite animatie word hier bepaalt
   //origineel 46 breedt, 34 hoog, geplaats in 32*32 ratio
   void playerAnimation() {
-    if (moving && inputs.hasValue(LEFT) == true) {
-      moveLeft = true;
+    //dash sprite, heeft ratio 47*34
+    if (dashActive && moveLeft) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(playerSprite[5], -x-spriteWidth, y, globalScale/32*47, spriteHeight);
+      popMatrix();
+    } else if (dashActive && !moveLeft) {
+      image(playerSprite[5], x-globalScale/32*15, y, globalScale/32*47, spriteHeight);
+    }
+    //jump sprite, heeft ratio 46*38
+    else if (vy != 0 && moveLeft) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(playerSprite[4], -x-spriteWidth, y, spriteWidth, globalScale/32*38);
+      popMatrix();
+    } else if (vy != 0 && !moveLeft) {
+      image(playerSprite[4], x-(spriteWidth/46*12), y, spriteWidth, globalScale/32*38);
+    }
+    //death sprite
+    else if (interfaces.death && moveLeft) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(playerSprite[6], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      popMatrix();
+    } else if (interfaces.death && !moveLeft) {
+      image(playerSprite[6], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+    }
+    //walking animations
+    else if (moving && inputs.hasValue(LEFT) == true) {
       pushMatrix();
       scale(-1.0, 1.0);
       image(playerSprite[frameCounter], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
       popMatrix();
     } else if (moving && inputs.hasValue(RIGHT) == true) {
-      moveLeft = false;
       image(playerSprite[frameCounter], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
-    }
-    if (moveLeft && !moving) {
+    } 
+
+    //stand still animations
+    else if (moveLeft && !moving) {
       pushMatrix();
       scale(-1.0, 1.0);
       image(playerSprite[0], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
@@ -108,10 +137,12 @@ class Player {
 
     //checkt input of player links of rechts gaat.
     if (inputs.hasValue(LEFT) == true) {
+      moveLeft = true;
       moving = true;
       moveSpeed *= SPEEDMULT;
       vx -= moveSpeed;
     } else if (inputs.hasValue(RIGHT) == true) {
+      moveLeft = false;
       moving = true;
       moveSpeed *= SPEEDMULT;
       vx += moveSpeed;
@@ -207,7 +238,7 @@ class Player {
     if (frameCount % PLAYER_SPRITE_SPEED == 0) {
       frameCounter++;
     }
-    if (frameCounter == playerFrameAmount) {
+    if (frameCounter == PLAYER_WALK_SPRITE_AMOUNT) {
       frameCounter = 0;
     }
 
