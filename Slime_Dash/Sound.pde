@@ -15,7 +15,7 @@ class StartMuziek {
 
   StartMuziek(PApplet boop) {
     minim = new Minim(boop);
-    Rec = minim.loadFile("main menu.mp3");
+    Rec = minim.loadFile("sounds/main menu.mp3");
   }
 
   void draw() {
