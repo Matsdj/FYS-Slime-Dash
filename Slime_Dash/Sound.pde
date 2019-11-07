@@ -1,31 +1,27 @@
-/*import processing.sound.*;
 
+import ddf.minim.*;
+Minim minim;
+AudioPlayer Rec;
 
-
-
-
-SoundFile file;
-
-void SoundSetup() {
-  sound = new MainMusic();
+void soundSetup() {
+  sound = new StartMuziek(this);
 }
-MainMusic sound;
-class MainMusic { 
-  SoundFile mainMusic;
+
+StartMuziek sound;
+class StartMuziek { 
 
 
-  MainMusic() {
 
-    file.play();
- 
-  }
 
-  MainMusic(PApplet mainm) {
-    file = new SoundFile(mainm, "main menu.mp3");
+  StartMuziek(PApplet boop) {
+    minim = new Minim(boop);
+    Rec = minim.loadFile("main menu.mp3");
   }
 
   void draw() {
-
+    if (room == "mainM") {
+      Rec.play();
+    } else 
+    Rec.pause();
   }
 }
-*/

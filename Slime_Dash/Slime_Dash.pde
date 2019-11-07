@@ -29,7 +29,7 @@ void setup() {
   pauseSetup();
   pickupsSetup();
   mapSetup();
-  //SoundSetup();
+  soundSetup();
 }
 //GAME
 void updateGame() {
@@ -67,7 +67,6 @@ void drawGame() {
   hostileDraw();
   pickupDraw();
   interfaces.draw();
-
 }
 
 void draw() {
@@ -78,9 +77,12 @@ void draw() {
     pause.update();
     updateGame();
     drawGame();
+    sound.draw();
   } else if (room == "mainM") {
     main.update();
     main.draw();
+    //Rec.play();
+    sound.draw();
   }
   if (inputs.hasValue(128) == true) {
     fill(255, 0, 0);
