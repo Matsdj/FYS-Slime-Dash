@@ -9,13 +9,14 @@ void soundSetup() {
 
 StartMuziek sound;
 class StartMuziek { 
-
+float volume = -5;
 
 
 
   StartMuziek(PApplet boop) {
     minim = new Minim(boop);
     Rec = minim.loadFile("sounds/main menu.mp3");
+Rec.setGain(volume);
   }
 
   void draw() {
