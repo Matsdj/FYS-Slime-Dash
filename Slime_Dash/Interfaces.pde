@@ -211,6 +211,8 @@ class Pause {
     text("main menu = q", width/2, height*0.82);
   }
 }
+
+//main Menu///////////////////////
 void mainMSetup() {
   main = new MainM();
 }

@@ -29,6 +29,7 @@ void setup() {
   pauseSetup();
   pickupsSetup();
   mapSetup();
+  //SoundSetup();
 }
 //GAME
 void updateGame() {
@@ -39,8 +40,8 @@ void updateGame() {
   time += 1 ;
   println(time);
   globalScrollSpeed = globalScale/60+ time/100000*globalScale;
-  if (player.x > 0){
-  globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
+  if (player.x > 0) {
+    globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
   }
   //tutorial mode
   //globalScrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
@@ -66,6 +67,7 @@ void drawGame() {
   hostileDraw();
   pickupDraw();
   interfaces.draw();
+
 }
 
 void draw() {
