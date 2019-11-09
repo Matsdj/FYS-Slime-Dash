@@ -1,6 +1,6 @@
 //Chris (met een beetje hulp van mats)
 PImage[] playerSprite;
-int playerFrameAmount = 7;
+int playerFrameAmount = 10;
 void playerSetup() {
   player = new Player();
   playerSprite = new PImage[playerFrameAmount];
@@ -19,7 +19,7 @@ class Player {
     spriteWidth, 
     spriteHeight;
 
-  int dashCooldown, dashTime, dmgCooldown, keyUp, frameCounter;
+  int dashCooldown, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate;
   color pColor;
   boolean moving, dashActive, enemyDamage, moveLeft;
 
@@ -27,8 +27,8 @@ class Player {
   final int DASH_COOLDOWN = 40;
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
-  final int PLAYER_SPRITE_SPEED = 10;
-  final int PLAYER_WALK_SPRITE_AMOUNT = 4;
+  final int ANIMATION_FRAMERATE = 10;
+  final int PLAYER_FRAME_AMOUNT = 4;
 
   final float JUMPSPEED = globalScale/2.2;
   final float DASHSPEED = globalScale/1.6;
@@ -58,7 +58,9 @@ class Player {
     pColor = color(0, 255, 0);
     fade = constrain(255, 0, 255);
     moveLeft = false;
-    frameCounter = 0;
+    walkFrameCounter = 0;
+    deathFrameCounter = 0;
+    deathFramerate = 0;
   } 
 
   //player sprite animatie word hier bepaalt
@@ -86,19 +88,19 @@ class Player {
     else if (interfaces.death && moveLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[6], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[6+deathFrameCounter], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
       popMatrix();
     } else if (interfaces.death && !moveLeft) {
-      image(playerSprite[6], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[6+deathFrameCounter], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
     }
     //walking animations
     else if (moving && inputs.hasValue(LEFT) == true) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[frameCounter], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[walkFrameCounter], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
       popMatrix();
     } else if (moving && inputs.hasValue(RIGHT) == true) {
-      image(playerSprite[frameCounter], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[walkFrameCounter], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
     } 
 
     //stand still animations
@@ -235,11 +237,17 @@ class Player {
     }
 
     //player animatie updates
-    if (frameCount % PLAYER_SPRITE_SPEED == 0) {
-      frameCounter++;
+    if (frameCount % ANIMATION_FRAMERATE == 0) {
+      walkFrameCounter++;
     }
-    if (frameCounter == PLAYER_WALK_SPRITE_AMOUNT) {
-      frameCounter = 0;
+    if (walkFrameCounter == PLAYER_FRAME_AMOUNT) {
+      walkFrameCounter = 0;
+    }
+    if (interfaces.death) {
+      deathFramerate++;
+        if (deathFramerate % ANIMATION_FRAMERATE==0 && deathFrameCounter != PLAYER_FRAME_AMOUNT-1) {
+        deathFrameCounter++;
+      }
     }
 
     //hitbox gaat met player mee

@@ -42,6 +42,10 @@ class Hostile {
     vx = globalScale/30;
     dead = false;
   }
+
+  void enemyAnimation() {
+    
+  }
   void update() {
     x -= globalScrollSpeed;
     if (blockCollision(x+vx, y, size) != null) {
@@ -73,6 +77,5 @@ class Hostile {
     strokeWeight(2);
     fill(255, 0, 0);
     rect(x, y, size, size);
-
-}
+  }
 }
