@@ -219,10 +219,9 @@ void mainMSetup() {
 MainM main;
 
 class MainM {
-  float bx, by, sizeW, sizeH, tx, ty, tSize, sdColor, ay1, ay2, ay3, ax1, ax2, ax3;
-  color c1, c2, c3;
+  float bx, by, sizeW, sizeH, tx, ty, tSize, sdColor;
   boolean hover, blinkC;
-  int blink;
+  int blink, c1, c2, c3;
   //PFont font;
 
 
@@ -237,18 +236,12 @@ class MainM {
     tSize = 50;
     tx = width/4;
     ty = height/3;
-    ax1 = tx-30;
-    ay1 = ty-15;
-    ax2 = ax1;
-    ay2 = ty+25;
-    ax3 = tx-15;
-    ay3 = ty+5;
     sdColor = 255;
     blink = 255;
     blinkC = false;
-    c1 = color(255);
-    c2 = color(255);
-    c3 =color(255);
+    c1 = 255;
+    c2 = 255;
+    c3 = 255;
   }
   void update() {
     if (room == "mainM" && inputs.hasValue(32)==true) {
@@ -267,7 +260,13 @@ class MainM {
     if (blinkC == true) {
       blink +=5;
     }
-    if (ay1 ==ty-15) {
+    c1 = blink;
+    if (c1 == blink&&keyCode==40) {
+      c1 = 255;
+      c2 = blink;
+    }
+    if (c2 == blink&&keyCode==38) {
+      c2 = 255;
       c1 = blink;
     }
   }
@@ -289,12 +288,10 @@ class MainM {
     fill(0, sdColor, 0);
     text("Slime Dash", width/4, height/6);
     textSize(tSize);
-    fill(255);
-    triangle(ax1, ay1, ax2, ay2, ax3, ay3);
     fill(c1);
     text("Play", tx, ty);
-    //  fill(c2);
-    //   text("Settings", tx, ty*1.5);
+    fill(c2);
+    text("Settings", tx, ty*1.5);
     fill(c3);
     text("press SPACEBAR to select", tx, ty*2);
   }
