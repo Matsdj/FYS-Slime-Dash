@@ -77,9 +77,6 @@ class MainM {
     c3 = 255;
   }
   void update() {
-    if (room == "mainM" && inputs.hasValue(32)==true) {
-      room = "game";
-    }
     //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
     if (blink >=255) {
       blinkC = false;
@@ -101,6 +98,16 @@ class MainM {
     if (c2 == blink&&keyCode==38) {
       c2 = 255;
       c1 = blink;
+    }
+
+    if (c2 == blink&&keyCode==32) {
+      room = "pause";
+    }
+    if (c1 == blink&&room == "mainM" && keyCode ==32) {
+      room = "game";
+    }
+    if (c2 == blink&&room == "mainM" && keyCode ==32) {
+      room = "settings";
     }
   }
   void draw() {
@@ -127,5 +134,25 @@ class MainM {
     text("Settings", tx, ty*1.5);
     fill(c3);
     text("press SPACEBAR to select", tx, ty*2);
+  }
+}
+
+void settingSetup() {
+  setting = new Settings();
+}
+Settings setting;
+
+class Settings {
+
+
+  Settings() {
+  }
+  void update() {
+  }
+  void draw() {
+    fill(0, 3);
+    rect(0, 0, width, height);
+    fill(255);
+    ellipse(random(width), random(height), 3, 3);
   }
 }
