@@ -100,9 +100,7 @@ class MainM {
       c1 = blink;
     }
 
-    if (c2 == blink&&keyCode==32) {
-      room = "pause";
-    }
+
     if (c1 == blink&&room == "mainM" && keyCode ==32) {
       room = "game";
     }
