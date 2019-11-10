@@ -31,6 +31,7 @@ void setup() {
   pickupsSetup();
   mapSetup();
   soundSetup();
+  settingSetup();
 }
 //GAME
 void updateGame() {
@@ -84,7 +85,11 @@ void draw() {
     main.draw();
     //Rec.play();
     sound.draw();
+  } else if (room == "settings") {
+    setting.draw();
+    setting.update();
   }
+
   if (inputs.hasValue(128) == true) {
     if (debugLastFrame == false) {
       if (debug == false) {
