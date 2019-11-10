@@ -13,6 +13,7 @@ float frameSpeed, globalScale, globalScrollSpeed, time;
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
+boolean debug = false, debugLastFrame = false;
 
 void setup() {
   size(1280, 720);
@@ -85,6 +86,16 @@ void draw() {
     sound.draw();
   }
   if (inputs.hasValue(128) == true) {
+    if (debugLastFrame == false) {
+      if (debug == false) {
+        debug = true;
+      } else {
+        debug = false;
+      }
+    }
+    debugLastFrame = true;
+  } else debugLastFrame = false;
+  if (debug == true) {
     fill(255, 0, 0);
     textSize(40);
     text(frameRate, width/2, 50);

@@ -1,6 +1,7 @@
 //Mats
 final color ICECOLOR = color(0, 255, 255);
 final color BLOCKCOLOR = color(150);
+PImage brickSprite;
 class Block {
   float x, y, size, speed = globalScale/30, vx = 0, id = -1;
   color c = BLOCKCOLOR;
@@ -41,9 +42,13 @@ class Block {
     }
   }
   void draw() {
+    if (c == BLOCKCOLOR) {
+      image(brickSprite,x,y,size,size);
+    } else {
     fill(c);
     stroke(0);
     rect(x, y, size, size);
+    }
   }
 }
 //Lijst met blocks
@@ -65,6 +70,7 @@ Block blockCollision(float x, float y, float size) {
 //Block Reset
 void blockSetup() {
   blocks.clear();
+  brickSprite = loadImage("sprites/blocks/brick.png");
 }
 //block Update
 void blockUpdate() {
@@ -90,6 +96,5 @@ void blockDraw() {
   for (int n = 0; n<blocks.size(); n++) {
     Block block = blocks.get(n);
     block.draw();
-    rect(block.x, block.y, globalScale, globalScale);
   }
 }
