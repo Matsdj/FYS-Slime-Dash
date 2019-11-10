@@ -4,8 +4,16 @@ int hostileSize = 50;
 
 final float ENEMYSCORE = 200;
 
+PImage[] enemySprite;
+final int ENEMY_SPRITE_AMOUNT = 2;
+
 void hostileSetup() {
   hostile = new Hostile[hostileSize];
+
+  enemySprite = new PImage[ENEMY_SPRITE_AMOUNT];
+  for (int iSprite = 0; iSprite < ENEMY_SPRITE_AMOUNT; iSprite++) {
+    enemySprite[iSprite] = loadImage("sprites/enemy/enemy"+ iSprite + ".png");
+  }
 }
 void addHostile(float x, float y) {
   for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
@@ -33,8 +41,12 @@ void hostileDraw() {
   }
 }
 class Hostile {
+  int enemyWalkFrame;
   float size, x, y, vx;
   boolean dead;
+
+  final int ENEMY_SPRITE_FRAMERATE = 20;
+  
   Hostile(float enemyX, float enemyY) {
     size = globalScale;
     x = enemyX;
@@ -44,7 +56,15 @@ class Hostile {
   }
 
   void enemyAnimation() {
-    
+    //sprites 32*34
+    if (vx<0) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(enemySprite[enemyWalkFrame], -x-globalScale, y - globalScale/32*2, globalScale, globalScale + globalScale/32*2);
+      popMatrix();
+    } else {
+      image(enemySprite[enemyWalkFrame], x, y - globalScale/32*2, globalScale, globalScale + globalScale/32*2);
+    }
   }
   void update() {
     x -= globalScrollSpeed;
@@ -69,6 +89,14 @@ class Hostile {
       x = -globalScale*2;
       interfaces.score += ENEMYSCORE;
     }
+    
+    //animatie updates
+    if(frameCount % ENEMY_SPRITE_FRAMERATE == 0){
+      enemyWalkFrame++;
+    }
+    if(enemyWalkFrame >= ENEMY_SPRITE_AMOUNT){
+      enemyWalkFrame = 0;
+    }
   }
 
 
@@ -76,6 +104,7 @@ class Hostile {
     stroke(0);
     strokeWeight(2);
     fill(255, 0, 0);
-    rect(x, y, size, size);
+    //rect(x, y, size, size);
+    enemyAnimation();
   }
 }

@@ -1,11 +1,11 @@
 //Chris (met een beetje hulp van mats)
 PImage[] playerSprite;
-int playerFrameAmount = 10;
+final int PLAYER_FRAME_AMOUNT = 10;
 void playerSetup() {
   player = new Player();
-  playerSprite = new PImage[playerFrameAmount];
+  playerSprite = new PImage[PLAYER_FRAME_AMOUNT];
 
-  for (int iSprite = 0; iSprite < playerFrameAmount; iSprite++) {
+  for (int iSprite = 0; iSprite < PLAYER_FRAME_AMOUNT; iSprite++) {
     playerSprite[iSprite] = loadImage("sprites/player/player"+ iSprite +".png");
   }
 }
@@ -273,7 +273,7 @@ class Player {
     stroke(0, 0, 0, fade);
     strokeWeight(2);
     fill(pColor, fade);
-    rect(x, y, size, size);
+    //rect(x, y, size, size);
     playerAnimation();
   }
 }
