@@ -42,6 +42,9 @@ void makeMap(boolean random) {
       if (mapTemplate[templateY][templateX] == "SD") {
         addspike(x,y);
       }
+      if (mapTemplate[templateY][templateX] == "FD") {
+        addflame(x,y);
+      }
       if (mapTemplate[templateY][templateX] == "PC") {
         addCoin(x,y);
       }

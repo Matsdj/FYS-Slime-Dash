@@ -6,6 +6,7 @@ Alle mogelijke strings
  "BI" ("B"lock "I"ce)
  "BM" ("B"lock "M"oving)
  "SD" ("S"pike "D"efault)
+ "FD" ("F"lame "D"efault)
  "PC" ("P"ickup "C"oin)
  "PH" ("P"ickup "H"ealth)
  "H1" ("H"ostile "1")
