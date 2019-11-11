@@ -1,7 +1,7 @@
 //Laurens
 import ddf.minim.*;
 Minim minim;
-AudioPlayer Rec;
+AudioPlayer Hoofdmenu;
 
 void soundSetup() {
   sound = new StartMuziek(this);
@@ -9,20 +9,21 @@ void soundSetup() {
 
 StartMuziek sound;
 class StartMuziek { 
-float volume = -5;
+  float volume = -5;
 
 
 
   StartMuziek(PApplet boop) {
     minim = new Minim(boop);
-    Rec = minim.loadFile("sounds/main menu.mp3");
-Rec.setGain(volume);
+    Hoofdmenu = minim.loadFile("sounds/main menu.mp3");
+    Hoofdmenu.setGain(volume);
+    Hoofdmenu.loop();
   }
 
   void draw() {
     if (room == "mainM") {
-      Rec.play();
+      Hoofdmenu.play();
     } else 
-    Rec.pause();
+    Hoofdmenu.pause();
   }
 }
