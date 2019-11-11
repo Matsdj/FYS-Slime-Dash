@@ -131,13 +131,20 @@ class Player {
       } else movingBlockSpeed = blockCollision(x, y + 1, size).vx;
       x += movingBlockSpeed;
     }
-    if (blockCollision(x + vx, y, size) != null && blockCollision(x + vx, y, size).moving && sign(blockCollision(x + vx, y, size).vx) != sign(vx)) {
-      x+=blockCollision(x + vx, y, size).vx;
+    //zorgt ervoor dat als de player in een blok is geduwt, hij er ook weer uit kan komen
+    if (insideBlock()) {
+      if (blockCollision(x, y, size).moving) {
+        y--;
+      } else if (blockCollision(x+globalScale/2, y, size) != null) {
+        x -= 1;
+      } else if (blockCollision(x-globalScale/2, y, size) != null) {
+        x += 1;
+      }
     }
   }
 
   //Boolean die detect of de player in een block geduwt is
-  boolean pushingBlockFix() {
+  boolean insideBlock() {
     if (blockCollision(x, y, size) != null && (y+size) > blockCollision(x, y, size).y) {
       return true;
     } else return false;
@@ -147,62 +154,64 @@ class Player {
 
     blockTypeDetection();
 
-    //checkt input of player links of rechts gaat.
-    if (inputs.hasValue(LEFT) == true) {
-      moveLeft = true;
-      moving = true;
-      moveSpeed *= SPEEDMULT;
-      vx -= moveSpeed;
-    } else if (inputs.hasValue(RIGHT) == true) {
-      moveLeft = false;
-      moving = true;
-      moveSpeed *= SPEEDMULT;
-      vx += moveSpeed;
-    } else { 
-      moving = false;
-      vx *= slowDown;
-      moveSpeed = MOVESPEED;
-    }
-
-    //Stops player from movement speed increasing to fast
-    if (vx > MAXMOVESPEED) {
-      vx = MAXMOVESPEED;
-    } else if (vx < -MAXMOVESPEED) {
-      vx = -MAXMOVESPEED;
-    }
-
-    //checkt het zelfe voor de jump
-    if (inputs.hasValue(UP) == true) {
-      keyUp = 1;
-    } else keyUp = 0;
-
-    //vx = keyDirection * moveSpeed;
-    if (!dashActive) {
-      vy += GRAVITY;
-    } else vy = 0;
-
-    //checkt of player onground is door 1 pixel onder hem te kijken
-    if (blockCollision(x, y + 1, size) != null) {
-      vy = keyUp * -JUMPSPEED;
-    }
-
-    //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
-    dashCooldown --;
-    dmgCooldown--;
-    if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && moving) {
+    if (!interfaces.death) {
+      //checkt input of player links of rechts gaat.
       if (inputs.hasValue(LEFT) == true) {
-        vx = -DASHSPEED;
+        moveLeft = true;
+        moving = true;
+        moveSpeed *= SPEEDMULT;
+        vx -= moveSpeed;
+      } else if (inputs.hasValue(RIGHT) == true) {
+        moveLeft = false;
+        moving = true;
+        moveSpeed *= SPEEDMULT;
+        vx += moveSpeed;
+      } else { 
+        moving = false;
+        vx *= slowDown;
+        moveSpeed = MOVESPEED;
       }
-      if (inputs.hasValue(RIGHT) == true) {
-        vx = DASHSPEED;
+
+      //checkt het zelfe voor de jump
+      if (inputs.hasValue(UP) == true) {
+        keyUp = 1;
+      } else keyUp = 0;
+
+      //Stops player from movement speed increasing to fast
+      if (vx > MAXMOVESPEED) {
+        vx = MAXMOVESPEED;
+      } else if (vx < -MAXMOVESPEED) {
+        vx = -MAXMOVESPEED;
       }
-      dashCooldown = DASH_COOLDOWN;
-      dashActive = true;
-      dashTime--;
-    } else {
-      moveSpeed = MOVESPEED;
-      dashActive = false;
-      dashTime = DASH_TIME;
+
+      //vx = keyDirection * moveSpeed;
+      if (!dashActive) {
+        vy += GRAVITY;
+      } else vy = 0;
+
+      //checkt of player onground is door 1 pixel onder hem te kijken
+      if (blockCollision(x, y + 1, size) != null) {
+        vy = keyUp * -JUMPSPEED;
+      }
+
+      dashCooldown --;
+      dmgCooldown--;
+      //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
+      if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && moving) {
+        if (inputs.hasValue(LEFT) == true) {
+          vx = -DASHSPEED;
+        }
+        if (inputs.hasValue(RIGHT) == true) {
+          vx = DASHSPEED;
+        }
+        dashCooldown = DASH_COOLDOWN;
+        dashActive = true;
+        dashTime--;
+      } else {
+        moveSpeed = MOVESPEED;
+        dashActive = false;
+        dashTime = DASH_TIME;
+      }
     }
 
     //Horizontal collision
@@ -229,11 +238,6 @@ class Player {
     if (!dashActive) {
       y += vy;
     }
-
-    //Als moving block player in muur duwt, wordt de player terug geduwt omhoog
-    if (pushingBlockFix()) {
-     y -= GRAVITY;
-     }
 
     //zorgt er voor dat je dood gaat als je uit de map valt
     if (y>height) {
