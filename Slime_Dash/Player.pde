@@ -17,7 +17,8 @@ class Player {
     dashSpeed, 
     slowDown, 
     spriteWidth, 
-    spriteHeight;
+    spriteHeight, 
+    movingBlockSpeed;
 
   int dashCooldown, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate;
   color pColor;
@@ -122,7 +123,16 @@ class Player {
 
     //moving blocks
     if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).moving) {
-      x += blockCollision(x, y + 1, size).vx;
+      if (blockCollision(x+movingBlockSpeed, y, size) != null) {
+        while (blockCollision(x+sign(movingBlockSpeed), y, size) == null) {
+          x += sign(movingBlockSpeed);
+        }
+        movingBlockSpeed = 0;
+      } else movingBlockSpeed = blockCollision(x, y + 1, size).vx;
+      x += movingBlockSpeed;
+    }
+    if (blockCollision(x + vx, y, size) != null && blockCollision(x + vx, y, size).moving && sign(blockCollision(x + vx, y, size).vx) != sign(vx)) {
+      x+=blockCollision(x + vx, y, size).vx;
     }
   }
 
@@ -222,8 +232,8 @@ class Player {
 
     //Als moving block player in muur duwt, wordt de player terug geduwt omhoog
     if (pushingBlockFix()) {
-      y -= GRAVITY;
-    }
+     y -= GRAVITY;
+     }
 
     //zorgt er voor dat je dood gaat als je uit de map valt
     if (y>height) {
@@ -245,7 +255,7 @@ class Player {
     }
     if (interfaces.death) {
       deathFramerate++;
-        if (deathFramerate % ANIMATION_FRAMERATE==0 && deathFrameCounter != PLAYER_FRAME_AMOUNT-1) {
+      if (deathFramerate % ANIMATION_FRAMERATE==0 && deathFrameCounter != PLAYER_FRAME_AMOUNT-1) {
         deathFrameCounter++;
       }
     }
