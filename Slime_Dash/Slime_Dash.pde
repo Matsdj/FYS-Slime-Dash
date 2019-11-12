@@ -31,7 +31,7 @@ void setup() {
   pauseSetup();
   pickupsSetup();
   mapSetup();
-  soundSetup();
+  soundSetup(); //------------------------------------------------------------------
   settingSetup();
 }
 //GAME
@@ -75,6 +75,7 @@ void drawGame() {
 }
 
 void draw() {
+  soundUpdate();
   if (room == "pause") {
     pause.draw();
     pause.update();
@@ -82,30 +83,14 @@ void draw() {
     pause.update();
     updateGame();
     drawGame();
-    sound.draw();
   } else if (room == "mainM") {
     main.update();
     main.draw();
-    //Rec.play();
-    sound.draw();
   } else if (room == "settings") {
     setting.draw();
     setting.update();
+    
   }
 
-  if (inputs.hasValue(128) == true) {
-    if (debugLastFrame == false) {
-      if (debug == false) {
-        debug = true;
-      } else {
-        debug = false;
-      }
-    }
-    debugLastFrame = true;
-  } else debugLastFrame = false;
-  if (debug == true) {
-    fill(255, 0, 0);
-    textSize(40);
-    text(frameRate, width/2, 50);
-  }
+  debug();
 }

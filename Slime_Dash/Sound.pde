@@ -1,43 +1,29 @@
 //Laurens
-import ddf.minim.*;
-Minim minim;
-AudioPlayer Hoofdmenu;
-AudioPlayer GameSlow;
-AudioPlayer GameMid;
-AudioPlayer GameFast;
+import processing.sound.*;
+SoundFile Hoofdmenu;
+//GameSlow = new SoundFile(this, "sounds/"),
+//GameMid = new SoundFile(this, "sounds/"),
+//GameFast = new SoundFile(this, "sounds/");
 
 void soundSetup() {
-  sound = new Muziek(this);
+  float volume = 1;
+  Hoofdmenu = new SoundFile(this, "sounds/main menu.wav");
+  Hoofdmenu.amp(volume);
 }
+void soundUpdate() {
 
-Muziek sound;
-class Muziek { 
-  float volume = -5;
-
-
-
-  Muziek(PApplet boop) {
-    minim = new Minim(boop);
-    Hoofdmenu = minim.loadFile("sounds/main menu.mp3");
-    Hoofdmenu.setGain(volume);
-    Hoofdmenu.loop();
-
-    // GameSlow = minim.loadFile("");
-    // GameMid = minim.loadFile("");
-    // GameFast = minim.loadFile("");
-  }
-
-  void draw() {
-    if (room == "mainM") {
+  if (room == "mainM") {
+    if (Hoofdmenu.isPlaying() == false) {
       Hoofdmenu.play();
-    } else 
+    }
+  } else {
     Hoofdmenu.pause();
-
-    // if (room =="game"&&time<=3000){
-    //   GameSlow.play();
-    //}
-        // if (room =="game"&&time>=3000){
-    //   GameMid.play();
-    //}
   }
+
+  // if (room =="game"&&time<=3000){
+  //   GameSlow.play();
+  //}
+  // if (room =="game"&&time>=3000){
+  //   GameMid.play();
+  //}
 }
