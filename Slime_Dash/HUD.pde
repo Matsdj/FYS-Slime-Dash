@@ -100,8 +100,10 @@ class HUD {
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
       death = false;
+      Dede.stop();
       setup();
       room = "game";
+      
     }
     //fade out on death
     if (death == true) {
