@@ -31,7 +31,7 @@ void setup() {
   pauseSetup();
   pickupsSetup();
   mapSetup();
-  soundSetup(); //------------------------------------------------------------------
+  soundSetup(); 
   settingSetup();
 }
 //GAME
