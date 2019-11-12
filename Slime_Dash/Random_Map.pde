@@ -2,10 +2,16 @@
 //hier maak ik de variabelen aan
 float GenerateDistance;
 ArrayList<String[][]> mapTemplateList = new ArrayList<String[][]>();
+ArrayList<PImage> mapTemplateList2 = new ArrayList<PImage>();
 //Setup allows for reset
 void mapSetup() {
   GenerateDistance = 0;
   makeMap(false);
+  // we'll have a look in the data folder
+  java.io.File templates = new java.io.File(dataPath("templates"));
+  // list the files in the data folder
+  String[] filenames = templates.list();
+  //println(filenames.length + " files in specified directory");
 }
 //Looks if it has generated to the edge of the screen
 void mapUpdate() {
@@ -19,9 +25,9 @@ void makeMap(boolean random) {
   //Adds Template to list
   templateSetup();
   String[][] mapTemplate = mapTemplateList.get(0);
-  if (random == true){
-  //Grabs random Template
-  mapTemplate = mapTemplateList.get(floor(random(mapTemplateList.size())));
+  if (random == true) {
+    //Grabs random Template
+    mapTemplate = mapTemplateList.get(floor(random(mapTemplateList.size())));
   }
   //Loops through list and places blocks at the correct place
   for (int templateY = 0; templateY < mapTemplate.length; templateY++) {
@@ -40,22 +46,22 @@ void makeMap(boolean random) {
         blocks.add(new Block(x, y, true));
       }
       if (mapTemplate[templateY][templateX] == "SD") {
-        addspike(x,y);
+        addspike(x, y);
       }
       if (mapTemplate[templateY][templateX] == "FD") {
-        addflame(x,y);
+        addflame(x, y);
       }
       if (mapTemplate[templateY][templateX] == "PC") {
-        addCoin(x,y);
+        addCoin(x, y);
       }
       if (mapTemplate[templateY][templateX] == "PH") {
-        addHeart(x,y);
+        addHeart(x, y);
       }
       if (mapTemplate[templateY][templateX] == "HM") {
-        addHostileMelee(x,y);
+        addHostileMelee(x, y);
       }
       if (mapTemplate[templateY][templateX] == "HR") {
-        addHostileRanged(x,y);
+        addHostileRanged(x, y);
       }
     }
   }
