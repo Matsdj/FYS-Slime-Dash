@@ -82,7 +82,7 @@ String[][] rockyPath() {
   rockyPath[3] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   rockyPath[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   rockyPath[5] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
-  rockyPath[6] = new String[] {"  ", "  ", "  ", "  ", "BD", "BD", "  ", "  ", "  ", "SD", "  ", "  ", "BD", "SD", "  ", "  "};
+  rockyPath[6] = new String[] {"  ", "  ", "  ", "  ", "BD", "BD", "  ", "  ", "  ", "FD", "  ", "  ", "BD", "SD", "  ", "  "};
   rockyPath[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "BD", "BD", "SD", "  "};
   rockyPath[8] = new String[] {"  ", "BD", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  ", "BD", "BD"};
   rockyPath[9] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "  ", "  ", "  "};
