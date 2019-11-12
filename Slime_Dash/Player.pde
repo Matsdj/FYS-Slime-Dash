@@ -30,7 +30,7 @@ class Player {
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
   final int PLAYER_FRAME_AMOUNT = 4;
-  final int MAX_JUMP_AMOUNT = 2;
+  final int MAX_JUMP_AMOUNT = 1;
 
   final float JUMPSPEED = globalScale/2.2;
   final float DASHSPEED = globalScale/1.6;
@@ -176,9 +176,9 @@ class Player {
       }
 
       //checkt het zelfe voor de jump
-      if (inputs.hasValue(UP) == true) {
+      if (inputsPressed.hasValue(UP) == true) {
         keyUp = 1;
-      } else keyUp = 0;      
+      } else keyUp = 0;     
 
       //Stops player from movement speed increasing to fast
       if (vx > MAXMOVESPEED) {
@@ -196,7 +196,7 @@ class Player {
       if (blockCollision(x, y + 1, size) != null) {
         vy = keyUp * -JUMPSPEED;
         jumpedAmount = 0;
-      } else if (inputs.hasValue(UP) == true && jumpedAmount <= MAX_JUMP_AMOUNT) {
+      } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < MAX_JUMP_AMOUNT) {
         println(jumpedAmount);
         vy = keyUp * -JUMPSPEED;
         jumpedAmount ++;
