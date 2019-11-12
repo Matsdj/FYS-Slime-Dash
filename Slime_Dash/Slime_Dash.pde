@@ -16,7 +16,7 @@ String room;
 boolean debug = false, debugLastFrame = false;
 
 void setup() {
-  size(1280, 720,P3D);
+  size(1280, 720, P3D);
   frameRate(60);
   globalScale = height/12;
   room = "mainM";
@@ -27,6 +27,7 @@ void setup() {
   hostileSetup();
   blockSetup();
   spikeSetup();
+  flameSetup();
   pauseSetup();
   pickupsSetup();
   mapSetup();
@@ -53,6 +54,7 @@ void updateGame() {
   blockUpdate();
   spikeUpdate();
   pickupUpdate();
+  flameUpdate();
   //Moving Enemy
   hostileUpdate();
   //Player
@@ -68,6 +70,7 @@ void drawGame() {
   blockDraw();
   hostileDraw();
   pickupDraw();
+  flameDraw();
   interfaces.draw();
 }
 

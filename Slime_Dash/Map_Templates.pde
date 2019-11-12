@@ -61,7 +61,7 @@ String[][] theBigS() {
   theBigS[5] = new String[] {"  ", "  ", "  ", "BD", "  ", "  ", "  ", "PC", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
   theBigS[6] = new String[] {"  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "BD", "  ", "  ", "SD", "SD"};
   theBigS[7] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "BD", "BD"};
-  theBigS[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
+  theBigS[8] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "FD", "  ", "  ", "BD", "  ", "  ", "  ", "  "};
   theBigS[9] = new String[] {"  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  "};
   theBigS[10] =new String[] {"  ", "  ", "SD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "PC", "  "};
   theBigS[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
