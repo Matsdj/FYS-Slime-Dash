@@ -52,10 +52,10 @@ void makeMap(boolean random) {
         addHeart(x,y);
       }
       if (mapTemplate[templateY][templateX] == "HM") {
-        addHostile(x,y);
+        addHostileMelee(x,y);
       }
       if (mapTemplate[templateY][templateX] == "HR") {
-        addHostileMelee(x,y);
+        addHostileRanged(x,y);
       }
     }
   }

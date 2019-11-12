@@ -1,8 +1,8 @@
 //Chris
-Hostile[] hostile;
+HostileMelee[] hostileMelee;
 HostileRanged[] hostileRanged;
 
-int hostileSize = 50;
+final int HOSTILE_AMOUNT = 50;
 
 final float ENEMYSCORE = 200;
 
@@ -10,25 +10,25 @@ PImage[] enemySprite;
 final int ENEMY_SPRITE_AMOUNT = 2;
 
 void hostileSetup() {
-  hostile = new Hostile[hostileSize];
-  hostileRanged = new HostileRanged[hostileSize];
+  hostileMelee = new HostileMelee[HOSTILE_AMOUNT];
+  hostileRanged = new HostileRanged[HOSTILE_AMOUNT];
 
   enemySprite = new PImage[ENEMY_SPRITE_AMOUNT];
   for (int iSprite = 0; iSprite < ENEMY_SPRITE_AMOUNT; iSprite++) {
     enemySprite[iSprite] = loadImage("sprites/enemy/enemy"+ iSprite + ".png");
   }
 }
-void addHostile(float x, float y) {
-  for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
-    if (hostile[iHostile] == null) {
-      hostile[iHostile] = new Hostile(x, y);
+void addHostileMelee(float x, float y) {
+  for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
+    if (hostileMelee[iHostile] == null) {
+      hostileMelee[iHostile] = new HostileMelee(x, y);
       break;
     }
   }
 }
 
-void addHostileMelee(float x, float y) {
-  for (int iHostile = 0; iHostile < hostileRanged.length; iHostile++) {
+void addHostileRanged(float x, float y) {
+  for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
     if (hostileRanged[iHostile] == null) {
       hostileRanged[iHostile] = new HostileRanged(x, y);
       break;
@@ -37,13 +37,13 @@ void addHostileMelee(float x, float y) {
 }
 
 void hostileUpdate() {
-  for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
-    if (hostile[iHostile] != null) {
+  for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
+    if (hostileMelee[iHostile] != null) {
       
-      hostile[iHostile].update();
+      hostileMelee[iHostile].update();
       
-      if (hostile[iHostile].x < 0 - hostile[iHostile].size) {
-        hostile[iHostile]= null;
+      if (hostileMelee[iHostile].x < 0 - hostileMelee[iHostile].size) {
+        hostileMelee[iHostile]= null;
       }
     }
     if (hostileRanged[iHostile] != null) {
@@ -57,23 +57,23 @@ void hostileUpdate() {
   }
 }
 void hostileDraw() {
-  for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
-    if (hostile[iHostile] != null) {
-      hostile[iHostile].draw();
+  for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
+    if (hostileMelee[iHostile] != null) {
+      hostileMelee[iHostile].draw();
     }
     if (hostileRanged[iHostile] != null) {
       hostileRanged[iHostile].draw();
     }
   }
 }
-class Hostile {
+class HostileMelee {
   int enemyWalkFrame;
   float size, x, y, vx;
   boolean dead;
 
   final int ENEMY_SPRITE_FRAMERATE = 20;
   
-  Hostile(float enemyX, float enemyY) {
+  HostileMelee(float enemyX, float enemyY) {
     size = globalScale;
     x = enemyX;
     y = enemyY;
