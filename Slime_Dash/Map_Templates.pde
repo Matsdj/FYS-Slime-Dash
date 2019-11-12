@@ -9,7 +9,8 @@ Alle mogelijke strings
  "FD" ("F"lame "D"efault)
  "PC" ("P"ickup "C"oin)
  "PH" ("P"ickup "H"ealth)
- "H1" ("H"ostile "1")
+ "HM" ("H"ostile "M"elee)
+ "HR" ("H"ostile "R"anged)
  */
 //Hier worden de mogelijke templates aan de lijst toegevoegd
 void templateSetup() {
@@ -43,7 +44,7 @@ String[][] mapTemplateExample() {
   mapTemplateExample[10] =new String[] {"  ", "  ", "SD", "  ", "  ", "  ", "  ", "  ", "  ", "BD"};
   mapTemplateExample[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
   if (random(2) > 1) {
-    mapTemplateExample[10][8] = "H1";
+    mapTemplateExample[10][8] = "HM";
   }
   return mapTemplateExample;
 }
@@ -66,7 +67,7 @@ String[][] theBigS() {
   theBigS[10] =new String[] {"  ", "  ", "SD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "PC", "  "};
   theBigS[11] =new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD", "BD"};
   if (random(2) > 1) {
-    theBigS[2][7] = "H1";
+    theBigS[2][7] = "HM";
   }
   return theBigS;
 }

@@ -1,20 +1,20 @@
-/* void bulletSetup() {
-  int bulletAmount = 20;
-  BulletList = new Bullet[bulletAmount];
+/* void arrowSetup() {
+  int arrowAmount = 20;
+  ArrowList = new Arrow[arrowAmount];
 }
 
-Bullet[] BulletList;
+Arrow[] ArrowList;
 
-class Bullet {
-  float x, y, bWidth, bHeight;
+class Arrow {
+  float x, y, aWidth, aHeight;
   
-  Bullet(float bx, float by) {
-    bWidth = 3;
-    bHeight = 2;
+  Arrow(float ax, float ay) {
+    aWidth = 3;
+    aHeight = 2;
     x = bx;
     y = by;
   }  
   void draw() {
-    rect(x, y, bWidth, bHeight);
+    rect(x, y, aWidth, aHeight);
   }
 } */

@@ -1,5 +1,7 @@
 //Chris
 Hostile[] hostile;
+HostileRanged[] hostileRanged;
+
 int hostileSize = 50;
 
 final float ENEMYSCORE = 200;
@@ -9,6 +11,7 @@ final int ENEMY_SPRITE_AMOUNT = 2;
 
 void hostileSetup() {
   hostile = new Hostile[hostileSize];
+  hostileRanged = new HostileRanged[hostileSize];
 
   enemySprite = new PImage[ENEMY_SPRITE_AMOUNT];
   for (int iSprite = 0; iSprite < ENEMY_SPRITE_AMOUNT; iSprite++) {
@@ -23,12 +26,32 @@ void addHostile(float x, float y) {
     }
   }
 }
+
+void addHostileMelee(float x, float y) {
+  for (int iHostile = 0; iHostile < hostileRanged.length; iHostile++) {
+    if (hostileRanged[iHostile] == null) {
+      hostileRanged[iHostile] = new HostileRanged(x, y);
+      break;
+    }
+  }
+}
+
 void hostileUpdate() {
   for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
     if (hostile[iHostile] != null) {
+      
       hostile[iHostile].update();
+      
       if (hostile[iHostile].x < 0 - hostile[iHostile].size) {
         hostile[iHostile]= null;
+      }
+    }
+    if (hostileRanged[iHostile] != null) {
+      
+      hostileRanged[iHostile].update();
+      
+      if (hostileRanged[iHostile].x < 0 - hostileRanged[iHostile].size) {
+        hostileRanged[iHostile] = null;
       }
     }
   }
@@ -37,6 +60,9 @@ void hostileDraw() {
   for (int iHostile = 0; iHostile < hostile.length; iHostile++) {
     if (hostile[iHostile] != null) {
       hostile[iHostile].draw();
+    }
+    if (hostileRanged[iHostile] != null) {
+      hostileRanged[iHostile].draw();
     }
   }
 }
@@ -106,5 +132,39 @@ class Hostile {
     fill(255, 0, 0);
     //rect(x, y, size, size);
     enemyAnimation();
+  }
+}
+
+class HostileRanged {
+  float x, y, size;
+  boolean dead;
+  
+  HostileRanged(float enemyX, float enemyY) {
+    size = globalScale;
+    x = enemyX;
+    y = enemyY;
+    dead = false;
+  }
+  
+  void update() {
+    x -= globalScrollSpeed;
+    
+    if (player.Collision(x, y, size) && player.dashActive) {
+      dead = true;
+    } else if (player.hitboxCollision(x, y, size) && player.dmgCooldown < 0 && !dead) {
+      player.enemyDamage = true;
+      player.dmgCooldown = player.DMG_COOLDOWN;
+    } 
+    if (dead) {
+      x = -globalScale*2;
+      interfaces.score += ENEMYSCORE;
+    }
+  }
+  
+  void draw() {
+    stroke(0);
+    strokeWeight(2);
+    fill(255, 0, 0);
+    rect(x, y, size, size);
   }
 }

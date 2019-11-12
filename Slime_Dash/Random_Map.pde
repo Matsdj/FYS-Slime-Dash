@@ -51,8 +51,11 @@ void makeMap(boolean random) {
       if (mapTemplate[templateY][templateX] == "PH") {
         addHeart(x,y);
       }
-      if (mapTemplate[templateY][templateX] == "H1") {
+      if (mapTemplate[templateY][templateX] == "HM") {
         addHostile(x,y);
+      }
+      if (mapTemplate[templateY][templateX] == "HR") {
+        addHostileMelee(x,y);
       }
     }
   }
