@@ -10,7 +10,7 @@ SoundFile Dede;
 
 void soundSetup() {
   float volume = 1;
-  Hoofdmenu = new SoundFile(this, "sounds/main menu.wav");
+  Hoofdmenu = new SoundFile(this, "sounds/mainMenu.wav");
   GameSlow = new SoundFile(this, "sounds/slowMuzi.wav");
   GameMid = new SoundFile(this, "sounds/midMuzi.wav");
   //GameFast = new SoundFile(this,"sounds/");
