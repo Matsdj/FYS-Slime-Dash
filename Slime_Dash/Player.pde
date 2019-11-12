@@ -20,7 +20,7 @@ class Player {
     spriteHeight, 
     movingBlockSpeed;
 
-  int dashCooldown, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate;
+  int dashCooldown, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
   color pColor;
   boolean moving, dashActive, enemyDamage, moveLeft;
 
@@ -30,6 +30,7 @@ class Player {
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
   final int PLAYER_FRAME_AMOUNT = 4;
+  final int MAX_JUMP_AMOUNT = 2;
 
   final float JUMPSPEED = globalScale/2.2;
   final float DASHSPEED = globalScale/1.6;
@@ -62,6 +63,7 @@ class Player {
     walkFrameCounter = 0;
     deathFrameCounter = 0;
     deathFramerate = 0;
+    jumpedAmount = 0;
   } 
 
   //player sprite animatie word hier bepaalt
@@ -154,6 +156,7 @@ class Player {
 
     blockTypeDetection();
 
+    //all movement
     if (!interfaces.death) {
       //checkt input of player links of rechts gaat.
       if (inputs.hasValue(LEFT) == true) {
@@ -175,7 +178,7 @@ class Player {
       //checkt het zelfe voor de jump
       if (inputs.hasValue(UP) == true) {
         keyUp = 1;
-      } else keyUp = 0;
+      } else keyUp = 0;      
 
       //Stops player from movement speed increasing to fast
       if (vx > MAXMOVESPEED) {
@@ -192,6 +195,11 @@ class Player {
       //checkt of player onground is door 1 pixel onder hem te kijken
       if (blockCollision(x, y + 1, size) != null) {
         vy = keyUp * -JUMPSPEED;
+        jumpedAmount = 0;
+      } else if (inputs.hasValue(UP) == true && jumpedAmount <= MAX_JUMP_AMOUNT) {
+        println(jumpedAmount);
+        vy = keyUp * -JUMPSPEED;
+        jumpedAmount ++;
       }
 
       dashCooldown --;
@@ -214,6 +222,7 @@ class Player {
       }
     }
 
+    //Collisions
     //Horizontal collision
     if (blockCollision(x+vx, y, size) != null) {
       while (blockCollision(x+sign(vx), y, size) == null) {
