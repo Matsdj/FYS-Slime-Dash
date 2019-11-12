@@ -78,6 +78,7 @@ class Player {
     } else if (dashActive && !moveLeft) {
       image(playerSprite[5], x-globalScale/32*15, y, globalScale/32*47, spriteHeight);
     }
+
     //jump sprite, heeft ratio 46*38
     else if (vy != 0 && moveLeft) {
       pushMatrix();
@@ -87,6 +88,7 @@ class Player {
     } else if (vy != 0 && !moveLeft) {
       image(playerSprite[4], x-(spriteWidth/46*12), y, spriteWidth, globalScale/32*38);
     }
+
     //death sprite
     else if (interfaces.death && moveLeft) {
       pushMatrix();
@@ -96,6 +98,17 @@ class Player {
     } else if (interfaces.death && !moveLeft) {
       image(playerSprite[6+deathFrameCounter], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
     }
+
+    //damaged sprite
+    else if (dmgCooldown >=0 && moveLeft) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(playerSprite[6], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      popMatrix();
+    } else if (dmgCooldown >=0 && !moveLeft) {
+      image(playerSprite[6], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+    }
+
     //walking animations
     else if (moving && inputs.hasValue(LEFT) == true) {
       pushMatrix();
@@ -154,6 +167,9 @@ class Player {
   void update() {
     x -= globalScrollSpeed;
 
+    dashCooldown --;
+    dmgCooldown--;
+
     blockTypeDetection();
 
     //all movement
@@ -197,13 +213,10 @@ class Player {
         vy = keyUp * -JUMPSPEED;
         jumpedAmount = 0;
       } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < MAX_JUMP_AMOUNT) {
-        println(jumpedAmount);
         vy = keyUp * -JUMPSPEED;
         jumpedAmount ++;
       }
 
-      dashCooldown --;
-      dmgCooldown--;
       //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
       if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && moving) {
         if (inputs.hasValue(LEFT) == true) {
