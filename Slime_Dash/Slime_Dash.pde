@@ -13,7 +13,7 @@ float frameSpeed, globalScale, globalScrollSpeed, time;
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
-boolean debug = false, debugLastFrame = false;
+boolean debug = false;
 
 void setup() {
   size(1280, 720, P3D);
@@ -41,7 +41,7 @@ void updateGame() {
   //globalScale is hoe groot een block wordt in de hoogte en de breedte gebruik deze variable om de grootte van alles te scalen
   globalScale = height/12;
   time += 1 ;
-  println(time);
+  //println(time);
   globalScrollSpeed = globalScale/60+ time/100000*globalScale;
   if (player.x > 0) {
     globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
@@ -91,6 +91,6 @@ void draw() {
     setting.update();
     
   }
-
   debug();
+  inputsPressedUpdate();
 }

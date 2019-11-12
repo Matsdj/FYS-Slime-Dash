@@ -1,9 +1,12 @@
 //Mats
 
 IntList inputs = new IntList();
+//Alleen op de frame waarin de toets is ingedrukt bevat inputPressed de toets
+IntList inputsPressed = new IntList();
 void keyPressed() {
   if (inputs.hasValue(keyCode) == false) {
     inputs.append(keyCode);
+    inputsPressed.append(keyCode);
   }
 }
 void keyReleased() {
@@ -14,6 +17,10 @@ void keyReleased() {
       }
     }
   }
+}
+void inputsPressedUpdate(){
+  println(inputsPressed);
+  inputsPressed.clear();
 }
 /* Je kan dit gebruiken door:
 

@@ -1,14 +1,11 @@
 void debug(){
-if (inputs.hasValue(128) || inputs.hasValue(96)) {
-    if (debugLastFrame == false) {
+if (inputsPressed.hasValue(96)) {
       if (debug == false) {
         debug = true;
       } else {
         debug = false;
       }
-    }
-    debugLastFrame = true;
-  } else debugLastFrame = false;
+  }
   if (debug == true) {
     fill(255, 0, 0);
     textSize(40);

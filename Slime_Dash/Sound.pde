@@ -11,9 +11,8 @@ void soundSetup() {
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {
-
-  if (room == "mainM") {
-    if (Hoofdmenu.isPlaying() == false) {
+  if (Hoofdmenu.isPlaying() == false) {
+    if (room == "mainM") {
       Hoofdmenu.play();
     }
   } else {
