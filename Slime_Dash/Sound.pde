@@ -15,7 +15,7 @@ void soundUpdate() {
     if (room == "mainM") {
       Hoofdmenu.play();
     }
-  } else {
+  } else if (room == "game") {
     Hoofdmenu.pause();
   }
 
