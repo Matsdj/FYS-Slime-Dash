@@ -5,6 +5,7 @@ SoundFile GameSlow;
 SoundFile GameMid;
 SoundFile SpeedUp;
 SoundFile Ding;
+SoundFile Dede;
 //GameFast = new SoundFile(this, "sounds/");
 
 void soundSetup() {
@@ -15,6 +16,7 @@ void soundSetup() {
   //GameFast = new SoundFile(this,"sounds/");
   SpeedUp = new SoundFile(this, "sounds/speedUp.wav");
   Ding = new SoundFile(this, "sounds/ding.wav");
+  Dede = new SoundFile(this, "sounds/dede.wav");
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {
@@ -30,12 +32,12 @@ void soundUpdate() {
       GameSlow.play();
     }
   }
-  if (GameMid.isPlaying() == false&&SpeedUp.isPlaying() == false) {
-    if (room =="game"&&time>=2500) {
+  if (GameMid.isPlaying() == false && SpeedUp.isPlaying() == false) {
+    if (room =="game" && time>=2500) {
       GameSlow.stop();
       SpeedUp.play();
     }
-    if (room =="game"&&time>=2530) {
+    if (room =="game" && time>=2530) {
       SpeedUp.stop();
       GameMid.play();
       GameMid.loop();
@@ -46,11 +48,14 @@ void soundUpdate() {
     GameSlow.stop();
     GameMid.stop();
     SpeedUp.stop();
+    if (Dede.isPlaying()==false) {
+      Dede.play();
+    }
   }
-  if (inputs.hasValue(DOWN)==true&&main.blink==main.c1&&room=="mainM") {
+  if (inputs.hasValue(DOWN)==true && main.blink==main.c1 && room=="mainM") {
     Ding.play();
   }
-  if (inputs.hasValue(UP)==true&&main.blink==main.c2&&room=="mainM") {
+  if (inputs.hasValue(UP)==true && main.blink==main.c2 && room=="mainM") {
     Ding.play();
   }
 }

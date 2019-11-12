@@ -103,6 +103,7 @@ class MainM {
 
     if (c1 == blink&&room == "mainM" && keyCode ==32) {
       room = "game";
+      SpeedUp.play();
     }
     if (c2 == blink&&room == "mainM" && keyCode ==32) {
       room = "settings";
