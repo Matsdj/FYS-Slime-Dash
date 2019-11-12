@@ -19,7 +19,6 @@ void keyReleased() {
   }
 }
 void inputsPressedUpdate(){
-  println(inputsPressed);
   inputsPressed.clear();
 }
 /* Je kan dit gebruiken door:

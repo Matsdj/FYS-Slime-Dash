@@ -1,16 +1,15 @@
 //Mats
 /*
-Alle mogelijke strings
- "  " nothing
- "BD" ("B"lock "D"efault)
- "BI" ("B"lock "I"ce)
- "BM" ("B"lock "M"oving)
- "SD" ("S"pike "D"efault)
- "FD" ("F"lame "D"efault)
- "PC" ("P"ickup "C"oin)
- "PH" ("P"ickup "H"ealth)
- "HM" ("H"ostile "M"elee)
- "HR" ("H"ostile "R"anged)
+Alle mogelijke strings    ColorID
+ "BD" ("B"lock "D"efault) 150,150,150
+ "BI" ("B"lock "I"ce)     0,255,255
+ "BM" ("B"lock "M"oving)  170,170,170
+ "SD" ("S"pike "D"efault) 255,0,0
+ "FD" ("F"lame "D"efault) 255,150,0
+ "PC" ("P"ickup "C"oin)   255,255,0
+ "PH" ("P"ickup "H"ealth) 0,255,0
+ "HM" ("H"ostile "M"elee) 255,0,100
+ "HR" ("H"ostile "R"anged)255,0,150
  */
 //Hier worden de mogelijke templates aan de lijst toegevoegd
 void templateSetup() {
