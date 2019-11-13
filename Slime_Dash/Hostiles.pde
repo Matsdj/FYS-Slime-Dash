@@ -69,7 +69,7 @@ void hostileDraw() {
 class HostileMelee {
   int enemyWalkFrame;
   float size, x, y, vx;
-  boolean dead;
+  boolean dead, isActive;
 
   final int ENEMY_SPRITE_FRAMERATE = 20;
   
@@ -79,6 +79,14 @@ class HostileMelee {
     y = enemyY;
     vx = globalScale/30;
     dead = false;
+   // reset();
+  }
+  
+  void reset(){
+    isActive = false;
+    x = -globalScale *10;
+    y = -globalScale *10;
+    vx = 0;
   }
 
   void enemyAnimation() {
@@ -111,8 +119,9 @@ class HostileMelee {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
     } 
-    if (dead) {
-      x = -globalScale*2;
+    if (dead) {      
+      //reset();
+      x = -globalScale * 2;
       interfaces.score += ENEMYSCORE;
     }
     
