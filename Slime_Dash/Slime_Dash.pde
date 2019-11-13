@@ -21,6 +21,7 @@ void setup() {
   globalScale = height/12;
   room = "mainM";
   time = 0;
+  assetSetup();
   playerSetup();
   interfacesSetup();
   mainMSetup();
