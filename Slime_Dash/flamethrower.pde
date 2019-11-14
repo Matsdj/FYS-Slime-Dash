@@ -1,6 +1,5 @@
 //collin
-int timeflame = 0;
-int timeflamemax = 300;
+
 
 Flame[] flames;
 void flameSetup()
@@ -37,7 +36,8 @@ void flameDraw() {
 
 class Flame {
   float x, y, size;
-
+  int timeflame = 0;
+  int timeflamemax = 150;
 
   Flame(float inputX, float inputY) {
 
@@ -49,11 +49,12 @@ class Flame {
   }
   //controleerd op player aanraking
   void update() {
-if(timeflame>timeflamemax/2){
-    if ( player.hitboxCollision(x, y, size)&& player.dmgCooldown < 0) {
-      player.enemyDamage=true;
-      player.dmgCooldown = player.DMG_COOLDOWN;
-    }}
+    if (timeflame>timeflamemax/2) {
+      if ( player.hitboxCollision(x, y, size)&& player.dmgCooldown < 0) {
+        player.enemyDamage=true;
+        player.dmgCooldown = player.DMG_COOLDOWN;
+      }
+    }
     x -= globalScrollSpeed;
   }
 
@@ -65,15 +66,14 @@ if(timeflame>timeflamemax/2){
   {
     stroke(0);
     fill (127);
-timeflame = timeflame+1;
+    timeflame = timeflame+1;
     triangle(x+size/2, y+size/5*4, x+size, y+size, x, y+size);
     if (timeflame>timeflamemax/2) {
       fill (194, 38, 31);
       quad(x+size/2, y+size/5*4, x, y-size/5*4, x+size/2, y-size, x+size, y-size/5*4);
     }
-if(timeflame>timeflamemax){
-timeflame = 0;
-}
-
-}
+    if (timeflame>timeflamemax*0.75) {
+      timeflame = 0;
+    }
+  }
 }

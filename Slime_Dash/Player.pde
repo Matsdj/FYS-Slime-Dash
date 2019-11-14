@@ -1,13 +1,8 @@
 //Chris (met een beetje hulp van mats)
-PImage[] playerSprite;
+
 final int PLAYER_FRAME_AMOUNT = 10;
 void playerSetup() {
   player = new Player();
-  playerSprite = new PImage[PLAYER_FRAME_AMOUNT];
-
-  for (int iSprite = 0; iSprite < PLAYER_FRAME_AMOUNT; iSprite++) {
-    playerSprite[iSprite] = loadImage("sprites/player/player"+ iSprite +".png");
-  }
 }
 
 Player player;

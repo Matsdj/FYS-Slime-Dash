@@ -56,9 +56,10 @@ class MainM {
   boolean hover, blinkC;
   int blink, c1, c2, c3;
   //PFont font;
-
+    PImage slimeDash;
 
   MainM() {
+      slimeDash = loadImage("./sprites/menus/SlimeDash.png");
     sizeH = height/7;
     sizeW = width/2.8;
     bx = (width/2)-(sizeW/2);
@@ -123,9 +124,6 @@ class MainM {
     textAlign(LEFT, CENTER);
     textSize(tSize/2);
     text("pause = p | dash = z", 200, height-50);
-    textSize(tSize*2);
-    fill(0, sdColor, 0);
-    text("Slime Dash", width/4, height/6);
     textSize(tSize);
     fill(c1);
     text("Play", tx, ty);
@@ -133,6 +131,7 @@ class MainM {
     text("Settings", tx, ty*1.5);
     fill(c3);
     text("press SPACEBAR to select", tx, ty*2);
+  image(slimeDash,width/4,height/100,512,288);
   }
 }
 
