@@ -37,19 +37,19 @@ void makeMap(boolean random) {
         y = templateY*globalScale;
       //Places Blocks,Spikes etc.
       if (mapTemplate[templateY][templateX] == "BD") {
-        blocks.add(new Block(x, y));
+        blocks[freeBlockIndex()].blockSetup(x,y, BLOCKCOLOR, false);
       }
       if (mapTemplate[templateY][templateX] == "BI") {
-        blocks.add(new Block(x, y, ICECOLOR));
+        blocks[freeBlockIndex()].blockSetup(x,y, ICECOLOR, false);
       }
       if (mapTemplate[templateY][templateX] == "BM") {
-        blocks.add(new Block(x, y, true));
+        blocks[freeBlockIndex()].blockSetup(x,y, BLOCKCOLOR, true);
       }
       if (mapTemplate[templateY][templateX] == "SD") {
-        addspike(x, y);
+        addSpike(x, y);
       }
       if (mapTemplate[templateY][templateX] == "FD") {
-        addflame(x, y);
+        addFlame(x, y);
       }
       if (mapTemplate[templateY][templateX] == "PC") {
         addCoin(x, y);
