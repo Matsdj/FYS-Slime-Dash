@@ -30,9 +30,9 @@ class Player {
   final float JUMPSPEED = globalScale/2.2;
   final float DASHSPEED = globalScale/1.6;
   final float MOVESPEED = globalScale/16;
-  final float SPEEDMULT = globalScale/56;
-  final float SPEEDSLOWDOWN = globalScale/80;
-  final float ICESLOWDOWN = globalScale/62;
+  final float SPEEDMULT = 1.9;
+  final float SPEEDSLOWDOWN = 0.85;
+  final float ICESLOWDOWN = 0.98;
   final float MAXMOVESPEED = globalScale/8;
   final float GRAVITY = globalScale/32;
 
@@ -176,6 +176,7 @@ class Player {
         moveSpeed *= SPEEDMULT;
         vx -= moveSpeed;
       } else if (inputs.hasValue(RIGHT) == true) {
+        println("yes");
         moveLeft = false;
         moving = true;
         moveSpeed *= SPEEDMULT;
