@@ -1,7 +1,7 @@
 /*ig101-5
  Chris - 500828243,
  Collin - ,
- Ivano - ,
+ Ivano - 500831163,
  Mats - ,
  Laurens - 500821318
  */
@@ -21,6 +21,7 @@ void setup() {
   globalScale = height/12;
   room = "mainM";
   time = 0;
+  assetSetup();
   playerSetup();
   interfacesSetup();
   mainMSetup();
