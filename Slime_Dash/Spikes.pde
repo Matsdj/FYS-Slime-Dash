@@ -17,7 +17,7 @@ void spikeUpdate() {
   }
 }
 
-void addspike(float x, float y) {
+void addSpike(float x, float y) {
   for (int iSpike = 0; iSpike < spikes.length; iSpike++) {
     if (spikes[iSpike] == null) {
       spikes[iSpike] = new Spike(x, y);

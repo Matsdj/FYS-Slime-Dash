@@ -18,7 +18,7 @@ void flameUpdate() {
   }
 }
 
-void addflame(float x, float y) {
+void addFlame(float x, float y) {
   for (int iFlame = 0; iFlame < flames.length; iFlame++) {
     if (flames[iFlame] == null) {
       flames[iFlame] = new Flame(x, y);
