@@ -52,13 +52,13 @@ class Block {
   }
 }
 //Lijst met blocks
-ArrayList<Block> blocks = new ArrayList();
+Block[] blocks = new Block[500];
 //Loops through all the blocks to see if there is one at the given position
 Block blockCollision(float x, float y, float size, float blockId) {
   Block Collision = null;
-  for (int blockNumber = 0; blockNumber < blocks.size(); blockNumber++) {
-    if (blocks.get(blockNumber).x < x+size && blocks.get(blockNumber).x+size > x && blocks.get(blockNumber).y < y+size && blocks.get(blockNumber).y+size > y) {
-      if (blocks.get(blockNumber).id != blockId) Collision = blocks.get(blockNumber);
+  for (int blockNumber = 0; blockNumber < blocks.length; blockNumber++) {
+    if (blocks[blockNumber].x < x+size && blocks[blockNumber].x+size > x && blocks[blockNumber].y < y+size && blocks[blockNumber].y+size > y) {
+      if (blocks[blockNumber].id != blockId) Collision = blocks[blockNumber];
     }
   }
   return Collision;

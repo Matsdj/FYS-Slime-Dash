@@ -17,6 +17,8 @@ if (inputsPressed.hasValue(96)) {
     }
     text(inputsString,0,200);
     text("time:"+time,0,250);
-    
+    text("room:"+room,0,300);
+    text("P.inblock:"+player.insideBlock(),0,350);
+    text("blocks:"+blocks.size(),0,400);
   }
 }
