@@ -198,11 +198,6 @@ class Player {
         vx = -MAXMOVESPEED;
       }
 
-      //vx = keyDirection * moveSpeed;
-      if (!dashActive) {
-        vy += GRAVITY;
-      } else vy = 0;
-
       //checkt of player onground is door 1 pixel onder hem te kijken
       if (blockCollision(x, y + 1, size) != null) {
         vy = keyUp * -JUMPSPEED;
@@ -229,6 +224,11 @@ class Player {
         dashTime = DASH_TIME;
       }
     }
+
+    //vx = keyDirection * moveSpeed;
+    if (!dashActive) {
+      vy += GRAVITY;
+    } else vy = 0;
 
     //Collisions
     //Horizontal collision
