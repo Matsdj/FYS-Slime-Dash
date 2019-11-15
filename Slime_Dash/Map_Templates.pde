@@ -164,7 +164,7 @@ String[][] quickJump() {
   quickJump[4] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   quickJump[5] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   quickJump[6] = new String[] {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
-  quickJump[7] = new String[] {"  ", "  ", "  ", "  ", "BI", "  ", "  ", "  ", "BI", "  ", "  ", "  ", "BD", "  ", "  "};
+  quickJump[7] = new String[] {"  ", "  ", "  ", "  ", "FD", "  ", "  ", "  ", "BI", "  ", "  ", "  ", "BD", "  ", "  "};
   quickJump[8] = new String[] {"  ", "BI", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "BD", "  "};
   quickJump[9] = new String[] {"  ", "BD", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "  ", "  ", "  ", "BD", "BD", "BD"};
   quickJump[10]= new String[] {"  ", "BD", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "  ", "  ", "BD", "BD", "BD"};
