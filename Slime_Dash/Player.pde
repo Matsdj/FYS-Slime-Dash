@@ -176,7 +176,6 @@ class Player {
         moveSpeed *= SPEEDMULT;
         vx -= moveSpeed;
       } else if (inputs.hasValue(RIGHT) == true) {
-        println("yes");
         moveLeft = false;
         moving = true;
         moveSpeed *= SPEEDMULT;
