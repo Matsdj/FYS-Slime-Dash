@@ -1,7 +1,7 @@
 PImage[] enemySprite;
 PImage[] playerSprite;
-PImage[][] bgHouse;
-PImage[] bgWall;
+PImage[] bgHouse;
+PImage bgWall;
 
 public void assetSetup() {
   enemySprite = new PImage[ENEMY_SPRITE_AMOUNT];
@@ -14,15 +14,10 @@ public void assetSetup() {
     playerSprite[iSprite] = loadImage("sprites/player/player"+ iSprite +".png");
   }
 
-  bgHouse = new PImage[BG_HOUSES_AMOUNT][BG_HOUSES_SPAWNABLE_AMOUNT];
+  bgHouse = new PImage[BG_HOUSES_AMOUNT];
   for (int iSprite = 0; iSprite < BG_HOUSES_AMOUNT; iSprite++) {
-    for (int jSprite = 0; jSprite < BG_HOUSES_SPAWNABLE_AMOUNT; jSprite++) {
-      bgHouse[iSprite][jSprite] = loadImage("sprites/backGround/house"+ iSprite +".png");
-    }
+    bgHouse[iSprite] = loadImage("sprites/backGround/house"+ iSprite +".png");
   }
 
-  bgWall = new PImage[BG_WALL_AMOUNT];
-  for (int iSprite = 0; iSprite < BG_HOUSES_AMOUNT; iSprite++) {
-    bgWall[iSprite] = loadImage("sprites/backGround/wall.png");
-  }
+  bgWall = loadImage("sprites/backGround/wall.png");
 }

@@ -22,6 +22,7 @@ void setup() {
   room = "mainM";
   time = 0;
   assetSetup();
+  bgSetup();
   playerSetup();
   interfacesSetup();
   mainMSetup();
@@ -52,6 +53,7 @@ void updateGame() {
   //Adds Terrain
   mapUpdate();
   //Terrain Update
+  bgUpdate();
   blockUpdate();
   spikeUpdate();
   pickupUpdate();
@@ -66,6 +68,7 @@ void updateGame() {
 
 void drawGame() {
   background(102, 204, 255);
+  bgDraw();
   player.draw();
   spikeDraw();
   blockDraw();
