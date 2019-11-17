@@ -42,7 +42,7 @@ class Block {
       } else if (c == STONE) {
         image(stoneSprite, x, y);
       } else if (c == DIRT) {
-        if (blockCollision(x, y-globalScale, size, id) != null){
+        if (blockCollision(x+1, y-globalScale+1, 5, id) != null){
           image(dirtSprite, x, y);
         } else {
         image(grassSprite, x, y);
