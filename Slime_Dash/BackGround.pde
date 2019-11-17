@@ -174,7 +174,7 @@ class BgCloud {
   final float BG_CLOUDS_STANDARDSPEED = globalScale/64;
   final float Y_MAX = globalScale;
   final float Y_MIN = -globalScale * 1.5;
-  final float X_MAX = width + globalScale * 15;
+  final float X_MAX = width + globalScale * 20;
   final float X_MIN = width;
   int cloudType;
   float x, y, spriteWidth, spriteHeight, vx;
