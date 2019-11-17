@@ -190,6 +190,7 @@ class Player {
       if (inputs.hasValue(UP) == true) {
         keyUp = 1;
         if (SlimeJump.isPlaying() ==false){
+          SlimeJump.rate(random(0.5,1.5));
           SlimeJump.play();
         }
         
