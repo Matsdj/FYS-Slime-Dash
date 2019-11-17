@@ -94,7 +94,7 @@ void bgUpdate() {
   for (int iSprite = 0; iSprite < MAX_CLOUDS; iSprite++) {
     bgClouds[iSprite].update();
   }
-  
+
   sunUpdate();
 }
 
@@ -123,6 +123,7 @@ void bgDraw() {
   skyChange();
 }
 
+//houses///////////////
 class BgHouses {
   final int BG_HOUSES_SCROLLSPEED = 2; //the speed at witch the houses move is the globalScroll speed divided by this number
   float x, y, spriteWidth, spriteHeight, vx;
@@ -147,7 +148,7 @@ class BgHouses {
   }
 }
 
-//walls
+//walls/////////////////
 class BgWall {
   final int BG_WALL_SCROLLSPEED = 3;
   float x, y, spriteWidth, spriteHeight, vx;
@@ -169,12 +170,12 @@ class BgWall {
   }
 }
 
-//clouds
+//clouds////////////
 class BgCloud {
   final float BG_CLOUDS_SCROLLSPEED = 2.5;
   final float Y_MAX = globalScale;
   final float Y_MIN = -globalScale * 1.5;
-  final float X_MAX = width + globalScale * 10;
+  final float X_MAX = width + globalScale * 15;
   final float X_MIN = width;
   int cloudType;
   float x, y, spriteWidth, spriteHeight, vx;
@@ -245,12 +246,14 @@ void skyChange() {
       redSkyTransition = RED_MAX;
     }
     fill(RED_SKY, redSkyTransition);
+    rect(0, 0, width, height);
   } else if (time>=mid) { 
     redSkyTransition--;
     if (redSkyTransition < 0) {
       redSkyTransition = 0;
     }
     fill(RED_SKY, redSkyTransition);
+    rect(0, 0, width, height);
   }
 
   //if the player arrives at the part where the music shifts agaim, the sky will turn dark blue (night time)
@@ -260,7 +263,6 @@ void skyChange() {
       blueSkyTransition = BLUE_MAX;
     }
     fill(BLUE_SKY, blueSkyTransition);
+    rect(0, 0, width, height);
   }
-
-  rect(0, 0, width, height);
 }
