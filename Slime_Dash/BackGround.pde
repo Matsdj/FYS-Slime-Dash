@@ -218,9 +218,9 @@ void sunSetup() {
 void sunUpdate() {
   final float SUN_DOWN_MAX_RED = globalScale * 3;
   final float SUN_DOWN_MAX_BLUE = globalScale * 6;
-  if (time>=2500 && sunY < SUN_DOWN_MAX_RED) {
+  if (time>=slow && sunY < SUN_DOWN_MAX_RED) {
     sunY++;
-  } else if (time>=6000 && sunY < SUN_DOWN_MAX_BLUE) {
+  } else if (time>=mid && sunY < SUN_DOWN_MAX_BLUE) {
     sunY++;
   }
 }
@@ -239,13 +239,13 @@ void skyChange() {
   final color BLUE_SKY = color(0, 0, 60);
 
   //if the player arrives at the part where the music shifts, the sky will turn red
-  if (time>=2500 && time<6000) {
+  if (time>=slow && time<mid) {
     redSkyTransition++;
     if (redSkyTransition > RED_MAX) {
       redSkyTransition = RED_MAX;
     }
     fill(RED_SKY, redSkyTransition);
-  } else if (time>=6000) { 
+  } else if (time>=mid) { 
     redSkyTransition--;
     if (redSkyTransition < 0) {
       redSkyTransition = 0;
@@ -254,7 +254,7 @@ void skyChange() {
   }
 
   //if the player arrives at the part where the music shifts agaim, the sky will turn dark blue (night time)
-  if (time>=6000 && redSkyTransition == 0) {
+  if (time>=mid && redSkyTransition == 0) {
     blueSkyTransition++;
     if (blueSkyTransition > BLUE_MAX) {
       blueSkyTransition = BLUE_MAX;
