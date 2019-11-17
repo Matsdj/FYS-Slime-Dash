@@ -3,7 +3,8 @@ PImage brickSprite;
 PImage iceSprite;
 int activeBlocks = 0;
 class Block {
-  float x, y, size, speed = globalScale/30, vx = 0, id = -1;
+  float x, y, size, speed = globalScale/30, vx = 0;
+  int id = -1;
   color c = BRICK;
   boolean active = false, moving = false;
   void blockSetup(float ix, float iy, color ic, boolean iMoving) {
