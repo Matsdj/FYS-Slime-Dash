@@ -1,5 +1,8 @@
-//House sprites: 10*7
+//Chris
+
+//House sprites: 10*8
 //wall sprite: 9*10
+
 final int MAX_HOUSES = 6;
 final int BG_HOUSES_AMOUNT = 6;
 final int BG_WALL_AMOUNT = 6;
@@ -91,7 +94,7 @@ class BgHouses {
   BgHouses() {
     y = globalScale * 4;
     spriteWidth = 10 * globalScale;
-    spriteHeight = 7 * globalScale;
+    spriteHeight = 8 * globalScale;
   }
 
   // function that can reset position and type of house for a single instance of this class
