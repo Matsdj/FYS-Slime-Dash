@@ -187,7 +187,7 @@ class Player {
       }
 
       //checkt het zelfe voor de jump
-      if (inputsPressed.hasValue(UP) == true) {
+      if (inputs.hasValue(UP) == true) {
         keyUp = 1;
       } else keyUp = 0;     
 
