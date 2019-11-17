@@ -2,12 +2,18 @@
 
 //House sprites: 10*8
 //wall sprite: 9*10
-
+//clouds sprite: 12*9
+// sun/sky sprite: 12*12
 final int MAX_HOUSES = 6;
 final int BG_HOUSES_AMOUNT = 6;
 final int BG_WALL_AMOUNT = 6;
+final int BG_CLOUDS_AMOUNT = 3;
+final int MAX_CLOUDS = 6;
+final int SKY_AMOUNT = 2;
+
 BgHouses[] bgHouses;
 BgWall[] bgWalls;
+BgCloud[] bgClouds;
 
 void bgSetup() {
   //bg houses setup
@@ -33,6 +39,15 @@ void bgSetup() {
     } else 
     bgWalls[iSprite].reset(0);
   }
+
+  //bg clouds setup
+  bgClouds = new BgCloud[MAX_CLOUDS];
+  for (int iSprite = 0; iSprite < MAX_CLOUDS; iSprite++) {
+    bgClouds[iSprite] = new BgCloud();
+  }
+
+  //sun setup
+  sunSetup();
 }
 
 void resetBg() {
@@ -75,16 +90,37 @@ void bgUpdate() {
   for (int iSprite = 0; iSprite < BG_WALL_AMOUNT; iSprite++) {
     bgWalls[iSprite].update();
   }
+
+  for (int iSprite = 0; iSprite < MAX_CLOUDS; iSprite++) {
+    bgClouds[iSprite].update();
+  }
+  
+  sunUpdate();
 }
 
 void bgDraw() { 
+  //draws a blue sky in bg
+
+  float skySize = 12*globalScale;
+  for (int iSky = 0; iSky < SKY_AMOUNT; iSky++) {
+    image(bgSky, 0 + skySize * iSky, 0, skySize, skySize);
+  }
+
+  sunDraw();
+
+  for (int iSprite = 0; iSprite < MAX_CLOUDS; iSprite++) {
+    bgClouds[iSprite].draw();
+  }
+
   for (int iSprite = 0; iSprite < BG_WALL_AMOUNT; iSprite++) {
     bgWalls[iSprite].draw();
   }
-  
+
   for (int iSprite = 0; iSprite < MAX_HOUSES; iSprite++) {
     bgHouses[iSprite].draw();
   }
+
+  skyChange();
 }
 
 class BgHouses {
@@ -111,6 +147,7 @@ class BgHouses {
   }
 }
 
+//walls
 class BgWall {
   final int BG_WALL_SCROLLSPEED = 3;
   float x, y, spriteWidth, spriteHeight, vx;
@@ -130,4 +167,100 @@ class BgWall {
   void draw() {
     image(bgWall, x, y, spriteWidth, spriteHeight);
   }
+}
+
+//clouds
+class BgCloud {
+  final float BG_CLOUDS_SCROLLSPEED = 2.5;
+  final float Y_MAX = globalScale;
+  final float Y_MIN = -globalScale * 1.5;
+  final float X_MAX = width + globalScale * 10;
+  final float X_MIN = width;
+  int cloudType;
+  float x, y, spriteWidth, spriteHeight, vx;
+  BgCloud() {
+    y = random(Y_MIN, Y_MAX);
+    x = random(0, X_MAX);
+    cloudType = int(random(0, BG_CLOUDS_AMOUNT-1));
+    spriteWidth = (12 * globalScale)/2;
+    spriteHeight = (9 * globalScale)/2;
+  }
+
+  void reset() {
+    x = random(X_MIN, X_MAX);
+    y = random(Y_MIN, Y_MAX);
+    cloudType = int(random(0, BG_CLOUDS_AMOUNT-1));
+  }
+
+  void update() {
+    vx = -globalScrollSpeed / BG_CLOUDS_SCROLLSPEED;
+    x += vx;
+    if (x + spriteWidth < 0) {
+      reset();
+    }
+  }
+
+  void draw() {
+    image(bgCloud[cloudType], x, y, spriteWidth, spriteHeight);
+  }
+}
+
+//sun//////////////////
+float sunX, sunY, sunWidth, sunHeight;
+
+void sunSetup() {
+  sunWidth = (12 * globalScale)/2;
+  sunHeight = (12 * globalScale)/2;
+  sunX = width - sunWidth;
+  sunY = -globalScale;
+}
+
+void sunUpdate() {
+  final float SUN_DOWN_MAX_RED = globalScale * 3;
+  final float SUN_DOWN_MAX_BLUE = globalScale * 6;
+  if (time>=2500 && sunY < SUN_DOWN_MAX_RED) {
+    sunY++;
+  } else if (time>=6000 && sunY < SUN_DOWN_MAX_BLUE) {
+    sunY++;
+  }
+}
+void sunDraw() {
+  image(bgSun, sunX, sunY, sunWidth, sunHeight);
+}
+
+
+//Sky color shift////////////////////
+int redSkyTransition = 0;
+int blueSkyTransition = 0;
+void skyChange() {
+  final int RED_MAX = 40;
+  final int BLUE_MAX = 100;
+  final color RED_SKY = color(255, 0, 0);
+  final color BLUE_SKY = color(0, 0, 60);
+
+  //if the player arrives at the part where the music shifts, the sky will turn red
+  if (time>=2500 && time<6000) {
+    redSkyTransition++;
+    if (redSkyTransition > RED_MAX) {
+      redSkyTransition = RED_MAX;
+    }
+    fill(RED_SKY, redSkyTransition);
+  } else if (time>=6000) { 
+    redSkyTransition--;
+    if (redSkyTransition < 0) {
+      redSkyTransition = 0;
+    }
+    fill(RED_SKY, redSkyTransition);
+  }
+
+  //if the player arrives at the part where the music shifts agaim, the sky will turn dark blue (night time)
+  if (time>=6000 && redSkyTransition == 0) {
+    blueSkyTransition++;
+    if (blueSkyTransition > BLUE_MAX) {
+      blueSkyTransition = BLUE_MAX;
+    }
+    fill(BLUE_SKY, blueSkyTransition);
+  }
+
+  rect(0, 0, width, height);
 }
