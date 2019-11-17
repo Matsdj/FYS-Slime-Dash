@@ -171,29 +171,32 @@ class BgWall {
 //clouds////////////
 class BgCloud {
   final float BG_CLOUDS_SCROLLSPEED = 2.3;
-  final float BG_CLOUDS_STANDARDSPEED = globalScale/64;
+  final float BG_CLOUDS_STANDARDSPEED_MIN = globalScale/72;
+  final float BG_CLOUDS_STANDARDSPEED_MAX = globalScale/42;
   final float Y_MAX = globalScale;
   final float Y_MIN = -globalScale * 1.5;
-  final float X_MAX = width + globalScale * 20;
+  final float X_MAX = width + globalScale * 25;
   final float X_MIN = width;
   int cloudType;
-  float x, y, spriteWidth, spriteHeight, vx;
+  float x, y, spriteWidth, spriteHeight, vx, standardVx;
   BgCloud() {
     y = random(Y_MIN, Y_MAX);
     x = random(0, X_MAX);
-    cloudType = int(random(0, BG_CLOUDS_AMOUNT-1));
+    cloudType = int(random(0, BG_CLOUDS_AMOUNT));
     spriteWidth = (12 * globalScale)/2;
     spriteHeight = (9 * globalScale)/2;
+    standardVx = random(BG_CLOUDS_STANDARDSPEED_MIN, BG_CLOUDS_STANDARDSPEED_MAX);
   }
 
   void reset() {
     x = random(X_MIN, X_MAX);
     y = random(Y_MIN, Y_MAX);
-    cloudType = int(random(0, BG_CLOUDS_AMOUNT-1));
+    cloudType = int(random(0, BG_CLOUDS_AMOUNT));
+    standardVx = random(BG_CLOUDS_STANDARDSPEED_MIN, BG_CLOUDS_STANDARDSPEED_MAX);
   }
 
   void update() {
-    vx = -(globalScrollSpeed / BG_CLOUDS_SCROLLSPEED + BG_CLOUDS_STANDARDSPEED);
+    vx = -(globalScrollSpeed / BG_CLOUDS_SCROLLSPEED + standardVx);
     x += vx;
     if (x + spriteWidth < 0) {
       reset();
