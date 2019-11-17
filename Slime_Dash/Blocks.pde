@@ -32,9 +32,9 @@ class Block {
     }
   }
   void draw() {
-    if (x < width) {
+    if (x < width && active) {
       if (c == BLOCKCOLOR) {
-        image(brickSprite, x, y, size, size);
+        image(brickSprite, x, y);
       } else {
         fill(c);
         stroke(0);
@@ -65,6 +65,7 @@ void blockSetup() {
     blocks[i] = new Block();
   }
   brickSprite = loadImage("sprites/blocks/brick.png");
+  brickSprite.resize(int(globalScale),int(globalScale));
 }
 //Free Block Index
 int freeBlockIndex() {

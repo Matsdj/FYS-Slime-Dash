@@ -16,9 +16,10 @@ if (inputsPressed.hasValue(96)) {
       inputsString += inputs.get(i) + "|";
     }
     text(inputsString,0,200);
-    text("Time:"+time,0,250);
+    text("Time:"+time+", "+"ScrollSpeed:"+globalScrollSpeed,0,250);
     text("Room:"+room,0,300);
     text("P.insideblock:"+player.insideBlock(),0,350);
     text("ActiveBlocks:"+activeBlocks,0,400);
   }
+  fill(0);
 }

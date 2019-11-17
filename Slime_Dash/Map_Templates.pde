@@ -10,20 +10,21 @@ Alle mogelijke strings    ColorID
  "PH" ("P"ickup "H"ealth) 0,255,0
  "HM" ("H"ostile "M"elee) 255,0,100
  "HR" ("H"ostile "R"anged)255,0,150
- */
+
+ArrayList<String[][]> mapTemplateListOLD = new ArrayList<String[][]>();
 //Hier worden de mogelijke templates aan de lijst toegevoegd
 void templateSetup() {
   //Clear zodat setup kan gebruikt worden om te restarten
-  mapTemplateList.clear();
-  mapTemplateList.add(mapTemplateExample());
-  mapTemplateList.add(theBigS());
-  mapTemplateList.add(rockyPath());
-  mapTemplateList.add(spikeyTower());
-  mapTemplateList.add(spikeFall());
-  mapTemplateList.add(floatingPath());
-  mapTemplateList.add(quickJump());
-  mapTemplateList.add(easywalk());
-  mapTemplateList.add(iceBoost());
+  mapTemplateListOLD.clear();
+  mapTemplateListOLD.add(mapTemplateExample());
+  mapTemplateListOLD.add(theBigS());
+  mapTemplateListOLD.add(rockyPath());
+  mapTemplateListOLD.add(spikeyTower());
+  mapTemplateListOLD.add(spikeFall());
+  mapTemplateListOLD.add(floatingPath());
+  mapTemplateListOLD.add(quickJump());
+  mapTemplateListOLD.add(easywalk());
+  mapTemplateListOLD.add(iceBoost());
 }
 String[][] mapTemplateExample() {
   int exampleHeight = 12;
@@ -211,3 +212,4 @@ String[][] iceBoost() {
   iceBoost[11]= new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD"};
   return iceBoost;
 }
+*/
