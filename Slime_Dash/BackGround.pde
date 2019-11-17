@@ -172,7 +172,8 @@ class BgWall {
 
 //clouds////////////
 class BgCloud {
-  final float BG_CLOUDS_SCROLLSPEED = 2.5;
+  final float BG_CLOUDS_SCROLLSPEED = 2.3;
+  final float BG_CLOUDS_STANDARDSPEED = globalScale/64;
   final float Y_MAX = globalScale;
   final float Y_MIN = -globalScale * 1.5;
   final float X_MAX = width + globalScale * 15;
@@ -194,7 +195,7 @@ class BgCloud {
   }
 
   void update() {
-    vx = -globalScrollSpeed / BG_CLOUDS_SCROLLSPEED;
+    vx = -(globalScrollSpeed / BG_CLOUDS_SCROLLSPEED + BG_CLOUDS_STANDARDSPEED);
     x += vx;
     if (x + spriteWidth < 0) {
       reset();
