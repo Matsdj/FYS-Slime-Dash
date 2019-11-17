@@ -1,5 +1,9 @@
 //Mats
 PImage brickSprite;
+PImage stoneSprite;
+PImage dirtSprite;
+PImage grassSprite;
+PImage plankSprite;
 PImage iceSprite;
 int activeBlocks = 0;
 class Block {
@@ -35,12 +39,23 @@ class Block {
     if (x < width && active) {
       if (c == BRICK) {
         image(brickSprite, x, y);
+      } else if (c == STONE) {
+        image(stoneSprite, x, y);
+      } else if (c == DIRT) {
+        if (blockCollision(x, y-globalScale, size, id) != null){
+          image(dirtSprite, x, y);
+        } else {
+        image(grassSprite, x, y);
+        }
       } else if (c == ICE) {
         image(iceSprite, x, y);
       } else {
         fill(c);
         stroke(0);
         rect(x, y, size, size);
+      }
+      if (debug == true){
+        text(red(c),x,y);
       }
     }
   }
@@ -68,6 +83,12 @@ void blockSetup() {
   }
   brickSprite = loadImage("sprites/blocks/brick.png");
   brickSprite.resize(int(globalScale), int(globalScale));
+  stoneSprite = loadImage("sprites/blocks/stone.png");
+  stoneSprite.resize(int(globalScale), int(globalScale));
+  dirtSprite = loadImage("sprites/blocks/dirt.png");
+  dirtSprite.resize(int(globalScale), int(globalScale));
+  grassSprite = loadImage("sprites/blocks/grass.png");
+  grassSprite.resize(int(globalScale), int(globalScale));
   iceSprite = loadImage("sprites/blocks/ice.png");
   iceSprite.resize(int(globalScale), int(globalScale));
 }

@@ -5,6 +5,8 @@ PImage[] mapTemplateList;
 PImage startTemplate;
 //All Final variables
 final color BRICK = color(150, 150, 150);
+final color STONE = color(200, 200, 200);
+final color DIRT = color(150,100,0);
 final color MOVINGBRICK = color(170, 170, 170);
 final color ICE = color(0, 255, 255);
 final color SPIKE = color(255, 0, 0);
@@ -62,6 +64,12 @@ void makeMap(boolean random) {
         //Places Blocks,Spikes etc.
         if (col == BRICK) {
           blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false);
+        }
+        if (col == STONE) {
+          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false);
+        }
+        if (col == DIRT) {
+          blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false);
         }
         if (col == ICE) {
           blocks[freeBlockIndex()].blockSetup(x, y, ICE, false);
