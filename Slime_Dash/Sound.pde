@@ -3,17 +3,20 @@ import processing.sound.*;
 SoundFile Hoofdmenu;
 SoundFile GameSlow;
 SoundFile GameMid;
+SoundFile GameFast;
 SoundFile SpeedUp;
 SoundFile Ding;
 SoundFile Dede;
-//GameFast = new SoundFile(this, "sounds/");
+
+float slow = 2500, mid = 6000;
+
 
 void soundSetup() {
   float volume = 1;
   Hoofdmenu = new SoundFile(this, "sounds/mainMenu.wav");
   GameSlow = new SoundFile(this, "sounds/slowMuzi.wav");
   GameMid = new SoundFile(this, "sounds/midMuzi.wav");
-  //GameFast = new SoundFile(this,"sounds/");
+  GameFast = new SoundFile(this, "sounds/FastMuzi.wav");
   SpeedUp = new SoundFile(this, "sounds/speedUp.wav");
   Ding = new SoundFile(this, "sounds/ding.wav");
   Dede = new SoundFile(this, "sounds/dede.wav");
@@ -23,30 +26,42 @@ void soundUpdate() {
   if (Hoofdmenu.isPlaying() == false) {
     if (room == "mainM") {
       Hoofdmenu.play();
+      GameSlow.stop();
+      GameMid.stop();
+      GameFast.stop();
+      SpeedUp.stop();
+      Dede.stop();
     }
   } else if (room == "game") {
     Hoofdmenu.pause();
   }
+
   if (GameSlow.isPlaying() == false) {
-    if (room =="game"&&time<=2500) {
+    if (room =="game"&&time<=slow) {
       GameSlow.play();
     }
   }
-  if (GameMid.isPlaying() == false && SpeedUp.isPlaying() == false) {
-    if (room =="game" && time>=2500) {
+  if (GameMid.isPlaying() == false) {
+    if (room =="game" && time>=slow && time<=mid) {
       GameSlow.stop();
-      SpeedUp.play();
-    }
-    if (room =="game" && time>=2530) {
-      SpeedUp.stop();
       GameMid.play();
       GameMid.loop();
     }
   }
+  if (GameFast.isPlaying() == false) {
+    if (room =="game" && time>=mid) {
+      GameMid.stop();
+      SpeedUp.stop();
+      GameFast.play();
+      GameFast.loop();
+    }
+  }
+
   if (interfaces.death ==true) {
     Hoofdmenu.stop();
     GameSlow.stop();
     GameMid.stop();
+    GameFast.stop();
     SpeedUp.stop();
     if (Dede.isPlaying()==false) {
       Dede.play();
