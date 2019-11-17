@@ -127,7 +127,7 @@ class Player {
 
   void blockTypeDetection() {
     //ice blocks
-    if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).c == ICECOLOR) {
+    if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).c == ICE) {
       slowDown = ICESLOWDOWN;
     } else slowDown = SPEEDSLOWDOWN;
 

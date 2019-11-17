@@ -61,13 +61,13 @@ void makeMap(boolean random) {
       if (random(255) <= alpha(mapTemplate.pixels[loc])) {
         //Places Blocks,Spikes etc.
         if (col == BRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BLOCKCOLOR, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false);
         }
         if (col == ICE) {
-          blocks[freeBlockIndex()].blockSetup(x, y, ICECOLOR, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, ICE, false);
         }
         if (col == MOVINGBRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BLOCKCOLOR, true);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true);
         }
         if (col == SPIKE) {
           addSpike(x, y);

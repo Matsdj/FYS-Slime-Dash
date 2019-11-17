@@ -1,11 +1,10 @@
 //Mats
-final color ICECOLOR = color(0, 255, 255);
-final color BLOCKCOLOR = color(150);
 PImage brickSprite;
+PImage iceSprite;
 int activeBlocks = 0;
 class Block {
   float x, y, size, speed = globalScale/30, vx = 0, id = -1;
-  color c = BLOCKCOLOR;
+  color c = BRICK;
   boolean active = false, moving = false;
   void blockSetup(float ix, float iy, color ic, boolean iMoving) {
     x = ix;
@@ -17,7 +16,7 @@ class Block {
     active = true;
   }
   Block() {
-    blockSetup(0, 0, BLOCKCOLOR, false);
+    blockSetup(0, 0, BRICK, false);
     active = false;
   }
   void update() {
@@ -33,8 +32,10 @@ class Block {
   }
   void draw() {
     if (x < width && active) {
-      if (c == BLOCKCOLOR) {
+      if (c == BRICK) {
         image(brickSprite, x, y);
+      } else if (c == ICE) {
+        image(iceSprite, x, y);
       } else {
         fill(c);
         stroke(0);
@@ -65,7 +66,9 @@ void blockSetup() {
     blocks[i] = new Block();
   }
   brickSprite = loadImage("sprites/blocks/brick.png");
-  brickSprite.resize(int(globalScale),int(globalScale));
+  brickSprite.resize(int(globalScale), int(globalScale));
+  iceSprite = loadImage("sprites/blocks/ice.png");
+  iceSprite.resize(int(globalScale), int(globalScale));
 }
 //Free Block Index
 int freeBlockIndex() {
