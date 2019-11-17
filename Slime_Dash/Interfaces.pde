@@ -23,6 +23,9 @@ class Pause {
     else if (room == "game" && inputs.hasValue(80) && interfaces.death != true) {
       room = "pause";
     } else if (room == "pause" && inputs.hasValue(81)) {
+      GameSlow.stop();
+      GameMid.stop();
+      GameFast.stop();
       setup();
       room = "mainM";
     }
