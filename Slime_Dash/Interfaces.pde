@@ -118,11 +118,6 @@ class MainM {
      rect(bx, by, sizeW, sizeH);
      fill(255);*/
 
-    //stars
-    fill(0, 3);
-    rect(0, 0, width, height);
-    fill(255);
-    ellipse(random(width), random(height), 3, 3);
     //text
     textAlign(LEFT, CENTER);
     textSize(tSize/2);

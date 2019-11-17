@@ -89,12 +89,13 @@ void draw() {
     updateGame();
     drawGame();
   } else if (room == "mainM") {
+    bgUpdate();
+    bgDraw();
     main.update();
     main.draw();
   } else if (room == "settings") {
     setting.draw();
     setting.update();
-    
   }
   debug();
   inputsPressedUpdate();
