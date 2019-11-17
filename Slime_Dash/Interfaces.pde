@@ -129,7 +129,7 @@ class MainM {
     text("Settings", tx, ty*1.5);
     fill(c3);
     text("press SPACEBAR to select", tx, ty*2);
-  image(slimeDash,width/4,height/100,512,288);
+  image(slimeDash,width/4,height/100,width/3,height/3);
   }
 }
 
