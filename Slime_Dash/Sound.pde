@@ -7,12 +7,14 @@ SoundFile GameFast;
 SoundFile SpeedUp;
 SoundFile Ding;
 SoundFile Dede;
+SoundFile SlimeJump;
 
 float slow = 2500, mid = 6000;
 
 
 void soundSetup() {
   float volume = 1;
+  SlimeJump = new SoundFile(this, "sounds/slimeJump.wav");
   Hoofdmenu = new SoundFile(this, "sounds/mainMenu.wav");
   GameSlow = new SoundFile(this, "sounds/slowMuzi.wav");
   GameMid = new SoundFile(this, "sounds/midMuzi.wav");

@@ -189,6 +189,11 @@ class Player {
       //checkt het zelfe voor de jump
       if (inputsPressed.hasValue(UP) == true) {
         keyUp = 1;
+        if (SlimeJump.isPlaying() ==false){
+          SlimeJump.play();
+        }
+        
+        
       } else keyUp = 0;     
 
       //Stops player from movement speed increasing to fast
