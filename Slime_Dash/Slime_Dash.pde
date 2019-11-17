@@ -76,6 +76,7 @@ void drawGame() {
   hostileDraw();
   pickupDraw();
   flameDraw();
+  skyChange();
   interfaces.draw();
 }
 

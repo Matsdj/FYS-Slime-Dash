@@ -119,8 +119,6 @@ void bgDraw() {
   for (int iSprite = 0; iSprite < MAX_HOUSES; iSprite++) {
     bgHouses[iSprite].draw();
   }
-
-  skyChange();
 }
 
 //houses///////////////
