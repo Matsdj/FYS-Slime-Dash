@@ -8,7 +8,7 @@ SoundFile SpeedUp;
 SoundFile Ding;
 SoundFile Dede;
 SoundFile SlimeJump;
-
+SoundFile DashSlime;
 float slow = 2500, mid = 6000;
 
 
@@ -22,6 +22,7 @@ void soundSetup() {
   SpeedUp = new SoundFile(this, "sounds/speedUp.wav");
   Ding = new SoundFile(this, "sounds/ding.wav");
   Dede = new SoundFile(this, "sounds/dede.wav");
+  DashSlime = new SoundFile(this, "sounds/DashSlime.wav");
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {

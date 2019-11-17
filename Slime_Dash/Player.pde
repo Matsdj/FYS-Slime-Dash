@@ -215,6 +215,10 @@ class Player {
 
       //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
       if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && moving) {
+        if(DashSlime.isPlaying() ==false){
+         DashSlime.rate(random(0.8,1.2)); 
+        DashSlime.play();
+        }
         if (inputs.hasValue(LEFT) == true) {
           vx = -DASHSPEED;
         }
