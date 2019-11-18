@@ -23,7 +23,6 @@ void mapSetup() {
   java.io.File templates = new java.io.File(dataPath("templates"));
   // list the files in the data folder
   String[] fileNames = templates.list();
-  println(fileNames.length + " files in specified directory");
   mapTemplateList = new PImage[fileNames.length];
   for (int i = 0; i < mapTemplateList.length; i++) {
     mapTemplateList[i] = loadImage("templates/"+fileNames[i]);
