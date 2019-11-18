@@ -23,7 +23,7 @@ void bgSetup() {
 
     //places the first set of houses on the background
     if (iSprite - 1 >= 0) {
-      bgHouses[iSprite].reset(bgHouses[iSprite - 1].x + bgHouses[iSprite - 1].spriteWidth, int(random(0, BG_HOUSES_AMOUNT)));
+      bgHouses[iSprite].reset(bgHouses[iSprite - 1].x + houseSpriteWidth, int(random(0, BG_HOUSES_AMOUNT)));
     } else 
     bgHouses[iSprite].reset(0, int(random(0, BG_HOUSES_AMOUNT)));
   }
@@ -35,7 +35,7 @@ void bgSetup() {
 
     //places the first set of walls on the background
     if (iSprite - 1 >= 0) {
-      bgWalls[iSprite].reset(bgWalls[iSprite - 1].x + bgWalls[iSprite - 1].spriteWidth);
+      bgWalls[iSprite].reset(bgWalls[iSprite - 1].x + wallSpriteWidth);
     } else 
     bgWalls[iSprite].reset(0);
   }
@@ -53,13 +53,13 @@ void bgSetup() {
 void resetBg() {
   //resets bg houses when they go offscreen
   for (int iSprite = 0; iSprite < MAX_HOUSES; iSprite++) {
-    if (bgHouses[iSprite].x + bgHouses[iSprite].spriteWidth < 0) {
+    if (bgHouses[iSprite].x + houseSpriteWidth < 0) {
       if (iSprite - 1 >= 0) {
         //when a house goes offscreen, the house will be set next to the most far away house. This way houses will remain on screen, and houses will keep being randomized
-        bgHouses[iSprite].reset(bgHouses[iSprite - 1].x + bgHouses[iSprite - 1].spriteWidth, int(random(0, BG_HOUSES_AMOUNT)));
+        bgHouses[iSprite].reset(bgHouses[iSprite - 1].x + houseSpriteWidth, int(random(0, BG_HOUSES_AMOUNT)));
         break;
       } else {
-        bgHouses[iSprite].reset(bgHouses[iSprite + MAX_HOUSES - 1].x + bgHouses[iSprite + MAX_HOUSES - 1].spriteWidth, int(random(0, BG_HOUSES_AMOUNT)));
+        bgHouses[iSprite].reset(bgHouses[iSprite + MAX_HOUSES - 1].x + houseSpriteWidth, int(random(0, BG_HOUSES_AMOUNT)));
         break;
       }
     }
@@ -67,13 +67,13 @@ void resetBg() {
 
   //resets bg walls when they go offscreen
   for (int iSprite = 0; iSprite < BG_WALL_AMOUNT; iSprite++) {
-    if (bgWalls[iSprite].x + bgWalls[iSprite].spriteWidth < 0) {
+    if (bgWalls[iSprite].x + wallSpriteWidth < 0) {
       if (iSprite - 1 >= 0) {
         //does the same as the house reset, but without having to give a new housetype
-        bgWalls[iSprite].reset(bgWalls[iSprite - 1].x + bgWalls[iSprite - 1].spriteWidth);
+        bgWalls[iSprite].reset(bgWalls[iSprite - 1].x + wallSpriteWidth);
         break;
       } else {
-        bgWalls[iSprite].reset(bgWalls[iSprite + BG_WALL_AMOUNT - 1].x + bgWalls[iSprite + BG_WALL_AMOUNT - 1].spriteWidth);
+        bgWalls[iSprite].reset(bgWalls[iSprite + BG_WALL_AMOUNT - 1].x + wallSpriteWidth);
         break;
       }
     }
@@ -124,12 +124,10 @@ void bgDraw() {
 //houses///////////////
 class BgHouses {
   final int BG_HOUSES_SCROLLSPEED = 2; //the speed at witch the houses move is the globalScroll speed divided by this number
-  float x, y, spriteWidth, spriteHeight, vx;
+  float x, y, vx;
   int houseType;
   BgHouses() {
     y = globalScale * 4;
-    spriteWidth = 10 * globalScale;
-    spriteHeight = 8 * globalScale;
   }
 
   // function that can reset position and type of house for a single instance of this class
@@ -142,18 +140,16 @@ class BgHouses {
     x += vx;
   }
   void draw() {
-    image(bgHouse[houseType], x, y, spriteWidth, spriteHeight);
+    image(bgHouse[houseType], x, y);
   }
 }
 
 //walls/////////////////
 class BgWall {
   final int BG_WALL_SCROLLSPEED = 3;
-  float x, y, spriteWidth, spriteHeight, vx;
+  float x, y, vx;
   BgWall() {
     y = globalScale;
-    spriteWidth = 9 * globalScale;
-    spriteHeight = 10 * globalScale;
   }
   // function that can reset position of a wall for a single instance of this class
   void reset(float placeX) {
@@ -164,7 +160,7 @@ class BgWall {
     x += vx;
   }
   void draw() {
-    image(bgWall, x, y, spriteWidth, spriteHeight);
+    image(bgWall, x, y);
   }
 }
 
@@ -178,13 +174,11 @@ class BgCloud {
   final float X_MAX = width + globalScale * 25;
   final float X_MIN = width;
   int cloudType;
-  float x, y, spriteWidth, spriteHeight, vx, standardVx;
+  float x, y, vx, standardVx;
   BgCloud() {
     y = random(Y_MIN, Y_MAX);
     x = random(0, X_MAX);
     cloudType = int(random(0, BG_CLOUDS_AMOUNT));
-    spriteWidth = (12 * globalScale)/2;
-    spriteHeight = (9 * globalScale)/2;
     standardVx = random(BG_CLOUDS_STANDARDSPEED_MIN, BG_CLOUDS_STANDARDSPEED_MAX);
   }
 
@@ -198,23 +192,21 @@ class BgCloud {
   void update() {
     vx = -(globalScrollSpeed / BG_CLOUDS_SCROLLSPEED + standardVx);
     x += vx;
-    if (x + spriteWidth < 0) {
+    if (x + cloudSpriteWidth < 0) {
       reset();
     }
   }
 
   void draw() {
-    image(bgCloud[cloudType], x, y, spriteWidth, spriteHeight);
+    image(bgCloud[cloudType], x, y);
   }
 }
 
 //sun//////////////////
-float sunX, sunY, sunWidth, sunHeight;
+float sunX, sunY;
 
 void sunSetup() {
-  sunWidth = (12 * globalScale)/2;
-  sunHeight = (12 * globalScale)/2;
-  sunX = width - sunWidth;
+  sunX = width - sunSpriteSize;
   sunY = -globalScale;
 }
 
@@ -228,7 +220,7 @@ void sunUpdate() {
   }
 }
 void sunDraw() {
-  image(bgSun, sunX, sunY, sunWidth, sunHeight);
+  image(bgSun, sunX, sunY);
 }
 
 

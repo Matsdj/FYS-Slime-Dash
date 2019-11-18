@@ -97,10 +97,10 @@ class HostileMelee {
     if (vx<0) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(enemySprite[enemyWalkFrame], -x-globalScale, y - globalScale/32*2, globalScale, globalScale + globalScale/32*2);
+      image(enemySprite[enemyWalkFrame], -x-globalScale, y - globalScale/32*2);
       popMatrix();
     } else {
-      image(enemySprite[enemyWalkFrame], x, y - globalScale/32*2, globalScale, globalScale + globalScale/32*2);
+      image(enemySprite[enemyWalkFrame], x, y - globalScale/32*2);
     }
   }
   void update() {
