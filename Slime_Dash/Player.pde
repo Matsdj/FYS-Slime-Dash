@@ -11,9 +11,10 @@ class Player {
     gravityReset, 
     dashSpeed, 
     slowDown, 
-    spriteWidth, 
-    spriteHeight, 
-    movingBlockSpeed;
+    movingBlockSpeed, 
+    ySprite, 
+    xSpriteL, 
+    xSpriteR;
 
   int dashCooldown, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
   color pColor;
@@ -38,8 +39,6 @@ class Player {
 
   Player() {
     size = globalScale-1;
-    spriteWidth = globalScale + globalScale/(32/14);
-    spriteHeight = globalScale + globalScale/16;
     x = globalScale * 4;
     y = globalScale * 2;
     hitboxRatio = 4;
@@ -62,66 +61,69 @@ class Player {
   } 
 
   //player sprite animatie word hier bepaalt
-  //origineel 46 breedt, 34 hoog, geplaats in 32*32 ratio
   void playerAnimation() {
-    //dash sprite, heeft ratio 47*34
+    ySprite = y - pushPlayerSpriteUp;
+    xSpriteL = x - pushPlayerSpriteL;
+    xSpriteR = x - pushPlayerSpriteR;
+    
+    //dash animation
     if (dashActive && moveLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[5], -x-spriteWidth, y, globalScale/32*47, spriteHeight);
+      image(playerSprite[5], -xSpriteL-playerSprite[0].width, ySprite);
       popMatrix();
     } else if (dashActive && !moveLeft) {
-      image(playerSprite[5], x-globalScale/32*15, y, globalScale/32*47, spriteHeight);
+      image(playerSprite[5], xSpriteR, ySprite);
     }
 
-    //jump sprite, heeft ratio 46*38
+    //jump animation
     else if (vy != 0 && moveLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[4], -x-spriteWidth, y, spriteWidth, globalScale/32*38);
+      image(playerSprite[4], -xSpriteL-playerSprite[0].width, ySprite);
       popMatrix();
     } else if (vy != 0 && !moveLeft) {
-      image(playerSprite[4], x-(spriteWidth/46*12), y, spriteWidth, globalScale/32*38);
+      image(playerSprite[4], xSpriteR, ySprite);
     }
 
-    //death sprite
+    //death animatie
     else if (interfaces.death && moveLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[6+deathFrameCounter], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[6+deathFrameCounter], -xSpriteL-playerSprite[0].width, ySprite);
       popMatrix();
     } else if (interfaces.death && !moveLeft) {
-      image(playerSprite[6+deathFrameCounter], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[6+deathFrameCounter], xSpriteR, ySprite);
     }
 
-    //damaged sprite
+    //damaged animatie
     else if (dmgCooldown >=0 && moveLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[6], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[6], -xSpriteL-playerSprite[0].width, ySprite);
       popMatrix();
     } else if (dmgCooldown >=0 && !moveLeft) {
-      image(playerSprite[6], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[6], xSpriteR, ySprite);
     }
 
-    //walking animations
+    //walking animatie
     else if (moving && inputs.hasValue(LEFT) == true) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[walkFrameCounter], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[walkFrameCounter], -xSpriteL-playerSprite[0].width, ySprite);
       popMatrix();
     } else if (moving && inputs.hasValue(RIGHT) == true) {
-      image(playerSprite[walkFrameCounter], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[walkFrameCounter], xSpriteR, ySprite);
     } 
 
-    //stand still animations
+    //stand still animatie
     else if (moveLeft && !moving) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[0], -x-spriteWidth+(spriteWidth/46*3), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[0], -xSpriteL-playerSprite[0].width, ySprite);
       popMatrix();
     } else if (!moveLeft && !moving) {
-      image(playerSprite[0], x-(spriteWidth/46*12), y-(spriteHeight/34*2), spriteWidth, spriteHeight);
+      image(playerSprite[0], xSpriteR, ySprite);
     }
   }
 
@@ -189,12 +191,10 @@ class Player {
       //checkt het zelfe voor de jump
       if (inputs.hasValue(UP) == true) {
         keyUp = 1;
-        if (SlimeJump.isPlaying() ==false){
-          SlimeJump.rate(random(0.5,1.5));
+        if (SlimeJump.isPlaying() ==false) {
+          SlimeJump.rate(random(0.5, 1.5));
           SlimeJump.play();
         }
-        
-        
       } else keyUp = 0;     
 
       //Stops player from movement speed increasing to fast
@@ -215,9 +215,9 @@ class Player {
 
       //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
       if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && moving) {
-        if(DashSlime.isPlaying() ==false){
-         DashSlime.rate(random(0.8,1.2)); 
-        DashSlime.play();
+        if (DashSlime.isPlaying() ==false) {
+          DashSlime.rate(random(0.8, 1.2)); 
+          DashSlime.play();
         }
         if (inputs.hasValue(LEFT) == true) {
           vx = -DASHSPEED;
