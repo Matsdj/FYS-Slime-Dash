@@ -1,0 +1,9 @@
+Player Controller
+VERT	Y position	3	SLIDER	Y-as	0	1.0	0.0
+HOR	X position	3	SLIDER	X-as	0	1.0	0.0
+A	A button	1	BUTTON	Knop 1	0	0.0	0.0
+B	B button	1	BUTTON	Knop 2	0	0.0	0.0
+X	X button	1	BUTTON	Knop 0	0	0.0	0.0
+Y	Y button	1	BUTTON	Knop 3	0	0.0	0.0
+SELECT	select Button	1	BUTTON	Knop 8	0	0.0	0.0
+START	start button	1	BUTTON	Knop 9	0	0.0	0.0

@@ -20,6 +20,8 @@ if (inputsPressed.hasValue(96)) {
     text("Room:"+room,0,300);
     text("P.insideblock:"+player.insideBlock(),0,350);
     text("ActiveBlocks:"+activeBlocks,0,400);
+    text(dpadVert,0,450);
+    text(dpadHor,0,500);
   }
   fill(0);
 }

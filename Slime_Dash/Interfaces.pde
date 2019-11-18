@@ -16,13 +16,13 @@ class Pause {
 
   void update() {
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause" && inputs.hasValue(32)==true) {
+    if (room == "pause" && (inputs.hasValue(32)==true ||A==true)) {
       room = "game";
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game" && inputs.hasValue(80) && interfaces.death != true) {
+    else if (room == "game" && (inputs.hasValue(80)||START ==true) && interfaces.death != true) {
       room = "pause";
-    } else if (room == "pause" && inputs.hasValue(81)) {
+    } else if (room == "pause" && (inputs.hasValue(81)||Y==true)) {
       GameSlow.stop();
       GameMid.stop();
       GameFast.stop();
@@ -95,21 +95,21 @@ class MainM {
       blink +=5;
     }
     c1 = blink;
-    if (c1 == blink&&keyCode==40) {
+    if (c1 == blink&&(keyCode==40||dpadVert ==1)) {
       c1 = 255;
       c2 = blink;
     }
-    if (c2 == blink&&keyCode==38) {
+    if (c2 == blink&&(keyCode==38||dpadVert ==0)) {
       c2 = 255;
       c1 = blink;
     }
 
 
-    if (c1 == blink&&room == "mainM" && keyCode ==32) {
+    if (c1 == blink&&room == "mainM" && (keyCode ==32 ||A ==true)) {
       room = "game";
       SpeedUp.play();
     }
-    if (c2 == blink&&room == "mainM" && keyCode ==32) {
+    if (c2 == blink&&room == "mainM" && (keyCode ==32||A ==true)) {
       room = "settings";
     }
   }

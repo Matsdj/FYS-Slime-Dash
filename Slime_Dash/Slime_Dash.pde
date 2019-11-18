@@ -8,16 +8,28 @@
 
 //remember, ctrl+t
 
+
+
 float frameSpeed, globalScale, globalScrollSpeed, time;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean debug = false;
+//controller input
+import net.java.games.input.*;
+import org.gamecontrolplus.*;
+import org.gamecontrolplus.gui.*;
+ControlIO control;
+ControlDevice gpad;
+float dpadHor, dpadVert;
+boolean A, B, X, Y, START;
+
 
 void setup() {
-  //size(1280, 720, P3D);
-  fullScreen(P2D);
+
+  size(1280, 720, P3D);
+  //fullScreen(P2D);
   frameRate(60);
   globalScale = height/12;
   room = "mainM";
@@ -36,6 +48,9 @@ void setup() {
   mapSetup();
   soundSetup(); 
   settingSetup();
+  //controller input
+  control = ControlIO.getInstance(this);
+  gpad = control.getMatchedDevice("SlimeDashcontroller");
 }
 //GAME
 void updateGame() {
@@ -50,7 +65,7 @@ void updateGame() {
     globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
   }
   //tutorial mode
-  //globalScrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
+  globalScrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
   //Adds Terrain
   mapUpdate();
   //Terrain Update
@@ -101,4 +116,11 @@ void draw() {
   debug();
   inputsPressedUpdate();
   mapTemplateList[0].loadPixels();
+  dpadHor = map(gpad.getSlider("HOR").getValue(), -1, 1, 0, 1);
+  dpadVert = map(gpad.getSlider("VERT").getValue(), -1, 1, 0, 1);
+  A = gpad.getButton("A").pressed();
+  B = gpad.getButton("B").pressed();
+  X = gpad.getButton("X").pressed();
+  Y = gpad.getButton("Y").pressed();
+  START = gpad.getButton("START").pressed();
 }

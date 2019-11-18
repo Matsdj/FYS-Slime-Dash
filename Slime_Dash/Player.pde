@@ -170,12 +170,12 @@ class Player {
     //all movement
     if (!interfaces.death) {
       //checkt input of player links of rechts gaat.
-      if (inputs.hasValue(LEFT) == true) {
+      if (inputs.hasValue(LEFT) == true || dpadHor == 0) {
         moveLeft = true;
         moving = true;
         moveSpeed *= SPEEDMULT;
         vx -= moveSpeed;
-      } else if (inputs.hasValue(RIGHT) == true) {
+      } else if (inputs.hasValue(RIGHT) == true||dpadHor ==1) {
         moveLeft = false;
         moving = true;
         moveSpeed *= SPEEDMULT;
@@ -187,7 +187,7 @@ class Player {
       }
 
       //checkt het zelfe voor de jump
-      if (inputs.hasValue(UP) == true) {
+      if (inputs.hasValue(UP) == true||dpadVert==0 ||A ==true) {
         keyUp = 1;
         if (SlimeJump.isPlaying() ==false){
           SlimeJump.rate(random(0.5,1.5));
@@ -214,7 +214,7 @@ class Player {
       }
 
       //Dash abilty, stopt vy (via de if(!dashActive)) en gravity voor horizontale dash
-      if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && moving) {
+      if ((inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) ||B ==true && (dpadHor == 0||dpadHor == 1))&& dashCooldown < 0 || dashActive && dashTime > 0 && moving) {
         if(DashSlime.isPlaying() ==false){
          DashSlime.rate(random(0.8,1.2)); 
         DashSlime.play();
