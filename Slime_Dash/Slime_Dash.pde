@@ -17,7 +17,7 @@ boolean debug = false;
 
 void setup() {
   //size(1280, 720, P3D);
-  fullScreen(P3D);
+  fullScreen(P2D);
   frameRate(60);
   globalScale = height/12;
   room = "mainM";
@@ -100,4 +100,5 @@ void draw() {
   }
   debug();
   inputsPressedUpdate();
+  mapTemplateList[0].loadPixels();
 }

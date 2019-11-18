@@ -25,27 +25,27 @@ class Block {
     active = false;
   }
   void update() {
-    if (x > -globalScale) {
-      x -= globalScrollSpeed;
-    }
+    x -= globalScrollSpeed;
   }
   void moving() {
-    if (blockCollision(x+vx, y, size, id) != null) {
-      vx *= -1;
+    if (moving == true && x < width) {
+      if (blockCollision(x+vx, y, size, id) != null) {
+        vx *= -1;
+      }
+      x += vx;
     }
-    x += vx;
   }
   void draw() {
-    if (x < width) {
+    if (x < width && active) {
       if (c == BRICK) {
         image(brickSprite, x, y);
       } else if (c == STONE) {
         image(stoneSprite, x, y);
       } else if (c == DIRT) {
-        if (blockCollision(x+1, y-globalScale+1, 5, id) != null) {
+        if (blockCollision(x+1, y-globalScale+1, 5, id) != null){
           image(dirtSprite, x, y);
         } else {
-          image(grassSprite, x, y);
+        image(grassSprite, x, y);
         }
       } else if (c == ICE) {
         image(iceSprite, x, y);
@@ -53,6 +53,9 @@ class Block {
         fill(c);
         stroke(0);
         rect(x, y, size, size);
+      }
+      if (debug == true){
+        text(red(c),x,y);
       }
     }
   }
@@ -108,31 +111,25 @@ void blockUpdate() {
   activeBlocks = 0;
   //loopt door de lijst en beweegt elke block
   for (int i = 0; i<blocks.length; i++) {
-    if (blocks[i].active) {
+    if (blocks[i].active == true) {
       activeBlocks++;
-      blocks[i].update();
     }
-    if (blocks[i].id != i) {
-      blocks[i].id = i;
-    }
-    //Removes the block when it is 1 block outside the screen
-    if (blocks[i].active && blocks[i].x <= -globalScale) {
+    blocks[i].id = i;
+    blocks[i].update();
+    //Removes the block when it is 4 blocks outside the screen
+    if (blocks[i].x < -globalScale*4-blocks[i].size) {
       blocks[i].active = false;
     }
   }
   //loopt door de lijst en beweegt elke moving block
   for (int i = 0; i<blocks.length; i++) {
-    if (blocks[i].moving && blocks[i].x < width) {
-      blocks[i].moving();
-    }
+    blocks[i].moving();
   }
 }
 //block draw
 void blockDraw() {
   //loopt door de lijst en tekent elke block
   for (int i = 0; i<blocks.length; i++) {
-    if (blocks[i].active) {
-      blocks[i].draw();
-    }
+    blocks[i].draw();
   }
 }
