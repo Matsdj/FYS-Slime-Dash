@@ -97,6 +97,11 @@ void drawGame() {
 
 void draw() {
   soundUpdate();
+  A = gpad.getButton("A").pressed();
+  B = gpad.getButton("B").pressed();
+  X = gpad.getButton("X").pressed();
+  Y = gpad.getButton("Y").pressed();
+  START = gpad.getButton("START").pressed();
   if (room == "pause") {
     pause.draw();
     pause.update();
@@ -118,9 +123,4 @@ void draw() {
   mapTemplateList[0].loadPixels();
   dpadHor = map(gpad.getSlider("HOR").getValue(), -1, 1, 0, 1);
   dpadVert = map(gpad.getSlider("VERT").getValue(), -1, 1, 0, 1);
-  A = gpad.getButton("A").pressed();
-  B = gpad.getButton("B").pressed();
-  X = gpad.getButton("X").pressed();
-  Y = gpad.getButton("Y").pressed();
-  START = gpad.getButton("START").pressed();
 }

@@ -98,7 +98,7 @@ class HUD {
       globalScrollSpeed = 0;
     }
     /* spacebar om te resetten*/
-    if (death ==true && inputs.hasValue(32)==true) {
+    if (death ==true && (inputs.hasValue(32)==true||A==true)) {
       death = false;
       Dede.stop();
       setup();
