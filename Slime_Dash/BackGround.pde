@@ -100,10 +100,9 @@ void bgUpdate() {
 
 void bgDraw() { 
   //draws a blue sky in bg
-
-  float skySize = 12*globalScale;
+  
   for (int iSky = 0; iSky < SKY_AMOUNT; iSky++) {
-    image(bgSky, 0 + skySize * iSky, 0, skySize, skySize);
+    image(bgSky, 0 + bgSky.width * iSky, 0);
   }
 
   sunDraw();

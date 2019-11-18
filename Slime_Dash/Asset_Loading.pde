@@ -6,7 +6,7 @@ PImage bgWall;
 PImage bgSky;
 PImage bgSun;
 
-int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight;
+int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
 public void assetSetup() {
@@ -15,7 +15,7 @@ public void assetSetup() {
   houseSpriteHeight = int(8 * globalScale);
 
   //wallResize
-  wallSpriteWidth = int(9 * globalScale);
+  wallSpriteWidth = int(10 * globalScale);
   wallSpriteHeight = int(10 * globalScale);
   
   //cloudResize
@@ -25,6 +25,8 @@ public void assetSetup() {
   //sunResize
   sunSpriteSize = int((12 * globalScale)/2);
   
+  //skyResize
+  skySpriteSize = int(globalScale * 12);
   
   //meleeEnemyResize
   meleeSpriteWidth = int(globalScale);
@@ -65,6 +67,7 @@ public void assetSetup() {
   bgWall.resize(wallSpriteWidth, wallSpriteHeight);
   
   bgSky = loadImage("sprites/backGround/sky.png");
+  bgSky.resize(skySpriteSize, skySpriteSize);
   
   bgSun = loadImage("sprites/backGround/sun.png");
   bgSun.resize(sunSpriteSize, sunSpriteSize);
