@@ -10,7 +10,7 @@ Alle mogelijke strings    ColorID
  "PH" ("P"ickup "H"ealth) 0,255,0
  "HM" ("H"ostile "M"elee) 255,0,100
  "HR" ("H"ostile "R"anged)255,0,150
-
+*/
 ArrayList<String[][]> mapTemplateListOLD = new ArrayList<String[][]>();
 //Hier worden de mogelijke templates aan de lijst toegevoegd
 void templateSetup() {
@@ -212,4 +212,3 @@ String[][] iceBoost() {
   iceBoost[11]= new String[] {"BD", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD"};
   return iceBoost;
 }
-*/
