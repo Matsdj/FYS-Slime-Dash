@@ -28,5 +28,17 @@ void inputsPressedUpdate() {
  }
  vul bij keyCode gewoon het nummer van de key in.
  keyCodes kan je krijgen op: https://keycode.info
+
+ if(dpadHor == 0)
+{inputs.hasValue(LEFT) == true}
+if
+{inputs.hasValue(RIGHT) == true}
+if
+{inputs.hasValue(UP) == true}
+if
+{inputs.hasValue(90) == true}
+
+
  
  */
+ 
