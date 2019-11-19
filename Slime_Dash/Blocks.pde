@@ -64,10 +64,8 @@ Block blockCollision(float x, float y, float size, float blockId) {
   Block Collision = null;
 
   for (int blockNumber = 0; blockNumber < blocks.length; blockNumber++) {
-    if (blocks[blockNumber].active) {
-      if (blocks[blockNumber].x < x+size && blocks[blockNumber].x+size > x && blocks[blockNumber].y < y+size && blocks[blockNumber].y+size > y) {
-        if (blocks[blockNumber].id != blockId) Collision = blocks[blockNumber];
-      }
+    if (blocks[blockNumber].x < x+size && blocks[blockNumber].x+size > x && blocks[blockNumber].y < y+size && blocks[blockNumber].y+size > y && blocks[blockNumber].active) {
+      if (blocks[blockNumber].id != blockId) Collision = blocks[blockNumber];
     }
   }
   return Collision;
