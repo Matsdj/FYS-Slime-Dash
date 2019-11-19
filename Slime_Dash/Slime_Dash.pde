@@ -16,8 +16,9 @@ String room;
 boolean debug = false;
 
 void setup() {
-  //size(1280, 720, P3D);
-  fullScreen(P2D);
+  size(1280, 720, P2D);
+  smooth(0);
+  //fullScreen(P2D);
   frameRate(60);
   globalScale = height/12;
   room = "mainM";

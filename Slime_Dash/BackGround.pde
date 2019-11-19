@@ -4,9 +4,9 @@
 //wall sprite: 9*10
 //clouds sprite: 12*9
 // sun/sky sprite: 12*12
-final int MAX_HOUSES = 6;
+final int MAX_HOUSES = 4;
 final int BG_HOUSES_AMOUNT = 6;
-final int BG_WALL_AMOUNT = 6;
+final int BG_WALL_AMOUNT = 4;
 final int BG_CLOUDS_AMOUNT = 3;
 final int MAX_CLOUDS = 6;
 final int SKY_AMOUNT = 2;
