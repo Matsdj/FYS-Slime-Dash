@@ -32,7 +32,7 @@ void setup() {
   spikeSetup();
   flameSetup();
   pauseSetup();
-  pickupsSetup();
+  pickupSetup();
   mapSetup();
   soundSetup(); 
   settingSetup();

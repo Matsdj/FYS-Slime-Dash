@@ -14,6 +14,7 @@ void hostileSetup() {
 
   for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
     hostileMelee[iHostile] = new HostileMelee();
+    hostileRanged[iHostile] = new HostileRanged();
   }
 }
 void addHostileMelee(float x, float y) {
@@ -27,8 +28,8 @@ void addHostileMelee(float x, float y) {
 
 void addHostileRanged(float x, float y) {
   for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
-    if (hostileRanged[iHostile] == null) {
-      hostileRanged[iHostile] = new HostileRanged(x, y);
+    if (hostileRanged[iHostile].isActive) {
+      hostileRanged[iHostile].activate(x, y);
       break;
     }
   }
@@ -44,13 +45,9 @@ void hostileUpdate() {
         hostileMelee[iHostile]= null;
       }*/
     }
-    if (hostileRanged[iHostile] != null) {
+    if (hostileRanged[iHostile].isActive) {
 
       hostileRanged[iHostile].update();
-
-      if (hostileRanged[iHostile].x < 0 - hostileRanged[iHostile].size) {
-        hostileRanged[iHostile] = null;
-      }
     }
   }
 }
@@ -59,7 +56,7 @@ void hostileDraw() {
     if (hostileMelee[iHostile].isActive) {
       hostileMelee[iHostile].draw();
     }
-    if (hostileRanged[iHostile] != null) {
+    if (hostileRanged[iHostile].isActive) {
       hostileRanged[iHostile].draw();
     }
   }
@@ -149,13 +146,24 @@ class HostileMelee {
 
 class HostileRanged {
   float x, y, size;
-  boolean dead;
+  boolean dead, isActive;
 
-  HostileRanged(float enemyX, float enemyY) {
+  HostileRanged() {
     size = globalScale;
-    x = enemyX;
-    y = enemyY;
+    reset();
+  }
+  
+  void reset() {
+    isActive = false;
+    x = -globalScale *10;
+    y = -globalScale *10;
+  }
+  
+  void activate(float activatex, float activatey) {
+    isActive = true;
     dead = false;
+    x = activatex;
+    y = activatey;
   }
 
   void update() {
