@@ -170,7 +170,8 @@ class HostileRanged {
       player.dmgCooldown = player.DMG_COOLDOWN;
     } 
     if (dead) {
-      x = -globalScale*2;
+      reset();
+      //x = -globalScale*2;
       interfaces.score += ENEMYSCORE;
     }
   }

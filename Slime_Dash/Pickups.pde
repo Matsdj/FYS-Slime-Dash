@@ -97,7 +97,7 @@ class PCoin {
 
   void draw() {
     fill(c);
-    ellipse(x, y, size, size);
+    rect(x  - globalScale / 2, y - globalScale / 2, size, size);
   }
 }
 
@@ -137,13 +137,14 @@ class PHealth {
     }
   }
   void draw() {
-    rectMode(CENTER);
+    //rectMode(CENTER);
     fill(c);
-    ellipse(x, y, size, size);
-    stroke(255);
-    fill(255);
-    rect(x, y, crossWidth, crossHeight);
-    rect(x, y, crossHeight, crossWidth);
-    rectMode(CORNER);
+    rect(x - globalScale / 2, y - globalScale / 2, size, size);
+    //stroke(255);
+    //fill(255);
+    //rect(x, y, crossWidth, crossHeight);
+    //rect(x, y, crossHeight, crossWidth);
+    //stroke(0);
+    //rectMode(CORNER);
   }
 }
