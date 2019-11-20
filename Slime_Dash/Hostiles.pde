@@ -46,7 +46,6 @@ void hostileUpdate() {
       }*/
     }
     if (hostileRanged[iHostile].isActive) {
-
       hostileRanged[iHostile].update();
     }
   }
