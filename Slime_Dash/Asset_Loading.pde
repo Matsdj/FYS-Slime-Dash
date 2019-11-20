@@ -5,7 +5,8 @@ PImage[] bgCloud;
 PImage bgWall;
 PImage bgSky;
 PImage bgSun;
-
+PImage heart;
+PImage coin;
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
@@ -71,4 +72,7 @@ public void assetSetup() {
   
   bgSun = loadImage("sprites/backGround/sun.png");
   bgSun.resize(sunSpriteSize, sunSpriteSize);
+  
+  heart = loadImage("sprites/pickUps/heart.png");
+  coin = loadImage("sprites/pickUps/coin.png");
 }

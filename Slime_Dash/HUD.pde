@@ -95,8 +95,7 @@ class HUD {
       goFadeIn += 2;
       /*stops player movement*/
       player.moveSpeed = 0;
-      globalScrollSpeed = 0;
-    }
+         }
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
       death = false;
