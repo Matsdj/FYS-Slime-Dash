@@ -50,7 +50,7 @@ class Flame {
   //controleerd op player aanraking
   void update() {
     if (timeflame>timeflamemax/2) {
-      if ( player.hitboxCollision(x, y, size)&& player.dmgCooldown < 0) {
+      if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0) {
         player.enemyDamage=true;
         player.dmgCooldown = player.DMG_COOLDOWN;
       }

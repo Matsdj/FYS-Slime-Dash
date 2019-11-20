@@ -38,12 +38,7 @@ void addHostileRanged(float x, float y) {
 void hostileUpdate() {
   for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
     if (hostileMelee[iHostile].isActive) {
-
       hostileMelee[iHostile].update();
-
-      /*if (hostileMelee[iHostile].x < 0 - hostileMelee[iHostile].size) {
-        hostileMelee[iHostile]= null;
-      }*/
     }
     if (hostileRanged[iHostile].isActive) {
       hostileRanged[iHostile].update();
@@ -114,7 +109,7 @@ class HostileMelee {
     //checkt collision met player
     if (player.Collision(x, y, size) && player.dashActive) {
       dead = true;
-    } else if (player.hitboxCollision(x, y, size) && player.dmgCooldown < 0 && !dead) {
+    } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
     } 
@@ -170,7 +165,7 @@ class HostileRanged {
 
     if (player.Collision(x, y, size) && player.dashActive) {
       dead = true;
-    } else if (player.hitboxCollision(x, y, size) && player.dmgCooldown < 0 && !dead) {
+    } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
     } 

@@ -62,9 +62,10 @@ Block[] blocks = new Block[500];
 //Loops through all the blocks to see if there is one at the given position
 Block blockCollision(float x, float y, float size, float blockId) {
   Block Collision = null;
-  for (int blockNumber = 0; blockNumber < blocks.length; blockNumber++) {
-    if (blocks[blockNumber].x < x+size && blocks[blockNumber].x+size > x && blocks[blockNumber].y < y+size && blocks[blockNumber].y+size > y) {
-      if (blocks[blockNumber].id != blockId) Collision = blocks[blockNumber];
+
+  for (int i = 0; i < blocks.length; i++) {
+    if (blocks[i].x < x+size && blocks[i].x+size > x && blocks[i].y < y+size && blocks[i].y+size > y && blocks[i].active) {
+      if (blocks[i].id != blockId) Collision = blocks[i];
     }
   }
   return Collision;
