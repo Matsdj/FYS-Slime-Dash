@@ -139,7 +139,9 @@ class HUD {
     noFill();
     rect(dashX, dashY, dashL, dashH, healthRNormal);
     //score
+    if (death==false){
     score +=globalScrollSpeed/10;
+    }
     textAlign(RIGHT);
     fill(0);
     textSize(scoreSize);
