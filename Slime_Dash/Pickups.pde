@@ -82,13 +82,13 @@ class PCoin {
     x = activatex + size / 2;
     y = activatey + size / 2;
   }
-  // collision check of de player de coin aanraakt 
+  // collision check of de player de coin aanraakt
   void update() {
     x -= globalScrollSpeed;
     if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
       pickedUp = true;
     }
-    // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden    
+    // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden
     if (pickedUp) {
       reset();
       interfaces.score += GAIN_SCORE;
