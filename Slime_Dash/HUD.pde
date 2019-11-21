@@ -62,13 +62,11 @@ class HUD {
     } else {
       healthR = 0;
     }
-
+    //healthbar laat damage cooldown zien door donkerrood te worden
     if (player.dmgCooldown >=0) {
       healthC = color(150, 0, 0);
-      player.pColor = color(0, 150, 0);
     } else {
       healthC = color(255, 0, 0);
-      player.pColor = color(0, 255, 0);
     }
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true) {
@@ -95,14 +93,13 @@ class HUD {
       goFadeIn += 2;
       /*stops player movement*/
       player.moveSpeed = 0;
-         }
+    }
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
       death = false;
       Dede.stop();
       setup();
       room = "game";
-      
     }
     //fade out on death
     if (death == true) {
@@ -139,8 +136,8 @@ class HUD {
     noFill();
     rect(dashX, dashY, dashL, dashH, healthRNormal);
     //score
-    if (death==false){
-    score +=globalScrollSpeed/10;
+    if (death==false) {
+      score +=globalScrollSpeed/10;
     }
     textAlign(RIGHT);
     fill(0);
