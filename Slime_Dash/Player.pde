@@ -131,7 +131,7 @@ class Player {
     //ice blocks
     if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).c == ICE) {
       slowDown = ICESLOWDOWN;
-    } else slowDown = SPEEDSLOWDOWN;
+    }
 
     //moving blocks
     if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).moving) {
@@ -258,7 +258,10 @@ class Player {
         y += sign(vy);
       }
       vy = 0;
+      slowDown = SPEEDSLOWDOWN;
     }
+    
+    //stops player from going above the screen
     while (y <= -size+1) {
       y++;
     }
