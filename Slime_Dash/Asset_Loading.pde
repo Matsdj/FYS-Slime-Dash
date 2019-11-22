@@ -7,6 +7,7 @@ PImage bgSky;
 PImage bgSun;
 PImage heart;
 PImage coin;
+PImage slimeDash;
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
@@ -95,4 +96,7 @@ public void assetSetup() {
   grassSprite.resize(int(globalScale), int(globalScale));
   iceSprite = loadImage("sprites/blocks/ice.png");
   iceSprite.resize(int(globalScale), int(globalScale));
+
+  //Main Menu
+  slimeDash = loadImage("./sprites/menus/SlimeDash.png");
 }
