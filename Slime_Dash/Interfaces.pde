@@ -1,5 +1,11 @@
 //Laurens
 
+/*
+/NAVIGATIE/
+ P = pauze (START)
+ Q = terug (B)
+ SPACE = verder (A)
+ */
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
   pause = new Pause();
@@ -15,6 +21,14 @@ class Pause {
   }
 
   void update() {
+    /*druk op spacebar om naar game te gaan*/
+    if (room == "pause" && (inputs.hasValue(32)||inputs.hasValue(39))) {
+      room = "game2";
+    }
+    /*druk op 'p' om naar pause te gaan*/
+    else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true) {
+      room = "pause";
+    }
     /*druk op spacebar om naar game te gaan*/
     if (room == "pause" && (inputs.hasValue(32)||inputs.hasValue(39))) {
       room = "game";
@@ -56,19 +70,17 @@ void mainMSetup() {
 MainM main;
 
 class MainM {
-  float bx, by, sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3, sdColor;
+  float sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3;
   boolean hover, blinkC, blinking;
   int  c1, c2;
   color blink;
   //PFont font;
-  PImage slimeDash;
+
 
   MainM() {
-    slimeDash = loadImage("./sprites/menus/SlimeDash.png");
+
     sizeH = height/7;
     sizeW = width/2.8;
-    bx = (width/2)-(sizeW/2);
-    by = (height/2)-(sizeH/2);
     //font = loadFont("vlw");
     //textFont(font);
     background(0);
@@ -77,7 +89,6 @@ class MainM {
     tSize3 = 40;    
     tx = width/4;
     ty = height/3;
-    sdColor = 255;
     blink = color(255, 0, 0);
     blinkC = false;
     blinking =true;
@@ -112,10 +123,6 @@ class MainM {
     }
   }
   void draw() {
-    /* fill(20);
-     rect(bx, by, sizeW, sizeH);
-     fill(255);*/
-
     //text
     textAlign(LEFT, CENTER);
     textSize(tSize3/2);
@@ -166,7 +173,7 @@ void difSetup() {
 DIF dif;
 
 class DIF {
-  float bx, by, sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3, sdColor;
+  float sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3;
   boolean hover, blinkC, blinking;
   int  c1, c2;
   color blink;
@@ -176,8 +183,6 @@ class DIF {
   DIF() {
     sizeH = height/7;
     sizeW = width/2.8;
-    bx = (width/2)-(sizeW/2);
-    by = (height/2)-(sizeH/2);
     //font = loadFont("vlw");
     //textFont(font);
     background(0);
@@ -186,7 +191,6 @@ class DIF {
     tSize3 = 50;    
     tx = width/4;
     ty = height/3;
-    sdColor = 255;
     blink = color(255, 0, 0);
     blinkC = false;
     blinking =true;
@@ -211,9 +215,6 @@ class DIF {
       c2 = 255;
       c1 = blink;
     }
-    if (keyCode ==81) {
-      room= "mainM";
-    }
 
     if (c1==blink&&room == "difficulty" && inputs.hasValue(32) ) {
       room = "game";
@@ -225,10 +226,6 @@ class DIF {
     }
   }
   void draw() {
-    /* fill(20);
-     rect(bx, by, sizeW, sizeH);
-     fill(255);*/
-
     //text
     textAlign(LEFT, CENTER);
     textSize(tSize3/2);

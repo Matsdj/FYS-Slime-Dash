@@ -39,18 +39,18 @@ void soundUpdate() {
       SpeedUp.stop();
       Dede.stop();
     }
-  } else if (room == "game") {
+  } else if ((room =="game"||room == "game2")) {
     Hoofdmenu.pause();
   }
   //muziek wanneer time onder 'slow' zit
   if (GameSlow.isPlaying() == false) {
-    if (room =="game"&&time<=slow) {
+    if ((room =="game"||room == "game2")&&time<=slow) {
       GameSlow.play();
     }
   }
   //muziek wanneer time onder 'mid' en boven 'slow' zit
   if (GameMid.isPlaying() == false) {
-    if (room =="game" && time>=slow && time<=mid) {
+    if ((room =="game"||room == "game2") && time>=slow && time<=mid) {
       GameSlow.stop();
       GameMid.play();
       GameMid.loop();
@@ -58,7 +58,7 @@ void soundUpdate() {
   }
   //muziek wanneer time boven 'mid' zit
   if (GameFast.isPlaying() == false) {
-    if (room =="game" && time>=mid) {
+    if ((room =="game"||room == "game2") && time>=mid) {
       GameMid.stop();
       SpeedUp.stop();
       GameFast.play();
@@ -81,6 +81,12 @@ void soundUpdate() {
     Ding.play();
   }
   if (inputs.hasValue(UP)==true && main.blink==main.c2 && room=="mainM") {
+    Ding.play();
+  }
+  if (inputs.hasValue(DOWN)==true && dif.blink==dif.c1 && room=="difficulty") {
+    Ding.play();
+  }
+  if (inputs.hasValue(UP)==true && dif.blink==dif.c2 && room=="difficulty") {
     Ding.play();
   }
 }

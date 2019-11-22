@@ -5,6 +5,8 @@ void interfacesSetup() {
 }
 HUD interfaces;
 class HUD {
+  //DAMAGE NUMBERS/////////////////////////////////////
+  int swordDMG = 20;
   //healthbar
   int healthMain, noHealth;
   float healthX, healthY, healthR, healthRNormal, healthL, healthH;
@@ -17,6 +19,7 @@ class HUD {
   String gOver;
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
+
 
   HUD() {
     //healthbar
@@ -73,7 +76,7 @@ class HUD {
       player.enemyDamage= false;
       healthC = color(255);
       /*verander deze om enemy damage aan te passen*/
-      healthMain = healthMain-20;
+      healthMain = healthMain-swordDMG;
     } 
 
     //dash bar
@@ -85,16 +88,16 @@ class HUD {
       death = true;
       healthMain = 0;
     }
-    if (keyCode ==81) {
-      room= "mainM";
-    }
-
     if (death == true) {
       /*makes GO text fade in*/
       gOver = "Game over";
       goFadeIn += 2;
       /*stops player movement*/
       player.moveSpeed = 0;
+      //Q om naar main menu te gaan
+      if (keyCode ==81) {
+        room= "mainM";
+      }
     }
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
