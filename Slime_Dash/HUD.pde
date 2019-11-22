@@ -100,12 +100,18 @@ class HUD {
       }
     }
     /* spacebar om te resetten*/
-    if (death ==true && inputs.hasValue(32)==true) {
+    if (death ==true && inputs.hasValue(32)==true && room=="game") {
       death = false;
       Dede.stop();
       setup();
       room = "game";
-    }
+    } 
+    if (death ==true && inputs.hasValue(32)==true && room=="game2") {
+      death = false;
+      Dede.stop();
+      setup();
+      room = "game2";
+    } 
     //fade out on death
     if (death == true) {
       player.fade -= 3;

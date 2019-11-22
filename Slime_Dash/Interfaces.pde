@@ -188,7 +188,7 @@ class DIF {
     background(0);
     tSize1 = 75;
     tSize2 = 50;
-    tSize3 = 50;    
+    tSize3 = 40;    
     tx = width/4;
     ty = height/3;
     blink = color(255, 0, 0);
@@ -215,7 +215,9 @@ class DIF {
       c2 = 255;
       c1 = blink;
     }
-
+    if (keyCode ==81) {
+      room= "mainM";
+    }
     if (c1==blink&&room == "difficulty" && inputs.hasValue(32) ) {
       room = "game";
       SpeedUp.play();
