@@ -16,13 +16,14 @@ class Pause {
 
   void update() {
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause" && inputs.hasValue(32)==true) {
+    if (room == "pause" && (inputs.hasValue(32)||inputs.hasValue(39))) {
       room = "game";
     }
     /*druk op 'p' om naar pause te gaan*/
     else if (room == "game" && inputs.hasValue(80) && interfaces.death != true) {
       room = "pause";
-    } else if (room == "pause" && inputs.hasValue(81)) {
+     // druk op q of t om naar main menu te gaan
+    } else if (room == "pause" && (inputs.hasValue(81)||inputs.hasValue(84))) {
       GameSlow.stop();
       GameMid.stop();
       GameFast.stop();
