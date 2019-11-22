@@ -22,7 +22,7 @@ class Pause {
     /*druk op 'p' om naar pause te gaan*/
     else if (room == "game" && inputs.hasValue(80) && interfaces.death != true) {
       room = "pause";
-     // druk op q of t om naar main menu te gaan
+      // druk op q of t om naar main menu te gaan
     } else if (room == "pause" && (inputs.hasValue(81)||inputs.hasValue(84))) {
       GameSlow.stop();
       GameMid.stop();
@@ -44,8 +44,8 @@ class Pause {
     textSize(100);
     text("PAUSED", width/2, height/4);
     textSize(60);
-    text("resume = spacebar", width/2, height*0.70);
-    text("main menu = q", width/2, height*0.82);
+    text("resume = A", width/2, height*0.70);
+    text("main menu = B", width/2, height*0.82);
   }
 }
 
@@ -58,7 +58,7 @@ MainM main;
 class MainM {
   float bx, by, sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3, sdColor;
   boolean hover, blinkC, blinking;
-  int  c1, c2, c3;
+  int  c1, c2;
   color blink;
   //PFont font;
   PImage slimeDash;
@@ -74,7 +74,7 @@ class MainM {
     background(0);
     tSize1 = 75;
     tSize2 = 50;
-    tSize3 = 50;    
+    tSize3 = 40;    
     tx = width/4;
     ty = height/3;
     sdColor = 255;
@@ -83,10 +83,8 @@ class MainM {
     blinking =true;
     c1 = blink;
     c2 = 255;
-    c3 = 255;
   }
   void update() {
-    //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
     if (c1 == blink) {
       tSize1 =75;
       tSize2 =50;
@@ -129,8 +127,11 @@ class MainM {
     fill(c2);
     text("Settings", tx, ty*1.5);
     textSize(tSize3);
-    fill(c3);
-    text("press SPACEBAR to select", tx, ty*2);
+    fill(255, 0, 0);
+    text("press A to select", tx, ty*2);
+    fill(255, 255, 0);
+    text("press B to to go back", tx, ty*2+50);
+
     image(slimeDash, width/4, height/100, width/3, height/3);
   }
 }
@@ -167,7 +168,7 @@ DIF dif;
 class DIF {
   float bx, by, sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3, sdColor;
   boolean hover, blinkC, blinking;
-  int  c1, c2, c3;
+  int  c1, c2;
   color blink;
   //PFont font;
   PImage slimeDash;
@@ -191,7 +192,6 @@ class DIF {
     blinking =true;
     c1 = blink;
     c2 = 255;
-    c3 = 255;
   }
   void update() {
     //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
@@ -240,7 +240,9 @@ class DIF {
     fill(c2);
     text("Tutorial Mode", tx, ty*1.5);
     textSize(tSize3);
-    fill(c3);
-    text("press SPACEBAR to select", tx, ty*2);
+    fill(255, 0, 0);
+    text("press A to select", tx, ty*2);
+    fill(255, 255, 0);
+    text("press B to to go back", tx, ty*2+50);
   }
 }

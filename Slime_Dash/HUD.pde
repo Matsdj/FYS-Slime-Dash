@@ -163,6 +163,6 @@ class HUD {
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX, gOverY);
-    text("press SPACEBAR to restart", gOverX, gOverY+300);
+    text("press A to restart", gOverX, gOverY+300);
   }
 }
