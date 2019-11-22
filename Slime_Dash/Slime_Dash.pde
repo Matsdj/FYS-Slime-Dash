@@ -52,7 +52,14 @@ void updateGame() {
     globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
   }
   //tutorial mode
-  //globalScrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
+  if (room == "game2") {
+    float scrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
+    if (scrollSpeed > 0) {
+      globalScrollSpeed = scrollSpeed;
+    } else {
+      globalScrollSpeed = 0;
+    }
+  }
   //Adds Terrain
   mapUpdate();
   //Terrain Update
