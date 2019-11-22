@@ -1,6 +1,6 @@
 /*ig101-5
  Chris - 500828243,
- Collin - ,
+ Collin - 500833247,
  Ivano - 500831163,
  Mats - ,
  Laurens - 500821318
@@ -14,6 +14,7 @@ final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean debug = false;
+int switchC = 1;
 
 void setup() {
   //size(1280, 720, P2D);
