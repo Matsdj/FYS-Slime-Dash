@@ -215,9 +215,6 @@ class DIF {
       c2 = 255;
       c1 = blink;
     }
-    if (keyCode ==81) {
-      room= "mainM";
-    }
 
     if (c1==blink&&room == "difficulty" && inputs.hasValue(32) ) {
       room = "game";

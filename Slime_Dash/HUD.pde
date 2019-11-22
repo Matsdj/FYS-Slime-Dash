@@ -85,16 +85,16 @@ class HUD {
       death = true;
       healthMain = 0;
     }
-    if (keyCode ==81) {
-      room= "mainM";
-    }
-
     if (death == true) {
       /*makes GO text fade in*/
       gOver = "Game over";
       goFadeIn += 2;
       /*stops player movement*/
       player.moveSpeed = 0;
+      //Q om naar main menu te gaan
+      if (keyCode ==81) {
+        room= "mainM";
+      }
     }
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
