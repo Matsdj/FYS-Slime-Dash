@@ -16,8 +16,8 @@ String room;
 boolean debug = false;
 
 void setup() {
-  //size(1280, 720, P2D);
-  fullScreen(P2D);
+  size(1280, 720, P2D);
+  //  fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;
@@ -37,6 +37,7 @@ void setup() {
   mapSetup();
   soundSetup(); 
   settingSetup();
+  difSetup();
 }
 //GAME
 void updateGame() {
@@ -90,12 +91,24 @@ void draw() {
     pause.update();
     updateGame();
     drawGame();
+  } else if (room =="game2") {
+    globalScrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
+    pause.update();
+    updateGame();
+    drawGame();
   } else if (room == "mainM") {
     bgUpdate();
     bgDraw();
     main.update();
     main.draw();
+  } else if (room == "difficulty") {
+    bgUpdate();
+    bgDraw();
+    dif.draw();
+    dif.update();
   } else if (room == "settings") {
+    bgUpdate();
+    bgDraw();
     setting.draw();
     setting.update();
   }
