@@ -63,19 +63,19 @@ void makeMap(boolean random) {
       if (random(255) <= alpha(mapTemplate.pixels[loc])) {
         //Places Blocks,Spikes etc.
         if (col == BRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, -1);
         }
         if (col == STONE) {
-          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, false, -1);
         }
         if (col == DIRT) {
-          blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false, false, -1);
         }
         if (col == ICE) {
-          blocks[freeBlockIndex()].blockSetup(x, y, ICE, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, ICE, false, false, -1);
         }
         if (col == MOVINGBRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true, false, -1);
         }
         if (col == SPIKE) {
           addSpike(x, y);
@@ -118,13 +118,13 @@ void makeMapOLD(boolean random) {
         y = templateY*globalScale;
       //Places Blocks,Spikes etc.
       if (mapTemplate[templateY][templateX] == "BD") {
-        blocks[freeBlockIndex()].blockSetup(x,y, BRICK, false);
+        blocks[freeBlockIndex()].blockSetup(x,y, BRICK, false, false, -1);
       }
       if (mapTemplate[templateY][templateX] == "BI") {
-        blocks[freeBlockIndex()].blockSetup(x,y, ICE, false);
+        blocks[freeBlockIndex()].blockSetup(x,y, ICE, false, false, -1);
       }
       if (mapTemplate[templateY][templateX] == "BM") {
-        blocks[freeBlockIndex()].blockSetup(x,y, BRICK, true);
+        blocks[freeBlockIndex()].blockSetup(x,y, BRICK, true, false, -1);
       }
       if (mapTemplate[templateY][templateX] == "SD") {
         addSpike(x, y);
