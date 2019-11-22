@@ -16,13 +16,14 @@ class Pause {
 
   void update() {
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause" && inputs.hasValue(32)==true) {
+    if (room == "pause" && (inputs.hasValue(32)||inputs.hasValue(39))) {
       room = "game";
     }
     /*druk op 'p' om naar pause te gaan*/
     else if (room == "game" && inputs.hasValue(80) && interfaces.death != true) {
       room = "pause";
-    } else if (room == "pause" && inputs.hasValue(81)) {
+      // druk op q of t om naar main menu te gaan
+    } else if (room == "pause" && (inputs.hasValue(81)||inputs.hasValue(84))) {
       GameSlow.stop();
       GameMid.stop();
       GameFast.stop();
@@ -43,8 +44,8 @@ class Pause {
     textSize(100);
     text("PAUSED", width/2, height/4);
     textSize(60);
-    text("resume = spacebar", width/2, height*0.70);
-    text("main menu = q", width/2, height*0.82);
+    text("resume = A", width/2, height*0.70);
+    text("main menu = B", width/2, height*0.82);
   }
 }
 
@@ -55,14 +56,15 @@ void mainMSetup() {
 MainM main;
 
 class MainM {
-  float bx, by, sizeW, sizeH, tx, ty, tSize, sdColor;
-  boolean hover, blinkC;
-  int blink, c1, c2, c3;
+  float bx, by, sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3, sdColor;
+  boolean hover, blinkC, blinking;
+  int  c1, c2;
+  color blink;
   //PFont font;
-    PImage slimeDash;
+  PImage slimeDash;
 
   MainM() {
-      slimeDash = loadImage("./sprites/menus/SlimeDash.png");
+    slimeDash = loadImage("./sprites/menus/SlimeDash.png");
     sizeH = height/7;
     sizeW = width/2.8;
     bx = (width/2)-(sizeW/2);
@@ -70,34 +72,30 @@ class MainM {
     //font = loadFont("vlw");
     //textFont(font);
     background(0);
-    tSize = 50;
+    tSize1 = 75;
+    tSize2 = 50;
+    tSize3 = 40;    
     tx = width/4;
     ty = height/3;
     sdColor = 255;
-    blink = 255;
+    blink = color(255, 0, 0);
     blinkC = false;
-    c1 = 255;
+    blinking =true;
+    c1 = blink;
     c2 = 255;
-    c3 = 255;
   }
   void update() {
-    //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
-    if (blink >=255) {
-      blinkC = false;
+    if (c1 == blink) {
+      tSize1 =75;
+      tSize2 =50;
     }
-    if (blinkC==false) {
-      blink -=5;
-    } 
-    if (blink <= 0) {
-      blinkC =true;
-    }
-    if (blinkC == true) {
-      blink +=5;
-    }
-    c1 = blink;
     if (c1 == blink&&keyCode==40) {
       c1 = 255;
       c2 = blink;
+    }
+    if (c2 == blink) {
+      tSize2= 75;
+      tSize1= 50;
     }
     if (c2 == blink&&keyCode==38) {
       c2 = 255;
@@ -105,11 +103,11 @@ class MainM {
     }
 
 
-    if (c1 == blink&&room == "mainM" && keyCode ==32) {
-      room = "game";
+    if (c1==blink&&room == "mainM" && keyCode ==32) {
+      room = "difficulty";
       SpeedUp.play();
     }
-    if (c2 == blink&&room == "mainM" && keyCode ==32) {
+    if (c2==blink &&room == "mainM" && keyCode ==32) {
       room = "settings";
     }
   }
@@ -120,16 +118,21 @@ class MainM {
 
     //text
     textAlign(LEFT, CENTER);
-    textSize(tSize/2);
+    textSize(tSize3/2);
     text("pause = p | dash = z", 200, height-50);
-    textSize(tSize);
+    textSize(tSize1);
     fill(c1);
     text("Play", tx, ty);
+    textSize(tSize2);
     fill(c2);
     text("Settings", tx, ty*1.5);
-    fill(c3);
-    text("press SPACEBAR to select", tx, ty*2);
-  image(slimeDash,width/4,height/100,width/3,height/3);
+    textSize(tSize3);
+    fill(255, 0, 0);
+    text("press A to select", tx, ty*2);
+    fill(255, 255, 0);
+    text("press B to to go back", tx, ty*2+50);
+
+    image(slimeDash, width/4, height/100, width/3, height/3);
   }
 }
 
@@ -144,11 +147,102 @@ class Settings {
   Settings() {
   }
   void update() {
+    if (keyCode ==81) {
+      room= "mainM";
+    }
   }
   void draw() {
     fill(0, 3);
     rect(0, 0, width, height);
     fill(255);
     ellipse(random(width), random(height), 3, 3);
+  }
+}
+////////////////// difficulty scherm//////////////
+
+void difSetup() {
+  dif = new DIF();
+}
+DIF dif;
+
+class DIF {
+  float bx, by, sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3, sdColor;
+  boolean hover, blinkC, blinking;
+  int  c1, c2;
+  color blink;
+  //PFont font;
+  PImage slimeDash;
+
+  DIF() {
+    sizeH = height/7;
+    sizeW = width/2.8;
+    bx = (width/2)-(sizeW/2);
+    by = (height/2)-(sizeH/2);
+    //font = loadFont("vlw");
+    //textFont(font);
+    background(0);
+    tSize1 = 75;
+    tSize2 = 50;
+    tSize3 = 50;    
+    tx = width/4;
+    ty = height/3;
+    sdColor = 255;
+    blink = color(255, 0, 0);
+    blinkC = false;
+    blinking =true;
+    c1 = blink;
+    c2 = 255;
+  }
+  void update() {
+    //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
+    if (c1 == blink) {
+      tSize1 =75;
+      tSize2 =50;
+    }
+    if (c1 == blink&&keyCode==40) {
+      c1 = 255;
+      c2 = blink;
+    }
+    if (c2 == blink) {
+      tSize2= 75;
+      tSize1= 50;
+    }
+    if (c2 == blink&&keyCode==38) {
+      c2 = 255;
+      c1 = blink;
+    }
+    if (keyCode ==81) {
+      room= "mainM";
+    }
+
+    if (c1==blink&&room == "difficulty" && inputs.hasValue(32) ) {
+      room = "game";
+      SpeedUp.play();
+    }
+    if (c2==blink &&room == "difficulty" && inputs.hasValue(32)) {
+      room = "game2";
+      SpeedUp.play();
+    }
+  }
+  void draw() {
+    /* fill(20);
+     rect(bx, by, sizeW, sizeH);
+     fill(255);*/
+
+    //text
+    textAlign(LEFT, CENTER);
+    textSize(tSize3/2);
+    text("pause = p | dash = z", 200, height-50);
+    textSize(tSize1);
+    fill(c1);
+    text("Normal Mode", tx, ty);
+    textSize(tSize2);
+    fill(c2);
+    text("Tutorial Mode", tx, ty*1.5);
+    textSize(tSize3);
+    fill(255, 0, 0);
+    text("press A to select", tx, ty*2);
+    fill(255, 255, 0);
+    text("press B to to go back", tx, ty*2+50);
   }
 }

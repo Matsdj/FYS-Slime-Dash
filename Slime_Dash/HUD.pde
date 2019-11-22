@@ -62,13 +62,11 @@ class HUD {
     } else {
       healthR = 0;
     }
-
+    //healthbar laat damage cooldown zien door donkerrood te worden
     if (player.dmgCooldown >=0) {
       healthC = color(150, 0, 0);
-      player.pColor = color(0, 150, 0);
     } else {
       healthC = color(255, 0, 0);
-      player.pColor = color(0, 255, 0);
     }
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true) {
@@ -87,7 +85,9 @@ class HUD {
       death = true;
       healthMain = 0;
     }
-
+    if (keyCode ==81) {
+      room= "mainM";
+    }
 
     if (death == true) {
       /*makes GO text fade in*/
@@ -95,7 +95,6 @@ class HUD {
       goFadeIn += 2;
       /*stops player movement*/
       player.moveSpeed = 0;
-      globalScrollSpeed = 0;
     }
     /* spacebar om te resetten*/
     if (death ==true && inputs.hasValue(32)==true) {
@@ -103,7 +102,6 @@ class HUD {
       Dede.stop();
       setup();
       room = "game";
-      
     }
     //fade out on death
     if (death == true) {
@@ -140,7 +138,9 @@ class HUD {
     noFill();
     rect(dashX, dashY, dashL, dashH, healthRNormal);
     //score
-    score +=globalScrollSpeed/10;
+    if (death==false) {
+      score +=globalScrollSpeed/10;
+    }
     textAlign(RIGHT);
     fill(0);
     textSize(scoreSize);
@@ -165,6 +165,6 @@ class HUD {
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX, gOverY);
-    text("press SPACEBAR to restart", gOverX, gOverY+300);
+    text("press A to restart  |   B to go to main menu", gOverX, gOverY+300);
   }
 }

@@ -9,7 +9,7 @@ final int GAIN_HEALTH = 20;
 void pickupSetup() {
   CoinList = new PCoin[PICKUP_AMOUNT];
   HealthList = new PHealth[PICKUP_AMOUNT];
-  
+
   for (int iPickup = 0; iPickup< PICKUP_AMOUNT; iPickup++) {
     CoinList[iPickup] = new PCoin();
     HealthList[iPickup] = new PHealth();
@@ -64,12 +64,12 @@ class PCoin {
   float collisionCorrector = 0.5;
   boolean pickedUp, isActive = false;
   color c = color(255, 255, 0);
-  
+
   PCoin() {
     size = globalScale;
     reset();
   }
-    
+
   void reset() {
     isActive = false;
     x = -globalScale *10;
@@ -82,13 +82,13 @@ class PCoin {
     x = activatex + size / 2;
     y = activatey + size / 2;
   }
-  // collision check of de player de coin aanraakt 
+  // collision check of de player de coin aanraakt
   void update() {
     x -= globalScrollSpeed;
     if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
       pickedUp = true;
     }
-    // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden    
+    // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden
     if (pickedUp) {
       reset();
       interfaces.score += GAIN_SCORE;
@@ -96,8 +96,9 @@ class PCoin {
   }
 
   void draw() {
-    fill(c);
-    ellipse(x, y, size, size);
+    imageMode(CORNER);
+
+    image(coin, x-size/2, y-size/2, size, size);
   }
 }
 
@@ -106,12 +107,12 @@ class PHealth {
   float collisionCorrector = 0.5;
   boolean pickedUp, isActive = false;
   color c = color(255, 0, 0);
-  
+
   PHealth() {
     size = globalScale;
     reset();
   }
-  
+
   void reset() {
     isActive = false;
     x = -globalScale *10;
@@ -124,7 +125,7 @@ class PHealth {
     x = activatex + size / 2;
     y = activatey + size / 2;
   }
-  
+
   void update() {
     x -= globalScrollSpeed;
     if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
@@ -133,17 +134,11 @@ class PHealth {
     if (pickedUp) {
       reset();
       interfaces.healthMain += GAIN_HEALTH;
-
     }
   }
   void draw() {
-    rectMode(CENTER);
-    fill(c);
-    ellipse(x, y, size, size);
-    stroke(255);
-    fill(255);
-    rect(x, y, crossWidth, crossHeight);
-    rect(x, y, crossHeight, crossWidth);
-    rectMode(CORNER);
+    imageMode(CORNER);
+
+    image(heart, x-size/2, y-size/2, size, size);
   }
 }

@@ -7,7 +7,9 @@ PImage startTemplate;
 final color BRICK = color(150, 150, 150);
 final color STONE = color(200, 200, 200);
 final color DIRT = color(150,100,0);
+final color PLANKS = color(200,150,100);
 final color MOVINGBRICK = color(170, 170, 170);
+final int SCROLLBLOCKRED = 1; //vul bij rood 1, bij groen 0 of 1 (percentage nee of ja), en bij blauw de hoeveelheid.
 final color ICE = color(0, 255, 255);
 final color SPIKE = color(255, 0, 0);
 final color FLAME = color(255, 150, 0);
@@ -61,19 +63,19 @@ void makeMap(boolean random) {
       if (random(255) <= alpha(mapTemplate.pixels[loc])) {
         //Places Blocks,Spikes etc.
         if (col == BRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, -1);
         }
         if (col == STONE) {
-          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, false, -1);
         }
         if (col == DIRT) {
-          blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false, false, -1);
         }
         if (col == ICE) {
-          blocks[freeBlockIndex()].blockSetup(x, y, ICE, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, ICE, false, false, -1);
         }
         if (col == MOVINGBRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true, false, -1);
         }
         if (col == SPIKE) {
           addSpike(x, y);
@@ -116,13 +118,13 @@ void makeMapOLD(boolean random) {
         y = templateY*globalScale;
       //Places Blocks,Spikes etc.
       if (mapTemplate[templateY][templateX] == "BD") {
-        blocks[freeBlockIndex()].blockSetup(x,y, BRICK, false);
+        blocks[freeBlockIndex()].blockSetup(x,y, BRICK, false, false, -1);
       }
       if (mapTemplate[templateY][templateX] == "BI") {
-        blocks[freeBlockIndex()].blockSetup(x,y, ICE, false);
+        blocks[freeBlockIndex()].blockSetup(x,y, ICE, false, false, -1);
       }
       if (mapTemplate[templateY][templateX] == "BM") {
-        blocks[freeBlockIndex()].blockSetup(x,y, BRICK, true);
+        blocks[freeBlockIndex()].blockSetup(x,y, BRICK, true, false, -1);
       }
       if (mapTemplate[templateY][templateX] == "SD") {
         addSpike(x, y);

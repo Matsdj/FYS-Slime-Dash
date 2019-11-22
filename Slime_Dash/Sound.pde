@@ -1,5 +1,6 @@
 //Laurens
 import processing.sound.*;
+//hier worden alle soundplayers aangemaakt
 SoundFile Hoofdmenu;
 SoundFile GameSlow;
 SoundFile GameMid;
@@ -13,7 +14,9 @@ float slow = 2500, mid = 6000;
 
 
 void soundSetup() {
+  //volume
   float volume = 1;
+  //hier worden alle bestanden gelinkt aan de soundplayers
   SlimeJump = new SoundFile(this, "sounds/slimeJump.wav");
   Hoofdmenu = new SoundFile(this, "sounds/mainMenu.wav");
   GameSlow = new SoundFile(this, "sounds/slowMuzi.wav");
@@ -26,6 +29,7 @@ void soundSetup() {
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {
+  //hoofdmenu muziek
   if (Hoofdmenu.isPlaying() == false) {
     if (room == "mainM") {
       Hoofdmenu.play();
@@ -38,12 +42,13 @@ void soundUpdate() {
   } else if (room == "game") {
     Hoofdmenu.pause();
   }
-
+  //muziek wanneer time onder 'slow' zit
   if (GameSlow.isPlaying() == false) {
     if (room =="game"&&time<=slow) {
       GameSlow.play();
     }
   }
+  //muziek wanneer time onder 'mid' en boven 'slow' zit
   if (GameMid.isPlaying() == false) {
     if (room =="game" && time>=slow && time<=mid) {
       GameSlow.stop();
@@ -51,6 +56,7 @@ void soundUpdate() {
       GameMid.loop();
     }
   }
+  //muziek wanneer time boven 'mid' zit
   if (GameFast.isPlaying() == false) {
     if (room =="game" && time>=mid) {
       GameMid.stop();
@@ -59,7 +65,7 @@ void soundUpdate() {
       GameFast.loop();
     }
   }
-
+  //death muziek
   if (interfaces.death ==true) {
     Hoofdmenu.stop();
     GameSlow.stop();
@@ -70,6 +76,7 @@ void soundUpdate() {
       Dede.play();
     }
   }
+  //interface selectie geluiden
   if (inputs.hasValue(DOWN)==true && main.blink==main.c1 && room=="mainM") {
     Ding.play();
   }

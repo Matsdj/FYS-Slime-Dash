@@ -49,7 +49,7 @@ class Spike {
   //controleerd op player aanraking
   void update() {
 
-    if ( player.hitboxCollision(x, y, size)&& player.dmgCooldown < 0 && player.dashActive==false) {
+    if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0 && player.dashActive==false) {
        player.enemyDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
       

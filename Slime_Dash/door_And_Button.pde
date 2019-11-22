@@ -124,7 +124,7 @@ class Button {
   //controleerd op player aanraking
   void update() {
     if (timedoor>0) {
-      if ( player.hitboxCollision(x, y, size)&& player.dmgCooldown < 0) {
+      if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0) {
 timedoor = timedoormax;
       }
     }

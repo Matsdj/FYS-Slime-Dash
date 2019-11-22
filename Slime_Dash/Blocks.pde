@@ -1,17 +1,11 @@
 //Mats
-PImage brickSprite;
-PImage stoneSprite;
-PImage dirtSprite;
-PImage grassSprite;
-PImage plankSprite;
-PImage iceSprite;
 int activeBlocks = 0;
 class Block {
-  float x, y, size, speed = globalScale/30, vx = 0;
+  float x, y, size, speed = globalScale/30, vx = 0, scrollSpeed = -1;
   int id = -1;
   color c = BRICK;
-  boolean active = false, moving = false;
-  void blockSetup(float ix, float iy, color ic, boolean iMoving) {
+  boolean active = false, moving = false, scrollPercentage = false;
+  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeed) {
     x = ix;
     y = iy;
     size = globalScale;
@@ -19,12 +13,21 @@ class Block {
     moving = iMoving;
     vx = speed;
     active = true;
+    scrollPercentage = iScrollPercentage;
+    scrollSpeed = iScrollSpeed;
   }
   Block() {
-    blockSetup(0, 0, BRICK, false);
+    blockSetup(0, 0, BRICK, false, scrollPercentage, scrollSpeed);
     active = false;
   }
   void update() {
+    if (scrollSpeed >= 0 && x < width){
+      if (scrollPercentage){
+      globalScrollSpeed = globalScrollSpeed*(scrollSpeed/100);
+      } else {
+      globalScrollSpeed = scrollSpeed;
+      }
+    }
     if (x > -globalScale) {
       x -= globalScrollSpeed;
     }
@@ -62,9 +65,10 @@ Block[] blocks = new Block[500];
 //Loops through all the blocks to see if there is one at the given position
 Block blockCollision(float x, float y, float size, float blockId) {
   Block Collision = null;
-  for (int blockNumber = 0; blockNumber < blocks.length; blockNumber++) {
-    if (blocks[blockNumber].x < x+size && blocks[blockNumber].x+size > x && blocks[blockNumber].y < y+size && blocks[blockNumber].y+size > y) {
-      if (blocks[blockNumber].id != blockId) Collision = blocks[blockNumber];
+
+  for (int i = 0; i < blocks.length; i++) {
+    if (blocks[i].x < x+size && blocks[i].x+size > x && blocks[i].y < y+size && blocks[i].y+size > y && blocks[i].active) {
+      if (blocks[i].id != blockId) Collision = blocks[i];
     }
   }
   return Collision;
@@ -78,16 +82,6 @@ void blockSetup() {
   for (int i = 0; i < blocks.length; i++) {
     blocks[i] = new Block();
   }
-  brickSprite = loadImage("sprites/blocks/brick.png");
-  brickSprite.resize(int(globalScale), int(globalScale));
-  stoneSprite = loadImage("sprites/blocks/stone.png");
-  stoneSprite.resize(int(globalScale), int(globalScale));
-  dirtSprite = loadImage("sprites/blocks/dirt.png");
-  dirtSprite.resize(int(globalScale), int(globalScale));
-  grassSprite = loadImage("sprites/blocks/grass.png");
-  grassSprite.resize(int(globalScale), int(globalScale));
-  iceSprite = loadImage("sprites/blocks/ice.png");
-  iceSprite.resize(int(globalScale), int(globalScale));
 }
 //Free Block Index
 int freeBlockIndex() {

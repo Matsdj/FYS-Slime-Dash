@@ -65,7 +65,7 @@ class Player {
     ySprite = y - pushPlayerSpriteUp;
     xSpriteL = x - pushPlayerSpriteL;
     xSpriteR = x - pushPlayerSpriteR;
-    
+
     //dash animation
     if (dashActive && moveLeft) {
       pushMatrix();
@@ -249,8 +249,9 @@ class Player {
       vx = 0;
     }
 
-    x+= vx;
-
+    if (!interfaces.death) {
+      x+= vx;
+    }
     //Vertical collision
     if (blockCollision(x, y+vy, size) != null) {
       while (blockCollision(x, y+sign(vy), size) == null) {
@@ -304,8 +305,8 @@ class Player {
   }
 
   //zelfde method, alleen voor enemies
-  boolean hitboxCollision(float cX, float cY, float cSize) {
-    if (hitX + hitSize >= cX && hitX <= cX + cSize && hitY + hitSize >= cY && hitY <= cY + cSize) {
+  boolean hitboxCollision(float cX, float cY, float cWidth, float cHeight) {
+    if (hitX + hitSize >= cX && hitX <= cX + cWidth && hitY + hitSize >= cY && hitY <= cY + cHeight) {
       return true;
     } else return false;
   }
