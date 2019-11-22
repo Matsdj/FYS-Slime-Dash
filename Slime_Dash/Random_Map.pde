@@ -7,7 +7,9 @@ PImage startTemplate;
 final color BRICK = color(150, 150, 150);
 final color STONE = color(200, 200, 200);
 final color DIRT = color(150,100,0);
+final color PLANKS = color(200,150,100);
 final color MOVINGBRICK = color(170, 170, 170);
+final int SCROLLBLOCKRED = 1; //vul bij rood 1, bij groen 0 of 1 (percentage nee of ja), en bij blauw de hoeveelheid.
 final color ICE = color(0, 255, 255);
 final color SPIKE = color(255, 0, 0);
 final color FLAME = color(255, 150, 0);

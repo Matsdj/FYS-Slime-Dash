@@ -199,7 +199,7 @@ String[][] iceBoost() {
   String[][] iceBoost = new String[exampleHeight][exampleWidth];
   //                               0     1     2     3     4     5     6     7     8     9     10    11    12    13    14
   iceBoost[0] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  "};
-  iceBoost[1] = new String[] {"  ", "BD", "  ", "  ", "  ", "SD", "  ", "  ", "  ", "PC", "PC", "  ", "  ", "  ", "  ", "  "};
+  iceBoost[1] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "SD", "  ", "  ", "PC", "PC", "  ", "  ", "  ", "  ", "  "};
   iceBoost[2] = new String[] {"  ", "BD", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  ", "  "};
   iceBoost[3] = new String[] {"  ", "BD", "  ", "  ", "  ", "  ", "BD", "PH", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "};
   iceBoost[4] = new String[] {"  ", "BD", "BM", "  ", "  ", "  ", "BD", "BD", "BD", "BD", "BD", "BD", "  ", "  ", "  ", "  "};
