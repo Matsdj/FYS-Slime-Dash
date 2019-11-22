@@ -2,10 +2,10 @@
 
 /*
 /NAVIGATIE/
-P = pauze (START)
-Q = terug (B)
-SPACE = verder (A)
-*/
+ P = pauze (START)
+ Q = terug (B)
+ SPACE = verder (A)
+ */
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
   pause = new Pause();
@@ -75,10 +75,10 @@ class MainM {
   int  c1, c2;
   color blink;
   //PFont font;
-  
+
 
   MainM() {
-    
+
     sizeH = height/7;
     sizeW = width/2.8;
     //font = loadFont("vlw");
