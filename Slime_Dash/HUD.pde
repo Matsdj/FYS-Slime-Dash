@@ -85,7 +85,9 @@ class HUD {
       death = true;
       healthMain = 0;
     }
-
+    if (keyCode ==81) {
+      room= "mainM";
+    }
 
     if (death == true) {
       /*makes GO text fade in*/
@@ -163,6 +165,6 @@ class HUD {
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX, gOverY);
-    text("press A to restart", gOverX, gOverY+300);
+    text("press A to restart  |   B to go to main menu", gOverX, gOverY+300);
   }
 }
