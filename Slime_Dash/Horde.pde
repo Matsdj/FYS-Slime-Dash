@@ -14,13 +14,13 @@ void hordeSetup() {
 }
 void hordeUpdate() {
   hordeFramerate = HORDE_FRAMERATE / int(globalScrollSpeed+1);
-  if(!interfaces.death && hordeX < 0){
+  if (!interfaces.death && hordeX < 0) {
     hordeX += hordeVX;
   }
-  if(interfaces.death && hordeX > -hordeSpriteWidth){
+  if (interfaces.death && hordeX > -hordeSpriteWidth) {
     hordeX -= hordeVX;
   }
-  
+
   if (frameCount % hordeFramerate == 0) {
     hordeFrameCounter ++;
     if (hordeFrameCounter >= HORDE_STAGE_SPRITE_AMOUNT) {
@@ -30,7 +30,9 @@ void hordeUpdate() {
 }
 
 void hordeDraw() {
-  for (int iSprite = HORDE_STAGES-1; iSprite >= 0; iSprite--) {
-    image(horde[iSprite][hordeFrameCounter], hordeX, hordeY);
+  if (room != "game2") {
+    for (int iSprite = HORDE_STAGES-1; iSprite >= 0; iSprite--) {
+      image(horde[iSprite][hordeFrameCounter], hordeX, hordeY);
+    }
   }
 }
