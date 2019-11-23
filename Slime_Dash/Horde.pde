@@ -13,7 +13,7 @@ void hordeSetup() {
   hordeFramerate = HORDE_FRAMERATE;
 }
 void hordeUpdate() {
-  hordeFramerate = HORDE_FRAMERATE / int(globalScrollSpeed);
+  hordeFramerate = HORDE_FRAMERATE / int(globalScrollSpeed+1);
   if(!interfaces.death && hordeX < 0){
     hordeX += hordeVX;
   }

@@ -6,7 +6,7 @@ PImage startTemplate;
 //All Final variables
 final color BRICK = color(150, 150, 150);
 final color STONE = color(200, 200, 200);
-final color DIRT = color(150,100,0);
+final color DIRT = color(150,100,50);
 final color PLANKS = color(200,150,100);
 final color MOVINGBRICK = color(170, 170, 170);
 final int SCROLLBLOCKRED = 6; //vul bij rood 1, bij groen 1 of 0 (percentage ja of nee), en bij blauw de hoeveelheid.
