@@ -26,6 +26,7 @@ void setup() {
   time = 0;
   assetSetup();
   bgSetup();
+  hordeSetup();
   playerSetup();
   interfacesSetup();
   mainMSetup();
@@ -65,6 +66,7 @@ void updateGame() {
   mapUpdate();
   //Terrain Update
   bgUpdate();
+  hordeUpdate();
   blockUpdate();
   spikeUpdate();
   pickupUpdate();
@@ -86,6 +88,7 @@ void drawGame() {
   hostileDraw();
   pickupDraw();
   flameDraw();
+  hordeDraw();
   skyChange();
   interfaces.draw();
 }

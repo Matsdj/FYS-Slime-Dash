@@ -2,13 +2,14 @@ PImage[] enemySprite;
 PImage[] playerSprite;
 PImage[] bgHouse;
 PImage[] bgCloud;
+PImage[][] horde;
 PImage bgWall;
 PImage bgSky;
 PImage bgSun;
 PImage heart;
 PImage coin;
 PImage slimeDash;
-int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize;
+int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
 //Blocks
@@ -44,6 +45,10 @@ public void assetSetup() {
   //meleeEnemyResize
   meleeSpriteWidth = int(globalScale);
   meleeSpriteHeight = int(globalScale + globalScale/32*2);
+  
+  //hordeResize
+  hordeSpriteWidth = int(globalScale * 2);
+  hordeSpriteHeight = int(globalScale * 5);
 
   //playerResize + variables that pushes center of player sprite into the hitbox of the player 
   playerSpriteWidth = int(globalScale/32 * 52);
@@ -76,6 +81,14 @@ public void assetSetup() {
     bgCloud[iSprite].resize(cloudSpriteWidth, cloudSpriteHeight);
   }
 
+  horde = new PImage[HORDE_STAGES][HORDE_STAGE_SPRITE_AMOUNT];
+  for (int iSprite = 0; iSprite < HORDE_STAGES; iSprite++) {
+    for (int jSprite = 0; jSprite < HORDE_STAGE_SPRITE_AMOUNT; jSprite++) {
+      horde[iSprite][jSprite] = loadImage("sprites/horde/horde"+ iSprite +"-" + jSprite +".png");
+      horde[iSprite][jSprite].resize(hordeSpriteWidth, hordeSpriteHeight);
+    }
+  }
+  
   bgWall = loadImage("sprites/backGround/wall.png");
   bgWall.resize(wallSpriteWidth, wallSpriteHeight);
 
@@ -102,5 +115,5 @@ public void assetSetup() {
 
   //Main Menu
   slimeDash = loadImage("./sprites/menus/SlimeDash.png");
-  font = createFont("fonts/8bit16.ttf",32);
+  font = createFont("fonts/8bit16.ttf", 32);
 }
