@@ -27,7 +27,7 @@ class Pause {
     }
     /*druk op 'p' om naar pause te gaan*/
     else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true) {
-      room = "pause";
+      room = "pause2";
     }
     /*druk op spacebar om naar game te gaan*/
     if (room == "pause" && (inputs.hasValue(32)||inputs.hasValue(39))) {
