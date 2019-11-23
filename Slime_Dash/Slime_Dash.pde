@@ -101,6 +101,9 @@ void draw() {
   if (room == "pause") {
     pause.draw();
     pause.update();
+  } else if (room == "pause2") {
+    pause.draw();
+    pause.update();
   } else if (room =="game") {
     pause.update();
     updateGame();

@@ -22,7 +22,7 @@ class Pause {
 
   void update() {
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause" && (inputs.hasValue(32)||inputs.hasValue(39))) {
+    if (room == "pause2" && (inputs.hasValue(32)||inputs.hasValue(39))) {
       room = "game2";
     }
     /*druk op 'p' om naar pause te gaan*/
@@ -37,7 +37,9 @@ class Pause {
     else if (room == "game" && inputs.hasValue(80) && interfaces.death != true) {
       room = "pause";
       // druk op q of t om naar main menu te gaan
-    } else if (room == "pause" && (inputs.hasValue(81)||inputs.hasValue(84))) {
+    } else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true) {
+      room = "pause2";
+    } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(81)||inputs.hasValue(84))) {
       GameSlow.stop();
       GameMid.stop();
       GameFast.stop();
