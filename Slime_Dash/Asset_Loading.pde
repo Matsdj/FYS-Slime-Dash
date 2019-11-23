@@ -19,6 +19,9 @@ PImage grassSprite;
 PImage plankSprite;
 PImage iceSprite;
 
+//font
+PFont font;
+
 public void assetSetup() {
   //houseResize
   houseSpriteWidth = int(10 * globalScale);
@@ -99,4 +102,5 @@ public void assetSetup() {
 
   //Main Menu
   slimeDash = loadImage("./sprites/menus/SlimeDash.png");
+  font = createFont("fonts/8bit16.ttf",32);
 }

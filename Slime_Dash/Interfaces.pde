@@ -74,15 +74,13 @@ class MainM {
   boolean hover, blinkC, blinking;
   int  c1, c2;
   color blink;
-  //PFont font;
+
 
 
   MainM() {
 
     sizeH = height/7;
     sizeW = width/2.8;
-    //font = loadFont("vlw");
-    //textFont(font);
     background(0);
     tSize1 = 75;
     tSize2 = 50;
@@ -177,14 +175,12 @@ class DIF {
   boolean hover, blinkC, blinking;
   int  c1, c2;
   color blink;
-  //PFont font;
   PImage slimeDash;
 
   DIF() {
+    textFont(font);
     sizeH = height/7;
     sizeW = width/2.8;
-    //font = loadFont("vlw");
-    //textFont(font);
     background(0);
     tSize1 = 75;
     tSize2 = 50;

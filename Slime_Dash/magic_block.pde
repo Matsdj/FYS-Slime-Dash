@@ -1,6 +1,7 @@
 //collin
 
 //blue barricade
+/*
 BlueL[] blueL;
 void BlueLSetup()
 {
@@ -208,3 +209,4 @@ class YellowL {
     }
   }
 }
+*/
