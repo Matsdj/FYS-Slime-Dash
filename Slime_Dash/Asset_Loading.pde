@@ -110,6 +110,8 @@ public void assetSetup() {
   dirtSprite.resize(int(globalScale), int(globalScale));
   grassSprite = loadImage("sprites/blocks/grass.png");
   grassSprite.resize(int(globalScale), int(globalScale));
+  plankSprite = loadImage("sprites/blocks/planks.png");
+  plankSprite.resize(int(globalScale), int(globalScale));
   iceSprite = loadImage("sprites/blocks/ice.png");
   iceSprite.resize(int(globalScale), int(globalScale));
 

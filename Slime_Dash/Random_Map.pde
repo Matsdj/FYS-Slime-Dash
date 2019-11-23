@@ -9,7 +9,7 @@ final color STONE = color(200, 200, 200);
 final color DIRT = color(150,100,0);
 final color PLANKS = color(200,150,100);
 final color MOVINGBRICK = color(170, 170, 170);
-final int SCROLLBLOCKRED = 1; //vul bij rood 1, bij groen 0 of 1 (percentage nee of ja), en bij blauw de hoeveelheid.
+final int SCROLLBLOCKRED = 6; //vul bij rood 1, bij groen 1 of 0 (percentage ja of nee), en bij blauw de hoeveelheid.
 final color ICE = color(0, 255, 255);
 final color SPIKE = color(255, 0, 0);
 final color FLAME = color(255, 150, 0);
@@ -70,6 +70,18 @@ void makeMap(boolean random) {
         }
         if (col == DIRT) {
           blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false, false, -1);
+        }
+        if (col == PLANKS) {
+          blocks[freeBlockIndex()].blockSetup(x, y, PLANKS, false, false, -1);
+        }
+        if (red(col) == SCROLLBLOCKRED){
+          boolean scrollPercentage;
+          if (green(col) < 1){
+          scrollPercentage = false;
+          } else {
+          scrollPercentage = true;
+          }
+          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, scrollPercentage, blue(col));
         }
         if (col == ICE) {
           blocks[freeBlockIndex()].blockSetup(x, y, ICE, false, false, -1);

@@ -1,13 +1,14 @@
 //Mats
 int activeBlocks = 0;
 class Block {
-  float x, y, size, speed = globalScale/30, vx = 0, scrollSpeed = -1;
+  float x, y, baseY, size, speed = globalScale/30, vx = 0, scrollSpeed = -1;
   int id = -1;
   color c = BRICK;
   boolean active = false, moving = false, scrollPercentage = false;
   void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeed) {
     x = ix;
-    y = iy;
+    baseY = iy;
+    y = baseY;
     size = globalScale;
     c = ic;
     moving = iMoving;
@@ -21,11 +22,12 @@ class Block {
     active = false;
   }
   void update() {
-    if (scrollSpeed >= 0 && x < width){
-      if (scrollPercentage){
-      globalScrollSpeed = globalScrollSpeed*(scrollSpeed/100);
+    y = baseY + globalVerticalDistance;
+    if (scrollSpeed >= 0 && x < width) {
+      if (scrollPercentage) {
+        globalScrollSpeed = globalScrollSpeed*(scrollSpeed/100);
       } else {
-      globalScrollSpeed = scrollSpeed;
+        globalScrollSpeed = scrollSpeed;
       }
     }
     if (x > -globalScale) {
@@ -52,6 +54,8 @@ class Block {
         }
       } else if (c == ICE) {
         image(iceSprite, x, y);
+      } else if (c == PLANKS) {
+        image(plankSprite, x, y);
       } else {
         fill(c);
         stroke(0);
@@ -76,6 +80,14 @@ Block blockCollision(float x, float y, float size, float blockId) {
 //als je geen blockId invult default het naar -1
 Block blockCollision(float x, float y, float size) {
   return blockCollision(x, y, size, -1);
+}
+//Disables scrollBlocks
+void disableActiveScrollBlocks() {
+  for (int i = 0; i<blocks.length; i++) {
+    if (blocks[i].active && blocks[i].scrollSpeed >= 0 && blocks[i].x < width) {
+      blocks[i].scrollSpeed = -1;
+    }
+  }
 }
 //Block Setup
 void blockSetup() {

@@ -2,13 +2,13 @@
  Chris - 500828243,
  Collin - 500833247,
  Ivano - 500831163,
- Mats - ,
+ Mats - 500827411,
  Laurens - 500821318
  */
 
 //remember, ctrl+t
 
-float frameSpeed, globalScale, globalScrollSpeed, time;
+float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalDistance;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -48,7 +48,7 @@ void updateGame() {
   //globalScale is hoe groot een block wordt in de hoogte en de breedte gebruik deze variable om de grootte van alles te scalen
   globalScale = height/12;
   time += 1 ;
-  //println(time);
+  //ScrollSpeed
   globalScrollSpeed = globalScale/60+ time/100000*globalScale;
   if (player.x > 0) {
     globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
@@ -62,6 +62,9 @@ void updateGame() {
       globalScrollSpeed = 0;
     }
   }
+  //Vertical Distance
+  //globalVerticalDistance += player.JUMPSPEED*(pow(height/2-player.y, 3)/pow(height/2, 3));
+  //globalVerticalDistance = constrain(globalVerticalDistance,0,globalVerticalDistance);
   //Adds Terrain
   mapUpdate();
   //Terrain Update
