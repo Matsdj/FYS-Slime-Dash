@@ -89,11 +89,11 @@ class MainM {
     tSize3 = 40;    
     tx = width/4;
     ty = height/3;
-    blink = color(255, 0, 0);
+    blink = color(255);
     blinkC = false;
     blinking =true;
     c1 = blink;
-    c2 = 255;
+    c2 = 180;
   }
   void update() {
     if (c1 == blink) {
@@ -101,7 +101,7 @@ class MainM {
       tSize2 =50;
     }
     if (c1 == blink&&keyCode==40) {
-      c1 = 255;
+      c1 = 180;
       c2 = blink;
     }
     if (c2 == blink) {
@@ -109,7 +109,7 @@ class MainM {
       tSize1= 50;
     }
     if (c2 == blink&&keyCode==38) {
-      c2 = 255;
+      c2 = 180;
       c1 = blink;
     }
 
@@ -189,11 +189,11 @@ class DIF {
     tSize3 = 40;    
     tx = width/4;
     ty = height/3;
-    blink = color(255, 0, 0);
+    blink = color(255);
     blinkC = false;
     blinking =true;
     c1 = blink;
-    c2 = 255;
+    c2 = 180;
   }
   void update() {
     //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
@@ -202,7 +202,7 @@ class DIF {
       tSize2 =50;
     }
     if (c1 == blink&&keyCode==40) {
-      c1 = 255;
+      c1 = 180;
       c2 = blink;
     }
     if (c2 == blink) {
@@ -210,7 +210,7 @@ class DIF {
       tSize1= 50;
     }
     if (c2 == blink&&keyCode==38) {
-      c2 = 255;
+      c2 = 180;
       c1 = blink;
     }
     if (keyCode ==81) {
