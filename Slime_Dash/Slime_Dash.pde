@@ -25,6 +25,7 @@ void setup() {
   room = "mainM";
   time = 0;
   assetSetup();
+  soundSetup(); 
   bgSetup();
   hordeSetup();
   playerSetup();
@@ -37,7 +38,6 @@ void setup() {
   pauseSetup();
   pickupSetup();
   mapSetup();
-  soundSetup(); 
   settingSetup();
   difSetup();
 }
