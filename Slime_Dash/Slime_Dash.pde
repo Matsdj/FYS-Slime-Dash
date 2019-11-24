@@ -40,6 +40,9 @@ void setup() {
   mapSetup();
   settingSetup();
   difSetup();
+  //database
+  CreateDatabaseConnection();
+  GetUsers();
 }
 //GAME
 void updateGame() {
