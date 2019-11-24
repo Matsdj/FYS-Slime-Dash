@@ -96,7 +96,10 @@ class HUD {
       player.moveSpeed = 0;
       //Q om naar main menu te gaan
       if (keyCode ==81) {
+        Dede.stop();
+        setup();
         room= "mainM";
+        
       }
     }
     /* spacebar om te resetten*/
