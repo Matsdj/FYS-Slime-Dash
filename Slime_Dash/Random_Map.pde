@@ -2,12 +2,14 @@
 //hier maak ik de variabelen aan
 float GenerateDistance;
 PImage[] mapTemplateList;
+PImage random = null;
 PImage startTemplate;
+PImage tutorialTemplate;
 //All Final variables
 final color BRICK = color(150, 150, 150);
 final color STONE = color(200, 200, 200);
-final color DIRT = color(150,100,50);
-final color PLANKS = color(200,150,100);
+final color DIRT = color(150, 100, 50);
+final color PLANKS = color(200, 150, 100);
 final color MOVINGBRICK = color(170, 170, 170);
 final int SCROLLBLOCKRED = 6; //vul bij rood 1, bij groen 1 of 0 (percentage ja of nee), en bij blauw de hoeveelheid.
 final color ICE = color(0, 255, 255);
@@ -20,34 +22,41 @@ final color HOSTILERANGED = color(255, 0, 150);
 
 //Setup allows for reset
 void mapSetup() {
-  startTemplate = loadImage("templates/startTemplate.png");
+  startTemplate = loadImage("templates/start.png");
+  tutorialTemplate = loadImage("templates/tutorial.png");
   // we'll have a look in the data folder
-  java.io.File templates = new java.io.File(dataPath("templates"));
+  java.io.File templates = new java.io.File(dataPath("templates/random"));
   // list the files in the data folder
   String[] fileNames = templates.list();
   mapTemplateList = new PImage[fileNames.length];
   for (int i = 0; i < mapTemplateList.length; i++) {
-    mapTemplateList[i] = loadImage("templates/"+fileNames[i]);
+    mapTemplateList[i] = loadImage("templates/random/"+fileNames[i]);
   }
   GenerateDistance = 0;
-  makeMap(false);
 }
 //Looks if it has generated to the edge of the screen
 void mapUpdate() {
+  if (globalTraveledDistance == 0) {
+    if (room == "game2") {
+      makeMap(tutorialTemplate);
+    } else {
+      makeMap(startTemplate);
+    }
+    globalTraveledDistance += 0.1;
+  }
   if (GenerateDistance < width/globalScale) {
-    makeMap(true);
+    makeMap(random);
   }
   GenerateDistance-=globalScrollSpeed/globalScale;
 }
 //Adds a new template behind the last generated one
-void makeMap(boolean random) {
-  PImage mapTemplate = mapTemplateList[0];
-  if (random == false) {
-    mapTemplate = startTemplate;
-  }
-  if (random) {
+void makeMap(PImage template) {
+  PImage mapTemplate;
+  if (template == null) {
     //Grabs random Template
     mapTemplate = mapTemplateList[floor(random(mapTemplateList.length))];
+  } else {
+    mapTemplate = template;
   }
   mapTemplate.loadPixels();
   //Loops through list and places blocks at the correct place
@@ -74,12 +83,12 @@ void makeMap(boolean random) {
         if (col == PLANKS) {
           blocks[freeBlockIndex()].blockSetup(x, y, PLANKS, false, false, -1);
         }
-        if (red(col) == SCROLLBLOCKRED){
+        if (red(col) == SCROLLBLOCKRED) {
           boolean scrollPercentage;
-          if (green(col) < 1){
-          scrollPercentage = false;
+          if (green(col) < 1) {
+            scrollPercentage = false;
           } else {
-          scrollPercentage = true;
+            scrollPercentage = true;
           }
           blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, scrollPercentage, blue(col));
         }
