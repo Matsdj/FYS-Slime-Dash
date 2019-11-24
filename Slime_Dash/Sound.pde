@@ -12,7 +12,10 @@ SoundFile SlimeJump;
 SoundFile DashSlime;
 SoundFile hordeMarch;
 float slow = 2500, mid = 6000;
-boolean march =true;
+boolean march0 =true;
+boolean march1 =true;
+boolean march2 =true;
+boolean march3 =true;
 
 void soundSetup() {
   //volume
@@ -31,8 +34,11 @@ void soundSetup() {
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {
-  if (room =="game2"){
-  march=false;
+  if (room =="game2") {
+    march0=false;
+    march1=false;
+    march2=false;
+    march3=false;
   }
   //hoofdmenu muziek
   if (Hoofdmenu.isPlaying() == false) {
@@ -93,5 +99,24 @@ void soundUpdate() {
   }
   if (inputs.hasValue(UP)==true && dif.blink==dif.c2 && room=="difficulty") {
     Ding.play();
+  }
+  if (room =="game") {
+    if (time ==0 &&hordeMarch.isPlaying() == false&&march0 ==true) {
+      hordeMarch.rate(2);
+      hordeMarch.play();
+      march0 =false;
+    } else if (time ==slow/2 &&hordeMarch.isPlaying() == false&&march1 ==true) {
+      hordeMarch.rate(1.8);
+      hordeMarch.play();
+      march1 =false;
+    } else if (time ==slow &&hordeMarch.isPlaying() == false&&march2 ==true) {
+      hordeMarch.rate(1.5);
+      hordeMarch.play();
+      march2 =false;
+    } else if (time ==mid &&hordeMarch.isPlaying() == false&&march3 ==true) {
+      hordeMarch.rate(1);
+      hordeMarch.play();
+      march3 =false;
+    }
   }
 }

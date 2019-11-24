@@ -37,10 +37,6 @@ void hordeUpdate() {
 
 void hordeDraw() {
   if (room != "game2") {
-    if (hordeMarch.isPlaying() == false&&march ==true){
-    hordeMarch.play();
-    march =false;
-    }
     for (int iSprite = HORDE_STAGES-1; iSprite >= 0; iSprite--) {
       horde[iSprite].draw();
     }
