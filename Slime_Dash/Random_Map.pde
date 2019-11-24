@@ -1,6 +1,7 @@
 //Mats
 //hier maak ik de variabelen aan
-float GenerateDistance;
+float GenerateDistance, 
+  traveledDistance;
 PImage[] mapTemplateList;
 PImage random = null;
 PImage startTemplate;
@@ -33,21 +34,24 @@ void mapSetup() {
     mapTemplateList[i] = loadImage("templates/random/"+fileNames[i]);
   }
   GenerateDistance = 0;
+  //Traveled Distance
+  traveledDistance = 0;
 }
 //Looks if it has generated to the edge of the screen
 void mapUpdate() {
-  if (globalTraveledDistance == 0) {
+  if (traveledDistance == 0) {
     if (room == "game2") {
       makeMap(tutorialTemplate);
     } else {
       makeMap(startTemplate);
     }
-    globalTraveledDistance += 0.1;
+    traveledDistance += 0.000001;
   }
   if (GenerateDistance < width/globalScale) {
     makeMap(random);
   }
   GenerateDistance-=globalScrollSpeed/globalScale;
+  traveledDistance += globalScrollSpeed/globalScale;
 }
 //Adds a new template behind the last generated one
 void makeMap(PImage template) {
