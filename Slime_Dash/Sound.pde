@@ -31,6 +31,9 @@ void soundSetup() {
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {
+  if (room =="game2"){
+  march=false;
+  }
   //hoofdmenu muziek
   if (Hoofdmenu.isPlaying() == false) {
     if (room == "mainM") {
