@@ -74,7 +74,6 @@ MainM main;
 
 class MainM {
   float sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3;
-  boolean hover, blinkC, blinking;
   int  c1, c2;
   color blink;
 
@@ -91,8 +90,6 @@ class MainM {
     tx = width/4;
     ty = height/3;
     blink = color(255);
-    blinkC = false;
-    blinking =true;
     c1 = blink;
     c2 = 180;
   }
@@ -175,7 +172,6 @@ DIF dif;
 
 class DIF {
   float sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3;
-  boolean hover, blinkC, blinking;
   int  c1, c2;
   color blink;
   PImage slimeDash;
@@ -191,8 +187,6 @@ class DIF {
     tx = width/4;
     ty = height/3;
     blink = color(255);
-    blinkC = false;
-    blinking =true;
     c1 = blink;
     c2 = 180;
   }
