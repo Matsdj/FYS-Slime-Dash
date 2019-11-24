@@ -45,6 +45,7 @@ class Pause {
       GameFast.stop();
       setup();
       room = "mainM";
+      march=true;
     }
 
     if (pauseV >=20) {
