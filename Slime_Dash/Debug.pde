@@ -16,12 +16,14 @@ if (inputsPressed.hasValue(96)) {
       inputsString += inputs.get(i) + "|";
     }
     text(inputsString,0,200);
-    text("Time:"+time+", "+"ScrollSpeed:"+globalScrollSpeed,0,250);
-    text("Height:"+globalVerticalDistance,0,300);
-    text("Distance Traveled:"+traveledDistance,0,350);
-    text("Room:"+room,0,400);
-    text("P.insideblock:"+player.insideBlock(),0,450);
-    text("ActiveBlocks:"+activeBlocks,0,500);
+    text("Time:"+time,0,250);
+    text("ScrollSpeed:"+globalScrollSpeed,0,300);
+    text("Height:"+globalVerticalDistance,0,350);
+    text("TravelDist:"+traveledDistance,0,400);
+    text("Room:"+room,0,450);
+    text("P.insideblock:"+player.insideBlock(),0,500);
+    text("ActiveBlocks:"+activeBlocks,0,550);
+    text("BackgroundBlocks:"+backgroundBlocks,0,600);
     
   }
   fill(0);

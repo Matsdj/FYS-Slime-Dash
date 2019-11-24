@@ -1,9 +1,11 @@
 //Mats
 int activeBlocks = 0;
+int backgroundBlocks = 0;
 class Block {
   float x, y, baseY, size, speed = globalScale/30, vx = 0, scrollSpeed = -1;
   int id = -1;
   color c = BRICK;
+  PImage sprite;
   boolean active = false, moving = false, scrollPercentage = false;
   void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeed) {
     x = ix;
@@ -16,6 +18,17 @@ class Block {
     active = true;
     scrollPercentage = iScrollPercentage;
     scrollSpeed = iScrollSpeed;
+    if (c == BRICK) {
+      sprite = brickSprite;
+    } else if (c == STONE) {
+      sprite = stoneSprite;
+    } else if (c == ICE) {
+      sprite = iceSprite;
+    } else if (c == PLANKS) {
+      sprite = plankSprite;
+    } else {
+      sprite = stoneSprite;
+    }
   }
   Block() {
     blockSetup(0, 0, BRICK, false, scrollPercentage, scrollSpeed);
@@ -42,25 +55,27 @@ class Block {
   }
   void draw() {
     if (x < width) {
-      if (c == BRICK) {
-        image(brickSprite, x, y);
-      } else if (c == STONE) {
-        image(stoneSprite, x, y);
-      } else if (c == DIRT) {
-        if (blockCollision(x+1, y-globalScale+1, 5, id) != null) {
-          image(dirtSprite, x, y);
+      if (c == DIRT) {
+        if (blockCollision(x+globalScrollSpeed, y-size, size-globalScrollSpeed*2, id) != null) {
+          sprite = dirtSprite;
         } else {
-          image(grassSprite, x, y);
+          sprite = grassSprite;
         }
-      } else if (c == ICE) {
-        image(iceSprite, x, y);
-      } else if (c == PLANKS) {
-        image(plankSprite, x, y);
-      } else {
-        fill(c);
-        stroke(0);
-        rect(x, y, size, size);
       }
+      image(sprite, x, y);
+    }
+  }
+  void drawBackgroundBlocks() {
+    float hitbox = size-globalScrollSpeed*2,
+      xScroll = x+globalScrollSpeed+1;
+    for (int i = round(y/globalScale)+1; ((blockCollision(xScroll, i*globalScale, hitbox, id) == null || blockCollision(xScroll, i*globalScale, hitbox, id).moving) && i*globalScale < height); i++) {
+      tint(100);
+      if (sprite == grassSprite) {
+        image(dirtSprite, x, i*globalScale);
+      } else
+        image(sprite, x, i*globalScale);
+      tint(255);
+      backgroundBlocks +=1;
     }
   }
 }
@@ -71,8 +86,8 @@ Block blockCollision(float x, float y, float size, float blockId) {
   Block Collision = null;
 
   for (int i = 0; i < blocks.length; i++) {
-    if (blocks[i].x < x+size && blocks[i].x+size > x && blocks[i].y < y+size && blocks[i].y+size > y && blocks[i].active) {
-      if (blocks[i].id != blockId) Collision = blocks[i];
+    if ((blocks[i].x < x+size && blocks[i].x+size > x && blocks[i].y < y+size && blocks[i].y+size > y) && blocks[i].active && blocks[i].id != blockId) {
+      Collision = blocks[i];
     }
   }
   return Collision;
@@ -139,6 +154,15 @@ void blockDraw() {
   for (int i = 0; i<blocks.length; i++) {
     if (blocks[i].active) {
       blocks[i].draw();
+    }
+  }
+}
+void drawBackgroundBlocks() {
+  backgroundBlocks = 0;
+  //loopt door de lijst en tekent elk achtergrond block
+  for (int i = 0; i<blocks.length; i++) {
+    if (blocks[i].active &! blocks[i].moving) {
+      blocks[i].drawBackgroundBlocks();
     }
   }
 }

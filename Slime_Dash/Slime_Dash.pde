@@ -91,6 +91,7 @@ void updateGame() {
 void drawGame() {
   background(102, 204, 255);
   bgDraw();
+  drawBackgroundBlocks();
   player.draw();
   spikeDraw();
   blockDraw();
