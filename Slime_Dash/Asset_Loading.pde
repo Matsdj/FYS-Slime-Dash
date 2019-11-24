@@ -2,7 +2,7 @@ PImage[] enemySprite;
 PImage[] playerSprite;
 PImage[] bgHouse;
 PImage[] bgCloud;
-PImage[][] horde;
+PImage[][] hordeSprite;
 PImage bgWall;
 PImage bgSky;
 PImage bgSun;
@@ -48,7 +48,7 @@ public void assetSetup() {
   
   //hordeResize
   hordeSpriteWidth = int(globalScale * 2);
-  hordeSpriteHeight = int(globalScale * 5);
+  hordeSpriteHeight = int(globalScale * 10);
 
   //playerResize + variables that pushes center of player sprite into the hitbox of the player 
   playerSpriteWidth = int(globalScale/32 * 52);
@@ -81,11 +81,11 @@ public void assetSetup() {
     bgCloud[iSprite].resize(cloudSpriteWidth, cloudSpriteHeight);
   }
 
-  horde = new PImage[HORDE_STAGES][HORDE_STAGE_SPRITE_AMOUNT];
+  hordeSprite = new PImage[HORDE_STAGES][HORDE_STAGE_SPRITE_AMOUNT];
   for (int iSprite = 0; iSprite < HORDE_STAGES; iSprite++) {
     for (int jSprite = 0; jSprite < HORDE_STAGE_SPRITE_AMOUNT; jSprite++) {
-      horde[iSprite][jSprite] = loadImage("sprites/horde/horde"+ iSprite +"-" + jSprite +".png");
-      horde[iSprite][jSprite].resize(hordeSpriteWidth, hordeSpriteHeight);
+      hordeSprite[iSprite][jSprite] = loadImage("sprites/horde/horde"+ iSprite +"-" + jSprite +".png");
+      hordeSprite[iSprite][jSprite].resize(hordeSpriteWidth, hordeSpriteHeight);
     }
   }
   
