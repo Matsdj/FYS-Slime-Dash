@@ -149,7 +149,7 @@ class HUD {
     noFill();
     rect(dashX, dashY, dashL, dashH, healthRNormal);
     //score
-    if (death==false) {
+    if (death==false&&room=="game") {
       score +=globalScrollSpeed/10;
     }
     textAlign(RIGHT);
