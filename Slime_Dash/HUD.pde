@@ -105,12 +105,14 @@ class HUD {
       Dede.stop();
       setup();
       room = "game";
+      march= true;
     } 
     if (death ==true && inputs.hasValue(32)==true && room=="game2") {
       death = false;
       Dede.stop();
       setup();
       room = "game2";
+      march = true;
     } 
     //fade out on death
     if (death == true) {

@@ -40,6 +40,9 @@ void setup() {
   mapSetup();
   settingSetup();
   difSetup();
+  //database
+  CreateDatabaseConnection();
+  GetUsers();
 }
 //GAME
 void updateGame() {
@@ -65,6 +68,9 @@ void updateGame() {
   //Vertical Distance
   //globalVerticalDistance += player.JUMPSPEED*(pow(height/2-player.y, 3)/pow(height/2, 3));
   //globalVerticalDistance = constrain(globalVerticalDistance,0,globalVerticalDistance);
+  if (room == "mainM") {
+    globalVerticalDistance = 0;
+  }
   //Adds Terrain
   mapUpdate();
   //Terrain Update

@@ -104,7 +104,7 @@ int freeBlockIndex() {
     }
   }
   if (index == -1) {
-    println("ERROR MAX ACTIVE BLOCKS REACHED");
+    println("ERROR MAX("+blocks.length+")ACTIVE BLOCKS REACHED");
     index = blocks.length;
   }
   return index;
