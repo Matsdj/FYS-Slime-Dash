@@ -64,8 +64,17 @@ class Pause {
     textSize(100);
     text("PAUSED", width/2, height/4);
     textSize(60);
-    text("resume = A", width/2, height*0.70);
-    text("main menu = B", width/2, height*0.82);
+    text("Score "+ floor(interfaces.score), width/2, height/2);
+    text("Coins "+ floor(interfaces.coins), width/2, height/1.7);
+     textSize(main.tSize3);
+    fill(255, 0, 0);
+    text("A", main.tx, main.ty*2.8);
+    fill(0);
+    text("  " +"play", main.tx+70, main.ty*2.8);
+    fill(255, 255, 0);
+    text("B", main.tx*2, main.ty*2.8);
+    fill(0);
+    text("  "+"Menu", main.tx*2+70, main.ty*2.8);
   }
 }
 
@@ -118,52 +127,103 @@ class MainM {
       SpeedUp.play();
     }
     if (c2==blink &&room == "mainM" && keyCode ==32) {
-      room = "settings";
+      room = "upgrades";
     }
   }
   void draw() {
     //text
     textAlign(LEFT, CENTER);
     textSize(tSize3/2);
-    text("pause = p | dash = z", 200, height-50);
     textSize(tSize1);
     fill(c1);
     text("Play", tx, ty);
     textSize(tSize2);
     fill(c2);
-    text("Settings", tx, ty*1.5);
+    text("Upgrades", tx, ty*1.5);
     textSize(tSize3);
     fill(255, 0, 0);
-    text("A", tx, ty*2);
+    text("A", main.tx, main.ty*2.8);
     fill(0);
-    text("  " +"select", tx, ty*2);
-
-
-
+    text("  " +"Select", main.tx, main.ty*2.8);
     image(slimeDash, width/4, height/100, width/3, height/3);
   }
 }
 
-void settingSetup() {
-  setting = new Settings();
+void upgradeSetup() {
+  upgrade = new Upgrades();
 }
-Settings setting;
+Upgrades upgrade;
 
-class Settings {
-
-
-  Settings() {
+class Upgrades {
+  int perchW = 320, perchH = 213, yOffset = width/12, xOffset=height/12, 
+    perchLeft=width/8, perchRight=width - width/8 - perchW, 
+    perchUp=height/8, perchDown=height - height/8 - perchH, 
+    perchSelectX, perchSelectY;
+  PImage[] perch = new PImage[4];
+  int curPerch = 0;
+  PImage perchTL, perchTR, perchBL, perchBR;
+  PImage perchSelect;
+  Upgrades() {
+    perch[0] = loadImage("./sprites/menus/perch0.png");
+    perch[1] = loadImage("./sprites/menus/perch1.png");
+    perch[2] = loadImage("./sprites/menus/perch2.png");
+    perch[3] = loadImage("./sprites/menus/perchmax.png");
+    perchSelect = loadImage("./sprites/menus/perchselect.png");
+    perchSelectX = perchLeft;
+    perchSelectY = perchUp;
+    perchTL = perch[0];
+    perchTR = perch[0];
+    perchBL = perch[0];
+    perchBR = perch[0];
   }
   void update() {
     if (keyCode ==81) {
       room= "mainM";
     }
+    if (room=="upgrades") {
+      if (keyCode==40 && perchSelectY == perchUp) {
+        perchSelectY = perchDown;
+      }  
+      if (keyCode ==38 && perchSelectY == perchDown) {
+        perchSelectY = perchUp;
+      }      
+      if (keyCode==39 && perchSelectX == perchLeft) {
+        perchSelectX = perchRight;
+      }  
+      if (keyCode ==37 && perchSelectX == perchRight) {
+        perchSelectX = perchLeft;
+      }
+    }
   }
   void draw() {
-    fill(0, 3);
-    rect(0, 0, width, height);
-    fill(255);
-    ellipse(random(width), random(height), 3, 3);
+    textSize(55);
+    text("Upgrades", width/2.7, 50);
+    textSize(25);
+    //select
+    image(perchSelect, perchSelectX, perchSelectY, perchW, perchH);
+    //top left
+    image(perchTL, perchLeft, perchUp, perchW, perchH);
+    text("Double Jump", perchLeft+xOffset, perchUp+yOffset);
+    //top right
+    image(perchTR, perchRight, perchUp, perchW, perchH);
+    textSize(23);
+    text("Dash Cooldown", perchRight+xOffset, perchUp+yOffset);
+    //bottom left
+    textSize(25);
+    image(perchBL, perchLeft, perchDown, perchW, perchH);
+    text("Health", perchLeft+xOffset, perchDown+yOffset);
+    //bottom right
+    image(perchBR, perchRight, perchDown, perchW, perchH);
+    text("Coin Value", perchRight+xOffset, perchDown+yOffset);
+    textSize(main.tSize3);
+    fill(255, 0, 0);
+    text("A", main.tx, main.ty*2.8);
+    fill(0);
+    text("  " +"Select", main.tx, main.ty*2.8);
+    fill(255, 255, 0);
+    text("B", main.tx*2, main.ty*2.8);
+    fill(0);
+    text("  "+"Back", main.tx*2, main.ty*2.8);
   }
 }
 ////////////////// difficulty scherm//////////////
@@ -227,7 +287,6 @@ class DIF {
     //text
     textAlign(LEFT, CENTER);
     textSize(tSize3/2);
-    text("pause = p | dash = z", 200, height-50);
     textSize(tSize1);
     fill(c1);
     text("Normal Mode", tx, ty);
@@ -236,13 +295,13 @@ class DIF {
     text("Tutorial Mode", tx, ty*1.5);
     textSize(tSize3);
     fill(255, 0, 0);
-    text("A", tx, ty*2);
+    text("A", main.tx, main.ty*2.8);
     fill(0);
-    text("  " +"select", tx, ty*2);
+    text("  " +"Select", main.tx, main.ty*2.8);
     //yellow back
     fill(255, 255, 0);
-    text("B", tx, ty*2+50);
+    text("B", tx*2, ty*2.8);
     fill(0);
-    text("  "+"back", tx, ty*2+50);
+    text("  "+"Back", tx*2, ty*2.8);
   }
 }

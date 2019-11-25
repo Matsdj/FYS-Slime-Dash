@@ -38,7 +38,7 @@ void setup() {
   pauseSetup();
   pickupSetup();
   mapSetup();
-  settingSetup();
+  upgradeSetup();
   difSetup();
   //database
   CreateDatabaseConnection();
@@ -130,11 +130,11 @@ void draw() {
     bgDraw();
     dif.draw();
     dif.update();
-  } else if (room == "settings") {
+  } else if (room == "upgrades") {
     bgUpdate();
     bgDraw();
-    setting.draw();
-    setting.update();
+    upgrade.draw();
+    upgrade.update();
   }
   debug();
   inputsPressedUpdate();

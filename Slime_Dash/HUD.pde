@@ -184,7 +184,7 @@ float coins;
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX, gOverY);
-    text("score =" + floor(score), gOverX, gOverY+100);
+    text("score " + floor(score), gOverX, gOverY+100);
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX, gOverY);
