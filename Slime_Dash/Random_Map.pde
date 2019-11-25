@@ -12,6 +12,7 @@ final color STONE = color(200, 200, 200);
 final color DIRT = color(150, 100, 50);
 final color PLANKS = color(200, 150, 100);
 final color MOVINGBRICK = color(170, 170, 170);
+final color CRACKED = color(100, 100, 100);
 final int SCROLLBLOCKRED = 6; //vul bij rood 1, bij groen 1 of 0 (percentage ja of nee), en bij blauw de hoeveelheid.
 final color ICE = color(0, 255, 255);
 final color SPIKE = color(255, 0, 0);
@@ -76,16 +77,16 @@ void makeMap(PImage template) {
       if (random(255) <= alpha(mapTemplate.pixels[loc])) {
         //Places Blocks,Spikes etc.
         if (col == BRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, -1);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, -1, false);
         }
         if (col == STONE) {
-          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, false, -1);
+          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, false, -1, false);
         }
         if (col == DIRT) {
-          blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false, false, -1);
+          blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false, false, -1, false);
         }
         if (col == PLANKS) {
-          blocks[freeBlockIndex()].blockSetup(x, y, PLANKS, false, false, -1);
+          blocks[freeBlockIndex()].blockSetup(x, y, PLANKS, false, false, -1, false);
         }
         if (red(col) == SCROLLBLOCKRED) {
           boolean scrollPercentage;
@@ -94,13 +95,16 @@ void makeMap(PImage template) {
           } else {
             scrollPercentage = true;
           }
-          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, scrollPercentage, blue(col));
+          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, scrollPercentage, blue(col), false);
         }
         if (col == ICE) {
-          blocks[freeBlockIndex()].blockSetup(x, y, ICE, false, false, -1);
+          blocks[freeBlockIndex()].blockSetup(x, y, ICE, false, false, -1, false);
         }
         if (col == MOVINGBRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true, false, -1);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true, false, -1, false);
+        }
+        if (col == CRACKED) {
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, -1, true);
         }
         if (col == SPIKE) {
           addSpike(x, y);

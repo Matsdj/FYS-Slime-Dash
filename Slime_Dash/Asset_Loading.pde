@@ -19,6 +19,7 @@ PImage dirtSprite;
 PImage grassSprite;
 PImage plankSprite;
 PImage iceSprite;
+PImage crackedSprite;
 
 //font
 PFont font;
@@ -114,6 +115,8 @@ public void assetSetup() {
   plankSprite.resize(int(globalScale), int(globalScale));
   iceSprite = loadImage("sprites/blocks/ice.png");
   iceSprite.resize(int(globalScale), int(globalScale));
+  crackedSprite = loadImage("sprites/blocks/cracked.png");
+  crackedSprite.resize(int(globalScale), int(globalScale));
 
   //Main Menu
   slimeDash = loadImage("./sprites/menus/SlimeDash.png");
