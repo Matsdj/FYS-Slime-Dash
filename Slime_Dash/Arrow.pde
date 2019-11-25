@@ -45,13 +45,20 @@ class Arrow {
     if(player.Collision(x, y, aWidth)) {
       isHit = true;
     }
-    for(int iHostile = 0; iHostile < 10; iHostile++) {
-      if(hostileRanged[iHostile].x < player.x) {
-        x += globalScale * 2;
-      } else if(hostileRanged[iHostile].x > player.x) {
-        x -= globalScale * 2;
+    for(int iArrow = 0; iArrow < ARROW_AMOUNT; iArrow++) {
+      if(ArrowList[iArrow].isActive) {
+        x += globalScrollSpeed * 2;
       }
     }
+    /*for(int iHostile = 0; iHostile < 10; iHostile++) {
+      if(hostileRanged[iHostile].x < player.x && hostileRanged[iHostile].isActive) {
+        CoinList[iCoin].activate(x, y);
+        break;
+        x += globalScrollSpeed * 2;
+      } else if(hostileRanged[iHostile].x > player.x && hostileRanged[iHostile].isActive) {
+        x -= globalScrollSpeed * 2;
+      }
+    }*/
   }
   
   void draw() {
