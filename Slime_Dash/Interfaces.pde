@@ -80,8 +80,6 @@ class MainM {
   int  c1, c2;
   color blink;
 
-
-
   MainM() {
 
     sizeH = height/7;
@@ -100,7 +98,7 @@ class MainM {
     if (c1 == blink) {
       tSize1 =75;
       tSize2 =50;
-    }
+    }//Down in het menu
     if (c1 == blink&&keyCode==40) {
       c1 = 180;
       c2 = blink;
@@ -108,13 +106,13 @@ class MainM {
     if (c2 == blink) {
       tSize2= 75;
       tSize1= 50;
-    }
+    }//Up in het menu
     if (c2 == blink&&keyCode==38) {
       c2 = 180;
       c1 = blink;
     }
 
-
+    // spatie om naar andere rooms te gaan
     if (c1==blink&&room == "mainM" && keyCode ==32) {
       room = "difficulty";
       SpeedUp.play();
@@ -136,9 +134,11 @@ class MainM {
     text("Settings", tx, ty*1.5);
     textSize(tSize3);
     fill(255, 0, 0);
-    text("press A to select", tx, ty*2);
-    fill(255, 255, 0);
-    text("press B to to go back", tx, ty*2+50);
+    text("A", tx, ty*2);
+    fill(0);
+    text("  " +"select", tx, ty*2);
+
+
 
     image(slimeDash, width/4, height/100, width/3, height/3);
   }
@@ -198,7 +198,7 @@ class DIF {
     if (c1 == blink) {
       tSize1 =75;
       tSize2 =50;
-    }
+    }//naar beneden in menu
     if (c1 == blink&&keyCode==40) {
       c1 = 180;
       c2 = blink;
@@ -206,18 +206,18 @@ class DIF {
     if (c2 == blink) {
       tSize2= 75;
       tSize1= 50;
-    }
+    }//naar boven in het menu
     if (c2 == blink&&keyCode==38) {
       c2 = 180;
       c1 = blink;
-    }
+    }//q om terug te gaan
     if (keyCode ==81) {
       room= "mainM";
-    }
+    }//normal game
     if (c1==blink&&room == "difficulty" && inputs.hasValue(32) ) {
       room = "game";
       SpeedUp.play();
-    }
+    }//tutorial game
     if (c2==blink &&room == "difficulty" && inputs.hasValue(32)) {
       room = "game2";
       SpeedUp.play();
@@ -236,8 +236,13 @@ class DIF {
     text("Tutorial Mode", tx, ty*1.5);
     textSize(tSize3);
     fill(255, 0, 0);
-    text("press A to select", tx, ty*2);
+    text("A", tx, ty*2);
+    fill(0);
+    text("  " +"select", tx, ty*2);
+    //yellow back
     fill(255, 255, 0);
-    text("press B to to go back", tx, ty*2+50);
+    text("B", tx, ty*2+50);
+    fill(0);
+    text("  "+"back", tx, ty*2+50);
   }
 }
