@@ -20,7 +20,7 @@ class HUD {
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
   //coins
-float coins;
+  float coins;
   HUD() {
     //healthbar
     healthX= width*0.02;
@@ -164,30 +164,32 @@ float coins;
     text(floor(score), scoreX, scoreY);
     line(width-(width/8), scoreY+20, width, scoreY+20);
     //coins
-    text(floor(coins),scoreX-30,scoreY+70);
+    text(floor(coins), scoreX-30, scoreY+70);
     stroke(0);
-    fill(255,255,0);
-    image(coin,scoreX-20,scoreY+40,40,40);
- 
+    fill(255, 255, 0);
+    image(coin, scoreX-20, scoreY+40, 40, 40);
+
     //Game Over
     fill(#A300FC, goFadeIn);
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX-2, gOverY-2);
-    text("score =" + floor(score), gOverX-2, gOverY+98);
+    text("score " + floor(score), gOverX-2, gOverY+98);
     fill(255, 255, 0, goFadeIn);
-    textAlign(CENTER);
-    textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX+2, gOverY+2);
-    text("score =" + floor(score), gOverX+2, gOverY+102);
+    text("score " + floor(score), gOverX+2, gOverY+102);
     fill(0, 0, 0, goFadeIn);
-    textAlign(CENTER);
-    textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX, gOverY);
     text("score " + floor(score), gOverX, gOverY+100);
-    textAlign(CENTER);
-    textSize(constrain(goFadeIn, 1, gOSize));
-    text(gOver, gOverX, gOverY);
-    text("press A to restart  |   B to go to main menu", gOverX, gOverY+300);
+    textAlign(LEFT);
+    textSize(main.tSize3);
+    fill(255, 0, 0, goFadeIn);
+    text("A", main.tx, main.ty*2.8);
+    fill(0, goFadeIn);
+    text("  " +"Retry", main.tx, main.ty*2.8);
+    fill(255, 255, 0, goFadeIn);
+    text("B", main.tx*2, main.ty*2.8);
+    fill(0, goFadeIn);
+    text("  "+"Menu", main.tx*2, main.ty*2.8);
   }
 }

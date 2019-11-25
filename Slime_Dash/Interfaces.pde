@@ -65,16 +65,18 @@ class Pause {
     text("PAUSED", width/2, height/4);
     textSize(60);
     text("Score "+ floor(interfaces.score), width/2, height/2);
-    text("Coins "+ floor(interfaces.coins), width/2, height/1.7);
-     textSize(main.tSize3);
+    text("Coins "+ floor(interfaces.coins), width/2, height/1.6);
+    textSize(main.tSize3);
     fill(255, 0, 0);
+    textAlign(LEFT);
     text("A", main.tx, main.ty*2.8);
     fill(0);
-    text("  " +"play", main.tx+70, main.ty*2.8);
+    text("  " +"Continue", main.tx, main.ty*2.8);
+    //yellow back
     fill(255, 255, 0);
     text("B", main.tx*2, main.ty*2.8);
     fill(0);
-    text("  "+"Menu", main.tx*2+70, main.ty*2.8);
+    text("  "+"Menu", main.tx*2, main.ty*2.8);
   }
 }
 
