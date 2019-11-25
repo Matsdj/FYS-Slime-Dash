@@ -100,7 +100,7 @@ class MainM {
     if (c1 == blink) {
       tSize1 =75;
       tSize2 =50;
-    }
+    }//Down in het menu
     if (c1 == blink&&keyCode==40) {
       c1 = 180;
       c2 = blink;
@@ -108,13 +108,13 @@ class MainM {
     if (c2 == blink) {
       tSize2= 75;
       tSize1= 50;
-    }
+    }//Up in het menu
     if (c2 == blink&&keyCode==38) {
       c2 = 180;
       c1 = blink;
     }
 
-
+    // spatie om naar andere rooms te gaan
     if (c1==blink&&room == "mainM" && keyCode ==32) {
       room = "difficulty";
       SpeedUp.play();
@@ -198,7 +198,7 @@ class DIF {
     if (c1 == blink) {
       tSize1 =75;
       tSize2 =50;
-    }
+    }//naar beneden in menu
     if (c1 == blink&&keyCode==40) {
       c1 = 180;
       c2 = blink;
@@ -206,18 +206,18 @@ class DIF {
     if (c2 == blink) {
       tSize2= 75;
       tSize1= 50;
-    }
+    }//naar boven in het menu
     if (c2 == blink&&keyCode==38) {
       c2 = 180;
       c1 = blink;
-    }
+    }//q om terug te gaan
     if (keyCode ==81) {
       room= "mainM";
-    }
+    }//normal game
     if (c1==blink&&room == "difficulty" && inputs.hasValue(32) ) {
       room = "game";
       SpeedUp.play();
-    }
+    }//tutorial game
     if (c2==blink &&room == "difficulty" && inputs.hasValue(32)) {
       room = "game2";
       SpeedUp.play();

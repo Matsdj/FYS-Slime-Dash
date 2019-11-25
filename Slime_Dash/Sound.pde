@@ -34,6 +34,7 @@ void soundSetup() {
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {
+  //marching geluiden worden in de tutorial uitgezet
   if (room =="game2") {
     march0=false;
     march1=false;
@@ -101,6 +102,7 @@ void soundUpdate() {
     Ding.play();
   }
   if (room =="game") {
+    //march geluid bij startup en wanneer de horde groter wordt
     if (time ==0 &&hordeMarch.isPlaying() == false&&march0 ==true) {
       hordeMarch.rate(2);
       hordeMarch.play();
