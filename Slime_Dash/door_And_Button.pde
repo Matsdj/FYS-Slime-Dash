@@ -1,12 +1,15 @@
 //collin
-/*
+
+
+int maxdoortimer = 900;
+int doortimer = 0;
 Door[] doors;
-void doorSetup()
+void dooreSetup()
 {
 
   doors = new Door[100];
 }
-void doorsUpdate() {
+void doorUpdate() {
   for (int iDoor =0; iDoor< doors.length; iDoor++) {
     if (doors[iDoor] != null) {
       doors[iDoor].update();
@@ -22,6 +25,7 @@ void addDoor(float x, float y) {
     if (doors[iDoor] == null) {
       doors[iDoor] = new Door(x, y);
       break;
+     
     }
   }
 }
@@ -35,8 +39,7 @@ void doorDraw() {
 
 class Door {
   float x, y, size;
-  int timedoor = 0;
-  int timedoormax = 150;
+
 
   Door(float inputX, float inputY) {
 
@@ -44,14 +47,19 @@ class Door {
     y = inputY;
 
     size = globalScale;
-    player.enemyDamage = false;
+     player.enemyDamage = false;
   }
   //controleerd op player aanraking
   void update() {
-    if (timedoor>0) {
-      if ( player.hitboxCollision(x, y, size)&& player.dmgCooldown < 0) {
-        player.moving = false;
-      }
+
+    if ( player.hitboxCollision(x, y, size, size)&& doortimer<=0)
+    {if (player.dashActive==true){
+    player.dashActive=false;
+    }
+if (player.moving==true){
+player.moving=false;
+}
+      
     }
     x -= globalScrollSpeed;
   }
@@ -63,19 +71,15 @@ class Door {
   void draw()
   {
     stroke(0);
-    fill (127);
-    timedoor = timedoor-1;
-
-    if (timedoor<=0) {
+if(doortimer<=0)
       fill (139, 69, 19);
    quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
-    }
   }
 }
 
 
 
-
+//collin
 
 Button[] buttons;
 void buttonSetup()
@@ -83,7 +87,7 @@ void buttonSetup()
 
   buttons = new Button[100];
 }
-void buttonsUpdate() {
+void buttonUpdate() {
   for (int iButton =0; iButton< buttons.length; iButton++) {
     if (buttons[iButton] != null) {
       buttons[iButton].update();
@@ -99,6 +103,7 @@ void addButton(float x, float y) {
     if (buttons[iButton] == null) {
       buttons[iButton] = new Button(x, y);
       break;
+     
     }
   }
 }
@@ -113,20 +118,21 @@ void buttonDraw() {
 class Button {
   float x, y, size;
 
+
   Button(float inputX, float inputY) {
 
     x = inputX;
     y = inputY;
 
     size = globalScale;
-    player.enemyDamage = false;
+     player.enemyDamage = false;
   }
   //controleerd op player aanraking
   void update() {
-    if (timedoor>0) {
-      if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0) {
-timedoor = timedoormax;
-      }
+
+    if ( player.hitboxCollision(x, y, size, size)) {
+ doortimer=maxdoortimer;
+      
     }
     x -= globalScrollSpeed;
   }
@@ -138,13 +144,7 @@ timedoor = timedoormax;
   void draw()
   {
     stroke(0);
-    fill (127);
-    timedoor = timedoor-1;
-
-    if (timedoor<=0) {
-      fill (139, 69, 19);
-   quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
-    }
+    fill (200, 200, 200);
+    triangle(x+size/2, y+size/5*4, x+size, y+size, x, y+size);
   }
 }
-*/

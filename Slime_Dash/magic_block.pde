@@ -51,7 +51,7 @@ class BlueL {
   //controleerd op player aanraking
   void update() {
     if (switchC==1) {
-      if ( player.hitboxCollision(x, y, size)&& player.dmgCooldown < 0) {
+      if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0) {
         player.enemyDamage=true;
         player.dmgCooldown = player.DMG_COOLDOWN;
       }
@@ -113,7 +113,7 @@ class Switch {
   //controleerd op player aanraking
   void update() {
     if (switchT>0) {
-      if ( player.hitboxCollision(x, y, size)) {
+      if ( player.hitboxCollision(x, y, size, size)) {
         if (switchT > switchS) {
           switchC = switchC+1;
         }
@@ -183,7 +183,7 @@ class YellowL {
   //controleerd op player aanraking
   void update() {
     if (switchC==0) {
-      if ( player.hitboxCollision(x, y, size)&& player.dmgCooldown < 0) {
+      if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0) {
         player.enemyDamage=true;
         player.dmgCooldown = player.DMG_COOLDOWN;
       }
