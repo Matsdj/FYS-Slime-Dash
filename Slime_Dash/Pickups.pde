@@ -92,6 +92,7 @@ class PCoin {
     if (pickedUp) {
       reset();
       interfaces.score += GAIN_SCORE;
+      interfaces.coins += 1;
     }
   }
 

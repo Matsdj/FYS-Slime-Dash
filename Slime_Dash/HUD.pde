@@ -19,8 +19,8 @@ class HUD {
   String gOver;
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
-
-
+  //coins
+float coins;
   HUD() {
     //healthbar
     healthX= width*0.02;
@@ -44,7 +44,8 @@ class HUD {
     scoreY = width*0.039;
     scoreSize = width*0.025;
     score = 0;
-
+    //coins
+    coins = 0;
     //game over
     gOver = "";
     gOverX = width/2;
@@ -99,7 +100,6 @@ class HUD {
         Dede.stop();
         setup();
         room= "mainM";
-        
       }
     }
     /* spacebar om te resetten*/
@@ -163,6 +163,12 @@ class HUD {
     textSize(scoreSize);
     text(floor(score), scoreX, scoreY);
     line(width-(width/8), scoreY+20, width, scoreY+20);
+    //coins
+    text(floor(coins),scoreX-30,scoreY+70);
+    stroke(0);
+    fill(255,255,0);
+    image(coin,scoreX-20,scoreY+40,40,40);
+ 
     //Game Over
     fill(#A300FC, goFadeIn);
     textAlign(CENTER);
