@@ -80,8 +80,6 @@ class MainM {
   int  c1, c2;
   color blink;
 
-
-
   MainM() {
 
     sizeH = height/7;
@@ -136,9 +134,11 @@ class MainM {
     text("Settings", tx, ty*1.5);
     textSize(tSize3);
     fill(255, 0, 0);
-    text("press A to select", tx, ty*2);
-    fill(255, 255, 0);
-    text("press B to to go back", tx, ty*2+50);
+    text("A", tx, ty*2);
+    fill(0);
+    text("  " +"select", tx, ty*2);
+
+
 
     image(slimeDash, width/4, height/100, width/3, height/3);
   }
@@ -236,8 +236,13 @@ class DIF {
     text("Tutorial Mode", tx, ty*1.5);
     textSize(tSize3);
     fill(255, 0, 0);
-    text("press A to select", tx, ty*2);
+    text("A", tx, ty*2);
+    fill(0);
+    text("  " +"select", tx, ty*2);
+    //yellow back
     fill(255, 255, 0);
-    text("press B to to go back", tx, ty*2+50);
+    text("B", tx, ty*2+50);
+    fill(0);
+    text("  "+"back", tx, ty*2+50);
   }
 }
