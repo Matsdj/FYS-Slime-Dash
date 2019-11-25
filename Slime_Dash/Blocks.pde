@@ -2,12 +2,13 @@
 int activeBlocks = 0;
 int backgroundBlocks = 0;
 class Block {
-  float x, y, baseY, size, speed = globalScale/30, vx = 0, scrollSpeed = -1;
+  final float BREAKTIMEMAX = 30;
+  float x, y, baseY, size, speed = globalScale/30, vx = 0, scrollSpeed = -1, breakTime = BREAKTIMEMAX;
   int id = -1;
   color c = BRICK;
   PImage sprite;
-  boolean active = false, moving = false, scrollPercentage = false;
-  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeed) {
+  boolean active = false, moving = false, scrollPercentage = false, cracked = false;
+  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeed, boolean iCracked) {
     x = ix;
     baseY = iy;
     y = baseY;
@@ -18,6 +19,8 @@ class Block {
     active = true;
     scrollPercentage = iScrollPercentage;
     scrollSpeed = iScrollSpeed;
+    cracked = iCracked;
+    breakTime = BREAKTIMEMAX;
     if (c == BRICK) {
       sprite = brickSprite;
     } else if (c == STONE) {
@@ -31,7 +34,7 @@ class Block {
     }
   }
   Block() {
-    blockSetup(0, 0, BRICK, false, scrollPercentage, scrollSpeed);
+    blockSetup(0, 0, BRICK, false, scrollPercentage, scrollSpeed, cracked);
     active = false;
   }
   void update() {
@@ -45,6 +48,12 @@ class Block {
     }
     if (x > -globalScale) {
       x -= globalScrollSpeed;
+    }
+    if (cracked && (x < player.x+globalScale && x+globalScale > player.x && y-1 < player.y+globalScale && y > player.y)) {
+      breakTime--;
+      if (breakTime < 0) {
+        active = false;
+      }
     }
   }
   void moving() {
@@ -63,12 +72,17 @@ class Block {
         }
       }
       image(sprite, x, y);
+      if (cracked){
+      tint(255, (BREAKTIMEMAX-breakTime)*2+255-BREAKTIMEMAX*2);
+      image(crackedSprite, x, y);
+      tint(255);
+      }
     }
   }
   void drawBackgroundBlocks() {
-    float hitbox = size-20,
+    float hitbox = size-20, 
       xScroll = x+10;
-    for (int i = round(y/globalScale)+1; ((blockCollision(xScroll, i*globalScale, hitbox, id) == null || blockCollision(xScroll, i*globalScale, hitbox, id).moving) && i*globalScale < height); i++) {
+    for (int i = round(y/globalScale)+1; ((blockCollision(xScroll, i*globalScale, hitbox, id) == null || blockCollision(xScroll, i*globalScale, hitbox, id).moving || blockCollision(xScroll, i*globalScale, hitbox, id).cracked) && i*globalScale < height); i++) {
       tint(100);
       if (sprite == grassSprite) {
         image(dirtSprite, x, i*globalScale);
