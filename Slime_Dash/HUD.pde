@@ -104,7 +104,7 @@ class HUD {
       }
     }
     /* spacebar om te resetten*/
-    if (death ==true && inputs.hasValue(32)==true && room=="game"&&cooldown<0) {
+    if (death ==true && inputs.hasValue(32)==true && room=="game") {
       death = false;
       Dede.stop();
       setup();
@@ -113,7 +113,6 @@ class HUD {
       march1= true;
       march2= true;
       march3= true;
-      cooldown=COOLDOWN_MAX;
     } 
     if (death ==true && inputs.hasValue(32)==true && room=="game2"&&cooldown<0) {
       death = false;
