@@ -14,7 +14,8 @@ final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean debug = false;
-
+final int COOLDOWN_MAX=30;
+int cooldown;
 
 
 void setup() {
@@ -25,6 +26,7 @@ void setup() {
   globalScale = height/12;
   room = "mainM";
   time = 0;
+  cooldown=COOLDOWN_MAX;
   assetSetup();
   soundSetup(); 
   bgSetup();
@@ -67,13 +69,15 @@ void updateGame() {
     }
   }
   //Vertical Distance
-  if (time > 60){
-  globalVerticalSpeed = globalScale*(pow(height/2-player.y, 3)/pow(height/2, 3));
-  if (VerticalDistance + globalVerticalSpeed <= 0){
-  globalVerticalSpeed = -VerticalDistance;
+  if (time > 60) {
+    globalVerticalSpeed = globalScale*(pow(height/2-player.y, 3)/pow(height/2, 3));
+    if (VerticalDistance + globalVerticalSpeed <= 0) {
+      globalVerticalSpeed = -VerticalDistance;
+    }
+    VerticalDistance += globalVerticalSpeed;
   }
-  VerticalDistance += globalVerticalSpeed;
-  }
+  //input cooldown
+
   //Adds Terrain
   mapUpdate();
   //Terrain Update
@@ -107,6 +111,12 @@ void drawGame() {
 }
 
 void draw() {
+  if (cooldown>-1) {
+    cooldown--;
+  }
+  if (room=="game"||room=="game2") {
+    cooldown=COOLDOWN_MAX;
+  }
   soundUpdate();
   if (room == "pause") {
     pause.draw();

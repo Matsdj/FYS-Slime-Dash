@@ -22,24 +22,29 @@ class Pause {
 
   void update() {
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause2" && (inputs.hasValue(32)||inputs.hasValue(39))) {
+    if (room == "pause2" && (inputs.hasValue(32)||inputs.hasValue(39))&&cooldown<0) {
       room = "game2";
+      cooldown= COOLDOWN_MAX;
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true) {
+    else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true&&cooldown<0) {
       room = "pause2";
+      cooldown= COOLDOWN_MAX;
     }
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause" && (inputs.hasValue(32)||inputs.hasValue(39))) {
+    if (room == "pause" && (inputs.hasValue(32)||inputs.hasValue(39))&&cooldown<0) {
       room = "game";
+      cooldown= COOLDOWN_MAX;
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game" && inputs.hasValue(80) && interfaces.death != true) {
+    else if (room == "game" && inputs.hasValue(80) && interfaces.death != true ) {
       room = "pause";
       // druk op q of t om naar main menu te gaan
-    } else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true) {
+    } else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true &&cooldown<0) {
       room = "pause2";
-    } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(81)||inputs.hasValue(84))) {
+      cooldown= COOLDOWN_MAX;
+    } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(81)||inputs.hasValue(84))&&cooldown<0) {
+      cooldown= COOLDOWN_MAX;
       GameSlow.stop();
       GameMid.stop();
       GameFast.stop();
@@ -87,14 +92,13 @@ void mainMSetup() {
 MainM main;
 
 class MainM {
-  final int COOLDOWN_MAX=30;
-  int cooldown;
+
   float sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3;
   int  c1, c2;
   color blink;
 
   MainM() {
-    cooldown=COOLDOWN_MAX;
+
     sizeH = height/7;
     sizeW = width/2.8;
     background(0);
@@ -108,9 +112,7 @@ class MainM {
     c2 = 180;
   }
   void update() {
-    if (cooldown>0) {
-      cooldown--;
-    }
+
     if (c1 == blink) {
       tSize1 =75;
       tSize2 =50;
@@ -129,12 +131,14 @@ class MainM {
     }
 
     // spatie om naar andere rooms te gaan
-    if (c1==blink&&room == "mainM" && keyCode ==32) {
+    if (c1==blink&&room == "mainM" && keyCode ==32&&cooldown<0) {
       room = "difficulty";
       SpeedUp.play();
+      cooldown= COOLDOWN_MAX;
     }
-    if (c2==blink &&room == "mainM" && keyCode ==32) {
+    if (c2==blink &&room == "mainM" && keyCode ==32&&cooldown<0) {
       room = "upgrades";
+      cooldown= COOLDOWN_MAX;
     }
   }
   void draw() {
@@ -184,8 +188,9 @@ class Upgrades {
     perchBR = perch[0];
   }
   void update() {
-    if (keyCode ==81) {
+    if (keyCode ==81&&cooldown<0) {
       room= "mainM";
+      cooldown=COOLDOWN_MAX;
     }
     if (room=="upgrades") {
       if (keyCode==40 && perchSelectY == perchUp) {
@@ -261,7 +266,6 @@ class DIF {
     c2 = 180;
   }
   void update() {
-    //zorgt voor een blinking effect, kan waarschijnlijk efficienter :S
     if (c1 == blink) {
       tSize1 =75;
       tSize2 =50;
@@ -278,16 +282,19 @@ class DIF {
       c2 = 180;
       c1 = blink;
     }//q om terug te gaan
-    if (keyCode ==81) {
+    if (keyCode ==81&&cooldown<0) {
       room= "mainM";
+      cooldown=COOLDOWN_MAX;
     }//normal game
-    if (c1==blink&&room == "difficulty" && inputs.hasValue(32) ) {
+    if (c1==blink&&room == "difficulty" && inputs.hasValue(32)&&cooldown<0 ) {
       room = "game";
       SpeedUp.play();
+      cooldown=COOLDOWN_MAX;
     }//tutorial game
-    if (c2==blink &&room == "difficulty" && inputs.hasValue(32)) {
+    if (c2==blink &&room == "difficulty" && inputs.hasValue(32)&&cooldown<0) {
       room = "game2";
       SpeedUp.play();
+      cooldown=COOLDOWN_MAX;
     }
   }
   void draw() {

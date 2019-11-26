@@ -104,7 +104,7 @@ class HUD {
       }
     }
     /* spacebar om te resetten*/
-    if (death ==true && inputs.hasValue(32)==true && room=="game") {
+    if (death ==true && inputs.hasValue(32)==true && room=="game"&&cooldown<0) {
       death = false;
       Dede.stop();
       setup();
@@ -113,13 +113,15 @@ class HUD {
       march1= true;
       march2= true;
       march3= true;
+      cooldown=COOLDOWN_MAX;
     } 
-    if (death ==true && inputs.hasValue(32)==true && room=="game2") {
+    if (death ==true && inputs.hasValue(32)==true && room=="game2"&&cooldown<0) {
       death = false;
       Dede.stop();
       setup();
       room = "game2";
       march0 = false;
+      cooldown=COOLDOWN_MAX;
     } 
     //fade out on death
     if (death == true) {
