@@ -88,8 +88,6 @@ class Flame {
     if (timeflame>timeflameCancel) {
       timeflame = 0;
     }
-
-    x -= globalScrollSpeed;
   }
 
   //tekent 2 spikes in een blokgrootte
