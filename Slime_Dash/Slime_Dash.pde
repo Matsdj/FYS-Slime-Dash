@@ -42,8 +42,8 @@ void setup() {
   upgradeSetup();
   difSetup();
   //database
-  CreateDatabaseConnection();
-  GetUsers();
+  //  CreateDatabaseConnection();
+  //  GetUsers();
 }
 //GAME
 void updateGame() {
