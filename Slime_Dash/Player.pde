@@ -16,37 +16,37 @@ class Player {
     xSpriteL, 
     xSpriteR;
 
-  int dashCooldown, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
+  int dashCooldown, dashCooldownReset, dubbleJumpCounter, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
   color pColor;
   boolean moving, dashActive, enemyDamage, moveLeft;
 
   //terugzet waardes van de dashCooldown en dashTime
-  final int DASH_COOLDOWN = 40;
+  final int DASH_COOLDOWN_START = 40;
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
   final int PLAYER_FRAME_AMOUNT = 4;
-  final int MAX_JUMP_AMOUNT = 1;
 
-  final float JUMPSPEED = globalScale/2.2;
-  final float DASHSPEED = globalScale/1.6;
-  final float MOVESPEED = globalScale/16;
+  final float JUMPSPEED = globalScale/2.3; //jump force
+  final float DASHSPEED = globalScale/1.6; //dash speed
+  final float MOVESPEED = globalScale/16; //starting speed
   final float SPEEDMULT = 1.9;
   final float SPEEDSLOWDOWN = 0.85;
   final float ICESLOWDOWN = 0.98;
-  final float MAXMOVESPEED = globalScale/8;
-  final float GRAVITY = globalScale/32;
+  final float MAXMOVESPEED = globalScale/8; //max player walking speed
+  final float GRAVITY = globalScale/42; //speed at witch player falls
 
   Player() {
     size = globalScale-1;
-    x = globalScale * 4;
+    x = globalScale * 4; //spawn cords
     y = globalScale * 2;
-    hitboxRatio = 4;
+    hitboxRatio = 4;  //size of the hitbox is defined by this
     hitSize = size - size/hitboxRatio;
     moveSpeed = MOVESPEED;
     slowDown = SPEEDSLOWDOWN;
     vx = 0;
     vy = 0;
+    dashCooldownReset = DASH_COOLDOWN_START; //change this to upgrade dash cooldown
     dashCooldown = 0;
     dashTime = DASH_TIME;
     dmgCooldown = 0;
@@ -57,6 +57,7 @@ class Player {
     walkFrameCounter = 0;
     deathFrameCounter = 0;
     deathFramerate = 0;
+    dubbleJumpCounter = 0; // +1 this to activate dubble jump;
     jumpedAmount = 0;
   } 
 
@@ -163,6 +164,7 @@ class Player {
   }
   void update() {
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
 
     dashCooldown --;
     dmgCooldown--;
@@ -208,7 +210,7 @@ class Player {
       if (blockCollision(x, y + 1, size) != null) {
         vy = keyUp * -JUMPSPEED;
         jumpedAmount = 0;
-      } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < MAX_JUMP_AMOUNT) {
+      } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < dubbleJumpCounter) {
         vy = keyUp * -JUMPSPEED;
         jumpedAmount ++;
       }
@@ -225,7 +227,7 @@ class Player {
         if (inputs.hasValue(RIGHT) == true) {
           vx = DASHSPEED;
         }
-        dashCooldown = DASH_COOLDOWN;
+        dashCooldown = dashCooldownReset;
         dashActive = true;
         dashTime--;
       } else {

@@ -56,6 +56,7 @@ class Flame {
       }
     }
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
   }
 
 

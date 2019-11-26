@@ -78,6 +78,7 @@ class HUD {
       healthC = color(255);
       /*verander deze om enemy damage aan te passen*/
       healthMain = healthMain-swordDMG;
+      healthMain = healthMain-MagicBarricadeDMG;
     } 
 
     //dash bar
