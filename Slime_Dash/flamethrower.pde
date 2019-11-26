@@ -69,6 +69,7 @@ class Flame {
   //controleerd op player aanraking
   void update() {
     timeflame = timeflame+1;
+
     if (timeflame>timeflamemax/2) {
       if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0) {
         player.enemyDamage=true;
@@ -77,10 +78,11 @@ class Flame {
       //animates flamethrower
       if (timeflame % (activeFlameFramesAmount/ FLAME_ACTIVE_SPRITE_AMOUNT) == 0) {
         flameFrameCounter ++;
-      } else {
-        flameFrameCounter = 0;
       }
+    } else {
+      flameFrameCounter = 0;
     }
+
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
 
