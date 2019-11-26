@@ -33,6 +33,7 @@ void setup() {
   interfacesSetup();
   mainMSetup();
   hostileSetup();
+  arrowSetup();
   blockSetup();
   spikeSetup();
   flameSetup();
@@ -83,6 +84,7 @@ void updateGame() {
   flameUpdate();
   //Moving Enemy
   hostileUpdate();
+  arrowUpdate();
   //Player
   player.update();
   //Overlay
@@ -97,6 +99,7 @@ void drawGame() {
   spikeDraw();
   blockDraw();
   hostileDraw();
+  arrowDraw();
   pickupDraw();
   flameDraw();
   hordeDraw();

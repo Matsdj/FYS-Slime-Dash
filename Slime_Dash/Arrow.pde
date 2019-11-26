@@ -1,5 +1,6 @@
 
-final int ARROW_AMOUNT = 50;
+final int ARROW_AMOUNT = 20;
+final float ARROW_VELOCITY = 5;
 
 void arrowSetup() {
   ArrowList = new Arrow[ARROW_AMOUNT];
@@ -11,8 +12,16 @@ void arrowSetup() {
 
 void arrowUpdate() {
   for(int iArrow = 0; iArrow < ARROW_AMOUNT; iArrow++) {
-    if(!ArrowList[iArrow].isActive) {
+    if(ArrowList[iArrow].isActive) {
       ArrowList[iArrow].update();
+    }
+  }
+}
+
+void arrowDraw() {
+  for(int iArrow = 0; iArrow < ARROW_AMOUNT; iArrow++) {
+    if(ArrowList[iArrow].isActive) {
+      ArrowList[iArrow].draw();
     }
   }
 }
@@ -20,12 +29,12 @@ void arrowUpdate() {
 Arrow[] ArrowList;
 
 class Arrow {
-  float x, y, aWidth, aHeight;
-  boolean isActive, isHit = false;
+  float x, y, vx, aWidth, aHeight;
+  boolean isActive = false, goLeft, isHit = false;
   
   Arrow() {
-    aWidth = 3;
-    aHeight = 2;
+    aWidth = 48;
+    aHeight = 12;
     reset();
   }
   
@@ -33,35 +42,35 @@ class Arrow {
     isActive = false;
     x = -globalScale *10;
     y = -globalScale *10;
+    vx = 0;
   }
 
-  void activate(float activatex, float activatey) {
+  void activate(float activatex, float activatey, boolean isLefti) {
     isActive = true;
     x = activatex;
     y = activatey;
+    if (isLefti) {
+      vx = -ARROW_VELOCITY;
+    } else {
+      vx = ARROW_VELOCITY;
+    }
   }
   
   void update() {
-    if(player.Collision(x, y, aWidth)) {
-      isHit = true;
+    x += vx;
+    x -= globalScrollSpeed;
+    if(player.hitboxCollision(x, y, aWidth, aHeight)) {
+      player.enemyDamage = true;
+      reset();
     }
-    for(int iArrow = 0; iArrow < ARROW_AMOUNT; iArrow++) {
-      if(ArrowList[iArrow].isActive) {
-        x += globalScrollSpeed * 2;
-      }
+    
+    if(x + aWidth < 0 || x > width) {
+      reset();
     }
-    /*for(int iHostile = 0; iHostile < 10; iHostile++) {
-      if(hostileRanged[iHostile].x < player.x && hostileRanged[iHostile].isActive) {
-        CoinList[iCoin].activate(x, y);
-        break;
-        x += globalScrollSpeed * 2;
-      } else if(hostileRanged[iHostile].x > player.x && hostileRanged[iHostile].isActive) {
-        x -= globalScrollSpeed * 2;
-      }
-    }*/
   }
   
   void draw() {
+    fill(200, 170, 0);
     rect(x, y, aWidth, aHeight);
   }
 }

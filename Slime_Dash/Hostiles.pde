@@ -28,7 +28,7 @@ void addHostileMelee(float x, float y) {
 
 void addHostileRanged(float x, float y) {
   for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
-    if (hostileRanged[iHostile].isActive) {
+    if (!hostileRanged[iHostile].isActive) {
       hostileRanged[iHostile].activate(x, y);
       break;
     }
@@ -141,10 +141,13 @@ class HostileMelee {
 
 class HostileRanged {
   float x, y, size;
-  boolean dead, isActive;
+  final int ARROW_COOLDOWN_MAX = 120;
+  int arrowCooldown;
+  boolean dead, isActive, isLeft;
 
   HostileRanged() {
     size = globalScale;
+    arrowCooldown = ARROW_COOLDOWN_MAX;
     reset();
   }
   
@@ -175,6 +178,21 @@ class HostileRanged {
       //x = -globalScale*2;
       interfaces.score += ENEMYSCORE;
     }
+    if (isActive) {
+      for(int iArrow = 0; iArrow < ARROW_AMOUNT; iArrow++) {
+        if(!ArrowList[iArrow].isActive && arrowCooldown < 0) {
+          ArrowList[iArrow].activate(x + size / 2, y + (size / 2) - (ArrowList[iArrow].aHeight / 2), isLeft);
+          arrowCooldown = ARROW_COOLDOWN_MAX;
+          break;
+        }
+      }
+    }
+    if (x > player.x && isActive) {
+      isLeft = true;
+    } else {
+      isLeft = false;
+    }
+    arrowCooldown--;
   }
 
   void draw() {
