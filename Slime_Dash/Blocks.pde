@@ -3,22 +3,21 @@ int activeBlocks = 0;
 int backgroundBlocks = 0;
 class Block {
   final float BREAKTIMEMAX = 30;
-  float x, y, baseY, size, speed = globalScale/30, vx = 0, scrollSpeed = -1, breakTime = BREAKTIMEMAX;
+  float x, y, size, speed = globalScale/30, vx = 0, scrollSpeedChange = -1, breakTime = BREAKTIMEMAX;
   int id = -1;
   color c = BRICK;
   PImage sprite;
   boolean active = false, moving = false, scrollPercentage = false, cracked = false;
-  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeed, boolean iCracked) {
+  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeedChange, boolean iCracked) {
     x = ix;
-    baseY = iy;
-    y = baseY;
+    y = iy;
     size = globalScale;
     c = ic;
     moving = iMoving;
     vx = speed;
     active = true;
     scrollPercentage = iScrollPercentage;
-    scrollSpeed = iScrollSpeed;
+    scrollSpeedChange = iScrollSpeedChange;
     cracked = iCracked;
     breakTime = BREAKTIMEMAX;
     if (c == BRICK) {
@@ -34,16 +33,16 @@ class Block {
     }
   }
   Block() {
-    blockSetup(0, 0, BRICK, false, scrollPercentage, scrollSpeed, cracked);
+    blockSetup(0, 0, BRICK, false, scrollPercentage, scrollSpeedChange, cracked);
     active = false;
   }
   void update() {
-    y = baseY + globalVerticalDistance;
-    if (scrollSpeed >= 0 && x < width) {
+    y += globalVerticalSpeed;
+    if (scrollSpeedChange >= 0 && x < width) {
       if (scrollPercentage) {
-        globalScrollSpeed = globalScrollSpeed*(scrollSpeed/100);
+        globalScrollSpeed = globalScrollSpeed*(scrollSpeedChange/100);
       } else {
-        globalScrollSpeed = scrollSpeed;
+        globalScrollSpeed = scrollSpeedChange;
       }
     }
     if (x > -globalScale) {
@@ -82,12 +81,12 @@ class Block {
   void drawBackgroundBlocks() {
     float hitbox = size-20, 
       xScroll = x+10;
-    for (int i = round(y/globalScale)+1; ((blockCollision(xScroll, i*globalScale, hitbox, id) == null || blockCollision(xScroll, i*globalScale, hitbox, id).moving || blockCollision(xScroll, i*globalScale, hitbox, id).cracked) && i*globalScale < height); i++) {
+    for (float i = y+globalScale; ((blockCollision(xScroll, i, hitbox, id) == null || blockCollision(xScroll, i, hitbox, id).moving || blockCollision(xScroll, i, hitbox, id).cracked) && i < height); i+= globalScale) {
       tint(100);
       if (sprite == grassSprite) {
-        image(dirtSprite, x, i*globalScale);
+        image(dirtSprite, x, i);
       } else
-        image(sprite, x, i*globalScale);
+        image(sprite, x, i);
       tint(255);
       backgroundBlocks +=1;
     }
@@ -113,8 +112,8 @@ Block blockCollision(float x, float y, float size) {
 //Disables scrollBlocks
 void disableActiveScrollBlocks() {
   for (int i = 0; i<blocks.length; i++) {
-    if (blocks[i].active && blocks[i].scrollSpeed >= 0 && blocks[i].x < width) {
-      blocks[i].scrollSpeed = -1;
+    if (blocks[i].active && blocks[i].scrollSpeedChange >= 0 && blocks[i].x < width) {
+      blocks[i].scrollSpeedChange = -1;
     }
   }
 }

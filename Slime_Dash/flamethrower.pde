@@ -74,14 +74,16 @@ class Flame {
         player.enemyDamage=true;
         player.dmgCooldown = player.DMG_COOLDOWN;
       }
-
       //animates flamethrower
       if (timeflame % (activeFlameFramesAmount/ FLAME_ACTIVE_SPRITE_AMOUNT) == 0) {
         flameFrameCounter ++;
+      } else {
+        flameFrameCounter = 0;
       }
-    } else {
-      flameFrameCounter = 0;
     }
+    x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
+
 
     if (timeflame>timeflameCancel) {
       timeflame = 0;

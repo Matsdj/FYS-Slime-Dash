@@ -1,46 +1,54 @@
 //collin
 
-//blue barricade
-/*
-BlueL[] blueL;
-void BlueLSetup()
+int MagicBarricadeDMG = 0;
+boolean switchA = false;
+boolean SwitchTimerA = false;
+int SwitchTimer = 0;
+int SwitchTimerMax = 600;
+Magic1[] magic1s;
+Magic2[] magic2s;
+MagicSwitch[] magicSwitchs;
+
+
+
+//first magic wall
+void magic1Setup()
 {
 
-  blueL = new BlueL[100];
+  magic1s = new Magic1[100];
 }
-void blueLUpdate() {
-  for (int iBlueL =0; iBlueL< blueL.length; iBlueL++) {
-    if (blueL[iBlueL] != null) {
-      blueL[iBlueL].update();
-      if (blueL[iBlueL].x < 0 - blueL[iBlueL].size) {
-        blueL[iBlueL]= null;
+void magic1Update() {
+  for (int iMagic1 =0; iMagic1< magic1s.length; iMagic1++) {
+    if (magic1s[iMagic1] != null) {
+      magic1s[iMagic1].update();
+      if (magic1s[iMagic1].x < 0 - magic1s[iMagic1].size) {
+        magic1s[iMagic1]= null;
       }
     }
   }
 }
 
-void addBlueL(float x, float y) {
-  for (int iBlueL = 0; iBlueL < blueL.length; iBlueL++) {
-    if (blueL[iBlueL] == null) {
-      blueL[iBlueL] = new BlueL(x, y);
+void addMagic1(float x, float y) {
+  for (int iMagic1 = 0; iMagic1 < magic1s.length; iMagic1++) {
+    if (magic1s[iMagic1] == null) {
+      magic1s[iMagic1] = new Magic1(x, y);
       break;
     }
   }
 }
-void blueLDraw() {
-  for (int iBlueL = 0; iBlueL < blueL.length; iBlueL++) {
-    if (blueL[iBlueL] != null) {
-      blueL[iBlueL].draw();
+void magic1Draw() {
+  for (int iMagic1 = 0; iMagic1 < magic1s.length; iMagic1++) {
+    if (magic1s[iMagic1] != null) {
+      magic1s[iMagic1].draw();
     }
   }
 }
 
-class BlueL {
+class Magic1 {
   float x, y, size;
-  int timedoor = 0;
 
 
-  BlueL(float inputX, float inputY) {
+  Magic1(float inputX, float inputY) {
 
     x = inputX;
     y = inputY;
@@ -50,59 +58,159 @@ class BlueL {
   }
   //controleerd op player aanraking
   void update() {
-    if (switchC==1) {
-      if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0) {
-        player.enemyDamage=true;
-        player.dmgCooldown = player.DMG_COOLDOWN;
+
+    if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==true) {
+     if (interfaces.healthMain <= 40){MagicBarricadeDMG = 20;}
+     if (interfaces.healthMain > 40){MagicBarricadeDMG = interfaces.healthMain/2;}
+      player.enemyDamage=true;
+      player.dmgCooldown = player.DMG_COOLDOWN;
+    }
+    x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
+  }
+
+
+
+
+  //tekent de eerste magic wall (rood)
+  void draw()
+  {
+    stroke(0);
+    fill (255, 0, 0);
+
+    if (switchA==true) {
+      fill (0, 255, 255);
+      quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
+    }
+  }
+}
+
+
+
+
+
+
+//second magic wall
+
+
+void magic2Setup()
+{
+
+  magic2s = new Magic2[100];
+}
+void magic2Update() {
+  for (int iMagic2 =0; iMagic2< magic2s.length; iMagic2++) {
+    if (magic2s[iMagic2] != null) {
+      magic2s[iMagic2].update();
+      if (magic2s[iMagic2].x < 0 - magic2s[iMagic2].size) {
+        magic2s[iMagic2]= null;
       }
+    }
+  }
+}
+
+void addMagic2(float x, float y) {
+  for (int iMagic2 = 0; iMagic2 < magic2s.length; iMagic2++) {
+    if (magic2s[iMagic2] == null) {
+      magic2s[iMagic2] = new Magic2(x, y);
+      break;
+    }
+  }
+}
+void magic2Draw() {
+  for (int iMagic2 = 0; iMagic2 < magic2s.length; iMagic2++) {
+    if (magic2s[iMagic2] != null) {
+      magic2s[iMagic2].draw();
+    }
+  }
+}
+
+class Magic2 {
+  float x, y, size;
+
+
+  Magic2(float inputX, float inputY) {
+
+    x = inputX;
+    y = inputY;
+
+    size = globalScale;
+    player.enemyDamage = false;
+  }
+  //controleerd op player aanraking
+  void update() {
+
+    if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==false) {
+     if (interfaces.healthMain <= 40){MagicBarricadeDMG = 20;}
+     if (interfaces.healthMain > 40){MagicBarricadeDMG = interfaces.healthMain/2;}
+      player.enemyDamage=true;
+      player.dmgCooldown = player.DMG_COOLDOWN;
     }
     x -= globalScrollSpeed;
   }
+
+
+
+
+  //tekent de tweede magic block (blauw)
+  void draw()
+  {
+    stroke(0);
+    fill (255, 0, 0);
+
+    if (switchA==false) {
+      fill (0, 0, 255);
+      quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
+    }
+  }
 }
+
+
+
+
 
 
 
 
 //switch
 
-Switch[] switchs;
-void switchSetup()
+void magicSwitchSetup()
 {
 
-  switchs = new Switch[100];
+  magicSwitchs = new MagicSwitch[100];
 }
-void switchsUpdate() {
-  for (int iSwitch =0; iSwitch< switchs.length; iSwitch++) {
-    if (switchs[iSwitch] != null) {
-      switchs[iSwitch].update();
-      if (switchs[iSwitch].x < 0 - switchs[iSwitch].size) {
-        switchs[iSwitch]= null;
+void magicSwitchUpdate() {
+  for (int iMagicSwitch =0; iMagicSwitch< magicSwitchs.length; iMagicSwitch++) {
+    if (magicSwitchs[iMagicSwitch] != null) {
+      magicSwitchs[iMagicSwitch].update();
+      if (magicSwitchs[iMagicSwitch].x < 0 - magicSwitchs[iMagicSwitch].size) {
+        magicSwitchs[iMagicSwitch]= null;
       }
     }
   }
 }
 
-void addSwitchs(float x, float y) {
-  for (int iSwitch = 0; iSwitch < switchs.length; iSwitch++) {
-    if (switchs[iSwitch] == null) {
-      switchs[iSwitch] = new Switch(x, y);
+void addMagicSwitch(float x, float y) {
+  for (int iMagicSwitch = 0; iMagicSwitch < magicSwitchs.length; iMagicSwitch++) {
+    if (magicSwitchs[iMagicSwitch] == null) {
+      magicSwitchs[iMagicSwitch] = new MagicSwitch(x, y);
       break;
     }
   }
 }
-void switchDraw() {
-  for (int iSwitch = 0; iSwitch < switchs.length; iSwitch++) {
-    if (switchs[iSwitch] != null) {
-      switchs[iSwitch].draw();
+void magicSwitchDraw() {
+  for (int iMagicSwitch = 0; iMagicSwitch < magicSwitchs.length; iMagicSwitch++) {
+    if (magicSwitchs[iMagicSwitch] != null) {
+      magicSwitchs[iMagicSwitch].draw();
     }
   }
 }
 
-class Switch {
+class MagicSwitch {
   float x, y, size;
-  int switchT=0;
-  int switchS = 120;
-  Switch(float inputX, float inputY) {
+
+
+  MagicSwitch(float inputX, float inputY) {
 
     x = inputX;
     y = inputY;
@@ -112,101 +220,31 @@ class Switch {
   }
   //controleerd op player aanraking
   void update() {
-    if (switchT>0) {
-      if ( player.hitboxCollision(x, y, size, size)) {
-        if (switchT > switchS) {
-          switchC = switchC+1;
-        }
-        if (switchC ==2 ) {
-          switchC = 0;
-        }
-        switchT = switchT++;
-      }
-    }
 
-    if (switchT>120) {
-      switchT = 0;
+    if ( player.hitboxCollision(x, y, size, size)&& SwitchTimerA == false) {
+      SwitchTimer = SwitchTimerMax;
+      switchA = !switchA;
+      SwitchTimerA = true;
     }
     x -= globalScrollSpeed;
-  }
 
-
-//yellow barricade
-
-
-YellowL[] yellowL;
-void BlueLSetup()
-{
-
-  yellowL = new YellowL[100];
-}
-void blueLUpdate() {
-  for (int iYellowL =0; iYellowL< yellowL.length; iYellowL++) {
-    if (yellowL[iYellowL] != null) {
-      yellowL[iYellowL].update();
-      if (yellowL[iYellowL].x < 0 - yellowL[iYellowL].size) {
-        yellowL[iYellowL]= null;
-      }
+    if (SwitchTimer<=0) {
+      SwitchTimerA = false;
     }
   }
-}
-
-void addYellowL(float x, float y) {
-  for (int iYellowL = 0; iYellowL < yellowL.length; iYellowL++) {
-    if (yellowL[iYellowL] == null) {
-      yellowL[iYellowL] = new YellowL(x, y);
-      break;
-    }
-  }
-}
-void blueLDraw() {
-  for (int iYellowL = 0; iYellowL < yellowL.length; iYellowL++) {
-    if (yellowL[iYellowL] != null) {
-      yellowL[iYellowL].draw();
-    }
-  }
-}
-
-class YellowL {
-  float x, y, size;
 
 
 
-  YellowL(float inputX, float inputY) {
 
-    x = inputX;
-    y = inputY;
-
-    size = globalScale;
-    player.enemyDamage = false;
-  }
-  //controleerd op player aanraking
-  void update() {
-    if (switchC==0) {
-      if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0) {
-        player.enemyDamage=true;
-        player.dmgCooldown = player.DMG_COOLDOWN;
-      }
-    }
-    x -= globalScrollSpeed;
-  }
-}
-
-
-
-  //tekent de juiste bliksembarricade
+  //tekent de switch
   void draw()
   {
     stroke(0);
-    fill (127);
-    if (switchC==0) {
-      fill (0, 0, 255);
-      quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
-    }
-    if (switchC==0) {
-      fill (0, 255, 255);
-      quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
+    fill (255, 0, 0);
+
+    if (switchA==false) {
+      fill (140);
+      quad(x, y+size, x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size, y+size);
     }
   }
 }
-*/

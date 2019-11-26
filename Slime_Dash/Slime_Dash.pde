@@ -8,13 +8,13 @@
 
 //remember, ctrl+t
 
-float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalDistance;
+float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean debug = false;
-int switchC = 1;
+
 
 
 void setup() {
@@ -33,6 +33,7 @@ void setup() {
   interfacesSetup();
   mainMSetup();
   hostileSetup();
+  arrowSetup();
   blockSetup();
   spikeSetup();
   flameSetup();
@@ -42,8 +43,8 @@ void setup() {
   upgradeSetup();
   difSetup();
   //database
-  CreateDatabaseConnection();
-  GetUsers();
+  //  CreateDatabaseConnection();
+  //  GetUsers();
 }
 //GAME
 void updateGame() {
@@ -67,10 +68,12 @@ void updateGame() {
     }
   }
   //Vertical Distance
-  //globalVerticalDistance += player.JUMPSPEED*(pow(height/2-player.y, 3)/pow(height/2, 3));
-  //globalVerticalDistance = constrain(globalVerticalDistance,0,globalVerticalDistance);
-  if (room == "mainM") {
-    globalVerticalDistance = 0;
+  if (time > 60){
+  globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
+  if (VerticalDistance + globalVerticalSpeed <= 0){
+  globalVerticalSpeed = -VerticalDistance;
+  }
+  VerticalDistance += globalVerticalSpeed;
   }
   //Adds Terrain
   mapUpdate();
@@ -83,6 +86,7 @@ void updateGame() {
   flameUpdate();
   //Moving Enemy
   hostileUpdate();
+  arrowUpdate();
   //Player
   player.update();
   //Overlay
@@ -97,6 +101,7 @@ void drawGame() {
   spikeDraw();
   blockDraw();
   hostileDraw();
+  arrowDraw();
   pickupDraw();
   flameDraw();
   hordeDraw();

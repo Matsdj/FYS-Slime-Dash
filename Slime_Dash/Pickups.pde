@@ -85,6 +85,7 @@ class PCoin {
   // collision check of de player de coin aanraakt
   void update() {
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
     if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
       pickedUp = true;
     }
@@ -129,6 +130,7 @@ class PHealth {
 
   void update() {
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
     if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
       pickedUp = true;
     }

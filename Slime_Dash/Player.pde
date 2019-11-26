@@ -164,6 +164,7 @@ class Player {
   }
   void update() {
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
 
     dashCooldown --;
     dmgCooldown--;

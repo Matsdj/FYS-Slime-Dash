@@ -62,6 +62,7 @@ player.moving=false;
       
     }
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
   }
 
 
@@ -135,6 +136,7 @@ class Button {
       
     }
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
   }
 
 

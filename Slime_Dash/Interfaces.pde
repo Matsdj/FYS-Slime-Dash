@@ -87,12 +87,14 @@ void mainMSetup() {
 MainM main;
 
 class MainM {
+  final int COOLDOWN_MAX=30;
+  int cooldown;
   float sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3;
   int  c1, c2;
   color blink;
 
   MainM() {
-
+    cooldown=COOLDOWN_MAX;
     sizeH = height/7;
     sizeW = width/2.8;
     background(0);
@@ -106,11 +108,14 @@ class MainM {
     c2 = 180;
   }
   void update() {
+    if (cooldown>0) {
+      cooldown--;
+    }
     if (c1 == blink) {
       tSize1 =75;
       tSize2 =50;
     }//Down in het menu
-    if (c1 == blink&&keyCode==40) {
+    if (c1 == blink&&keyCode==40 ) {
       c1 = 180;
       c2 = blink;
     }
@@ -118,7 +123,7 @@ class MainM {
       tSize2= 75;
       tSize1= 50;
     }//Up in het menu
-    if (c2 == blink&&keyCode==38) {
+    if (c2 == blink&&keyCode==38 ) {
       c2 = 180;
       c1 = blink;
     }

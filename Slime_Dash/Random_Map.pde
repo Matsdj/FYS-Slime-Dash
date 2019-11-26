@@ -71,7 +71,7 @@ void makeMap(PImage template) {
       int loc = templateX + (templateY * mapTemplate.width);
       //Determines wat the X and Y of the blocks is going to be
       float x = (GenerateDistance+templateX)*globalScale, 
-        y = (templateY-(mapTemplate.height-height/globalScale-1))*globalScale;
+        y = (templateY-(mapTemplate.height-height/globalScale-1))*globalScale+VerticalDistance;
       //color of pixel in picture
       color col = color(red(mapTemplate.pixels[loc]), green(mapTemplate.pixels[loc]), blue(mapTemplate.pixels[loc]));
       if (random(255) <= alpha(mapTemplate.pixels[loc])) {
