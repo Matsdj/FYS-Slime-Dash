@@ -1,5 +1,6 @@
 //collin
 
+int MagicBarricadeDMG = 0;
 boolean switchA = false;
 boolean SwitchTimerA = false;
 int SwitchTimer = 0;
@@ -59,8 +60,8 @@ class Magic1 {
   void update() {
 
     if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==true) {
-      player.enemyDamage=true;
-      player.dmgCooldown = player.DMG_COOLDOWN;
+     if (interfaces.healthMain <= 40){MagicBarricadeDMG = 20;}
+     if (interfaces.healthMain > 40){MagicBarricadeDMG = interfaces.healthMain/2;}
       player.enemyDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
     }
@@ -139,8 +140,8 @@ class Magic2 {
   void update() {
 
     if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==false) {
-      player.enemyDamage=true;
-      player.dmgCooldown = player.DMG_COOLDOWN;
+     if (interfaces.healthMain <= 40){MagicBarricadeDMG = 20;}
+     if (interfaces.healthMain > 40){MagicBarricadeDMG = interfaces.healthMain/2;}
       player.enemyDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
     }
