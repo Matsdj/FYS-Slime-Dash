@@ -14,7 +14,7 @@ final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean debug = false;
-int switchC = 1;
+
 
 
 void setup() {
@@ -42,8 +42,8 @@ void setup() {
   upgradeSetup();
   difSetup();
   //database
-  CreateDatabaseConnection();
-  GetUsers();
+  //  CreateDatabaseConnection();
+  //  GetUsers();
 }
 //GAME
 void updateGame() {

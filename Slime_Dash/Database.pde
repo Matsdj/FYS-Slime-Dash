@@ -1,4 +1,4 @@
-import de.bezier.data.sql.*;
+/*import de.bezier.data.sql.*;
 MySQL msql;
 // This is a data model class to reflect the content of the User entity from the database.
 class RecordUser {
@@ -48,4 +48,4 @@ void GetUsers() {
     // -check that your server runs on localhost and that the port is set right
     // -try connecting through other means (terminal or console / MySQL workbench / ...)println( " Failed to create MYSQL connection." );
   }}
-   
+  */ 
