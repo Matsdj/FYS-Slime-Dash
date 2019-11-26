@@ -129,14 +129,12 @@ class MainM {
     }
 
     // spatie om naar andere rooms te gaan
-    if (c1==blink&&room == "mainM" && keyCode ==32&& cooldown<=0) {
+    if (c1==blink&&room == "mainM" && keyCode ==32) {
       room = "difficulty";
       SpeedUp.play();
-      cooldown=COOLDOWN_MAX;
     }
-    if (c2==blink &&room == "mainM" && keyCode ==32&& cooldown<=0) {
+    if (c2==blink &&room == "mainM" && keyCode ==32) {
       room = "upgrades";
-      cooldown=COOLDOWN_MAX;
     }
   }
   void draw() {
