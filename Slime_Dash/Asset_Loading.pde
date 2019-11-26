@@ -1,5 +1,6 @@
 PImage[] enemySprite;
 PImage[] playerSprite;
+PImage[] flamethrowerSprite;
 PImage[] bgHouse;
 PImage[] bgCloud;
 PImage[][] hordeSprite;
@@ -9,7 +10,8 @@ PImage bgSun;
 PImage heart;
 PImage coin;
 PImage slimeDash;
-int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight;
+int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, 
+meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
 //Blocks
@@ -47,6 +49,10 @@ public void assetSetup() {
   meleeSpriteWidth = int(globalScale);
   meleeSpriteHeight = int(globalScale + globalScale/32*2);
   
+  //flamethrower resize
+  flamethrowerSpriteWidth = int(globalScale);
+  flamethrowerSpriteHeight = int(globalScale * 2);
+  
   //hordeResize
   hordeSpriteWidth = int(globalScale * 2);
   hordeSpriteHeight = int(globalScale * 10);
@@ -68,6 +74,12 @@ public void assetSetup() {
   for (int iSprite = 0; iSprite < PLAYER_FRAME_AMOUNT; iSprite++) {
     playerSprite[iSprite] = loadImage("sprites/player/player"+ iSprite +".png");
     playerSprite[iSprite].resize(playerSpriteWidth, playerSpriteHeight);
+  }
+  
+  flamethrowerSprite = new PImage[FLAME_SPRITE_AMOUNT];
+  for (int iSprite = 0; iSprite < FLAME_SPRITE_AMOUNT; iSprite++) {
+    flamethrowerSprite[iSprite] = loadImage("sprites/flamethrower/flame"+ iSprite +".png");
+    flamethrowerSprite[iSprite].resize(flamethrowerSpriteWidth,flamethrowerSpriteHeight);
   }
 
   bgHouse = new PImage[BG_HOUSES_AMOUNT];

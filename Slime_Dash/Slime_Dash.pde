@@ -28,13 +28,14 @@ void setup() {
   time = 0;
   cooldown=COOLDOWN_MAX;
   assetSetup();
-  soundSetup(); 
+  soundSetup();
   bgSetup();
   hordeSetup();
   playerSetup();
   interfacesSetup();
   mainMSetup();
   hostileSetup();
+  arrowSetup();
   blockSetup();
   spikeSetup();
   flameSetup();
@@ -69,12 +70,13 @@ void updateGame() {
     }
   }
   //Vertical Distance
-  if (time > 60) {
-    globalVerticalSpeed = globalScale*(pow(height/2-player.y, 3)/pow(height/2, 3));
-    if (VerticalDistance + globalVerticalSpeed <= 0) {
-      globalVerticalSpeed = -VerticalDistance;
-    }
-    VerticalDistance += globalVerticalSpeed;
+  if (time > 60){
+  globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
+  if (VerticalDistance + globalVerticalSpeed <= 0){
+  globalVerticalSpeed = -VerticalDistance;
+  }
+  VerticalDistance += globalVerticalSpeed;
+
   }
   //input cooldown
 
@@ -89,6 +91,7 @@ void updateGame() {
   flameUpdate();
   //Moving Enemy
   hostileUpdate();
+  arrowUpdate();
   //Player
   player.update();
   //Overlay
@@ -103,6 +106,7 @@ void drawGame() {
   spikeDraw();
   blockDraw();
   hostileDraw();
+  arrowDraw();
   pickupDraw();
   flameDraw();
   hordeDraw();
