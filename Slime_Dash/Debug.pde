@@ -18,7 +18,7 @@ if (inputsPressed.hasValue(96)) {
     text(inputsString,0,200);
     text("Time:"+time,0,250);
     text("ScrollSpeed:"+globalScrollSpeed,0,300);
-    text("Height:"+globalVerticalDistance,0,350);
+    text("Height:"+VerticalDistance,0,350);
     text("TravelDist:"+traveledDistance,0,400);
     text("Room:"+room,0,450);
     text("P.insideblock:"+player.insideBlock(),0,500);

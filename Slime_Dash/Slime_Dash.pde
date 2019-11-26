@@ -8,7 +8,7 @@
 
 //remember, ctrl+t
 
-float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalDistance;
+float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -67,10 +67,12 @@ void updateGame() {
     }
   }
   //Vertical Distance
-  //globalVerticalDistance += player.JUMPSPEED*(pow(height/2-player.y, 3)/pow(height/2, 3));
-  //globalVerticalDistance = constrain(globalVerticalDistance,0,globalVerticalDistance);
-  if (room == "mainM") {
-    globalVerticalDistance = 0;
+  if (time > 60){
+  globalVerticalSpeed = globalScale*(pow(height/2-player.y, 3)/pow(height/2, 3));
+  if (VerticalDistance + globalVerticalSpeed <= 0){
+  globalVerticalSpeed = -VerticalDistance;
+  }
+  VerticalDistance += globalVerticalSpeed;
   }
   //Adds Terrain
   mapUpdate();
