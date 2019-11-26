@@ -66,6 +66,7 @@ class Magic1 {
       player.dmgCooldown = player.DMG_COOLDOWN;
     }
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
   }
 
 

@@ -68,7 +68,7 @@ void updateGame() {
   }
   //Vertical Distance
   if (time > 60){
-  globalVerticalSpeed = globalScale*(pow(height/2-player.y, 3)/pow(height/2, 3));
+  globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
   if (VerticalDistance + globalVerticalSpeed <= 0){
   globalVerticalSpeed = -VerticalDistance;
   }
