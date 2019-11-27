@@ -274,7 +274,7 @@ class Player {
 
     //zorgt er voor dat je dood gaat als je uit de map valt
     if (y>height) {
-      interfaces.healthMain -=10;
+      interfaces.health -=10;
       interfaces.death =true;
     }
 

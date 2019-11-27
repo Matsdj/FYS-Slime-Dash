@@ -42,7 +42,6 @@ class Pause {
       // druk op q of t om naar main menu te gaan
     } else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true) {
       room = "pause2";
-      
     } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(81)||inputs.hasValue(84))&&cooldown<0) {
       cooldown= COOLDOWN_MAX;
       GameSlow.stop();
@@ -71,17 +70,17 @@ class Pause {
     textSize(60);
     text("Score "+ floor(interfaces.score), width/2, height/2);
     text("Coins "+ floor(interfaces.coins), width/2, height/1.6);
-    textSize(main.tSize3);
+    textSize(main.tekstSize[2]);
     fill(255, 0, 0);
     textAlign(LEFT);
-    text("A", main.tx, main.ty*2.8);
+    text("A", main.tekstX, main.tekstY*2.8);
     fill(0);
-    text("  " +"Continue", main.tx, main.ty*2.8);
+    text("  " +"Continue", main.tekstX, main.tekstY*2.8);
     //yellow back
     fill(255, 255, 0);
-    text("B", main.tx*2, main.ty*2.8);
+    text("B", main.tekstX*2, main.tekstY*2.8);
     fill(0);
-    text("  "+"Menu", main.tx*2, main.ty*2.8);
+    text("  "+"Menu", main.tekstX*2, main.tekstY*2.8);
   }
 }
 
@@ -93,50 +92,50 @@ MainM main;
 
 class MainM {
 
-  float sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3;
-  int  c1, c2;
-  color blink;
-
+  float sizeW, sizeH, tekstX, tekstY;
+  int  select1, select2;
+  color highlight;
+  float[] tekstSize = new float[3];
   MainM() {
 
     sizeH = height/7;
     sizeW = width/2.8;
     background(0);
-    tSize1 = 75;
-    tSize2 = 50;
-    tSize3 = 40;    
-    tx = width/4;
-    ty = height/3;
-    blink = color(255);
-    c1 = blink;
-    c2 = 180;
+    tekstSize[0] = 75;
+    tekstSize[1] = 50;
+    tekstSize[2] = 40;    
+    tekstX = width/4;
+    tekstY = height/3;
+    highlight = color(255);
+    select1 = highlight;
+    select2 = 180;
   }
   void update() {
 
-    if (c1 == blink) {
-      tSize1 =75;
-      tSize2 =50;
+    if (select1 == highlight) {
+      tekstSize[0] =75;
+      tekstSize[1] =50;
     }//Down in het menu
-    if (c1 == blink&&keyCode==40 ) {
-      c1 = 180;
-      c2 = blink;
+    if (select1 == highlight&&keyCode==40 ) {
+      select1 = 180;
+      select2 = highlight;
     }
-    if (c2 == blink) {
-      tSize2= 75;
-      tSize1= 50;
+    if (select2 == highlight) {
+      tekstSize[1]= 75;
+      tekstSize[0]= 50;
     }//Up in het menu
-    if (c2 == blink&&keyCode==38 ) {
-      c2 = 180;
-      c1 = blink;
+    if (select2 == highlight&&keyCode==38 ) {
+      select2 = 180;
+      select1 = highlight;
     }
 
     // spatie om naar andere rooms te gaan
-    if (c1==blink&&room == "mainM" && keyCode ==32&&cooldown<0) {
+    if (select1==highlight&&room == "mainM" && keyCode ==32&&cooldown<0) {
       room = "difficulty";
       SpeedUp.play();
       cooldown= COOLDOWN_MAX;
     }
-    if (c2==blink &&room == "mainM" && keyCode ==32&&cooldown<0) {
+    if (select2==highlight &&room == "mainM" && keyCode ==32&&cooldown<0) {
       room = "upgrades";
       cooldown= COOLDOWN_MAX;
     }
@@ -144,18 +143,18 @@ class MainM {
   void draw() {
     //text
     textAlign(LEFT, CENTER);
-    textSize(tSize3/2);
-    textSize(tSize1);
-    fill(c1);
-    text("Play", tx, ty);
-    textSize(tSize2);
-    fill(c2);
-    text("Upgrades", tx, ty*1.5);
-    textSize(tSize3);
+    textSize(tekstSize[2]/2);
+    textSize(tekstSize[0]);
+    fill(select1);
+    text("Play", tekstX, tekstY);
+    textSize(tekstSize[1]);
+    fill(select2);
+    text("Upgrades", tekstX, tekstY*1.5);
+    textSize(tekstSize[2]);
     fill(255, 0, 0);
-    text("A", main.tx, main.ty*2.8);
+    text("A", main.tekstX, main.tekstY*2.8);
     fill(0);
-    text("  " +"Select", main.tx, main.ty*2.8);
+    text("  " +"Select", main.tekstX, main.tekstY*2.8);
     image(slimeDash, width/4, height/100, width/3, height/3);
   }
 }
@@ -227,18 +226,18 @@ class Upgrades {
     //bottom right
     image(perchBR, perchRight, perchDown, perchW, perchH);
     text("Coin Value", perchRight+xOffset, perchDown+yOffset);
-    textSize(main.tSize3);
+    textSize(main.tekstSize[2]);
     fill(255, 0, 0);
-    text("A", main.tx, main.ty*2.8);
+    text("A", main.tekstX, main.tekstY*2.8);
     fill(0);
-    text("  " +"Select", main.tx, main.ty*2.8);
+    text("  " +"Select", main.tekstX, main.tekstY*2.8);
     fill(255, 255, 0);
-    text("B", main.tx*2, main.ty*2.8);
+    text("B", main.tekstX*2, main.tekstY*2.8);
     fill(0);
-    text("  "+"Back", main.tx*2, main.ty*2.8);
+    text("  "+"Back", main.tekstX*2, main.tekstY*2.8);
   }
 }
-////////////////// difficulty scherm//////////////
+////////////////// difficultekstY scherm//////////////
 
 void difSetup() {
   dif = new DIF();
@@ -246,52 +245,53 @@ void difSetup() {
 DIF dif;
 
 class DIF {
-  float sizeW, sizeH, tx, ty, tSize1, tSize2, tSize3;
-  int  c1, c2;
-  color blink;
+  float sizeW, sizeH, tekstX, tekstY;
+  int  select1, select2;
+  color highlight;
   PImage slimeDash;
+  float[] tekstSize = new float[3];
 
   DIF() {
     textFont(font);
     sizeH = height/7;
     sizeW = width/2.8;
     background(0);
-    tSize1 = 75;
-    tSize2 = 50;
-    tSize3 = 40;    
-    tx = width/4;
-    ty = height/3;
-    blink = color(255);
-    c1 = blink;
-    c2 = 180;
+    tekstSize[0] = 75;
+    tekstSize[1] = 50;
+    tekstSize[2] = 40;    
+    tekstX = width/4;
+    tekstY = height/3;
+    highlight = color(255);
+    select1 = highlight;
+    select2 = 180;
   }
   void update() {
-    if (c1 == blink) {
-      tSize1 =75;
-      tSize2 =50;
+    if (select1 == highlight) {
+      tekstSize[0] =75;
+      tekstSize[1] =50;
     }//naar beneden in menu
-    if (c1 == blink&&keyCode==40) {
-      c1 = 180;
-      c2 = blink;
+    if (select1 == highlight&&keyCode==40) {
+      select1 = 180;
+      select2 = highlight;
     }
-    if (c2 == blink) {
-      tSize2= 75;
-      tSize1= 50;
+    if (select2 == highlight) {
+      tekstSize[1]= 75;
+      tekstSize[0]= 50;
     }//naar boven in het menu
-    if (c2 == blink&&keyCode==38) {
-      c2 = 180;
-      c1 = blink;
+    if (select2 == highlight&&keyCode==38) {
+      select2 = 180;
+      select1 = highlight;
     }//q om terug te gaan
     if (keyCode ==81&&cooldown<0) {
       room= "mainM";
       cooldown=COOLDOWN_MAX;
     }//normal game
-    if (c1==blink&&room == "difficulty" && inputs.hasValue(32)&&cooldown<0 ) {
+    if (select1==highlight&&room == "difficulty" && inputs.hasValue(32)&&cooldown<0 ) {
       room = "game";
       SpeedUp.play();
       cooldown=COOLDOWN_MAX;
     }//tutorial game
-    if (c2==blink &&room == "difficulty" && inputs.hasValue(32)&&cooldown<0) {
+    if (select2==highlight &&room == "difficulty" && inputs.hasValue(32)&&cooldown<0) {
       room = "game2";
       SpeedUp.play();
       cooldown=COOLDOWN_MAX;
@@ -300,22 +300,22 @@ class DIF {
   void draw() {
     //text
     textAlign(LEFT, CENTER);
-    textSize(tSize3/2);
-    textSize(tSize1);
-    fill(c1);
-    text("Normal Mode", tx, ty);
-    textSize(tSize2);
-    fill(c2);
-    text("Tutorial Mode", tx, ty*1.5);
-    textSize(tSize3);
+    textSize(tekstSize[2]/2);
+    textSize(tekstSize[0]);
+    fill(select1);
+    text("Normal Mode", tekstX, tekstY);
+    textSize(tekstSize[1]);
+    fill(select2);
+    text("Tutorial Mode", tekstX, tekstY*1.5);
+    textSize(tekstSize[2]);
     fill(255, 0, 0);
-    text("A", main.tx, main.ty*2.8);
+    text("A", main.tekstX, main.tekstY*2.8);
     fill(0);
-    text("  " +"Select", main.tx, main.ty*2.8);
+    text("  " +"Select", main.tekstX, main.tekstY*2.8);
     //yellow back
     fill(255, 255, 0);
-    text("B", tx*2, ty*2.8);
+    text("B", tekstX*2, tekstY*2.8);
     fill(0);
-    text("  "+"Back", tx*2, ty*2.8);
+    text("  "+"Back", tekstX*2, tekstY*2.8);
   }
 }

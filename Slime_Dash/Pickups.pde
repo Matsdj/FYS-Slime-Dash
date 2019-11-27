@@ -136,7 +136,7 @@ class PHealth {
     }
     if (pickedUp) {
       reset();
-      interfaces.healthMain += GAIN_HEALTH;
+      interfaces.health += GAIN_HEALTH;
     }
   }
   void draw() {

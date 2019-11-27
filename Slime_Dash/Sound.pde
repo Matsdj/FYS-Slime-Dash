@@ -89,16 +89,16 @@ void soundUpdate() {
     }
   }
   //interface selectie geluiden
-  if (inputs.hasValue(DOWN)==true && main.blink==main.c1 && room=="mainM") {
+  if (inputs.hasValue(DOWN)==true && main.highlight==main.select1 && room=="mainM") {
     Ding.play();
   }
-  if (inputs.hasValue(UP)==true && main.blink==main.c2 && room=="mainM") {
+  if (inputs.hasValue(UP)==true && main.highlight==main.select2 && room=="mainM") {
     Ding.play();
   }
-  if (inputs.hasValue(DOWN)==true && dif.blink==dif.c1 && room=="difficulty") {
+  if (inputs.hasValue(DOWN)==true && dif.highlight==dif.select1 && room=="difficulty") {
     Ding.play();
   }
-  if (inputs.hasValue(UP)==true && dif.blink==dif.c2 && room=="difficulty") {
+  if (inputs.hasValue(UP)==true && dif.highlight==dif.select2 && room=="difficulty") {
     Ding.play();
   }
   if (room =="game") {
