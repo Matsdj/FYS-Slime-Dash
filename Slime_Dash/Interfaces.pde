@@ -40,9 +40,9 @@ class Pause {
     else if (room == "game" && inputs.hasValue(80) && interfaces.death != true ) {
       room = "pause";
       // druk op q of t om naar main menu te gaan
-    } else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true &&cooldown<0) {
+    } else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true) {
       room = "pause2";
-      cooldown= COOLDOWN_MAX;
+      
     } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(81)||inputs.hasValue(84))&&cooldown<0) {
       cooldown= COOLDOWN_MAX;
       GameSlow.stop();
@@ -166,7 +166,7 @@ void upgradeSetup() {
 Upgrades upgrade;
 
 class Upgrades {
-  int perchW = 320, perchH = 213, yOffset = width/12, xOffset=height/12, 
+  int perchW = 320, perchH = 213, yOffset = perchH/2, xOffset=perchW/8, 
     perchLeft=width/8, perchRight=width - width/8 - perchW, 
     perchUp=height/8, perchDown=height - height/8 - perchH, 
     perchSelectX, perchSelectY;

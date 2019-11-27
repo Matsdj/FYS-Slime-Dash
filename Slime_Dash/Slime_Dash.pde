@@ -14,13 +14,13 @@ final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean debug = false;
-final int COOLDOWN_MAX=30;
+final int COOLDOWN_MAX=15;
 int cooldown;
 
 
 void setup() {
-  size(1280, 720, P2D);
-  //  fullScreen(P2D);
+ // size(1280, 720, P2D);
+   fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;
@@ -71,7 +71,7 @@ void updateGame() {
   }
   //Vertical Distance
   if (time > 60){
-  globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
+  //globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
   if (VerticalDistance + globalVerticalSpeed <= 0){
   globalVerticalSpeed = -VerticalDistance;
   }
