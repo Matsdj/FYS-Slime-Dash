@@ -166,7 +166,7 @@ void upgradeSetup() {
 Upgrades upgrade;
 
 class Upgrades {
-  int perchW = 320, perchH = 213, yOffset = width/12, xOffset=height/12, 
+  int perchW = 320, perchH = 213, yOffset = perchH/2, xOffset=perchW/8, 
     perchLeft=width/8, perchRight=width - width/8 - perchW, 
     perchUp=height/8, perchDown=height - height/8 - perchH, 
     perchSelectX, perchSelectY;
