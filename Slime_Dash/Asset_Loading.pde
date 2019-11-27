@@ -10,6 +10,8 @@ PImage bgSun;
 PImage heart;
 PImage coin;
 PImage slimeDash;
+PImage healthbar;
+PImage dashbar;
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, 
 meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
@@ -133,4 +135,8 @@ public void assetSetup() {
   //Main Menu
   slimeDash = loadImage("./sprites/menus/SlimeDash.png");
   font = createFont("fonts/8bit16.ttf", 32);
+  
+  //HUD
+  healthbar = loadImage("./sprites/HUD/healthbar.png");
+  dashbar = loadImage("./sprites/HUD/dashbar.png");
 }

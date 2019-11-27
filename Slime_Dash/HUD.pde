@@ -130,7 +130,7 @@ class HUD {
   void draw() {
     //healthbar
     /*healthbar backdrop*/
-    noStroke();
+        noStroke();
     fill(0, 0, 0, 50);
     rect(healthBarX, healthBarY, healthBarLength, healthBarHeight, healthBarCurveNormal);
     /*actual health indicator*/
@@ -143,10 +143,11 @@ class HUD {
     noFill();
     strokeWeight(2);
     rect(healthBarX, healthBarY, healthBarLength, healthBarHeight, healthBarCurveNormal);
+    image(healthbar,10,15,425,110);
     //dash bar 
     /*dashbar backdrop*/
     noStroke();
-    fill(0, 0, 0, 50);
+    fill(155);
     rect(dashX, dashY, dashL, dashH, healthBarCurveNormal);
     /*actual dash indicator*/
     noStroke();
@@ -156,6 +157,7 @@ class HUD {
     stroke(0);
     noFill();
     rect(dashX, dashY, dashL, dashH, healthBarCurveNormal);
+    image(dashbar,10,90,425,70);
     //score
     if (death==false&&room=="game") {
       score +=globalScrollSpeed/10;
