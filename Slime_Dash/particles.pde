@@ -13,20 +13,33 @@ class Particle {
 
 Particle[] particle;
 
-
+//maximum totaal aantal particles
 int c =1000;
+//aantal particles gespawned (niet editen, edit per onderdeel als het activeerd)
 int particleamount = 0;
+//minimale x coordinaat waar particles spawnen(niet editen, edit per onderdeel als het activeerd)
 int particlexmin = 0;
+//maximale x coordinaat waar particles spawnen(niet editen, edit per onderdeel als het activeerd)
 int particlexmax = 0;
+//minimale y coordinaat waar particles spawnen(niet editen, edit per onderdeel als het activeerd)
 int particleymin = 0;
+//maximale y coordinaat waar particles spawnen(niet editen, edit per onderdeel als het activeerd)
 int particleymax = 0;
+//de snelheid van particles in de x direction(niet editen, edit per onderdeel als het activeerd)
 int particlespeedx = 0;
+//de snelheid van particles in de y direction(niet editen, edit per onderdeel als het activeerd)
 int particlespeedy = 0;
+//de diameter van de particles(niet editen, edit per onderdeel als het activeerd)
 int particlesize = 0;
+//de roodintensitijd van de particles(niet editen, edit per onderdeel als het activeerd)
 int particlered = 0;
+//de groenintensitijd van de particles(niet editen, edit per onderdeel als het activeerd)
 int particlegreen = 0;
+//de blauwintensitijd van de particles(niet editen, edit per onderdeel als het activeerd)
 int particleblue = 0;
+//hoelang het duurt voordat de particles verdwijnen(niet editen, edit per onderdeel als het activeerd)
 int particledecaytimer = 0;
+//zet op true om de particles te laten spawnen(niet deze editen, maar allen in de andere lijnen code)
 boolean activateparticles = false;
 
 
