@@ -49,10 +49,10 @@ class Pause {
       GameFast.stop();
       setup();
       room = "mainM";
-      march0=true;
-      march1=true;
-      march2=true;
-      march3=true;
+      march[0]=true;
+      march[1]=true;
+      march[2]=true;
+      march[3]=true;
     }
 
     if (pauseV >=20) {

@@ -109,17 +109,17 @@ class HUD {
       Dede.stop();
       setup();
       room = "game";
-      march0= true;
-      march1= true;
-      march2= true;
-      march3= true;
+      march[0]= true;
+      march[1]= true;
+      march[2]= true;
+      march[3]= true;
     } 
     if (death ==true && inputs.hasValue(32)==true && room=="game2"&&cooldown<0) {
       death = false;
       Dede.stop();
       setup();
       room = "game2";
-      march0 = false;
+      march[0] = false;
       cooldown=COOLDOWN_MAX;
     } 
     //fade out on death

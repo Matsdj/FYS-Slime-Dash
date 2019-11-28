@@ -12,11 +12,7 @@ SoundFile SlimeJump;
 SoundFile DashSlime;
 SoundFile hordeMarch;
 float slow = 2500, mid = 6000;
-boolean march0 =true;
-boolean march1 =true;
-boolean march2 =true;
-boolean march3 =true;
-
+boolean[] march = new boolean[4];
 void soundSetup() {
   //volume
   float volume = 1;
@@ -36,10 +32,10 @@ void soundSetup() {
 void soundUpdate() {
   //marching geluiden worden in de tutorial uitgezet
   if (room =="game2") {
-    march0=false;
-    march1=false;
-    march2=false;
-    march3=false;
+    march[0]=false;
+    march[1]=false;
+    march[2]=false;
+    march[3]=false;
   }
   //hoofdmenu muziek
   if (Hoofdmenu.isPlaying() == false) {
@@ -103,22 +99,22 @@ void soundUpdate() {
   }
   if (room =="game") {
     //march geluid bij startup en wanneer de horde groter wordt
-    if (time ==0 &&hordeMarch.isPlaying() == false&&march0 ==true) {
+    if (time ==0 &&hordeMarch.isPlaying() == false&&march[0] ==true) {
       hordeMarch.rate(2);
       hordeMarch.play();
-      march0 =false;
-    } else if (time ==slow/2 &&hordeMarch.isPlaying() == false&&march1 ==true) {
+      march[0] =false;
+    } else if (time ==slow/2 &&hordeMarch.isPlaying() == false&&march[1] ==true) {
       hordeMarch.rate(1.8);
       hordeMarch.play();
-      march1 =false;
-    } else if (time ==slow &&hordeMarch.isPlaying() == false&&march2 ==true) {
+      march[1] =false;
+    } else if (time ==slow &&hordeMarch.isPlaying() == false&&march[2] ==true) {
       hordeMarch.rate(1.5);
       hordeMarch.play();
-      march2 =false;
-    } else if (time ==mid &&hordeMarch.isPlaying() == false&&march3 ==true) {
+      march[2] =false;
+    } else if (time ==mid &&hordeMarch.isPlaying() == false&&march[3] ==true) {
       hordeMarch.rate(1);
       hordeMarch.play();
-      march3 =false;
+      march[3] =false;
     }
   }
 }
