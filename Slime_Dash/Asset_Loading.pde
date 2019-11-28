@@ -1,4 +1,5 @@
 PImage[] enemySprite;
+PImage enemyDeathSprite;
 PImage[] playerSprite;
 PImage[] flamethrowerSprite;
 PImage[] bgHouse;
@@ -71,6 +72,8 @@ public void assetSetup() {
     enemySprite[iSprite] = loadImage("sprites/enemy/enemy"+ iSprite + ".png");
     enemySprite[iSprite].resize(meleeSpriteWidth, meleeSpriteHeight);
   }
+  enemyDeathSprite = loadImage("sprites/enemy/enemyDeath.png");
+  enemyDeathSprite.resize(meleeSpriteWidth, meleeSpriteHeight);
 
   playerSprite = new PImage[PLAYER_FRAME_AMOUNT];
   for (int iSprite = 0; iSprite < PLAYER_FRAME_AMOUNT; iSprite++) {

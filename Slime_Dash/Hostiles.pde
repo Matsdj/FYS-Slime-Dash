@@ -85,7 +85,9 @@ class HostileMelee {
 
   void enemyAnimation() {
     //sprites 32*34
-    if (vx<0) {
+    if (dead) {
+      image(enemyDeathSprite, x, y - globalScale/32*2);
+    } else if (vx<0) {
       pushMatrix();
       scale(-1.0, 1.0);
       image(enemySprite[enemyWalkFrame], -x-globalScale, y - globalScale/32*2);
@@ -113,11 +115,12 @@ class HostileMelee {
     } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
-    } 
-    if (dead) {      
+    } else if (x < 0 - globalScale *2) {
       reset();
-      // x = -globalScale * 2;
-      interfaces.score += ENEMYSCORE;
+    }
+    
+    if(dead){
+      vx = 0;
     }
 
     //animatie updates
@@ -150,13 +153,13 @@ class HostileRanged {
     arrowCooldown = ARROW_COOLDOWN_MAX;
     reset();
   }
-  
+
   void reset() {
     isActive = false;
     x = -globalScale *10;
     y = -globalScale *10;
   }
-  
+
   void activate(float activatex, float activatey) {
     isActive = true;
     dead = false;
@@ -179,8 +182,8 @@ class HostileRanged {
       interfaces.score += ENEMYSCORE;
     }
     if (isActive) {
-      for(int iArrow = 0; iArrow < ARROW_AMOUNT; iArrow++) {
-        if(!ArrowList[iArrow].isActive && arrowCooldown < 0) {
+      for (int iArrow = 0; iArrow < ARROW_AMOUNT; iArrow++) {
+        if (!ArrowList[iArrow].isActive && arrowCooldown < 0) {
           ArrowList[iArrow].activate(x + size / 2, y + (size / 2) - (ArrowList[iArrow].aHeight / 2), isLeft);
           arrowCooldown = ARROW_COOLDOWN_MAX;
           break;
