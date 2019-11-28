@@ -8,13 +8,14 @@
 
 //remember, ctrl+t
 
-float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance;
+float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance, coins = 0;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean debug = false;
 final int COOLDOWN_MAX=15;
+final int COOLDOWN_UPGRADE=30;
 int cooldown;
 
 

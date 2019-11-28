@@ -20,7 +20,7 @@ class HUD {
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
   //coins
-  float coins;
+
   HUD() {
     //healthbar
     healthBarX= width*0.02;
@@ -45,7 +45,7 @@ class HUD {
     scoreSize = width*0.025;
     score = 0;
     //coins
-    coins = 0;
+
     //game over
     gOver = "";
     gOverX = width/2;

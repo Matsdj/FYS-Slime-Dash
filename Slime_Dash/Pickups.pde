@@ -3,8 +3,8 @@ PCoin[] CoinList;
 PHealth[] HealthList;
 
 final int PICKUP_AMOUNT = 20;
-final int GAIN_SCORE = 100;
 final int GAIN_HEALTH = 20;
+int coinValue = 1;
 
 void pickupSetup() {
   CoinList = new PCoin[PICKUP_AMOUNT];
@@ -92,8 +92,7 @@ class PCoin {
     // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden
     if (pickedUp) {
       reset();
-      interfaces.score += GAIN_SCORE;
-      interfaces.coins += 1;
+      coins += coinValue;
     }
   }
 
