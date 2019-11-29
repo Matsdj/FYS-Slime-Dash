@@ -23,9 +23,9 @@ class HUD {
 
   HUD() {
     //healthbar
-    healthBarX= width*0.02;
-    healthBarY= width*0.02;
-    healthBarLength = width*0.195;
+    healthBarX= 30+(globalScale/18);
+    healthBarY= 40;
+    healthBarLength = width*0.193;
     healthBarHeight = height*0.056;
     healthBarCurve = 20;
     healthBarCurveNormal = 20;
@@ -38,7 +38,7 @@ class HUD {
     dashL = healthBarLength;
     dashL2 = constrain(healthBarLength, 0, healthBarLength);
     dashX = healthBarX;
-    dashY = width*0.055;
+    dashY = width*0.06;
     //score
     scoreX = width*0.98;
     scoreY = width*0.039;
@@ -132,31 +132,31 @@ class HUD {
     /*healthbar backdrop*/
         noStroke();
     fill(0, 0, 0, 50);
-    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight, healthBarCurveNormal);
+    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
     /*actual health indicator*/
     noStroke();
     fill(healthC);
     if (health > 100) health = 100;
-    rect(healthBarX, healthBarY, healthBarLength*(float(constrain(health, 0, 100))/100), healthBarHeight, healthBarCurveNormal, healthBarCurve, healthBarCurve, healthBarCurveNormal);
+    rect(healthBarX, healthBarY, healthBarLength*(float(constrain(health, 0, 100))/100), healthBarHeight);
     /*static border*/
     stroke(0);
     noFill();
     strokeWeight(2);
-    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight, healthBarCurveNormal);
-    image(healthbar,10,15,425,110);
+    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
+    image(healthbar,10,15+(globalScale/18),globalScale*4.75,globalScale*1.2);
     //dash bar 
     /*dashbar backdrop*/
     noStroke();
     fill(155);
-    rect(dashX, dashY, dashL, dashH, healthBarCurveNormal);
+    rect(dashX, dashY, dashL, dashH);
     /*actual dash indicator*/
     noStroke();
     fill(#5AFF03, 255);
-    rect(dashX, dashY, dashL2, dashH, healthBarCurveNormal);
+    rect(dashX, dashY, dashL2, dashH);
     /* border*/
     stroke(0);
     noFill();
-    rect(dashX, dashY, dashL, dashH, healthBarCurveNormal);
+    rect(dashX, dashY, dashL, dashH);
     image(dashbar,10,90,425,70);
     //score
     if (death==false&&room=="game") {
