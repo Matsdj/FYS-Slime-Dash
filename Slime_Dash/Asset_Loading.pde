@@ -1,6 +1,8 @@
 PImage[] enemySprite;
 PImage enemyDeathSprite;
 PImage[] playerSprite;
+PImage playerDmgBlink;
+PImage playerDashBlink;
 PImage[] flamethrowerSprite;
 PImage[] bgHouse;
 PImage[] bgCloud;
@@ -14,7 +16,7 @@ PImage slimeDash;
 PImage healthbar;
 PImage dashbar;
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, 
-meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight;
+  meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
 //Blocks
@@ -51,11 +53,11 @@ public void assetSetup() {
   //meleeEnemyResize
   meleeSpriteWidth = int(globalScale);
   meleeSpriteHeight = int(globalScale + globalScale/32*2);
-  
+
   //flamethrower resize
   flamethrowerSpriteWidth = int(globalScale);
   flamethrowerSpriteHeight = int(globalScale * 2);
-  
+
   //hordeResize
   hordeSpriteWidth = int(globalScale * 2);
   hordeSpriteHeight = int(globalScale * 10);
@@ -80,11 +82,16 @@ public void assetSetup() {
     playerSprite[iSprite] = loadImage("sprites/player/player"+ iSprite +".png");
     playerSprite[iSprite].resize(playerSpriteWidth, playerSpriteHeight);
   }
-  
+
+  playerDmgBlink = loadImage("sprites/player/playerDamageBlink.png");
+  playerDmgBlink.resize(playerSpriteWidth, playerSpriteHeight);
+  playerDashBlink = loadImage("sprites/player/playerDashBlink.png");
+  playerDashBlink.resize(playerSpriteWidth, playerSpriteHeight);
+
   flamethrowerSprite = new PImage[FLAME_SPRITE_AMOUNT];
   for (int iSprite = 0; iSprite < FLAME_SPRITE_AMOUNT; iSprite++) {
     flamethrowerSprite[iSprite] = loadImage("sprites/flamethrower/flame"+ iSprite +".png");
-    flamethrowerSprite[iSprite].resize(flamethrowerSpriteWidth,flamethrowerSpriteHeight);
+    flamethrowerSprite[iSprite].resize(flamethrowerSpriteWidth, flamethrowerSpriteHeight);
   }
 
   bgHouse = new PImage[BG_HOUSES_AMOUNT];
@@ -106,7 +113,7 @@ public void assetSetup() {
       hordeSprite[iSprite][jSprite].resize(hordeSpriteWidth, hordeSpriteHeight);
     }
   }
-  
+
   bgWall = loadImage("sprites/backGround/wall.png");
   bgWall.resize(wallSpriteWidth, wallSpriteHeight);
 
@@ -138,7 +145,7 @@ public void assetSetup() {
   //Main Menu
   slimeDash = loadImage("./sprites/menus/SlimeDash.png");
   font = createFont("fonts/8bit16.ttf", 32);
-  
+
   //HUD
   healthbar = loadImage("./sprites/HUD/healthbar.png");
   dashbar = loadImage("./sprites/HUD/dashbar.png");

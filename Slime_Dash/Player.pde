@@ -18,7 +18,7 @@ class Player {
 
   int dashCooldown, dashCooldownReset, dubbleJumpCounter, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
   color pColor;
-  boolean moving, dashActive, enemyDamage, moveLeft;
+  boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink;
 
   //terugzet waardes van de dashCooldown en dashTime
   final int DASH_COOLDOWN_START = 40;
@@ -26,6 +26,7 @@ class Player {
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
   final int PLAYER_FRAME_AMOUNT = 4;
+  final int DMG_BLINK_FRAMERATE = 10;
 
   final float JUMPSPEED = globalScale/2.3; //jump force
   final float DASHSPEED = globalScale/1.6; //dash speed
@@ -66,6 +67,15 @@ class Player {
     ySprite = y - pushPlayerSpriteUp;
     xSpriteL = x - pushPlayerSpriteL;
     xSpriteR = x - pushPlayerSpriteR;
+    
+    //switches between dmg sprites, causing a blink effect
+    if (dmgCooldown >= 0) {
+      if (dmgCooldown % (DMG_BLINK_FRAMERATE*2) == 0) {
+        dmgBlink = true;
+      } else if (dmgCooldown % DMG_BLINK_FRAMERATE == 0) {
+        dmgBlink = false;
+      }
+    } else dmgBlink = true;
 
     //dash animation
     if (dashActive && moveLeft) {
@@ -99,12 +109,21 @@ class Player {
 
     //damaged animatie
     else if (dmgCooldown >=0 && moveLeft) {
+      //makes player blink white when damaged
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[6], -xSpriteL-playerSprite[0].width, ySprite);
+      if (!dmgBlink) {
+        image(playerSprite[6], -xSpriteL-playerSprite[0].width, ySprite);
+      } else if (dmgBlink) {
+        image(playerDmgBlink, -xSpriteL-playerSprite[0].width, ySprite);
+      }
       popMatrix();
     } else if (dmgCooldown >=0 && !moveLeft) {
-      image(playerSprite[6], xSpriteR, ySprite);
+      if (!dmgBlink) {
+        image(playerSprite[6], xSpriteR, ySprite);
+      } else if (dmgBlink) {
+        image(playerDmgBlink, xSpriteR, ySprite);
+      }
     }
 
     //walking animatie
@@ -262,7 +281,7 @@ class Player {
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
     }
-    
+
     //stops player from going above the screen
     while (y <= -size+1) {
       y++;
@@ -319,7 +338,7 @@ class Player {
   void draw() {
     stroke(0, 0, 0, fade);
     strokeWeight(2);
-    fill(pColor, fade);
+    //fill(pColor, fade);
     //rect(x, y, size, size);
     playerAnimation();
   }
