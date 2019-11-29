@@ -16,6 +16,9 @@ BgWall[] bgWalls;
 BgCloud[] bgClouds;
 
 void bgSetup() {
+  redSkyTransition = 0;
+  blueSkyTransition = 0;
+  
   //bg houses setup
   bgHouses = new BgHouses[MAX_HOUSES];
   for (int iSprite = 0; iSprite < MAX_HOUSES; iSprite++) {
@@ -100,7 +103,7 @@ void bgUpdate() {
 
 void bgDraw() { 
   //draws a blue sky in bg
-  
+
   for (int iSky = 0; iSky < SKY_AMOUNT; iSky++) {
     image(bgSky, 0 + bgSky.width * iSky, 0);
   }
