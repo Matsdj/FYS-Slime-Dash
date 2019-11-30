@@ -73,8 +73,9 @@ class HUD {
       healthC = color(255, 0, 0);
     }
     /*wanneer enemy collision heeft met player dan damage*/
-    if (player.enemyDamage==true) {
+    if (player.enemyDamage==true&& death==false) {
       player.enemyDamage= false;
+      damage.play();
       healthC = color(255);
       /*verander deze om enemy damage aan te passen*/
       health = health-swordDMG;

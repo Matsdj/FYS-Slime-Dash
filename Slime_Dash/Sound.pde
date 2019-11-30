@@ -11,6 +11,8 @@ SoundFile Dede;
 SoundFile SlimeJump;
 SoundFile DashSlime;
 SoundFile hordeMarch;
+SoundFile damage;
+
 float slow = 2500, mid = 6000;
 boolean[] march = new boolean[4];
 void soundSetup() {
@@ -27,6 +29,7 @@ void soundSetup() {
   Dede = new SoundFile(this, "sounds/dede.wav");
   DashSlime = new SoundFile(this, "sounds/DashSlime.wav");
   hordeMarch = new SoundFile(this, "sounds/horde march.wav");
+  damage = new SoundFile(this,"sounds/damage.mp3");
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {
