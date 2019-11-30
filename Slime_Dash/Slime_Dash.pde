@@ -33,6 +33,7 @@ void setup() {
   bgSetup();
   hordeSetup();
   playerSetup();
+  blinkSetup();
   interfacesSetup();
   mainMSetup();
   hostileSetup();
@@ -94,6 +95,7 @@ void updateGame() {
   arrowUpdate();
   //Player
   player.update();
+  blinkUpdate();
   //Overlay
   interfaces.update();
 }
@@ -103,6 +105,7 @@ void drawGame() {
   bgDraw();
   drawBackgroundBlocks();
   hostileDraw();
+  blinkDraw();
   player.draw();
   spikeDraw();
   blockDraw();

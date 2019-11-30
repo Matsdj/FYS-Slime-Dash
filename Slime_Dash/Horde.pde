@@ -63,8 +63,8 @@ class Horde {
     }
   }
 
-  //mid slow
   void update() {
+    hordeY += globalVerticalSpeed;
 
     if (!interfaces.death && x < 0 && time > hordeActivate) {
       x += hordeVX;

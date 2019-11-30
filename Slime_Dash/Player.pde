@@ -67,7 +67,7 @@ class Player {
     ySprite = y - pushPlayerSpriteUp;
     xSpriteL = x - pushPlayerSpriteL;
     xSpriteR = x - pushPlayerSpriteR;
-    
+
     //switches between dmg sprites, causing a blink effect
     if (dmgCooldown >= 0) {
       if (dmgCooldown % (DMG_BLINK_FRAMERATE*2) == 0) {
@@ -351,4 +351,100 @@ int sign(float v) {
   else if (v > 0) vel = 1;
 
   return vel;
+}
+
+//Dash Blink////////////////////////////////////////
+
+final int MAX_BLINK_AMOUNT = 10;
+final int BLINK_FRAMERATE = 2;
+
+dashBlinks[] dashBlink;
+
+void blinkSetup() {
+  dashBlink = new dashBlinks[MAX_BLINK_AMOUNT];
+  for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
+    dashBlink[iBlink] = new dashBlinks();
+  }
+}
+
+void blinkUpdate() {
+  //adds new dash blink every given frame amount
+  for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
+    if (player.dashActive && !dashBlink[iBlink].isActive && player.dashTime % BLINK_FRAMERATE == 0) {
+      dashBlink[iBlink].activate();
+      break;
+    }
+  }
+
+  for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
+    if (dashBlink[iBlink].isActive) {
+      dashBlink[iBlink].update();
+    }
+  }
+}
+
+void blinkDraw() {
+  for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
+    if (dashBlink[iBlink].isActive) {
+      dashBlink[iBlink].draw();
+    }
+  }
+}
+
+class dashBlinks {
+  final int DASH_BLINK_FADE_V = 20;
+
+  int dashBlinkCooldown;
+  boolean isActive, pointLeft;
+  float x, y;
+
+  dashBlinks() {
+    reset();
+  }
+
+  void reset() {
+    x = -globalScale * 10;
+    y = -globalScale * 10;
+    isActive = false;
+  }
+
+  void activate() {
+    isActive = true;
+    y = player.ySprite;
+    dashBlinkCooldown = 255; //reset to full opacity
+
+    //looks if the player was looking left or right
+    if (player.moveLeft) {
+      pointLeft = true;
+      x = player.xSpriteL;
+    } else {
+      pointLeft = false;
+      x = player.xSpriteR;
+    }
+  }
+
+  void update() {
+    dashBlinkCooldown -= DASH_BLINK_FADE_V;
+    x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
+
+    if (dashBlinkCooldown < 0) {
+      reset();
+    }
+  }
+
+  void draw() {
+    tint(255, dashBlinkCooldown);
+
+    //makes dash blink point in right direction
+    if (pointLeft) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(playerDashBlink, -x-playerDashBlink.width, y);
+      popMatrix();
+    } else {
+      image(playerDashBlink, x, y);
+    }
+    tint(255);
+  }
 }
