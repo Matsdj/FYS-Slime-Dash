@@ -7,8 +7,7 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float ground, size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, gravity, fade, 
-    gravityReset, 
+  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, fade, 
     dashSpeed, 
     slowDown, 
     movingBlockSpeed, 
@@ -16,7 +15,7 @@ class Player {
     xSpriteL, 
     xSpriteR;
 
-  int dashCooldown, dashCooldownReset, dubbleJumpCounter, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
+  int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
   color pColor;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink;
 
@@ -58,7 +57,7 @@ class Player {
     walkFrameCounter = 0;
     deathFrameCounter = 0;
     deathFramerate = 0;
-    dubbleJumpCounter = 0; // +1 this to activate dubble jump;
+    maxJumpAmount = 0; // +1 this to activate dubble jump;
     jumpedAmount = 0;
   } 
 
@@ -233,7 +232,7 @@ class Player {
       if (blockCollision(x, y + 1, size) != null) {
         vy = keyUp * -JUMPSPEED;
         jumpedAmount = 0;
-      } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < dubbleJumpCounter) {
+      } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < maxJumpAmount) {
         vy = keyUp * -JUMPSPEED;
         jumpedAmount ++;
       }
@@ -328,10 +327,6 @@ class Player {
         deathFrameCounter++;
       }
     }
-
-    //hitbox follows the player. The size of the hitbox depends on the hitboxRatio
-    hitX = x + size/(hitboxRatio*2);
-    hitY = y + size/(hitboxRatio*2);
   } 
 
   //method that checks if there is player collision (used for pickups)
@@ -343,6 +338,10 @@ class Player {
 
   //same method, only here the smaller hitbox is used for enemies and obstacles
   boolean hitboxCollision(float cX, float cY, float cWidth, float cHeight) {
+    //hitbox follows the player. The size of the hitbox depends on the hitboxRatio
+    hitX = x + size/(hitboxRatio*2);
+    hitY = y + size/(hitboxRatio*2);
+
     if (hitX + hitSize >= cX && hitX <= cX + cWidth && hitY + hitSize >= cY && hitY <= cY + cHeight) {
       return true;
     } else return false;
