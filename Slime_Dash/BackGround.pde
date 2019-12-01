@@ -4,9 +4,9 @@
 //wall sprite: 9*10
 //clouds sprite: 12*9
 // sun/sky sprite: 12*12
-final int MAX_HOUSES = 4;
-final int BG_HOUSES_AMOUNT = 6;
-final int BG_WALL_AMOUNT = 4;
+final int MAX_HOUSES = 4; //spawnable amount
+final int BG_HOUSES_AMOUNT = 6; //amount of sprite variations
+final int MAX_WALLS = 4;
 final int BG_CLOUDS_AMOUNT = 3;
 final int MAX_CLOUDS = 6;
 final int SKY_AMOUNT = 2;
@@ -32,8 +32,8 @@ void bgSetup() {
   }
 
   //bg walls setup
-  bgWalls = new BgWall[BG_WALL_AMOUNT];
-  for (int iSprite = 0; iSprite < BG_WALL_AMOUNT; iSprite++) {
+  bgWalls = new BgWall[MAX_WALLS];
+  for (int iSprite = 0; iSprite < MAX_WALLS; iSprite++) {
     bgWalls[iSprite] = new BgWall();
 
     //places the first set of walls on the background
@@ -69,14 +69,14 @@ void resetBg() {
   }
 
   //resets bg walls when they go offscreen
-  for (int iSprite = 0; iSprite < BG_WALL_AMOUNT; iSprite++) {
+  for (int iSprite = 0; iSprite < MAX_WALLS; iSprite++) {
     if (bgWalls[iSprite].x + wallSpriteWidth < 0) {
       if (iSprite - 1 >= 0) {
         //does the same as the house reset, but without having to give a new housetype
         bgWalls[iSprite].reset(bgWalls[iSprite - 1].x + wallSpriteWidth);
         break;
       } else {
-        bgWalls[iSprite].reset(bgWalls[iSprite + BG_WALL_AMOUNT - 1].x + wallSpriteWidth);
+        bgWalls[iSprite].reset(bgWalls[iSprite + MAX_WALLS - 1].x + wallSpriteWidth);
         break;
       }
     }
@@ -90,7 +90,7 @@ void bgUpdate() {
     bgHouses[iSprite].update();
   }
 
-  for (int iSprite = 0; iSprite < BG_WALL_AMOUNT; iSprite++) {
+  for (int iSprite = 0; iSprite < MAX_WALLS; iSprite++) {
     bgWalls[iSprite].update();
   }
 
@@ -114,7 +114,7 @@ void bgDraw() {
     bgClouds[iSprite].draw();
   }
 
-  for (int iSprite = 0; iSprite < BG_WALL_AMOUNT; iSprite++) {
+  for (int iSprite = 0; iSprite < MAX_WALLS; iSprite++) {
     bgWalls[iSprite].draw();
   }
 
@@ -185,6 +185,7 @@ class BgCloud {
   }
 
   void reset() {
+    //resets it far off screen, so that the clouds move constantly
     x = random(X_MIN, X_MAX);
     y = random(Y_MIN, Y_MAX);
     cloudType = int(random(0, BG_CLOUDS_AMOUNT));
@@ -215,6 +216,8 @@ void sunSetup() {
 void sunUpdate() {
   final float SUN_DOWN_MAX_RED = globalScale * 3;
   final float SUN_DOWN_MAX_BLUE = globalScale * 6;
+  
+  //makes the sun set after certain time stamps
   if (time>=slow && sunY < SUN_DOWN_MAX_RED) {
     sunY++;
   } else if (time>=mid && sunY < SUN_DOWN_MAX_BLUE) {
@@ -232,7 +235,7 @@ int blueSkyTransition = 0;
 void skyChange() {
   final int RED_MAX = 40;
   final int BLUE_MAX = 100;
-  final color RED_SKY = color(255, 0, 0);
+  final color RED_SKY = color(200, 0, 0);
   final color BLUE_SKY = color(0, 0, 60);
 
   //if the player arrives at the part where the music shifts, the sky will turn red

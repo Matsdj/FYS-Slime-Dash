@@ -98,6 +98,8 @@ class HostileMelee {
   }
   void update() {
     x -= globalScrollSpeed;
+    
+    //makes the enemy change direction when hitting a wall or a hole in the ground
     if (blockCollision(x+vx, y, size) != null) {
       while (blockCollision(x+sign(vx), y, size) == null) {
         x += sign(vx);
@@ -108,7 +110,8 @@ class HostileMelee {
     }
     x += vx;
 
-    //checkt collision met player
+    //checks hitbox collision with player
+    //if player dashes through the enemy, it dies
     if (player.Collision(x, y, size) && player.dashActive) {
       dead = true;
       interfaces.health += (interfaces.swordDMG/2);
