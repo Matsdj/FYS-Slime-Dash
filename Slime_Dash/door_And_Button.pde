@@ -25,7 +25,6 @@ void addDoor(float x, float y) {
     if (doors[iDoor] == null) {
       doors[iDoor] = new Door(x, y);
       break;
-     
     }
   }
 }
@@ -47,19 +46,19 @@ class Door {
     y = inputY;
 
     size = globalScale;
-     player.enemyDamage = false;
+    player.enemyDamage = false;
   }
   //controleerd op player aanraking
   void update() {
 
     if ( player.hitboxCollision(x, y, size, size)&& doortimer<=0)
-    {if (player.dashActive==true){
-    player.dashActive=false;
-    }
-if (player.moving==true){
-player.moving=false;
-}
-      
+    {
+      if (player.dashActive==true) {
+        player.dashActive=false;
+      }
+      if (player.moving==true) {
+        player.moving=false;
+      }
     }
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
@@ -72,9 +71,9 @@ player.moving=false;
   void draw()
   {
     stroke(0);
-if(doortimer<=0)
+    if (doortimer<=0)
       fill (139, 69, 19);
-   quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
+    quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
   }
 }
 
@@ -104,7 +103,6 @@ void addButton(float x, float y) {
     if (buttons[iButton] == null) {
       buttons[iButton] = new Button(x, y);
       break;
-     
     }
   }
 }
@@ -126,14 +124,13 @@ class Button {
     y = inputY;
 
     size = globalScale;
-     player.enemyDamage = false;
+    player.enemyDamage = false;
   }
   //controleerd op player aanraking
   void update() {
 
     if ( player.hitboxCollision(x, y, size, size)) {
- doortimer=maxdoortimer;
-      
+      doortimer=maxdoortimer;
     }
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;

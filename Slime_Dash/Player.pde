@@ -35,6 +35,7 @@ class Player {
   final float ICESLOWDOWN = 0.98; //this is the slowdown of the player if he walks on ice
   final float MAXMOVESPEED = globalScale/8; //max player walking speed
   final float GRAVITY = globalScale/42; //speed at witch player falls
+  final float MAX_VY = globalScale/2;
 
   Player() {
     size = globalScale-1;
@@ -268,6 +269,10 @@ class Player {
       vy += GRAVITY;
     } else vy = 0;
 
+    if (vy < MAX_VY) {
+      vy = MAX_VY;
+    }
+
     ///////Collisions/////////////////////
 
     //Horizontal collision
@@ -290,11 +295,6 @@ class Player {
       }
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
-    }
-
-    //stops player from going above the screen
-    while (y <= -size+1) {
-      y++;
     }
 
     if (!dashActive) {
