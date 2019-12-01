@@ -269,7 +269,7 @@ class Player {
       vy += GRAVITY;
     } else vy = 0;
 
-    if (vy < MAX_VY) {
+    if (vy > MAX_VY) {
       vy = MAX_VY;
     }
 
