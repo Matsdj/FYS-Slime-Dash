@@ -63,6 +63,7 @@ void updateGame() {
   if (player.x > 0) {
     globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
   }
+  globalScrollSpeed = constrain(globalScrollSpeed,0,MAX_SCROLL_SPEED);
   //tutorial mode
   if (room == "game2") {
     float scrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
@@ -72,7 +73,6 @@ void updateGame() {
       globalScrollSpeed = 0;
     }
   }
-  globalScrollSpeed = constrain(globalScrollSpeed,0,MAX_SCROLL_SPEED);
   //Vertical Distance
   if (time > 60) {
     //globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
