@@ -98,7 +98,7 @@ class HostileMelee {
   }
   void update() {
     x -= globalScrollSpeed;
-    
+
     //makes the enemy change direction when hitting a wall or a hole in the ground
     if (blockCollision(x+vx, y, size) != null) {
       while (blockCollision(x+sign(vx), y, size) == null) {
@@ -121,8 +121,8 @@ class HostileMelee {
     } else if (x < 0 - globalScale *2) {
       reset();
     }
-    
-    if(dead){
+
+    if (dead) {
       vx = 0;
     }
 
