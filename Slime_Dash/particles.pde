@@ -38,12 +38,18 @@ class Particle {
   int particlespeedymax = 0;
   //de diameter van de particles
   int particlesize = 0;
-  //de roodintensitijd van de particles
-  int particlered = 0;
-  //de groenintensitijd van de particles
-  int particlegreen = 0;
-  //de blauwintensitijd van de particles
-  int particleblue = 0;
+  //de minimaleroodintensitijd van de particles
+  int particleredmin = 0;
+  //de maximaleroodintensitijd van de particles
+  int particleredmax = 0;
+  //de minimalegroenintensitijd van de particles
+  int particlegreenmin = 0;
+  //de maximalegroenintensitijd van de particles
+  int particlegreenmax = 0;
+  //de minimaleblauwintensitijd van de particles
+  int particlebluemin = 0;
+  //de maximaleblauwintensitijd van de particles
+  int particlebluemax = 0;
   //hoelang het duurt voordat de particles verdwijnen
   int particledecaytimer = 0;
   //zet de zwaartekracht op particles aan
@@ -100,9 +106,9 @@ class Particle {
         particle[i].y = random(particleymin, particleymax);
         particle[i].xs = random(particlespeedxmin, particlespeedxmax);
         particle[i].ys = random(particlespeedymin, particlespeedymax);
-        particle[i].r = particlered;
-        particle[i].g = particlegreen;
-        particle[i].b = particleblue;
+        particle[i].r = random(particleredmin, particleredmax);
+        particle[i].g =  random(particlegreenmin, particlegreenmax);
+        particle[i].b =  random(particlebluemin, particlebluemax);
         particle[i].s = particlesize;
         particle[i].decay = particledecaytimer;
         particle[i].gravity = particlegravity;
@@ -119,9 +125,9 @@ class Particle {
         particle[i].y = random(particleymin, particleymax);
         particle[i].xs = random(particlespeedxmin, particlespeedxmax);
         particle[i].ys = random(particlespeedymin, particlespeedymax);
-        particle[i].r = particlered;
-        particle[i].g = particlegreen;
-        particle[i].b = particleblue;
+        particle[i].r = random(particleredmin, particleredmax);
+        particle[i].g =  random(particlegreenmin, particlegreenmax);
+        particle[i].b = random(particlebluemin, particlebluemax);
         particle[i].s = particlesize;
         particle[i].decay = particledecaytimer;
         particle[i].gravity = particlegravity;
@@ -137,9 +143,9 @@ class Particle {
         particle[i].y = random(particleymin, particleymax);
         particle[i].xs = random(particlespeedxmin, particlespeedxmax);
         particle[i].ys = random(particlespeedymin, particlespeedymax);
-        particle[i].r = particlered;
-        particle[i].g = particlegreen;
-        particle[i].b = particleblue;
+        particle[i].r = random(particleredmin, particleredmax);
+        particle[i].g =  random(particlegreenmin, particlegreenmax);
+        particle[i].b = random(particlebluemin, particlebluemax);
         particle[i].s = particlesize;
         particle[i].decay = particledecaytimer;
         particle[i].gravity = particlegravity;
@@ -155,9 +161,9 @@ class Particle {
         particle[i].y = random(particleymin, particleymax);
         particle[i].xs = random(particlespeedxmin, particlespeedxmax);
         particle[i].ys = random(particlespeedymin, particlespeedymax);
-        particle[i].r = particlered;
-        particle[i].g = particlegreen;
-        particle[i].b = particleblue;
+        particle[i].r = random(particleredmin, particleredmax);
+        particle[i].g =  random(particlegreenmin, particlegreenmax);
+        particle[i].b = random(particlebluemin, particlebluemax);
         particle[i].s = particlesize;
         particle[i].decay = particledecaytimer;
         particle[i].gravity = particlegravity;
@@ -173,9 +179,9 @@ class Particle {
         particle[i].y = random(particleymin, particleymax);
         particle[i].xs = random(particlespeedxmin, particlespeedxmax);
         particle[i].ys = random(particlespeedymin, particlespeedymax);
-        particle[i].r = particlered;
-        particle[i].g = particlegreen;
-        particle[i].b = particleblue;
+        particle[i].r = random(particleredmin, particleredmax);
+        particle[i].g =  random(particlegreenmin, particlegreenmax);
+        particle[i].b = random(particlebluemin, particlebluemax);
         particle[i].s = particlesize;
         particle[i].decay = particledecaytimer;
         particle[i].gravity = particlegravity;
@@ -192,9 +198,9 @@ class Particle {
         particle[i].y = random(particleymin, particleymax);
         particle[i].xs = random(particlespeedxmin, particlespeedxmax);
         particle[i].ys = random(particlespeedymin, particlespeedymax);
-        particle[i].r = particlered;
-        particle[i].g = particlegreen;
-        particle[i].b = particleblue;
+        particle[i].r = random(particleredmin, particleredmax);
+        particle[i].g =  random(particlegreenmin, particlegreenmax);
+        particle[i].b = random(particlebluemin, particlebluemax);
         particle[i].s = particlesize;
         particle[i].decay = particledecaytimer;
         particle[i].gravity = particlegravity;
@@ -211,9 +217,9 @@ class Particle {
         particle[i].y = random(particleymin, particleymax);
         particle[i].xs = random(particlespeedxmin, particlespeedxmax);
         particle[i].ys = random(particlespeedymin, particlespeedymax);
-        particle[i].r = particlered;
-        particle[i].g = particlegreen;
-        particle[i].b = particleblue;
+        particle[i].r = random(particleredmin, particleredmax);
+        particle[i].g =  random(particlegreenmin, particlegreenmax);
+        particle[i].b = random(particlebluemin, particlebluemax);
         particle[i].s = particlesize;
         particle[i].decay = particledecaytimer;
         particle[i].gravity = particlegravity;
@@ -229,9 +235,9 @@ class Particle {
         particle[i].y = random(particleymin, particleymax);
         particle[i].xs = random(particlespeedxmin, particlespeedxmax);
         particle[i].ys = random(particlespeedymin, particlespeedymax);
-        particle[i].r = particlered;
-        particle[i].g = particlegreen;
-        particle[i].b = particleblue;
+        particle[i].r = random(particleredmin, particleredmax);
+        particle[i].g = random(particlegreenmin, particlegreenmax);
+        particle[i].b = random(particlebluemin, particlebluemax);
         particle[i].s = particlesize;
         particle[i].decay = particledecaytimer;
         particle[i].gravity = particlegravity;
