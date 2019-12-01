@@ -148,7 +148,7 @@ class Player {
   }
 
   void blockTypeDetection() {
-    
+
     //ice blocks, if on top of one the speed decreases less fast
     if (blockCollision(x, y + 1, size) != null && blockCollision(x, y + 1, size).c == ICE) {
       slowDown = ICESLOWDOWN;
@@ -164,7 +164,7 @@ class Player {
       } else movingBlockSpeed = blockCollision(x, y + 1, size).vx;
       x += movingBlockSpeed;
     }
-    
+
     //Pushes player out of block if needed
     if (insideBlock()) {
       if (blockCollision(x, y, size).moving) {
@@ -192,9 +192,9 @@ class Player {
 
     blockTypeDetection();
 
-////////Movement//////////////////////////
+    ////////Movement//////////////////////////
     if (!interfaces.death) {
-      
+
       //checks input if the player goes left or right
       //the speed multiplier makes the player go increasingly faster, until max movement speed is reached
       if (inputs.hasValue(LEFT) == true) {
@@ -255,7 +255,7 @@ class Player {
         dashCooldown = dashCooldownReset;
         dashActive = true;
         dashTime--;
-        
+
         //sets back normal speed, if not dashing
       } else {
         moveSpeed = MOVESPEED;
@@ -269,7 +269,7 @@ class Player {
       vy += GRAVITY;
     } else vy = 0;
 
-///////Collisions/////////////////////
+    ///////Collisions/////////////////////
 
     //Horizontal collision
     //when theres collision going to happen next frame, the player will be placed next to the block because of the while statement
