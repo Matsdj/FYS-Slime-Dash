@@ -18,7 +18,7 @@ class Particle {
   float gravitystrength = 2;
   //maximum totaal aantal particles
   int c =1000;
-  //aantal particles gespawned
+  //aantal particles gespawned (mag niet meer dan 249 per keer zijn)
   int particleamount = 0;
   //minimale x coordinaat waar particles spawnen
   int particlexmin = 0;
@@ -52,8 +52,8 @@ class Particle {
   boolean activateparticles = false;
   //Gravity Speed Creator (niet editen op welke manier dan ook)
   float gsc = 0;
-
-
+  //teller voor aantal verschilldende particles tegelijk (TotalDifferentParticles)(max is 8)
+  int tdp = 0;
   //niet bewerken
   int particletimertotal = 0;
 
@@ -69,8 +69,32 @@ class Particle {
 
 
   void activateparticles() {
-
     if (activateparticles==true) {
+      if (tdp==1) {
+        particleamount=particleamount+250;
+      }
+      if (tdp==2) {
+        particleamount=particleamount+500;
+      }
+      if (tdp==3) {
+        particleamount=particleamount+750;
+      }
+      if (tdp==4) {
+        particleamount=particleamount+1000;
+      }
+      if (tdp==5) {
+        particleamount=particleamount+1250;
+      }
+      if (tdp==6) {
+        particleamount=particleamount+1500;
+      }
+      if (tdp==7) {
+        particleamount=particleamount+1750;
+      }
+    }
+
+
+    if (activateparticles==true&&tdp==0) {
       for (int i = 0; i <particleamount; i++) {
         particle[i].x = random(particlexmin, particlexmax);
         particle[i].y = random(particleymin, particleymax);
@@ -82,10 +106,145 @@ class Particle {
         particle[i].s = particlesize;
         particle[i].decay = particledecaytimer;
         particle[i].gravity = particlegravity;
-        activateparticles=false;
+        gsc = particle[i].decay;
+      }              
+      activateparticles=false;
+      tdp = 1;
+    }
+
+
+    if (activateparticles==true&&tdp==1) {
+      for (int i = 250; i <particleamount; i++) {
+        particle[i].x = random(particlexmin, particlexmax);
+        particle[i].y = random(particleymin, particleymax);
+        particle[i].xs = random(particlespeedxmin, particlespeedxmax);
+        particle[i].ys = random(particlespeedymin, particlespeedymax);
+        particle[i].r = particlered;
+        particle[i].g = particlegreen;
+        particle[i].b = particleblue;
+        particle[i].s = particlesize;
+        particle[i].decay = particledecaytimer;
+        particle[i].gravity = particlegravity;
+        gsc = particle[i].decay;
+      }              
+      activateparticles=false;
+      tdp = 2;
+    }
+
+    if (activateparticles==true&&tdp==2) {
+      for (int i = 500; i <particleamount; i++) {
+        particle[i].x = random(particlexmin, particlexmax);
+        particle[i].y = random(particleymin, particleymax);
+        particle[i].xs = random(particlespeedxmin, particlespeedxmax);
+        particle[i].ys = random(particlespeedymin, particlespeedymax);
+        particle[i].r = particlered;
+        particle[i].g = particlegreen;
+        particle[i].b = particleblue;
+        particle[i].s = particlesize;
+        particle[i].decay = particledecaytimer;
+        particle[i].gravity = particlegravity;
         gsc = particle[i].decay;
       }
+      activateparticles=false;
+      tdp = 3;
     }
+
+    if (activateparticles==true&&tdp==3) {
+      for (int i = 750; i <particleamount; i++) {
+        particle[i].x = random(particlexmin, particlexmax);
+        particle[i].y = random(particleymin, particleymax);
+        particle[i].xs = random(particlespeedxmin, particlespeedxmax);
+        particle[i].ys = random(particlespeedymin, particlespeedymax);
+        particle[i].r = particlered;
+        particle[i].g = particlegreen;
+        particle[i].b = particleblue;
+        particle[i].s = particlesize;
+        particle[i].decay = particledecaytimer;
+        particle[i].gravity = particlegravity;
+        gsc = particle[i].decay;
+      }
+      activateparticles=false;
+      tdp = 4;
+    }
+
+    if (activateparticles==true&&tdp==4) {
+      for (int i = 1000; i <particleamount; i++) {
+        particle[i].x = random(particlexmin, particlexmax);
+        particle[i].y = random(particleymin, particleymax);
+        particle[i].xs = random(particlespeedxmin, particlespeedxmax);
+        particle[i].ys = random(particlespeedymin, particlespeedymax);
+        particle[i].r = particlered;
+        particle[i].g = particlegreen;
+        particle[i].b = particleblue;
+        particle[i].s = particlesize;
+        particle[i].decay = particledecaytimer;
+        particle[i].gravity = particlegravity;
+        gsc = particle[i].decay;
+      }
+      activateparticles=false;
+      tdp = 5;
+    }
+
+
+    if (activateparticles==true&&tdp==5) {
+      for (int i = 1250; i <particleamount; i++) {
+        particle[i].x = random(particlexmin, particlexmax);
+        particle[i].y = random(particleymin, particleymax);
+        particle[i].xs = random(particlespeedxmin, particlespeedxmax);
+        particle[i].ys = random(particlespeedymin, particlespeedymax);
+        particle[i].r = particlered;
+        particle[i].g = particlegreen;
+        particle[i].b = particleblue;
+        particle[i].s = particlesize;
+        particle[i].decay = particledecaytimer;
+        particle[i].gravity = particlegravity;
+        gsc = particle[i].decay;
+      }
+      activateparticles=false;
+      tdp = 6;
+    }
+
+
+    if (activateparticles==true&&tdp==6) {
+      for (int i = 1500; i <particleamount; i++) {
+        particle[i].x = random(particlexmin, particlexmax);
+        particle[i].y = random(particleymin, particleymax);
+        particle[i].xs = random(particlespeedxmin, particlespeedxmax);
+        particle[i].ys = random(particlespeedymin, particlespeedymax);
+        particle[i].r = particlered;
+        particle[i].g = particlegreen;
+        particle[i].b = particleblue;
+        particle[i].s = particlesize;
+        particle[i].decay = particledecaytimer;
+        particle[i].gravity = particlegravity;
+        gsc = particle[i].decay;
+      }
+      activateparticles=false;
+      tdp = 7;
+    }
+
+    if (activateparticles==true&&tdp==7) {
+      for (int i = 1750; i <particleamount; i++) {
+        particle[i].x = random(particlexmin, particlexmax);
+        particle[i].y = random(particleymin, particleymax);
+        particle[i].xs = random(particlespeedxmin, particlespeedxmax);
+        particle[i].ys = random(particlespeedymin, particlespeedymax);
+        particle[i].r = particlered;
+        particle[i].g = particlegreen;
+        particle[i].b = particleblue;
+        particle[i].s = particlesize;
+        particle[i].decay = particledecaytimer;
+        particle[i].gravity = particlegravity;
+        gsc = particle[i].decay;
+      }
+      activateparticles=false;
+      tdp = 0;
+    }
+
+
+
+
+
     for (int i = 0; i <particleamount; i++) {
       particle[i].x = particle[i].x + particle[i].xs;
       particle[i].y = particle[i].y + particle[i].ys;
