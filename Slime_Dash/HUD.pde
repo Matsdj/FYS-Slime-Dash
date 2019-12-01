@@ -25,8 +25,8 @@ class HUD {
     //healthbar
     healthBarX= 30+(globalScale/18);
     healthBarY= 40;
-    healthBarLength = width*0.193;
-    healthBarHeight = height*0.056;
+    healthBarLength = globalScale*4;
+    healthBarHeight = globalScale*0.8;
     healthBarCurve = 20;
     healthBarCurveNormal = 20;
     noHealth = 0;
@@ -58,6 +58,7 @@ class HUD {
     //healthbar
     /* zorgt er voor dat health niet boven 100 gaat*/
     health = constrain(health, 0, 100);
+
 
     /*zorgt ervoor dat de healthbar altijd de juiste ronding heeft*/
     noStroke();
@@ -131,7 +132,7 @@ class HUD {
   void draw() {
     //healthbar
     /*healthbar backdrop*/
-        noStroke();
+    noStroke();
     fill(0, 0, 0, 50);
     rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
     /*actual health indicator*/
@@ -144,7 +145,10 @@ class HUD {
     noFill();
     strokeWeight(2);
     rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
-    image(healthbar,10,15+(globalScale/18),globalScale*4.75,globalScale*1.2);
+    image(healthbar, 10, 15+(globalScale/18), globalScale*4.75, globalScale*1.2);
+    fill(255);
+    textSize(scoreSize);
+    text(health, 50, healthBarY+(globalScale/2));
     //dash bar 
     /*dashbar backdrop*/
     noStroke();
@@ -158,7 +162,7 @@ class HUD {
     stroke(0);
     noFill();
     rect(dashX, dashY, dashL, dashH);
-    image(dashbar,10,90,425,70);
+    image(dashbar, 10, 90, 425, 70);
     //score
     if (death==false&&room=="game") {
       score +=globalScrollSpeed/10;
