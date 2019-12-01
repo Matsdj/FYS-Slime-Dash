@@ -35,7 +35,7 @@ class Player {
   final float ICESLOWDOWN = 0.98; //this is the slowdown of the player if he walks on ice
   final float MAXMOVESPEED = globalScale/8; //max player walking speed
   final float GRAVITY = globalScale/42; //speed at witch player falls
-  final float MAX_VY = -globalScale/2;
+  final float MAX_VY = globalScale/2;
 
   Player() {
     size = globalScale-1;
