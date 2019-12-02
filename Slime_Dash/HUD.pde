@@ -13,6 +13,8 @@ class HUD {
   color healthC = color(255, 0, 0, 255);
   //dashbar
   float dashmain, dashH, dashL, dashL2, dashX, dashY;
+  final float DASH_SMOL_MAX =globalScale;
+  float dashSmol,dashLsmol,dashLsmol2;
   //score
   float scoreX, scoreY, scoreSize, score;
   //game over
@@ -39,6 +41,7 @@ class HUD {
     dashL2 = constrain(healthBarLength, 0, healthBarLength);
     dashX = healthBarX+(globalScale/4);
     dashY = healthBarY+globalScale*1.5;
+    dashLsmol = globalScale/5;
     //score
     scoreX = width*0.98;
     scoreY = width*0.039;
@@ -85,6 +88,8 @@ class HUD {
 
     //dash bar
     dashL2 = constrain(-player.dashCooldown*50, 0, dashL);
+    dashLsmol2 = constrain(-player.dashCooldown*50, 0, dashLsmol);
+
 
     //game over
     /*game over text*/
@@ -147,8 +152,10 @@ class HUD {
     rect(dashX, dashY, dashL, dashH);
     /*actual dash indicator*/
     noStroke();
-    fill(#5AFF03, 255);
+    fill(255, 255);
     rect(dashX, dashY, dashL2, dashH);
+    fill(255, 255);
+    rect(player.x, player.y-(globalScale/5), dashLsmol2, globalScale/10);
     /* border*/
     stroke(0);
     noFill();
