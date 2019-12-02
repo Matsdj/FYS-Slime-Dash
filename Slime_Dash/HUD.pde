@@ -106,7 +106,7 @@ class HUD {
       }
     }
     /* B om te resetten*/
-    if (death ==true && inputs.hasValue(18)==true && room=="game") {
+    if (death ==true && inputs.hasValue(32)==true && room=="game") {
       death = false;
       Dede.stop();
       setup();
@@ -116,49 +116,44 @@ class HUD {
       march[2]= true;
       march[3]= true;
     }
-    if (death ==true && inputs.hasValue(18)==true && room=="game2"&&cooldown<0) {
+    if (death ==true && inputs.hasValue(32)==true && room=="game2") {
       death = false;
       Dede.stop();
       setup();
       room = "game2";
       march[0] = false;
-      cooldown=COOLDOWN_MAX;
     }
   }
   void draw() {
     //healthbar
     /*healthbar backdrop*/
-    noStroke();
-    fill(0, 0, 0, 50);
-    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
+    fill(0,50);
+    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(100, 0, 100))/100), globalScale*0.7);
     /*actual health indicator*/
-    noStroke();
+
     fill(healthC);
     if (health > 100) health = 100;
-    rect(healthBarX, healthBarY, healthBarLength*(float(constrain(health, 0, 100))/100), healthBarHeight);
+    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(health, 0, 100))/100), globalScale*0.7);
+
     /*static border*/
-    stroke(0);
-    noFill();
-    strokeWeight(2);
-    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
-    image(healthbar, 10, 15+(globalScale/18), globalScale*4.75, globalScale*1.2);
+    image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(255);
     textSize(scoreSize);
-    text(health, 50, healthBarY+(globalScale/2));
+    text(health, healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
     /*dashbar backdrop*/
     noStroke();
     fill(155);
-    rect(dashX, dashY, dashL, dashH);
+    //  rect(dashX, dashY, dashL, dashH);
     /*actual dash indicator*/
     noStroke();
     fill(#5AFF03, 255);
-    rect(dashX, dashY, dashL2, dashH);
+    //  rect(dashX, dashY, dashL2, dashH);
     /* border*/
     stroke(0);
     noFill();
-    rect(dashX, dashY, dashL, dashH);
-    image(dashbar, 10, 90, 425, 70);
+    // rect(dashX, dashY, dashL, dashH);
+    // image(dashbar, 10, 90, 425, 70);
     //score
     if (death==false&&room=="game") {
       score +=globalScrollSpeed/10;
