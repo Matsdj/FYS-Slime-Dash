@@ -60,8 +60,12 @@ class Magic1 {
   void update() {
 
     if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==true) {
-     if (interfaces.health <= 40){MagicBarricadeDMG = 20;}
-     if (interfaces.health > 40){MagicBarricadeDMG = interfaces.health/2;}
+      if (interfaces.health <= 40) {
+        MagicBarricadeDMG = 20;
+      }
+      if (interfaces.health > 40) {
+        MagicBarricadeDMG = interfaces.health/2;
+      }
       player.enemyDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
     }
@@ -141,8 +145,12 @@ class Magic2 {
   void update() {
 
     if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==false) {
-     if (interfaces.health <= 40){MagicBarricadeDMG = 20;}
-     if (interfaces.health > 40){MagicBarricadeDMG = interfaces.health/2;}
+      if (interfaces.health <= 40) {
+        MagicBarricadeDMG = 20;
+      }
+      if (interfaces.health > 40) {
+        MagicBarricadeDMG = interfaces.health/2;
+      }
       player.enemyDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
     }
@@ -227,6 +235,9 @@ class MagicSwitch {
       SwitchTimerA = true;
     }
     x -= globalScrollSpeed;
+    if (SwitchTimerA==true) {
+      SwitchTimer = SwitchTimer -1;
+    }
 
     if (SwitchTimer<=0) {
       SwitchTimerA = false;
@@ -242,9 +253,16 @@ class MagicSwitch {
     stroke(0);
     fill (255, 0, 0);
 
+
+    fill (140);
+    quad(x, y+size, x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size, y+size);
     if (switchA==false) {
-      fill (140);
-      quad(x, y+size, x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size, y+size);
+      fill(0, 0, 255);
+      quad(x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size-0.4*size, y+0.7*size, x+0.4*size, y+0.7*size);
+    }
+    if (switchA==true) {
+      fill(0, 255, 255);
+      quad(x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size-0.4*size, y+0.7*size, x+0.4*size, y+0.7*size);
     }
   }
 }
