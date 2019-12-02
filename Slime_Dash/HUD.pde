@@ -37,8 +37,8 @@ class HUD {
     dashH = healthBarHeight/3;
     dashL = healthBarLength;
     dashL2 = constrain(healthBarLength, 0, healthBarLength);
-    dashX = healthBarX;
-    dashY = width*0.06;
+    dashX = healthBarX+(globalScale/4);
+    dashY = healthBarY+globalScale*1.5;
     //score
     scoreX = width*0.98;
     scoreY = width*0.039;
@@ -127,7 +127,7 @@ class HUD {
   void draw() {
     //healthbar
     /*healthbar backdrop*/
-    fill(0,50);
+    fill(0, 50);
     rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(100, 0, 100))/100), globalScale*0.7);
     /*actual health indicator*/
 
@@ -144,15 +144,15 @@ class HUD {
     /*dashbar backdrop*/
     noStroke();
     fill(155);
-    //  rect(dashX, dashY, dashL, dashH);
+    rect(dashX, dashY, dashL, dashH);
     /*actual dash indicator*/
     noStroke();
     fill(#5AFF03, 255);
-    //  rect(dashX, dashY, dashL2, dashH);
+    rect(dashX, dashY, dashL2, dashH);
     /* border*/
     stroke(0);
     noFill();
-    // rect(dashX, dashY, dashL, dashH);
+    rect(dashX, dashY, dashL, dashH);
     // image(dashbar, 10, 90, 425, 70);
     //score
     if (death==false&&room=="game") {
