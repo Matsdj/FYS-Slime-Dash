@@ -7,8 +7,7 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float ground, size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, gravity, fade, 
-    gravityReset, 
+  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
     dashSpeed, 
     slowDown, 
     movingBlockSpeed, 
@@ -16,8 +15,7 @@ class Player {
     xSpriteL, 
     xSpriteR;
 
-  int dashCooldown, dashCooldownReset, dubbleJumpCounter, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
-  color pColor;
+  int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink;
 
   //terugzet waardes van de dashCooldown en dashTime
@@ -36,6 +34,7 @@ class Player {
   final float ICESLOWDOWN = 0.98; //this is the slowdown of the player if he walks on ice
   final float MAXMOVESPEED = globalScale/8; //max player walking speed
   final float GRAVITY = globalScale/42; //speed at witch player falls
+  final float MAX_VY = globalScale/2;
 
   Player() {
     size = globalScale-1;
@@ -52,13 +51,11 @@ class Player {
     dashTime = DASH_TIME;
     dmgCooldown = 0;
     enemyDamage = false;
-    pColor = color(0, 255, 0);
-    fade = constrain(255, 0, 255);
     moveLeft = false;
     walkFrameCounter = 0;
     deathFrameCounter = 0;
     deathFramerate = 0;
-    dubbleJumpCounter = 0; // +1 this to activate dubble jump;
+    maxJumpAmount = 0; // +1 this to activate dubble jump;
     jumpedAmount = 0;
   } 
 
@@ -233,7 +230,7 @@ class Player {
       if (blockCollision(x, y + 1, size) != null) {
         vy = keyUp * -JUMPSPEED;
         jumpedAmount = 0;
-      } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < dubbleJumpCounter) {
+      } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < maxJumpAmount) {
         vy = keyUp * -JUMPSPEED;
         jumpedAmount ++;
       }
@@ -269,6 +266,10 @@ class Player {
       vy += GRAVITY;
     } else vy = 0;
 
+    if (vy > MAX_VY) {
+      vy = MAX_VY;
+    }
+
     ///////Collisions/////////////////////
 
     //Horizontal collision
@@ -291,11 +292,6 @@ class Player {
       }
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
-    }
-
-    //stops player from going above the screen
-    while (y <= -size+1) {
-      y++;
     }
 
     if (!dashActive) {
@@ -328,10 +324,6 @@ class Player {
         deathFrameCounter++;
       }
     }
-
-    //hitbox follows the player. The size of the hitbox depends on the hitboxRatio
-    hitX = x + size/(hitboxRatio*2);
-    hitY = y + size/(hitboxRatio*2);
   } 
 
   //method that checks if there is player collision (used for pickups)
@@ -343,27 +335,18 @@ class Player {
 
   //same method, only here the smaller hitbox is used for enemies and obstacles
   boolean hitboxCollision(float cX, float cY, float cWidth, float cHeight) {
+    //hitbox follows the player. The size of the hitbox depends on the hitboxRatio
+    hitX = x + size/(hitboxRatio*2);
+    hitY = y + size/(hitboxRatio*2);
+
     if (hitX + hitSize >= cX && hitX <= cX + cWidth && hitY + hitSize >= cY && hitY <= cY + cHeight) {
       return true;
     } else return false;
   }
 
   void draw() {
-    stroke(0, 0, 0, fade);
-    strokeWeight(2);
-    //fill(pColor, fade);
-    //rect(x, y, size, size);
     playerAnimation();
   }
-}
-
-//if a number is below 0, it returns -1, and if its above, it returns 1. This is used to detect in witch direction the player goes
-int sign(float v) {
-  int vel = 0; 
-  if (v < 0) vel = -1;
-  else if (v > 0) vel = 1;
-
-  return vel;
 }
 
 //Dash Blink////////////////////////////////////////
@@ -461,4 +444,13 @@ class dashBlinks {
     }
     tint(255);
   }
+}
+
+//if a number is below 0, it returns -1, and if its above, it returns 1. This is used to detect in witch direction the player goes
+int sign(float v) {
+  int vel = 0; 
+  if (v < 0) vel = -1;
+  else if (v > 0) vel = 1;
+
+  return vel;
 }

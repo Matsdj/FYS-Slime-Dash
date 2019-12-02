@@ -9,6 +9,7 @@
 //remember, ctrl+t
 
 float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance, coins = 0;
+final float MAX_SCROLL_SPEED = 9;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -20,8 +21,8 @@ int cooldown;
 
 
 void setup() {
-  //size(1280, 720, P2D);
-   fullScreen(P2D);
+  // size(1280, 720, P2D);
+  fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;
@@ -49,6 +50,8 @@ void setup() {
   //database
   //  CreateDatabaseConnection();
   //  GetUsers();
+  //particle system
+  ps = new ParticleSystem(new PVector(width/2, 50));
 }
 //GAME
 void updateGame() {
@@ -62,6 +65,7 @@ void updateGame() {
   if (player.x > 0) {
     globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
   }
+  globalScrollSpeed = constrain(globalScrollSpeed,0,MAX_SCROLL_SPEED);
   //tutorial mode
   if (room == "game2") {
     float scrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
@@ -158,4 +162,7 @@ void draw() {
   }
   debug();
   inputsPressedUpdate();
+  //particle
+  ps.addParticle();
+  ps.run();
 }

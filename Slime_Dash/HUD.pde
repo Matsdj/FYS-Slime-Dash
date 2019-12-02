@@ -25,8 +25,8 @@ class HUD {
     //healthbar
     healthBarX= 30+(globalScale/18);
     healthBarY= 40;
-    healthBarLength = width*0.193;
-    healthBarHeight = height*0.056;
+    healthBarLength = globalScale*4;
+    healthBarHeight = globalScale*0.8;
     healthBarCurve = 20;
     healthBarCurveNormal = 20;
     noHealth = 0;
@@ -59,6 +59,7 @@ class HUD {
     /* zorgt er voor dat health niet boven 100 gaat*/
     health = constrain(health, 0, 100);
 
+
     /*zorgt ervoor dat de healthbar altijd de juiste ronding heeft*/
     noStroke();
     if (health >= 95) {
@@ -80,7 +81,7 @@ class HUD {
       /*verander deze om enemy damage aan te passen*/
       health = health-swordDMG;
       health = health-MagicBarricadeDMG;
-    } 
+    }
 
     //dash bar
     dashL2 = constrain(-player.dashCooldown*50, 0, dashL);
@@ -104,7 +105,7 @@ class HUD {
         room= "mainM";
       }
     }
-    /* spacebar om te resetten*/
+    /* B om te resetten*/
     if (death ==true && inputs.hasValue(32)==true && room=="game") {
       death = false;
       Dede.stop();
@@ -114,51 +115,45 @@ class HUD {
       march[1]= true;
       march[2]= true;
       march[3]= true;
-    } 
-    if (death ==true && inputs.hasValue(32)==true && room=="game2"&&cooldown<0) {
+    }
+    if (death ==true && inputs.hasValue(32)==true && room=="game2") {
       death = false;
       Dede.stop();
       setup();
       room = "game2";
       march[0] = false;
-      cooldown=COOLDOWN_MAX;
-    } 
-    //fade out on death
-    if (death == true) {
-      player.fade -= 3;
     }
   }
   void draw() {
     //healthbar
     /*healthbar backdrop*/
-        noStroke();
-    fill(0, 0, 0, 50);
-    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
+    fill(0,50);
+    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(100, 0, 100))/100), globalScale*0.7);
     /*actual health indicator*/
-    noStroke();
+
     fill(healthC);
     if (health > 100) health = 100;
-    rect(healthBarX, healthBarY, healthBarLength*(float(constrain(health, 0, 100))/100), healthBarHeight);
+    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(health, 0, 100))/100), globalScale*0.7);
+
     /*static border*/
-    stroke(0);
-    noFill();
-    strokeWeight(2);
-    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
-    image(healthbar,10,15+(globalScale/18),globalScale*4.75,globalScale*1.2);
-    //dash bar 
+    image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
+    fill(255);
+    textSize(scoreSize);
+    text(health, healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
+    //dash bar
     /*dashbar backdrop*/
     noStroke();
     fill(155);
-    rect(dashX, dashY, dashL, dashH);
+    //  rect(dashX, dashY, dashL, dashH);
     /*actual dash indicator*/
     noStroke();
     fill(#5AFF03, 255);
-    rect(dashX, dashY, dashL2, dashH);
+    //  rect(dashX, dashY, dashL2, dashH);
     /* border*/
     stroke(0);
     noFill();
-    rect(dashX, dashY, dashL, dashH);
-    image(dashbar,10,90,425,70);
+    // rect(dashX, dashY, dashL, dashH);
+    // image(dashbar, 10, 90, 425, 70);
     //score
     if (death==false&&room=="game") {
       score +=globalScrollSpeed/10;

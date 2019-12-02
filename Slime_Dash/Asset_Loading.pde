@@ -4,6 +4,7 @@ PImage[] playerSprite;
 PImage playerDmgBlink;
 PImage playerDashBlink;
 PImage[] flamethrowerSprite;
+PImage spikeSprite;
 PImage[] bgHouse;
 PImage[] bgCloud;
 PImage[][] hordeSprite;
@@ -93,6 +94,9 @@ public void assetSetup() {
     flamethrowerSprite[iSprite] = loadImage("sprites/flamethrower/flame"+ iSprite +".png");
     flamethrowerSprite[iSprite].resize(flamethrowerSpriteWidth, flamethrowerSpriteHeight);
   }
+  
+  spikeSprite = loadImage("sprites/flamethrower/spikes.png");
+  spikeSprite.resize(int(globalScale), int(globalScale));
 
   bgHouse = new PImage[BG_HOUSES_AMOUNT];
   for (int iSprite = 0; iSprite < BG_HOUSES_AMOUNT; iSprite++) {
