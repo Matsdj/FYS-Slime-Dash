@@ -356,15 +356,6 @@ class Player {
   }
 }
 
-//if a number is below 0, it returns -1, and if its above, it returns 1. This is used to detect in witch direction the player goes
-int sign(float v) {
-  int vel = 0; 
-  if (v < 0) vel = -1;
-  else if (v > 0) vel = 1;
-
-  return vel;
-}
-
 //Dash Blink////////////////////////////////////////
 
 final int MAX_BLINK_AMOUNT = 10;
@@ -460,4 +451,13 @@ class dashBlinks {
     }
     tint(255);
   }
+}
+
+//if a number is below 0, it returns -1, and if its above, it returns 1. This is used to detect in witch direction the player goes
+int sign(float v) {
+  int vel = 0; 
+  if (v < 0) vel = -1;
+  else if (v > 0) vel = 1;
+
+  return vel;
 }
