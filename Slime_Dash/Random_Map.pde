@@ -11,16 +11,16 @@ final color BRICK = color(150, 150, 150);
 final color STONE = color(200, 200, 200);
 final color DIRT = color(150, 100, 50);
 final color PLANKS = color(200, 150, 100);
-final color MOVINGBRICK = color(170, 170, 170);
+final color MOVING_BRICK = color(170, 170, 170);
 final color CRACKED = color(100, 100, 100);
-final int SCROLLBLOCKRED = 6; //vul bij rood 1, bij groen 1 of 0 (percentage ja of nee), en bij blauw de hoeveelheid.
+final int SCROLL_BLOCK_RED = 6; //vul bij rood 1, bij groen 1 of 0 (percentage ja of nee), en bij blauw de hoeveelheid.
 final color ICE = color(0, 255, 255);
 final color SPIKE = color(255, 0, 0);
 final color FLAME = color(255, 150, 0);
 final color COIN = color(255, 255, 0);
 final color HEALTH = color(0, 255, 0);
-final color HOSTILEMELEE = color(255, 0, 100);
-final color HOSTILERANGED = color(255, 0, 150);
+final color HOSTILE_MELEE = color(255, 0, 100);
+final color HOSTILE_RANGED = color(255, 0, 150);
 
 //Setup allows for reset
 void mapSetup() {
@@ -88,7 +88,7 @@ void makeMap(PImage template) {
         if (col == PLANKS) {
           blocks[freeBlockIndex()].blockSetup(x, y, PLANKS, false, false, -1, false);
         }
-        if (red(col) == SCROLLBLOCKRED) {
+        if (red(col) == SCROLL_BLOCK_RED) {
           boolean scrollPercentage;
           if (green(col) < 1) {
             scrollPercentage = false;
@@ -100,7 +100,7 @@ void makeMap(PImage template) {
         if (col == ICE) {
           blocks[freeBlockIndex()].blockSetup(x, y, ICE, false, false, -1, false);
         }
-        if (col == MOVINGBRICK) {
+        if (col == MOVING_BRICK) {
           blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true, false, -1, false);
         }
         if (col == CRACKED) {
@@ -118,10 +118,10 @@ void makeMap(PImage template) {
         if (col == HEALTH) {
           addHeart(x, y);
         }
-        if (col == HOSTILEMELEE) {
+        if (col == HOSTILE_MELEE) {
           addHostileMelee(x, y);
         }
-        if (col == HOSTILERANGED) {
+        if (col == HOSTILE_RANGED) {
           addHostileRanged(x, y);
         }
       }
