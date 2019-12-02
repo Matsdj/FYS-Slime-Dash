@@ -1,6 +1,5 @@
+//Laurens
 
-// A class to describe a group of Particles
-// An ArrayList is used to manage the list of Particles
 ParticleSystem ps;
 class ParticleSystem {
   ArrayList<Particle> particles;
@@ -27,7 +26,7 @@ class ParticleSystem {
 }
 
 
-// A simple Particle class
+
 
 class Particle {
   PVector position;
@@ -35,7 +34,7 @@ class Particle {
   PVector acceleration;
   float lifespan;
   float size;
-
+  int partKleur;
 
   Particle(PVector ding) {
     acceleration = new PVector(0, 0.05);
@@ -43,6 +42,7 @@ class Particle {
     position = ding.copy();
     lifespan = 255;
     size=8;
+    partKleur = color(0);
   }
 
   void run() {
@@ -55,21 +55,34 @@ class Particle {
     velocity.add(acceleration);
     position.add(velocity);
     lifespan -= 1.0;
-   if ( blockCollision(position.x, position.y+velocity.y, size) !=null){
-   acceleration = new PVector(0,0);
-   velocity = new PVector(0,0);
-   }
+    position.x -=globalScrollSpeed;
+    if ( blockCollision(position.x, position.y+velocity.y, size) !=null) {
+      while (blockCollision(position.x, position.y+sign(velocity.y), size) == null) {
+        position.y += sign(velocity.y);
+      }
+      acceleration.y=0;
+      velocity.y =0;
+    }
+    if ( blockCollision(position.x+velocity.x, position.y, size) !=null) {
+      while (blockCollision(position.x+sign(velocity.x), position.y, size) == null) {
+        position.x += sign(velocity.x);
+      }
+      acceleration.x=0;
+      velocity.x =0;
+    }
   }
 
   void display() {
-    stroke(255, lifespan);
-    fill(0, lifespan);
+    noStroke();
+    partKleur++;
+    fill(partKleur, lifespan);
     rect(position.x, position.y, size, size);
+    //text("boop",position.x, position.y);
   }
 
 
   boolean isDead() {
-    if (lifespan < 0.0) {
+    if (lifespan < 0.0||position.x<0) {
       return true;
     } else {
       return false;
