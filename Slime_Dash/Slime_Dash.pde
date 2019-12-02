@@ -19,8 +19,8 @@ int cooldown;
 
 
 void setup() {
- // size(1280, 720, P2D);
-   fullScreen(P2D);
+  // size(1280, 720, P2D);
+  fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;
@@ -47,6 +47,8 @@ void setup() {
   //database
   //  CreateDatabaseConnection();
   //  GetUsers();
+  //particle system
+  ps = new ParticleSystem(new PVector(width/2, 50));
 }
 //GAME
 void updateGame() {
@@ -70,13 +72,12 @@ void updateGame() {
     }
   }
   //Vertical Distance
-  if (time > 60){
-  //globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
-  if (VerticalDistance + globalVerticalSpeed <= 0){
-  globalVerticalSpeed = -VerticalDistance;
-  }
-  VerticalDistance += globalVerticalSpeed;
-
+  if (time > 60) {
+    //globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
+    if (VerticalDistance + globalVerticalSpeed <= 0) {
+      globalVerticalSpeed = -VerticalDistance;
+    }
+    VerticalDistance += globalVerticalSpeed;
   }
   //input cooldown
 
@@ -155,4 +156,7 @@ void draw() {
   }
   debug();
   inputsPressedUpdate();
+  //particle
+  ps.addParticle();
+  ps.run();
 }

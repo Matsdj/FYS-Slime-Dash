@@ -103,8 +103,8 @@ class HUD {
         room= "mainM";
       }
     }
-    /* spacebar om te resetten*/
-    if (death ==true && inputs.hasValue(32)==true && room=="game") {
+    /* B om te resetten*/
+    if (death ==true && inputs.hasValue(18)==true && room=="game") {
       death = false;
       Dede.stop();
       setup();
@@ -114,7 +114,7 @@ class HUD {
       march[2]= true;
       march[3]= true;
     } 
-    if (death ==true && inputs.hasValue(32)==true && room=="game2"&&cooldown<0) {
+    if (death ==true && inputs.hasValue(18)==true && room=="game2"&&cooldown<0) {
       death = false;
       Dede.stop();
       setup();
@@ -130,7 +130,7 @@ class HUD {
   void draw() {
     //healthbar
     /*healthbar backdrop*/
-        noStroke();
+    noStroke();
     fill(0, 0, 0, 50);
     rect(healthBarX, healthBarY, healthBarLength, healthBarHeight, healthBarCurveNormal);
     /*actual health indicator*/
@@ -143,7 +143,7 @@ class HUD {
     noFill();
     strokeWeight(2);
     rect(healthBarX, healthBarY, healthBarLength, healthBarHeight, healthBarCurveNormal);
-    image(healthbar,10,15,425,110);
+    image(healthbar, 10, 15, 425, 110);
     //dash bar 
     /*dashbar backdrop*/
     noStroke();
@@ -157,7 +157,7 @@ class HUD {
     stroke(0);
     noFill();
     rect(dashX, dashY, dashL, dashH, healthBarCurveNormal);
-    image(dashbar,10,90,425,70);
+    image(dashbar, 10, 90, 425, 70);
     //score
     if (death==false&&room=="game") {
       score +=globalScrollSpeed/10;

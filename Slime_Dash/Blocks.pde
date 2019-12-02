@@ -99,7 +99,7 @@ Block blockCollision(float x, float y, float size, float blockId) {
   Block Collision = null;
 
   for (int i = 0; i < blocks.length; i++) {
-    if ((blocks[i].x < x+size && blocks[i].x+size > x && blocks[i].y < y+size && blocks[i].y+size > y) && blocks[i].active && blocks[i].id != blockId) {
+    if ((blocks[i].x < x+size && blocks[i].x+blocks[i].size > x && blocks[i].y < y+size && blocks[i].y+blocks[i].size > y) && blocks[i].active && blocks[i].id != blockId) {
       Collision = blocks[i];
     }
   }
