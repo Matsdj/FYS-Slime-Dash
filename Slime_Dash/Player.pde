@@ -7,7 +7,7 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, fade, 
+  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
     dashSpeed, 
     slowDown, 
     movingBlockSpeed, 
@@ -16,7 +16,6 @@ class Player {
     xSpriteR;
 
   int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
-  color pColor;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink;
 
   //terugzet waardes van de dashCooldown en dashTime
@@ -52,8 +51,6 @@ class Player {
     dashTime = DASH_TIME;
     dmgCooldown = 0;
     enemyDamage = false;
-    pColor = color(0, 255, 0);
-    fade = constrain(255, 0, 255);
     moveLeft = false;
     walkFrameCounter = 0;
     deathFrameCounter = 0;
@@ -348,10 +345,6 @@ class Player {
   }
 
   void draw() {
-    stroke(0, 0, 0, fade);
-    strokeWeight(2);
-    //fill(pColor, fade);
-    //rect(x, y, size, size);
     playerAnimation();
   }
 }

@@ -124,10 +124,6 @@ class HUD {
       march[0] = false;
       cooldown=COOLDOWN_MAX;
     }
-    //fade out on death
-    if (death == true) {
-      player.fade -= 3;
-    }
   }
   void draw() {
     //healthbar

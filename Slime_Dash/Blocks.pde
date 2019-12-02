@@ -2,8 +2,8 @@
 int activeBlocks = 0;
 int backgroundBlocks = 0;
 class Block {
-  final float BREAKTIMEMAX = 30;
-  float x, y, size, speed = globalScale/30, vx = 0, scrollSpeedChange = -1, breakTime = BREAKTIMEMAX;
+  final float BREAK_TIME_MAX = 30;
+  float x, y, size, speed = globalScale/30, vx = 0, scrollSpeedChange = -1, breakTime = BREAK_TIME_MAX;
   int id = -1;
   color c = BRICK;
   PImage sprite;
@@ -19,7 +19,7 @@ class Block {
     scrollPercentage = iScrollPercentage;
     scrollSpeedChange = iScrollSpeedChange;
     cracked = iCracked;
-    breakTime = BREAKTIMEMAX;
+    breakTime = BREAK_TIME_MAX;
     if (c == BRICK) {
       sprite = brickSprite;
     } else if (c == STONE) {
@@ -72,7 +72,7 @@ class Block {
       }
       image(sprite, x, y);
       if (cracked){
-      tint(255, (BREAKTIMEMAX-breakTime)*2+255-BREAKTIMEMAX*2);
+      tint(255, (BREAK_TIME_MAX-breakTime)*2+255-BREAK_TIME_MAX*2);
       image(crackedSprite, x, y);
       tint(255);
       }
