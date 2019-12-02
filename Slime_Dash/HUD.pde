@@ -20,13 +20,13 @@ class HUD {
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
   //coins
-  float coins;
+
   HUD() {
     //healthbar
-    healthBarX= width*0.02;
-    healthBarY= width*0.02;
-    healthBarLength = width*0.195;
-    healthBarHeight = height*0.056;
+    healthBarX= 30+(globalScale/18);
+    healthBarY= 40;
+    healthBarLength = globalScale*4;
+    healthBarHeight = globalScale*0.8;
     healthBarCurve = 20;
     healthBarCurveNormal = 20;
     noHealth = 0;
@@ -38,14 +38,14 @@ class HUD {
     dashL = healthBarLength;
     dashL2 = constrain(healthBarLength, 0, healthBarLength);
     dashX = healthBarX;
-    dashY = width*0.055;
+    dashY = width*0.06;
     //score
     scoreX = width*0.98;
     scoreY = width*0.039;
     scoreSize = width*0.025;
     score = 0;
     //coins
-    coins = 0;
+
     //game over
     gOver = "";
     gOverX = width/2;
@@ -58,6 +58,7 @@ class HUD {
     //healthbar
     /* zorgt er voor dat health niet boven 100 gaat*/
     health = constrain(health, 0, 100);
+
 
     /*zorgt ervoor dat de healthbar altijd de juiste ronding heeft*/
     noStroke();
@@ -73,13 +74,14 @@ class HUD {
       healthC = color(255, 0, 0);
     }
     /*wanneer enemy collision heeft met player dan damage*/
-    if (player.enemyDamage==true) {
+    if (player.enemyDamage==true&& death==false) {
       player.enemyDamage= false;
+      damage.play();
       healthC = color(255);
       /*verander deze om enemy damage aan te passen*/
       health = health-swordDMG;
       health = health-MagicBarricadeDMG;
-    } 
+    }
 
     //dash bar
     dashL2 = constrain(-player.dashCooldown*50, 0, dashL);
@@ -113,7 +115,7 @@ class HUD {
       march[1]= true;
       march[2]= true;
       march[3]= true;
-    } 
+    }
     if (death ==true && inputs.hasValue(18)==true && room=="game2"&&cooldown<0) {
       death = false;
       Dede.stop();
@@ -121,7 +123,7 @@ class HUD {
       room = "game2";
       march[0] = false;
       cooldown=COOLDOWN_MAX;
-    } 
+    }
     //fade out on death
     if (death == true) {
       player.fade -= 3;
@@ -132,31 +134,34 @@ class HUD {
     /*healthbar backdrop*/
     noStroke();
     fill(0, 0, 0, 50);
-    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight, healthBarCurveNormal);
+    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
     /*actual health indicator*/
     noStroke();
     fill(healthC);
     if (health > 100) health = 100;
-    rect(healthBarX, healthBarY, healthBarLength*(float(constrain(health, 0, 100))/100), healthBarHeight, healthBarCurveNormal, healthBarCurve, healthBarCurve, healthBarCurveNormal);
+    rect(healthBarX, healthBarY, healthBarLength*(float(constrain(health, 0, 100))/100), healthBarHeight);
     /*static border*/
     stroke(0);
     noFill();
     strokeWeight(2);
-    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight, healthBarCurveNormal);
-    image(healthbar, 10, 15, 425, 110);
-    //dash bar 
+    rect(healthBarX, healthBarY, healthBarLength, healthBarHeight);
+    image(healthbar, 10, 15+(globalScale/18), globalScale*4.75, globalScale*1.2);
+    fill(255);
+    textSize(scoreSize);
+    text(health, 50, healthBarY+(globalScale/2));
+    //dash bar
     /*dashbar backdrop*/
     noStroke();
     fill(155);
-    rect(dashX, dashY, dashL, dashH, healthBarCurveNormal);
+    rect(dashX, dashY, dashL, dashH);
     /*actual dash indicator*/
     noStroke();
     fill(#5AFF03, 255);
-    rect(dashX, dashY, dashL2, dashH, healthBarCurveNormal);
+    rect(dashX, dashY, dashL2, dashH);
     /* border*/
     stroke(0);
     noFill();
-    rect(dashX, dashY, dashL, dashH, healthBarCurveNormal);
+    rect(dashX, dashY, dashL, dashH);
     image(dashbar, 10, 90, 425, 70);
     //score
     if (death==false&&room=="game") {

@@ -8,13 +8,15 @@
 
 //remember, ctrl+t
 
-float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance;
+float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance, coins = 0;
+final float MAX_SCROLL_SPEED = 9;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean debug = false;
 final int COOLDOWN_MAX=15;
+final int COOLDOWN_UPGRADE=30;
 int cooldown;
 
 
@@ -32,6 +34,7 @@ void setup() {
   bgSetup();
   hordeSetup();
   playerSetup();
+  blinkSetup();
   interfacesSetup();
   mainMSetup();
   hostileSetup();
@@ -62,6 +65,7 @@ void updateGame() {
   if (player.x > 0) {
     globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
   }
+  globalScrollSpeed = constrain(globalScrollSpeed,0,MAX_SCROLL_SPEED);
   //tutorial mode
   if (room == "game2") {
     float scrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
@@ -95,6 +99,7 @@ void updateGame() {
   arrowUpdate();
   //Player
   player.update();
+  blinkUpdate();
   //Overlay
   interfaces.update();
 }
@@ -103,10 +108,11 @@ void drawGame() {
   background(102, 204, 255);
   bgDraw();
   drawBackgroundBlocks();
+  hostileDraw();
+  blinkDraw();
   player.draw();
   spikeDraw();
   blockDraw();
-  hostileDraw();
   arrowDraw();
   pickupDraw();
   flameDraw();

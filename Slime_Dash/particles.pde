@@ -1,6 +1,6 @@
 
 // A class to describe a group of Particles
-// An ArrayList is used to manage the list of Particles 
+// An ArrayList is used to manage the list of Particles
 ParticleSystem ps;
 class ParticleSystem {
   ArrayList<Particle> particles;
@@ -35,7 +35,7 @@ class Particle {
   PVector acceleration;
   float lifespan;
   float size;
-  
+
 
   Particle(PVector ding) {
     acceleration = new PVector(0, 0.05);
