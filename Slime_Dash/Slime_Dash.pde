@@ -38,6 +38,7 @@ void setup() {
   interfacesSetup();
   mainMSetup();
   hostileSetup();
+  magicBlockSetup();
   arrowSetup();
   blockSetup();
   spikeSetup();
@@ -92,6 +93,7 @@ void updateGame() {
   spikeUpdate();
   pickupUpdate();
   flameUpdate();
+  magicBlockUpdate();
   //Moving Enemy
   hostileUpdate();
   arrowUpdate();
@@ -114,6 +116,7 @@ void drawGame() {
   arrowDraw();
   pickupDraw();
   flameDraw();
+  magicBlockDraw();
   hordeDraw();
   skyChange();
   interfaces.draw();
