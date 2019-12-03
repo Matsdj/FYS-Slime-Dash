@@ -51,7 +51,7 @@ void setup() {
   //  CreateDatabaseConnection();
   //  GetUsers();
   //particle system
-  ps = new ParticleSystem(new PVector(width/2, 50));
+//  ps = new ParticleSystem(new PVector(width/2, 50));
 }
 //GAME
 void updateGame() {
@@ -163,6 +163,6 @@ void draw() {
   debug();
   inputsPressedUpdate();
   //particle
-  ps.addParticle();
-  ps.run();
+ // ps.addParticle();
+ // ps.run();
 }
