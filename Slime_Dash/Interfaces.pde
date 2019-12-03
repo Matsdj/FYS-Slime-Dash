@@ -216,7 +216,7 @@ class Upgrades {
       }
       // ff quick coin cheat
       if (keyPressed && key == '=') {
-        coins = 500;
+        coins += 10;
       }
       if (perchTLState < perch.length - 1) {       
         if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchUp && cooldown < 0 && coins >= doubleJumpPrice) {
@@ -224,7 +224,9 @@ class Upgrades {
           perchTL = perch[perchTLState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= doubleJumpPrice;
-        } else if (keyPressed && key == ' ' && coins < doubleJumpPrice) {
+          player.maxJumpAmount = 1;
+        } else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
+          println("gay"); 
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -239,6 +241,7 @@ class Upgrades {
           perchTR = perch[perchTRState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= dashPrice;
+          player.dashCooldownReset -= 20;
           dashPrice = dashPrice * 2;
           textAlign(CENTER);
           fill(255);
@@ -246,7 +249,7 @@ class Upgrades {
           fill(0);
           text("DASH COOLDOWN REDUCED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        }  else if (keyPressed && key == ' ' && coins < dashPrice) {
+        }  else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -268,7 +271,7 @@ class Upgrades {
           fill(0);
           text("HEALTH INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        }  else if (keyPressed && key == ' ' && coins < healthPrice) {
+        }  else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -291,7 +294,7 @@ class Upgrades {
           fill(0);
           text("COIN VALUE INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        }  else if (keyPressed && key == ' ' && coins < coinPrice) {
+        }  else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -299,7 +302,7 @@ class Upgrades {
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
-      }      
+      }
       if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState == perch.length -1 ) {
         textAlign(CENTER);
         fill(255);
