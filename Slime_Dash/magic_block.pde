@@ -10,6 +10,23 @@ Magic2[] magic2s;
 MagicSwitch[] magicSwitchs;
 
 
+void magicBlockSetup() {
+  magic1Setup();
+  magic2Setup();
+  magicSwitchSetup();
+}
+
+void magicBlockUpdate() {
+  magic1Update();
+  magic2Update();
+  magicSwitchUpdate();
+}
+
+void magicBlockDraw() {
+  magic1Draw();
+  magic2Draw();
+  magicSwitchDraw();
+}
 
 //first magic wall
 void magic1Setup()
