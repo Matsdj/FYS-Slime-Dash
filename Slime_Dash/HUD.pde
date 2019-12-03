@@ -163,7 +163,7 @@ class HUD {
     // image(dashbar, 10, 90, 425, 70);
     //score
     if (death==false&&room=="game") {
-      score +=globalScrollSpeed/10;
+      score +=globalScrollSpeed/globalScale*10;
     }
     textAlign(RIGHT);
     fill(0);
