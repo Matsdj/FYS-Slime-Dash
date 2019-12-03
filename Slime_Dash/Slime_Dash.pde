@@ -57,8 +57,6 @@ void setup() {
 void updateGame() {
   //Doe alle snelheden x frameSpeed zodat wanneer de frames omlaag gaan het spel niet trager wordt
   frameSpeed = 60/frameRate;
-  //globalScale is hoe groot een block wordt in de hoogte en de breedte gebruik deze variable om de grootte van alles te scalen
-  globalScale = height/12;
   time += 1 ;
   //ScrollSpeed
   globalScrollSpeed = globalScale/60+ time/100000*globalScale;

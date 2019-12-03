@@ -23,7 +23,8 @@ if (inputsPressed.hasValue(96)) {
     text("Room:"+room,0,450);
     text("P.insideblock:"+player.insideBlock(),0,500);
     text("ActiveBlocks:"+activeBlocks,0,550);
-    text(cooldown,0,600);
+    text("BackgroundBlocks:"+backgroundBlocks,0,600);
+    text(cooldown,0,650);
     
   }
   fill(0);
