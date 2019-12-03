@@ -64,7 +64,7 @@ class Block {
   void draw() {
     if (x < width) {
       if (c == DIRT) {
-        if (blockCollision(x+10, y-globalScale, size-20, id) == null) {
+        if (blockCollision(x+size/2, y-size/2, 1, id) == null) {
           sprite = grassSprite;
         } else {
           sprite = dirtSprite;
@@ -79,8 +79,8 @@ class Block {
     }
   }
   void drawBackgroundBlocks() {
-    float hitbox = size-20, 
-      xScroll = x+10;
+    float hitbox = 1, 
+      xScroll = x+size/2;
     for (float i = y+globalScale; ((blockCollision(xScroll, i, hitbox, id) == null || blockCollision(xScroll, i, hitbox, id).moving || blockCollision(xScroll, i, hitbox, id).cracked) && i < height); i+= globalScale) {
       tint(100);
       if (sprite == grassSprite) {
