@@ -168,11 +168,11 @@ class Upgrades {
   int perchW = 320, perchH = 213, yOffset = perchH/2, xOffset=perchW/8, 
     perchLeft=width/8, perchRight=width - width/8 - perchW, 
     perchUp=height/8, perchDown=height - height/8 - perchH, 
-    perchSelectX, perchSelectY,
-    perchTLState, perchTRState, perchBLState, perchBRState,
-    doubleJumpPrice = 100,
-    dashPrice = 20,
-    healthPrice = 20,
+    perchSelectX, perchSelectY, 
+    perchTLState, perchTRState, perchBLState, perchBRState, 
+    doubleJumpPrice = 100, 
+    dashPrice = 20, 
+    healthPrice = 20, 
     coinPrice = 20;
   String upgradeMaxText = "UPGRADE ALREADY MAXED";
   PImage[] perch = new PImage[4];
@@ -230,7 +230,7 @@ class Upgrades {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
-          fill(255,0,0);
+          fill(255, 0, 0);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
@@ -249,11 +249,11 @@ class Upgrades {
           fill(0);
           text("DASH COOLDOWN REDUCED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        }  else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
+        } else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
-          fill(255,0,0);
+          fill(255, 0, 0);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
@@ -265,18 +265,20 @@ class Upgrades {
           cooldown = COOLDOWN_UPGRADE;
           coins -= healthPrice;
           healthPrice = healthPrice * 2;
-          interfaces.healthMult *=0.8;
+          if (perchBLState==1)interfaces.healthMult =0.8;
+          if (perchBLState==2)interfaces.healthMult =0.7;
+          if (perchBLState==3)interfaces.healthMult =0.5;
           textAlign(CENTER);
           fill(255);
           text("HEALTH INCREASED", width/2+2, height/2+2);
           fill(0);
           text("HEALTH INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        }  else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
+        } else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
-          fill(255,0,0);
+          fill(255, 0, 0);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
@@ -295,11 +297,11 @@ class Upgrades {
           fill(0);
           text("COIN VALUE INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        }  else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
+        } else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
-          fill(255,0,0);
+          fill(255, 0, 0);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
@@ -335,7 +337,7 @@ class Upgrades {
         fill(0);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
-      } 
+      }
     }
   }
   void draw() {
