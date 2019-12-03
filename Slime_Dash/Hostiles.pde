@@ -98,6 +98,7 @@ class HostileMelee {
   }
   void update() {
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
 
     //makes the enemy change direction when hitting a wall or a hole in the ground
     if (blockCollision(x+vx, y, size) != null) {
@@ -172,6 +173,7 @@ class HostileRanged {
 
   void update() {
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
 
     if (player.Collision(x, y, size) && player.dashActive) {
       dead = true;

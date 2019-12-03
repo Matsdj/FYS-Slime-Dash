@@ -14,7 +14,8 @@ final float MAX_SCROLL_SPEED = 9;
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
-boolean debug = false;
+boolean debug = false,
+allowVerticalMovement = false;
 final int COOLDOWN_MAX=15;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
@@ -61,10 +62,10 @@ void updateGame() {
   time += 1 ;
   //ScrollSpeed
   globalScrollSpeed = globalScale/60+ time/100000*globalScale;
-  if (player.x > 0) {
-    globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.3, 5));
-  }
   globalScrollSpeed = constrain(globalScrollSpeed, 0, MAX_SCROLL_SPEED);
+  if (player.x > 0) {
+    globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.2, 5));
+  }
   //tutorial mode
   if (room == "game2") {
     float scrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
@@ -76,11 +77,15 @@ void updateGame() {
   }
   //Vertical Distance
   if (time > 60) {
-    //globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
+    globalVerticalSpeed = floor(globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3)));
+    if (globalVerticalSpeed >= 0 && !allowVerticalMovement){
+      globalVerticalSpeed = 0;
+    }
     if (VerticalDistance + globalVerticalSpeed <= 0) {
       globalVerticalSpeed = -VerticalDistance;
     }
     VerticalDistance += globalVerticalSpeed;
+    allowVerticalMovement = false;
   }
   //input cooldown
 

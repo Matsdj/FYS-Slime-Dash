@@ -2,7 +2,7 @@
 int activeBlocks = 0;
 int backgroundBlocks = 0;
 class Block {
-  final float BREAK_TIME_MAX = 30;
+  final float BREAK_TIME_MAX = 10;
   float x, y, size, speed = globalScale/30, vx = 0, scrollSpeedChange = -1, breakTime = BREAK_TIME_MAX;
   int id = -1;
   color c = BRICK;
@@ -53,6 +53,10 @@ class Block {
       if (breakTime < 0) {
         active = false;
       }
+    }
+    if (cracked && player.dashActive && player.Collision(x-1,y-1,size+2)){
+      active = false;
+      breakTime = 0;
     }
   }
   void moving() {

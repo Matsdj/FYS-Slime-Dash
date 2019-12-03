@@ -21,6 +21,9 @@ final color COIN = color(255, 255, 0);
 final color HEALTH = color(0, 255, 0);
 final color HOSTILE_MELEE = color(255, 0, 100);
 final color HOSTILE_RANGED = color(255, 0, 150);
+final color MAGIC_SWITCH = color(255,0,255);
+final color MAGIC1 = color(255,1,255);
+final color MAGIC2 = color(255,2,255);
 
 //Setup allows for reset
 void mapSetup() {
@@ -73,8 +76,9 @@ void makeMap(PImage template) {
       float x = (GenerateDistance+templateX)*globalScale, 
         y = (templateY-(mapTemplate.height-height/globalScale-1))*globalScale+VerticalDistance;
       //color of pixel in picture
-      color col = color(red(mapTemplate.pixels[loc]), green(mapTemplate.pixels[loc]), blue(mapTemplate.pixels[loc]));
+      color col = mapTemplate.pixels[loc];
       if (random(255) <= alpha(mapTemplate.pixels[loc])) {
+        col = color(red(col),green(col),blue(col),255);
         //Places Blocks,Spikes etc.
         if (col == BRICK) {
           blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, -1, false);
@@ -123,6 +127,15 @@ void makeMap(PImage template) {
         }
         if (col == HOSTILE_RANGED) {
           addHostileRanged(x, y);
+        }
+        if (col == MAGIC_SWITCH) {
+          addMagicSwitch(x, y);
+        }
+        if (col == MAGIC1) {
+          addMagic1(x, y);
+        }
+        if (col == MAGIC2) {
+          addMagic2(x, y);
         }
       }
     }

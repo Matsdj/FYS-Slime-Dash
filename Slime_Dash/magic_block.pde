@@ -172,6 +172,7 @@ class Magic2 {
       player.dmgCooldown = player.DMG_COOLDOWN;
     }
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
   }
 
 
@@ -252,6 +253,7 @@ class MagicSwitch {
       SwitchTimerA = true;
     }
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
     if (SwitchTimerA==true) {
       SwitchTimer = SwitchTimer -1;
     }
