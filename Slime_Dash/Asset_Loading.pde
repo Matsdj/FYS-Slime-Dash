@@ -114,7 +114,7 @@ public void assetSetup() {
   bgDragon = new PImage[MAX_DRAGON_FRAMES];
   for (int iSprite = 0; iSprite < MAX_DRAGON_FRAMES; iSprite++) {
     bgDragon[iSprite] = loadImage("sprites/backGround/dragon"+ iSprite +".png");
-    bgDragon[iSprite].resize(cloudSpriteWidth, cloudSpriteHeight);
+    bgDragon[iSprite].resize(cloudSpriteWidth/2, cloudSpriteHeight/2);
   }
 
   hordeSprite = new PImage[HORDE_STAGES][HORDE_STAGE_SPRITE_AMOUNT];
