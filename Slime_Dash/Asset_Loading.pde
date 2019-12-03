@@ -7,6 +7,7 @@ PImage[] flamethrowerSprite;
 PImage spikeSprite;
 PImage[] bgHouse;
 PImage[] bgCloud;
+PImage[] bgDragon;
 PImage[][] hordeSprite;
 PImage bgWall;
 PImage bgSky;
@@ -108,6 +109,12 @@ public void assetSetup() {
   for (int iSprite = 0; iSprite < BG_CLOUDS_AMOUNT; iSprite++) {
     bgCloud[iSprite] = loadImage("sprites/backGround/cloud"+ iSprite +".png");
     bgCloud[iSprite].resize(cloudSpriteWidth, cloudSpriteHeight);
+  }
+  
+  bgDragon = new PImage[MAX_DRAGON_FRAMES];
+  for (int iSprite = 0; iSprite < MAX_DRAGON_FRAMES; iSprite++) {
+    bgDragon[iSprite] = loadImage("sprites/backGround/dragon"+ iSprite +".png");
+    bgDragon[iSprite].resize(cloudSpriteWidth, cloudSpriteHeight);
   }
 
   hordeSprite = new PImage[HORDE_STAGES][HORDE_STAGE_SPRITE_AMOUNT];

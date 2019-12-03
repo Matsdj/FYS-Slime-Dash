@@ -9,6 +9,7 @@ final int BG_HOUSES_AMOUNT = 6; //amount of sprite variations
 final int MAX_WALLS = 4;
 final int BG_CLOUDS_AMOUNT = 3;
 final int MAX_CLOUDS = 6;
+final int MAX_DRAGON_FRAMES = 4;
 final int SKY_AMOUNT = 2;
 
 BgHouses[] bgHouses;
@@ -18,7 +19,7 @@ BgCloud[] bgClouds;
 void bgSetup() {
   redSkyTransition = 0;
   blueSkyTransition = 0;
-  
+
   //bg houses setup
   bgHouses = new BgHouses[MAX_HOUSES];
   for (int iSprite = 0; iSprite < MAX_HOUSES; iSprite++) {
@@ -168,6 +169,8 @@ class BgWall {
 
 //clouds////////////
 class BgCloud {
+  final int DRAGON_FRAME_RATE = 15;
+  final int DRAGON_SPAWN_CHANCE = 10;
   final float BG_CLOUDS_SCROLLSPEED = 2.3;
   final float BG_CLOUDS_STANDARDSPEED_MIN = globalScale/72;
   final float BG_CLOUDS_STANDARDSPEED_MAX = globalScale/42;
@@ -175,20 +178,29 @@ class BgCloud {
   final float Y_MIN = -globalScale * 1.5;
   final float X_MAX = width + globalScale * 25;
   final float X_MIN = width;
-  int cloudType;
+  int cloudType, dragonFrame;
   float x, y, vx, standardVx;
+  boolean dragonSpawn;
   BgCloud() {
     y = random(Y_MIN, Y_MAX);
     x = random(0, X_MAX);
     cloudType = int(random(0, BG_CLOUDS_AMOUNT));
     standardVx = random(BG_CLOUDS_STANDARDSPEED_MIN, BG_CLOUDS_STANDARDSPEED_MAX);
+    dragonSpawn = false;
   }
 
   void reset() {
     //resets it far off screen, so that the clouds move constantly
+    dragonSpawn = false;
     x = random(X_MIN, X_MAX);
     y = random(Y_MIN, Y_MAX);
     cloudType = int(random(0, BG_CLOUDS_AMOUNT));
+
+    //chance of a dragon spawning in the background
+    if (int(random(0, DRAGON_SPAWN_CHANCE)) == 0 && time > slow) {
+      dragonSpawn = true;
+    }
+
     standardVx = random(BG_CLOUDS_STANDARDSPEED_MIN, BG_CLOUDS_STANDARDSPEED_MAX);
   }
 
@@ -198,10 +210,23 @@ class BgCloud {
     if (x + cloudSpriteWidth < 0) {
       reset();
     }
+
+    //animation for the dragon
+    if (dragonSpawn) {
+      if (frameCount % DRAGON_FRAME_RATE == 0) {
+        dragonFrame ++;
+      }
+      if (dragonFrame >= MAX_DRAGON_FRAMES) {
+        dragonFrame = 0;
+      }
+    }
   }
 
   void draw() {
-    image(bgCloud[cloudType], x, y);
+    if (!dragonSpawn)
+      image(bgCloud[cloudType], x, y);
+    else
+      image(bgDragon[dragonFrame], x, y);
   }
 }
 
@@ -216,7 +241,7 @@ void sunSetup() {
 void sunUpdate() {
   final float SUN_DOWN_MAX_RED = globalScale * 3;
   final float SUN_DOWN_MAX_BLUE = globalScale * 6;
-  
+
   //makes the sun set after certain time stamps
   if (time>=slow && sunY < SUN_DOWN_MAX_RED) {
     sunY++;
