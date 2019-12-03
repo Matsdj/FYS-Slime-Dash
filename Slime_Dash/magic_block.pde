@@ -4,7 +4,7 @@ int MagicBarricadeDMG = 0;
 boolean switchA = false;
 boolean SwitchTimerA = false;
 int SwitchTimer = 0;
-int SwitchTimerMax = 600;
+int SwitchTimerMax = 90;
 Magic1[] magic1s;
 Magic2[] magic2s;
 MagicSwitch[] magicSwitchs;
@@ -83,7 +83,7 @@ class Magic1 {
     fill (255, 0, 0);
 
     if (switchA==true) {
-      fill (0, 255, 255);
+      fill (255, 0, 0);
       quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
     }
   }
@@ -261,7 +261,7 @@ class MagicSwitch {
       quad(x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size-0.4*size, y+0.7*size, x+0.4*size, y+0.7*size);
     }
     if (switchA==true) {
-      fill(0, 255, 255);
+      fill(255, 0, 0);
       quad(x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size-0.4*size, y+0.7*size, x+0.4*size, y+0.7*size);
     }
   }
