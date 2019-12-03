@@ -1,6 +1,6 @@
 //collin
 
-int MagicBarricadeDMG = 0;
+float MagicBarricadeDMG = 0;
 boolean switchA = false;
 boolean SwitchTimerA = false;
 int SwitchTimer = 0;

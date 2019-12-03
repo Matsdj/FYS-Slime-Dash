@@ -8,13 +8,13 @@ class HUD {
   //DAMAGE NUMBERS/////////////////////////////////////
   int swordDMG = 20;
   //healthbar
-  int health, noHealth;
-  float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight;
+  int noHealth;
+  float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight, healthMult, health;
   color healthC = color(255, 0, 0, 255);
   //dashbar
   float dashmain, dashH, dashL, dashL2, dashX, dashY;
   final float DASH_SMOL_MAX =globalScale;
-  float dashSmol,dashLsmol,dashLsmol2;
+  float dashSmol, dashLsmol, dashLsmol2;
   //score
   float scoreX, scoreY, scoreSize, score;
   //game over
@@ -34,6 +34,7 @@ class HUD {
     noHealth = 0;
     /*als je jou object of enemy damage wil laten gebruik je health*/
     health = 100;
+    healthMult = 1;
     death = false;
     //dash bar
     dashH = healthBarHeight/3;
@@ -59,9 +60,6 @@ class HUD {
 
   void update() {
     //healthbar
-    /* zorgt er voor dat health niet boven 100 gaat*/
-    health = constrain(health, 0, 100);
-
 
     /*zorgt ervoor dat de healthbar altijd de juiste ronding heeft*/
     noStroke();
@@ -82,8 +80,9 @@ class HUD {
       damage.play();
       healthC = color(255);
       /*verander deze om enemy damage aan te passen*/
-      health = health-swordDMG;
-      health = health-MagicBarricadeDMG;
+      //healthMult is voor de damageReduction als je een upgrade koopt
+      health = health-(swordDMG*healthMult);
+      health = health-(MagicBarricadeDMG*healthMult);
     }
 
     //dash bar
@@ -138,13 +137,13 @@ class HUD {
 
     fill(healthC);
     if (health > 100) health = 100;
-    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(health, 0, 100))/100), globalScale*0.7);
+    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*((constrain(health, 0, 100))/100), globalScale*0.7);
 
     /*static border*/
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(255);
     textSize(scoreSize);
-    text(health, healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
+    text(floor(health), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
     /*dashbar backdrop*/
     noStroke();
