@@ -265,6 +265,7 @@ class Upgrades {
           cooldown = COOLDOWN_UPGRADE;
           coins -= healthPrice;
           healthPrice = healthPrice * 2;
+          interfaces.healthMult *=0.8;
           textAlign(CENTER);
           fill(255);
           text("HEALTH INCREASED", width/2+2, height/2+2);
