@@ -62,6 +62,8 @@ class Arrow {
   void update() {
     x += vx;
     x -= globalScrollSpeed;
+    y += globalVerticalSpeed;
+    
     if (player.hitboxCollision(x, y, aWidth, aHeight) && vx != 0) {
       player.enemyDamage = true;
       reset();
