@@ -70,7 +70,10 @@ class Arrow {
   }
   
   void draw() {
-    fill(200, 170, 0);
-    rect(x, y, aWidth, aHeight);
+  //  fill(200, 170, 0);
+ //   rect(x, y, aWidth, aHeight);
+ fill(255);
+    textSize(20);
+    text("yeet",x,y);
   }
 }

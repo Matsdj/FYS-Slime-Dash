@@ -207,6 +207,6 @@ class HostileRanged {
     stroke(0);
     strokeWeight(2);
     fill(255, 0, 0);
-    rect(x, y, size, size);
+   image(archer,x,y,size,size);
   }
 }
