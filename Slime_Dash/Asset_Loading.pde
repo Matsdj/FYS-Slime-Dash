@@ -1,5 +1,6 @@
 PImage[] enemySprite;
 PImage[] archerSprite;
+PImage arrowSprite;
 PImage enemyDeathSprite;
 PImage[] playerSprite;
 PImage playerDmgBlink;
@@ -20,7 +21,8 @@ PImage healthbar;
 PImage dashbar;
 
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, 
-  meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight;
+  meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight, 
+  arrowSpriteWidth, arrowSpriteHeight;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
 //Blocks
@@ -54,9 +56,13 @@ public void assetSetup() {
   //skyResize
   skySpriteSize = int(globalScale * 12);
 
-  //meleeEnemyResize
+  //melee + ranged EnemyResize
   meleeSpriteWidth = int(globalScale);
   meleeSpriteHeight = int(globalScale + globalScale/32*2);
+
+  //arrow resize
+  arrowSpriteWidth = int(globalScale/32*28);
+  arrowSpriteHeight = int(globalScale/32*7);
 
   //flamethrower resize
   flamethrowerSpriteWidth = int(globalScale);
@@ -83,6 +89,8 @@ public void assetSetup() {
   }
   enemyDeathSprite = loadImage("sprites/enemy/enemyDeath.png");
   enemyDeathSprite.resize(meleeSpriteWidth, meleeSpriteHeight);
+  arrowSprite = loadImage("sprites/enemy/arrow.png");
+  arrowSprite.resize(arrowSpriteWidth, arrowSpriteHeight);
 
   playerSprite = new PImage[PLAYER_FRAME_AMOUNT];
   for (int iSprite = 0; iSprite < PLAYER_FRAME_AMOUNT; iSprite++) {

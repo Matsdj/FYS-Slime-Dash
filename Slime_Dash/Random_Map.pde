@@ -1,6 +1,6 @@
 //Mats
 //hier maak ik de variabelen aan
-float GenerateDistance, 
+float GenerateDistance,
   traveledDistance;
 PImage[] mapTemplateList;
 PImage random = null;
@@ -74,12 +74,12 @@ void makeMap(PImage template) {
       //location of the pixel in the pixels list
       int loc = templateX + (templateY * mapTemplate.width);
       //Determines wat the X and Y of the blocks is going to be
-      float x = (GenerateDistance+templateX)*globalScale, 
+      float x = (GenerateDistance+templateX)*globalScale,
         y = (templateY-(mapTemplate.height-height/globalScale-1))*globalScale+VerticalDistance;
       //color of pixel in picture
       color col = mapTemplate.pixels[loc];
       if (random(255) <= alpha(mapTemplate.pixels[loc])) {
-        col = color(red(col),green(col),blue(col),255);
+        col = color(red(col), green(col), blue(col), 255);
         //Places Blocks,Spikes etc.
         if (col == BRICK) {
           blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, -1, false, false);
