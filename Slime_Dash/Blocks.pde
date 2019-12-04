@@ -76,7 +76,7 @@ class Block {
       }
       image(sprite, x, y);
       if (cracked){
-      tint(255, (BREAK_TIME_MAX-breakTime)*2+255-BREAK_TIME_MAX*2);
+      tint(255, ((BREAK_TIME_MAX-breakTime)/BREAK_TIME_MAX)*155+100);
       image(crackedSprite, x, y);
       tint(255);
       }
