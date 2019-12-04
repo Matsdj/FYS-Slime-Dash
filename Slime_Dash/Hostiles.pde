@@ -149,7 +149,8 @@ class HostileMelee {
 class HostileRanged {
   float x, y, size;
   final int ARROW_COOLDOWN_MAX = 120;
-  int arrowCooldown;
+  final int ARCHER_SHOOT_FRAMES = 25;
+  int arrowCooldown, enemyBreathFrame;
   boolean dead, isActive, isLeft;
 
   HostileRanged() {
@@ -169,6 +170,17 @@ class HostileRanged {
     dead = false;
     x = activatex;
     y = activatey;
+  }
+
+  void enemyAnimation() {
+    if (isLeft) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(archerSprite[enemyBreathFrame], -x-globalScale, y - globalScale/32);
+      popMatrix();
+    } else {
+      image(archerSprite[enemyBreathFrame], x, y - globalScale/32);
+    }
   }
 
   void update() {
@@ -201,12 +213,14 @@ class HostileRanged {
       isLeft = false;
     }
     arrowCooldown--;
+
+    //animation
+    if (ARCHER_SHOOT_FRAMES > arrowCooldown) {
+      enemyBreathFrame = 1;
+    } else enemyBreathFrame = 0;
   }
 
   void draw() {
-    stroke(0);
-    strokeWeight(2);
-    fill(255, 0, 0);
-   image(archer,x,y,size,size);
+    enemyAnimation();
   }
 }

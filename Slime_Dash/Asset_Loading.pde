@@ -1,4 +1,5 @@
 PImage[] enemySprite;
+PImage[] archerSprite;
 PImage enemyDeathSprite;
 PImage[] playerSprite;
 PImage playerDmgBlink;
@@ -17,7 +18,7 @@ PImage coin;
 PImage slimeDash;
 PImage healthbar;
 PImage dashbar;
-PImage archer;
+
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, 
   meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
@@ -73,9 +74,12 @@ public void assetSetup() {
   pushPlayerSpriteUp = globalScale/32 * 2;
 
   enemySprite = new PImage[ENEMY_SPRITE_AMOUNT];
+  archerSprite = new PImage[ENEMY_SPRITE_AMOUNT];
   for (int iSprite = 0; iSprite < ENEMY_SPRITE_AMOUNT; iSprite++) {
     enemySprite[iSprite] = loadImage("sprites/enemy/enemy"+ iSprite + ".png");
     enemySprite[iSprite].resize(meleeSpriteWidth, meleeSpriteHeight);
+    archerSprite[iSprite] = loadImage("sprites/enemy/archer"+ iSprite + ".png");
+    archerSprite[iSprite].resize(int(globalScale), int(globalScale));
   }
   enemyDeathSprite = loadImage("sprites/enemy/enemyDeath.png");
   enemyDeathSprite.resize(meleeSpriteWidth, meleeSpriteHeight);
@@ -96,7 +100,7 @@ public void assetSetup() {
     flamethrowerSprite[iSprite] = loadImage("sprites/flamethrower/flame"+ iSprite +".png");
     flamethrowerSprite[iSprite].resize(flamethrowerSpriteWidth, flamethrowerSpriteHeight);
   }
-  
+
   spikeSprite = loadImage("sprites/flamethrower/spikes.png");
   spikeSprite.resize(int(globalScale), int(globalScale));
 
@@ -111,7 +115,7 @@ public void assetSetup() {
     bgCloud[iSprite] = loadImage("sprites/backGround/cloud"+ iSprite +".png");
     bgCloud[iSprite].resize(cloudSpriteWidth, cloudSpriteHeight);
   }
-  
+
   bgDragon = new PImage[MAX_DRAGON_FRAMES];
   for (int iSprite = 0; iSprite < MAX_DRAGON_FRAMES; iSprite++) {
     bgDragon[iSprite] = loadImage("sprites/backGround/dragon"+ iSprite +".png");
@@ -161,7 +165,4 @@ public void assetSetup() {
   //HUD
   healthbar = loadImage("./sprites/HUD/healthbar.png");
   dashbar = loadImage("./sprites/HUD/dashbar.png");
-  
-  //archer temporary
-  archer =loadImage("./sprites/enemy/archer0.png");
 }
