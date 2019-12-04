@@ -7,8 +7,8 @@ class Block {
   int id = -1;
   color c = BRICK;
   PImage sprite;
-  boolean active = false, moving = false, scrollPercentage = false, cracked = false;
-  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeedChange, boolean iCracked) {
+  boolean active = false, moving = false, scrollPercentage = false, cracked = false, enableVerticalMovement = false;
+  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeedChange, boolean iCracked, boolean iAllowVertical) {
     x = ix;
     y = iy;
     size = globalScale;
@@ -20,6 +20,7 @@ class Block {
     scrollSpeedChange = iScrollSpeedChange;
     cracked = iCracked;
     breakTime = BREAK_TIME_MAX;
+    enableVerticalMovement = iAllowVertical;
     if (c == BRICK) {
       sprite = brickSprite;
     } else if (c == STONE) {
@@ -33,7 +34,7 @@ class Block {
     }
   }
   Block() {
-    blockSetup(0, 0, BRICK, false, scrollPercentage, scrollSpeedChange, cracked);
+    blockSetup(0, 0, BRICK, moving, scrollPercentage, scrollSpeedChange, cracked, allowVerticalMovement);
     active = false;
   }
   void update() {
@@ -48,15 +49,23 @@ class Block {
     if (x > -globalScale) {
       x -= globalScrollSpeed;
     }
-    if (cracked && (x < player.x+globalScale && x+globalScale > player.x && y-1 < player.y+globalScale && y > player.y)) {
-      breakTime--;
-      if (breakTime < 0) {
-        active = false;
+    if (x < width) {
+      //Cracked break under player
+      if (cracked && (x < player.x+globalScale && x+globalScale > player.x && y-1 < player.y+globalScale && y > player.y)) {
+        breakTime--;
+        if (breakTime < 0) {
+          active = false;
+        }
       }
-    }
-    if (cracked && player.dashActive && player.Collision(x-1,y-1,size+2)){
-      active = false;
-      breakTime = 0;
+      //Cracked break because of dash
+      if (cracked && player.dashActive && player.Collision(x-1, y-1, size+2)) {
+        active = false;
+        breakTime = 0;
+      }
+      //Allow Vertical Movement
+      if (enableVerticalMovement) {
+        allowVerticalMovement = enableVerticalMovement;
+      }
     }
   }
   void moving() {
@@ -66,7 +75,7 @@ class Block {
     x += vx;
   }
   void draw() {
-    if (x < width) {
+    if (x < width && c != ALLOW_VERTICAL_MOVEMENT) {
       if (c == DIRT) {
         if (blockCollision(x+size/2, y-size/2, 1, id) == null) {
           sprite = grassSprite;
@@ -75,10 +84,10 @@ class Block {
         }
       }
       image(sprite, x, y);
-      if (cracked){
-      tint(255, ((BREAK_TIME_MAX-breakTime)/BREAK_TIME_MAX)*155+100);
-      image(crackedSprite, x, y);
-      tint(255);
+      if (cracked) {
+        tint(255, ((BREAK_TIME_MAX-breakTime)/BREAK_TIME_MAX)*155+100);
+        image(crackedSprite, x, y);
+        tint(255);
       }
     }
   }
