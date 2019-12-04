@@ -9,7 +9,7 @@
 //remember, ctrl+t
 
 float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance, coins = 0;
-final float MAX_SCROLL_SPEED = 9;
+final float MAX_SCROLL_SPEED = 7;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -61,7 +61,7 @@ void updateGame() {
   frameSpeed = 60/frameRate;
   time += 1 ;
   //ScrollSpeed
-  globalScrollSpeed = globalScale/60+ time/100000*globalScale;
+  globalScrollSpeed = time/100000*globalScale;
   globalScrollSpeed = constrain(globalScrollSpeed, 0, MAX_SCROLL_SPEED);
   if (player.x > 0) {
     globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.2, 5));
