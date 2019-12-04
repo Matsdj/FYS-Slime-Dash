@@ -225,7 +225,7 @@ class Upgrades {
           cooldown = COOLDOWN_UPGRADE;
           coins -= doubleJumpPrice;
           player.maxJumpAmount = 1;
-        } else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
+        } else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchUp && cooldown < 0 && perchTLState < 3) {
           println("gay"); 
           textAlign(CENTER);
           fill(0);
@@ -249,7 +249,7 @@ class Upgrades {
           fill(0);
           text("DASH COOLDOWN REDUCED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        } else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
+        } else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchUp && cooldown < 0 && perchTRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -274,7 +274,7 @@ class Upgrades {
           fill(0);
           text("HEALTH INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        } else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
+        } else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchDown && cooldown < 0 && perchBLState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -297,7 +297,7 @@ class Upgrades {
           fill(0);
           text("COIN VALUE INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        } else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
+        } else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchDown && cooldown < 0 && perchBRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
