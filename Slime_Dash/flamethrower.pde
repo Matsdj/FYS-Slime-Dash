@@ -1,6 +1,7 @@
 //collin
 final int FLAME_SPRITE_AMOUNT = 7;
 final int FLAME_ACTIVE_SPRITE_AMOUNT = 5;
+boolean burn = false;
 
 Flame[] flames;
 void flameSetup()
@@ -69,11 +70,18 @@ class Flame {
   //controleerd op player aanraking
   void update() {
     timeflame = timeflame+1;
-
+    if (burn == true) {
+      interfaces.health = interfaces.health-0.1;
+    }
+    if (player.dashActive==true) {
+      burn = false;
+    }
     if (timeflame>timeflamemax/2) {
-      if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0) {
-        player.enemyDamage=true;
-        player.dmgCooldown = player.DMG_COOLDOWN;
+      if ( player.hitboxCollision(x, y, size, size)) {
+        interfaces.health = interfaces.health-1;
+        if (player.dashActive==false) {
+          burn = true;
+        }
       }
       //animates flamethrower
       if (timeflame % (activeFlameFramesAmount/ FLAME_ACTIVE_SPRITE_AMOUNT) == 0) {
