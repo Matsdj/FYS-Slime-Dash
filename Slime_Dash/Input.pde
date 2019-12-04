@@ -8,6 +8,7 @@ void keyPressed() {
     inputs.append(keyCode);
     inputsPressed.append(keyCode);
   }
+  if(keyCode == ESC) key = 0;
 }
 void keyReleased() {
   if (inputs.hasValue(keyCode) == true) {

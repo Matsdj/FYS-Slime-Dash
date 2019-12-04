@@ -8,14 +8,14 @@
 
 //remember, ctrl+t
 
-float frameSpeed, globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance, coins = 0;
+float globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance, coins = 0;
 final float MAX_SCROLL_SPEED = 7;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
-boolean debug = false,
-allowVerticalMovement = false;
+boolean debug = false, 
+  allowVerticalMovement = false;
 final int COOLDOWN_MAX=15;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
@@ -57,8 +57,6 @@ void setup() {
 }
 //GAME
 void updateGame() {
-  //Doe alle snelheden x frameSpeed zodat wanneer de frames omlaag gaan het spel niet trager wordt
-  frameSpeed = 60/frameRate;
   time += 1 ;
   //ScrollSpeed
   globalScrollSpeed = 1+time/100000*globalScale;
@@ -78,7 +76,7 @@ void updateGame() {
   //Vertical Distance
   if (time > 60) {
     globalVerticalSpeed = floor(globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3)));
-    if (globalVerticalSpeed >= 0 && !allowVerticalMovement){
+    if (globalVerticalSpeed >= 0 && !allowVerticalMovement) {
       globalVerticalSpeed = 0;
     }
     if (VerticalDistance + globalVerticalSpeed <= 0) {
@@ -128,6 +126,14 @@ void drawGame() {
 }
 
 void draw() {
+  //ESC
+  if (inputsPressed.hasValue(ESC)) {
+    if (room == "mainM") {
+      exit();
+    } else {
+      room = "mainM";
+    }
+  }
   if (cooldown>-1) {
     cooldown--;
   }
