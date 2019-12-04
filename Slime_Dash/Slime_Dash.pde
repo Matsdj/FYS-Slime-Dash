@@ -61,7 +61,7 @@ void updateGame() {
   frameSpeed = 60/frameRate;
   time += 1 ;
   //ScrollSpeed
-  globalScrollSpeed = time/100000*globalScale;
+  globalScrollSpeed = 1+time/100000*globalScale;
   globalScrollSpeed = constrain(globalScrollSpeed, 0, MAX_SCROLL_SPEED);
   if (player.x > 0) {
     globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.2, 5));
