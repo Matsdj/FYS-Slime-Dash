@@ -67,6 +67,8 @@ class Block {
         allowVerticalMovement = enableVerticalMovement;
       }
     }
+    //Push away player
+    pushAwayPlayer();
   }
   void moving() {
     if (blockCollision(x+vx, y, size, id) != null) {
@@ -102,6 +104,17 @@ class Block {
         image(sprite, x, i);
       tint(255);
       backgroundBlocks +=1;
+    }
+  }
+  void pushAwayPlayer() {
+    if (dist(x+size/2, y+size/2, player.x+size/2, player.y+size/2) < size) {
+      float Cx = player.x-x;
+      float Cy = player.y-y;
+      float a = atan2(Cx, Cy);
+      while (player.Collision(x-4, y-4, size+8)) {
+        player.x += sin(a);
+        player.y += cos(a);
+      }
     }
   }
 }
