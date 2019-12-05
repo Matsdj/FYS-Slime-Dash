@@ -1,9 +1,9 @@
 //Mats
 Particle[] particles = new Particle[1000];
 
-void createParticle(float x, float y, float size, color kleur, float gravity, float speed, float count) {
+void createParticle(float x, float y, float size, color kleurMin, color kleurMax, float gravity, float speed, float count) {
   for (int i = 0; i < count; i++) {
-    particles[freeParticleIndex()].enableParticle(x, y, size, kleur, gravity, speed);
+    particles[freeParticleIndex()].enableParticle(x, y, size, kleurMin, kleurMax, gravity, speed);
   }
 }
 int freeParticleIndex() {
@@ -15,7 +15,7 @@ int freeParticleIndex() {
   }
   if (index == -1) {
     println("ERROR MAX("+particles.length+")ACTIVE PARTICLES REACHED");
-    index = particles.length;
+    index = particles.length-1;
   }
   return index;
 }
@@ -43,23 +43,29 @@ class Particle {
   float x, y, vx, vy, size, count, gravity, life;
   color kleur;
   boolean active = false;
-  final int LIFE_MAX = 120;
+  final int LIFE_MAX = 60;
 
-  void enableParticle(float ix, float iy, float iSize, color iKleur, float iGravity, float speed) {
+  void enableParticle(float ix, float iy, float iSize, color iKleurMin, color iKleurMax, float iGravity, float speed) {
     x = ix;
     y = iy;
     size = iSize;
-    kleur = iKleur;
+    float r = red(iKleurMin);
+    kleur = iKleurMin;
     gravity = iGravity;
     //Direction
     float a = random(-PI, PI);
+    speed = random(speed/10,speed);
     vx = sin(a)*speed;
-    vy = sin(a)*speed;
+    vy = cos(a)*speed;
     active = true;
     life = LIFE_MAX;
   }
   void update() {
-    x += vx+globalScrollSpeed;
+    if (blockCollision(x,y,size) != null){
+      vx = 0;
+      vy = 0;
+    }
+    x -= vx+globalScrollSpeed;
     y += vy+globalVerticalSpeed;
     vy += gravity;
     life--;

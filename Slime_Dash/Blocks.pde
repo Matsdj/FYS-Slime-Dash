@@ -55,12 +55,14 @@ class Block {
         breakTime--;
         if (breakTime < 0) {
           active = false;
+          createParticle(x, y, 10, color(100), color(0), 0.2, 5, 100);
         }
       }
       //Cracked break because of dash
       if (cracked && player.dashActive && player.Collision(x-1, y-1, size+2)) {
         active = false;
         breakTime = 0;
+        createParticle(x, y, 10, color(100), color(0), 0.2, 5, 100);
       }
       //Allow Vertical Movement
       if (enableVerticalMovement) {
@@ -68,7 +70,7 @@ class Block {
       }
     }
     //Push away player
-    pushAwayPlayer();
+    //pushAwayPlayer();
   }
   void moving() {
     if (blockCollision(x+vx, y, size, id) != null) {
@@ -159,7 +161,7 @@ int freeBlockIndex() {
   }
   if (index == -1) {
     println("ERROR MAX("+blocks.length+")ACTIVE BLOCKS REACHED");
-    index = blocks.length;
+    index = blocks.length-1;
   }
   return index;
 }

@@ -179,6 +179,5 @@ void draw() {
   debug();
   inputsPressedUpdate();
   //particle
-  createParticle(width/2, height/2, 10, color(255, 255, 0), 0.5, 5, 1);
   particleDraw();
 }
