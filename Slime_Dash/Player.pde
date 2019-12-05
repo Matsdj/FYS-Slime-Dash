@@ -13,10 +13,13 @@ class Player {
     movingBlockSpeed, 
     ySprite, 
     xSpriteL, 
-    xSpriteR;
+    xSpriteR, 
+    parSize, 
+    parGrav, 
+    parSpeed;
 
   int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
-  boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink;
+  boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
   final int DASH_COOLDOWN_START = 100;
@@ -57,6 +60,10 @@ class Player {
     deathFramerate = 0;
     maxJumpAmount = 0; // +1 this to activate dubble jump;
     jumpedAmount = 0;
+    smashedGround = false;
+    parSize = globalScale / 7;
+    parGrav = globalScale/256; 
+    parSpeed = globalScale/13;
   } 
 
   //player animation is done in this function. It looks if the player is looking left or right, and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
@@ -290,8 +297,18 @@ class Player {
       while (blockCollision(x, y+sign(vy), size) == null) {
         y += sign(vy);
       }
+      onGround = true;
+      //ground smash effect
+      if (onGround && vy > MAX_VY/1.2 && smashedGround) {
+        smashedGround = false;
+        createParticle(x + size/2, y + size/2, parSize, color(255, 0, 0), color(200, 0, 0), parGrav, parSpeed, 10);
+      }
+
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
+    } else { 
+      onGround = false;
+      smashedGround = true;
     }
 
     if (!dashActive) {
