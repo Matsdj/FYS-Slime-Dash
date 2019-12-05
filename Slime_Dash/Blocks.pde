@@ -119,7 +119,7 @@ class Block {
   }
 }
 //Lijst met blocks
-Block[] blocks = new Block[500];
+Block[] blocks = new Block[1000];
 //Loops through all the blocks to see if there is one at the given position
 Block blockCollision(float x, float y, float size, float blockId) {
   Block Collision = null;
