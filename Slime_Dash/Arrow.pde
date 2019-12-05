@@ -63,11 +63,13 @@ class Arrow {
     x += vx;
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
-    
-    if (player.hitboxCollision(x, y, aWidth, aHeight) && vx != 0) {
+
+    if (player.hitboxCollision(x, y, aWidth, aHeight) && vx != 0 &&player.dashActive==true) {
+      reset();
+    } else if (player.hitboxCollision(x, y, aWidth, aHeight) && vx != 0 && player.dashActive!=true) {
       player.enemyDamage = true;
       reset();
-    }
+    } 
     if (vx != 0 && blockCollision(x, y, aHeight) != null) {
       vx = 0;
     }
