@@ -107,13 +107,13 @@ class Block {
     }
   }
   void pushAwayPlayer() {
-    if (dist(x+size/2, y+size/2, player.x+size/2, player.y+size/2) < size) {
+    if (dist(x+size/2, y+size/2, player.x+player.size/2, player.y+player.size/2) < size*2) {
       float Cx = player.x-x;
       float Cy = player.y-y;
       float a = atan2(Cx, Cy);
-      while (player.Collision(x-4, y-4, size+8)) {
-        player.x += sin(a);
-        player.y += cos(a);
+      while (player.Collision(x+4, y, size-8)) {
+        player.x += sin(a)/2;
+        player.y += cos(a)/2;
       }
     }
   }
