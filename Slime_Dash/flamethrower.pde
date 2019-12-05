@@ -72,11 +72,11 @@ class Flame {
   //controleerd op player aanraking
   void update() {
     timeflame = timeflame+1;
-    if (burn == true&&burndamage <= totalburndamage*10) {
+    if (burn == true&&burndamage <= totalburndamage*60) {
       burndamage = burndamage +1;
       burntimer = burntimer+1;
-      if (burntimer >= 10) {
-        burntimer-=10;
+      if (burntimer >= 60) {
+        burntimer-=60;
         interfaces.health = interfaces.health-1;
       }
     }
