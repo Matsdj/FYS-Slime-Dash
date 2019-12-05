@@ -188,12 +188,11 @@ class HostileRanged {
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
 
-    if (player.Collision(x, y, size) && player.dashActive) {
+    if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       dead = true;
-    } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
-      createParticle(x, y, 10, color(255, 255, 0),0, 0.5, 5, 10);
+      createParticle(x, y, 10, color(255, 255, 0), 0, 0.5, 5, 10);
     } 
     if (dead) {
       reset();
