@@ -116,6 +116,7 @@ class HostileMelee {
     if (player.Collision(x, y, size) && player.dashActive) {
       dead = true;
       interfaces.health += (interfaces.swordDMG/2);
+      createParticle(x, y, 10, color(255, 0, 0), 0, 0.5, 5, 10);
     } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
@@ -192,6 +193,7 @@ class HostileRanged {
     } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
+      createParticle(x, y, 10, color(255, 255, 0),0, 0.5, 5, 10);
     } 
     if (dead) {
       reset();
