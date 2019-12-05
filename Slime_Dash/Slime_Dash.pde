@@ -14,7 +14,7 @@ final float MAX_SCROLL_SPEED = 7;
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
-boolean debug = false, 
+boolean debug = false,
   allowVerticalMovement = false;
 final int COOLDOWN_MAX=15;
 final int COOLDOWN_UPGRADE=30;
@@ -23,7 +23,7 @@ int cooldown;
 
 void setup() {
   size(1280, 720, P2D);
- // fullScreen(P2D);
+  // fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;
@@ -49,6 +49,7 @@ void setup() {
   mapSetup();
   upgradeSetup();
   difSetup();
+  particleSetup();
   //database
   //  CreateDatabaseConnection();
   //  GetUsers();
@@ -105,6 +106,7 @@ void updateGame() {
   blinkUpdate();
   //Overlay
   interfaces.update();
+  particleUpdate();
 }
 
 void drawGame() {
@@ -141,6 +143,8 @@ void draw() {
     cooldown=COOLDOWN_MAX;
   }
   soundUpdate();
+
+
   if (room == "pause") {
     pause.draw();
     pause.update();
@@ -175,6 +179,6 @@ void draw() {
   debug();
   inputsPressedUpdate();
   //particle
-  // ps.addParticle();
-  // ps.run();
+  createParticle(width/2, height/2, 10, color(255, 255, 0), 0.5, 5, 1);
+  particleDraw();
 }

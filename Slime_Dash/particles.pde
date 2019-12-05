@@ -1,91 +1,75 @@
-//Laurens
+//Mats
+Particle[] particles = new Particle[1000];
 
-ParticleSystem ps;
-class ParticleSystem {
-  ArrayList<Particle> particles;
-  PVector origin;
-
-  ParticleSystem(PVector position) {
-    origin = position.copy();
-    particles = new ArrayList<Particle>();
+void createParticle(float x, float y, float size, color kleur, float gravity, float speed, float count) {
+  for (int i = 0; i < count; i++) {
+    particles[freeParticleIndex()].enableParticle(x, y, size, kleur, gravity, speed);
   }
-
-  void addParticle() {
-    particles.add(new Particle(origin));
+}
+int freeParticleIndex() {
+  int index = -1;
+  for (int i = particles.length-1; i > 0; i--) {
+    if (particles[i].active == false) {
+      index = i;
+    }
   }
-
-  void run() {
-    for (int i = particles.size()-1; i >= 0; i--) {
-      Particle p = particles.get(i);
-      p.run();
-      if (p.isDead()) {
-        particles.remove(i);
-      }
+  if (index == -1) {
+    println("ERROR MAX("+particles.length+")ACTIVE PARTICLES REACHED");
+    index = particles.length;
+  }
+  return index;
+}
+void particleSetup() {
+  for (int i = 0; i < particles.length; i++) {
+    particles[i] = new Particle();
+  }
+}
+void particleUpdate() {
+  for (int i = 0; i < particles.length; i++) {
+    if (particles[i].active == true) {
+      particles[i].update();
+    }
+  }
+}
+void particleDraw() {
+  for (int i = 0; i < particles.length; i++) {
+    if (particles[i].active == true) {
+      particles[i].draw();
     }
   }
 }
 
-
-
-
 class Particle {
-  PVector position;
-  PVector velocity;
-  PVector acceleration;
-  float lifespan;
-  float size;
-  int partKleur;
+  float x, y, vx, vy, size, count, gravity, life;
+  color kleur;
+  boolean active = false;
+  final int LIFE_MAX = 120;
 
-  Particle(PVector ding) {
-    acceleration = new PVector(0, 0.05);
-    velocity = new PVector(random(-1, 1), random(-2, 0));
-    position = ding.copy();
-    lifespan = 255;
-    size=8;
-    partKleur = color(0);
+  void enableParticle(float ix, float iy, float iSize, color iKleur, float iGravity, float speed) {
+    x = ix;
+    y = iy;
+    size = iSize;
+    kleur = iKleur;
+    gravity = iGravity;
+    //Direction
+    float a = random(-PI, PI);
+    vx = sin(a)*speed;
+    vy = sin(a)*speed;
+    active = true;
+    life = LIFE_MAX;
   }
-
-  void run() {
-    update();
-    display();
-  }
-
-
   void update() {
-    velocity.add(acceleration);
-    position.add(velocity);
-    lifespan -= 1.0;
-    position.x -=globalScrollSpeed;
-    if ( blockCollision(position.x, position.y+velocity.y, size) !=null) {
-      while (blockCollision(position.x, position.y+sign(velocity.y), size) == null) {
-        position.y += sign(velocity.y);
-      }
-      acceleration.y=0;
-      velocity.y =0;
-    }
-    if ( blockCollision(position.x+velocity.x, position.y, size) !=null) {
-      while (blockCollision(position.x+sign(velocity.x), position.y, size) == null) {
-        position.x += sign(velocity.x);
-      }
-      acceleration.x=0;
-      velocity.x =0;
+    x += vx+globalScrollSpeed;
+    y += vy+globalVerticalSpeed;
+    vy += gravity;
+    life--;
+    if (life <= 0) {
+      active = false;
     }
   }
-
-  void display() {
+  void draw() {
     noStroke();
-    partKleur++;
-    fill(partKleur, lifespan);
-    rect(position.x, position.y, size, size);
-    //text("boop",position.x, position.y);
-  }
-
-
-  boolean isDead() {
-    if (lifespan < 0.0||position.x<0) {
-      return true;
-    } else {
-      return false;
-    }
+    fill(kleur);
+    rect(x, y, size, size);
   }
 }
