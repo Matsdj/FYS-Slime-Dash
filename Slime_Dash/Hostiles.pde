@@ -192,7 +192,7 @@ class HostileRanged {
       dead = true;
       player.enemyDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
-      createParticle(x, y, 10, color(255, 255, 0), 0, 0.5, 5, 10);
+      createParticle(x, y, 10, color(255, 0, 0), 0, 0.5, 5, 10);
     } 
     if (dead) {
       reset();
