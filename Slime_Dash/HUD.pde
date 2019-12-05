@@ -103,14 +103,14 @@ class HUD {
       /*stops player movement*/
       player.moveSpeed = 0;
       //Q om naar main menu te gaan
-      if (keyCode ==81) {
+      if (keyCode ==77) {
         Dede.stop();
         setup();
         room= "mainM";
       }
     }
     /* B om te resetten*/
-    if (death ==true && inputs.hasValue(32)==true && room=="game") {
+    if (death ==true && inputs.hasValue(66)==true && room=="game") {
       death = false;
       Dede.stop();
       setup();
@@ -120,7 +120,7 @@ class HUD {
       march[2]= true;
       march[3]= true;
     }
-    if (death ==true && inputs.hasValue(32)==true && room=="game2") {
+    if (death ==true && inputs.hasValue(66)==true && room=="game2") {
       death = false;
       Dede.stop();
       setup();
@@ -189,13 +189,13 @@ class HUD {
     text("score " + floor(score), gOverX, gOverY+100);
     textAlign(LEFT);
     textSize(main.tekstSize[2]);
-    fill(255, 0, 0, goFadeIn);
-    text("A", main.tekstX, main.tekstY*2.8);
+    fill(255, goFadeIn);
+    text("Sta", main.tekstX, main.tekstY*2.8);
     fill(0, goFadeIn);
-    text("  " +"Retry", main.tekstX, main.tekstY*2.8);
-    fill(255, 255, 0, goFadeIn);
-    text("B", main.tekstX*2, main.tekstY*2.8);
+    text("  " +"Retry", main.tekstX+50, main.tekstY*2.8);
+    fill(255, goFadeIn);
+    text("Sel", main.tekstX*2, main.tekstY*2.8);
     fill(0, goFadeIn);
-    text("  "+"Menu", main.tekstX*2, main.tekstY*2.8);
+    text("  "+"Menu", main.tekstX*2+50, main.tekstY*2.8);
   }
 }
