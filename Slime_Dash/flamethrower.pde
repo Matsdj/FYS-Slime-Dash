@@ -72,7 +72,7 @@ class Flame {
   //controleerd op player aanraking
   void update() {
     timeflame = timeflame+1;
-    if (burn == true&&burndamage >= totalburndamage*10) {
+    if (burn == true&&burndamage <= totalburndamage*10) {
       burndamage = burndamage +1;
       burntimer = burntimer+1;
       if (burntimer >= 10) {
