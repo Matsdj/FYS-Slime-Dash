@@ -49,8 +49,11 @@ class Particle {
     x = ix;
     y = iy;
     size = iSize;
-    float r = red(iKleurMin);
-    kleur = iKleurMin;
+    float per = random(1);
+    float r = min(red(iKleurMin),red(iKleurMax))+ per *(max(red(iKleurMin),red(iKleurMax))-min(red(iKleurMin),red(iKleurMax)));
+    float g = min(green(iKleurMin),green(iKleurMax))+ per *(max(green(iKleurMin),green(iKleurMax))-min(green(iKleurMin),green(iKleurMax)));
+    float b = min(blue(iKleurMin),blue(iKleurMax))+ per *(max(blue(iKleurMin),blue(iKleurMax))-min(blue(iKleurMin),blue(iKleurMax)));
+    kleur = color(r,g,b);
     gravity = iGravity;
     //Direction
     float a = random(-PI, PI);
