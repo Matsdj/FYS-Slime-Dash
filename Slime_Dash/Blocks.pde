@@ -55,7 +55,7 @@ class Block {
         breakTime--;
         if (breakTime < 0) {
           active = false;
-          createParticle(x, y, 10, color(100), color(0), 0.2, 5, 100);
+          createParticle(x, y, 10, color(100), color(200), 0.2, 5, 100);
         }
       }
       //Cracked break because of dash
