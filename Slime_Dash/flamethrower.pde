@@ -2,8 +2,9 @@
 final int FLAME_SPRITE_AMOUNT = 7;
 final int FLAME_ACTIVE_SPRITE_AMOUNT = 5;
 boolean burn = false;
-float burndamage = 0;
-float totalburndamage = 15;
+int burndamage = 0;
+int totalburndamage = 15;
+int burntimer = 0;
 Flame[] flames;
 void flameSetup()
 {
@@ -71,9 +72,13 @@ class Flame {
   //controleerd op player aanraking
   void update() {
     timeflame = timeflame+1;
-    if (burn == true&&burndamage >= totalburndamage) {
-      interfaces.health = interfaces.health-0.1;
-      burndamage = burndamage +0.1;
+    if (burn == true&&burndamage >= totalburndamage*10) {
+      burndamage = burndamage +1;
+      burntimer = burntimer+1;
+      if (burntimer >= 10) {
+        burntimer-=10;
+        interfaces.health = interfaces.health-1;
+      }
     }
     if (player.dashActive==true) {
       burn = false;
