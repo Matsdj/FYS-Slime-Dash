@@ -301,7 +301,7 @@ class Player {
       //ground smash effect
       if (onGround && vy > MAX_VY/1.2 && smashedGround) {
         smashedGround = false;
-        createParticle(x + size/2, y + size/2, parSize, color(255, 0, 0), color(200, 0, 0), parGrav, parSpeed, 10);
+        createParticle(x + size/2, y + size/2, parSize, color(#FF9455), color(#FF5555), parGrav, parSpeed, 10);
       }
 
       vy = 0;
