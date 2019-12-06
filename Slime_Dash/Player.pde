@@ -8,15 +8,8 @@ void playerSetup() {
 Player player;
 class Player {
   float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
-    dashSpeed, 
-    slowDown, 
-    movingBlockSpeed, 
-    ySprite, 
-    xSpriteL, 
-    xSpriteR, 
-    parSize, 
-    parGrav, 
-    parSpeed;
+    dashSpeed, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
+    parGrav, parSpeed, preHealth, afterHealth;
 
   int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
@@ -27,7 +20,7 @@ class Player {
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
   final int PLAYER_FRAME_AMOUNT = 4;
-  final int DMG_BLINK_FRAMERATE = 10;
+  final int DMG_BLINK_FRAMERATE = 5;
 
   final float JUMPSPEED = globalScale/2.3; //jump force
   final float DASHSPEED = globalScale/1.6; //dash speed
@@ -73,7 +66,7 @@ class Player {
     xSpriteR = x - pushPlayerSpriteR;
 
     //switches between dmg sprites, causing a blink effect
-    if (dmgCooldown >= 0) {
+    if (afterHealth > preHealth) {
       if (dmgCooldown % (DMG_BLINK_FRAMERATE*2) == 0) {
         dmgBlink = true;
       } else if (dmgCooldown % DMG_BLINK_FRAMERATE == 0) {
