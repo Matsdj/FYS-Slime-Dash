@@ -22,8 +22,8 @@ int cooldown;
 
 
 void setup() {
-  // size(1280, 720, P2D);
-  fullScreen(P2D);
+  size(1280, 720, P2D);
+  //fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;

@@ -20,7 +20,7 @@ class Player {
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
   final int PLAYER_FRAME_AMOUNT = 4;
-  final int DMG_BLINK_FRAMERATE = 5;
+  final int DMG_BLINK_FRAMERATE = 6;
 
   final float JUMPSPEED = globalScale/2.3; //jump force
   final float DASHSPEED = globalScale/1.6; //dash speed
@@ -66,11 +66,12 @@ class Player {
     xSpriteR = x - pushPlayerSpriteR;
 
     //switches between dmg sprites, causing a blink effect
-    if (afterHealth > preHealth) {
+    if (afterHealth > preHealth || dmgCooldown > 0) {
       if (dmgCooldown % (DMG_BLINK_FRAMERATE*2) == 0) {
         dmgBlink = true;
       } else if (dmgCooldown % DMG_BLINK_FRAMERATE == 0) {
         dmgBlink = false;
+        println("yes");
       }
     } else dmgBlink = true;
 
@@ -105,7 +106,7 @@ class Player {
     }
 
     //damaged animatie
-    else if (dmgCooldown >=0 && moveLeft) {
+    else if ((afterHealth > preHealth || dmgCooldown >=0) && moveLeft) {
       //makes player blink white when damaged
       pushMatrix();
       scale(-1.0, 1.0);
@@ -115,7 +116,7 @@ class Player {
         image(playerDmgBlink, -xSpriteL-playerSprite[0].width, ySprite);
       }
       popMatrix();
-    } else if (dmgCooldown >=0 && !moveLeft) {
+    } else if ((afterHealth > preHealth || dmgCooldown >=0) && !moveLeft) {
       if (!dmgBlink) {
         image(playerSprite[6], xSpriteR, ySprite);
       } else if (dmgBlink) {
