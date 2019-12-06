@@ -243,17 +243,17 @@ class Player {
       }
 
       //Dash abilty
-      if (inputs.hasValue(90) == true && (inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) && dashCooldown < 0 || dashActive && dashTime > 0 && moving) {
+      if (inputs.hasValue(90) == true && dashCooldown < 0 || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
           DashSlime.rate(random(0.8, 1.2)); 
           DashSlime.play();
         }
 
         //looks if you are moving right or left
-        if (inputs.hasValue(LEFT) == true) {
+        if (moveLeft) {
           vx = -DASHSPEED;
         }
-        if (inputs.hasValue(RIGHT) == true) {
+        if (!moveLeft) {
           vx = DASHSPEED;
         }
         dashCooldown = dashCooldownReset;
