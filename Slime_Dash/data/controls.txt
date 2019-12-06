@@ -1,0 +1,13 @@
+voor: mainM, difficulty, pause
+spatie = door  
+
+voor: upgrades, difficulty, game(2)
+Q = terug
+ 
+voor: game over
+B = retry
+m = mainM
+
+voor:game
+p = pause
+z = dash
