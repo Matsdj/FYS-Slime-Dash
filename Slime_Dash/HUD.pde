@@ -75,8 +75,6 @@ class HUD {
       healthC = color(255, 0, 0);
     }
     
-    player.preHealth = health; //looks what the health is before dmg
-    
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true&& death==false) {
       player.enemyDamage= false;
@@ -87,8 +85,6 @@ class HUD {
       health = health-(swordDMG*healthMult);
       health = health-(MagicBarricadeDMG*healthMult);
     }
-    
-    player.afterHealth = health; //looks what the health is after dmg
 
     //dash bar
     dashL2 = constrain(-player.dashCooldown*50, 0, dashL);

@@ -94,6 +94,7 @@ void updateGame() {
   bgUpdate();
   hordeUpdate();
   blockUpdate();
+  //Obstacles
   spikeUpdate();
   pickupUpdate();
   flameUpdate();
@@ -101,12 +102,12 @@ void updateGame() {
   //Moving Enemy
   arrowUpdate();
   hostileUpdate();
-  //Player
-  player.update();
-  blinkUpdate();
   //Overlay
   interfaces.update();
   particleUpdate();
+  //Player
+  player.update();
+  blinkUpdate();
 }
 
 void drawGame() {

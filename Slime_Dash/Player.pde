@@ -9,7 +9,7 @@ Player player;
 class Player {
   float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
     dashSpeed, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
-    parGrav, parSpeed, preHealth, afterHealth;
+    parGrav, parSpeed;
 
   int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
@@ -66,12 +66,11 @@ class Player {
     xSpriteR = x - pushPlayerSpriteR;
 
     //switches between dmg sprites, causing a blink effect
-    if (afterHealth > preHealth || dmgCooldown > 0) {
+    if (burn || dmgCooldown > 0) {
       if (dmgCooldown % (DMG_BLINK_FRAMERATE*2) == 0) {
         dmgBlink = true;
       } else if (dmgCooldown % DMG_BLINK_FRAMERATE == 0) {
         dmgBlink = false;
-        println("yes");
       }
     } else dmgBlink = true;
 
@@ -85,16 +84,6 @@ class Player {
       image(playerSprite[5], xSpriteR, ySprite);
     }
 
-    //jump animation
-    else if (vy != 0 && moveLeft) {
-      pushMatrix();
-      scale(-1.0, 1.0);
-      image(playerSprite[4], -xSpriteL-playerSprite[0].width, ySprite);
-      popMatrix();
-    } else if (vy != 0 && !moveLeft) {
-      image(playerSprite[4], xSpriteR, ySprite);
-    }
-
     //death animatie
     else if (interfaces.death && moveLeft) {
       pushMatrix();
@@ -106,7 +95,7 @@ class Player {
     }
 
     //damaged animatie
-    else if ((afterHealth > preHealth || dmgCooldown >=0) && moveLeft) {
+    else if ((burn || dmgCooldown >=0) && moveLeft) {
       //makes player blink white when damaged
       pushMatrix();
       scale(-1.0, 1.0);
@@ -116,12 +105,22 @@ class Player {
         image(playerDmgBlink, -xSpriteL-playerSprite[0].width, ySprite);
       }
       popMatrix();
-    } else if ((afterHealth > preHealth || dmgCooldown >=0) && !moveLeft) {
+    } else if ((burn || dmgCooldown >=0) && !moveLeft) {
       if (!dmgBlink) {
         image(playerSprite[6], xSpriteR, ySprite);
       } else if (dmgBlink) {
         image(playerDmgBlink, xSpriteR, ySprite);
       }
+    }
+
+    //jump animation
+    else if (vy != 0 && moveLeft) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(playerSprite[4], -xSpriteL-playerSprite[0].width, ySprite);
+      popMatrix();
+    } else if (vy != 0 && !moveLeft) {
+      image(playerSprite[4], xSpriteR, ySprite);
     }
 
     //walking animatie
