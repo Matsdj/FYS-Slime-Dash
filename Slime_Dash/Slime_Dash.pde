@@ -14,7 +14,7 @@ final float MAX_SCROLL_SPEED = 7;
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
-boolean debug = false,
+boolean debug = false, 
   allowVerticalMovement = false;
 final int COOLDOWN_MAX=15;
 final int COOLDOWN_UPGRADE=30;
@@ -22,7 +22,7 @@ int cooldown;
 
 
 void setup() {
- // size(1280, 720, P2D);
+  // size(1280, 720, P2D);
   fullScreen(P2D);
   smooth(0);
   frameRate(60);
@@ -115,6 +115,7 @@ void drawGame() {
   drawBackgroundBlocks();
   hostileDraw();
   blinkDraw();
+  particleDraw();
   player.draw();
   spikeDraw();
   blockDraw();
@@ -179,5 +180,4 @@ void draw() {
   debug();
   inputsPressedUpdate();
   //particle
-  particleDraw();
 }
