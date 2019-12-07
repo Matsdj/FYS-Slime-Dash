@@ -67,6 +67,7 @@ class Arrow {
     if (player.hitboxCollision(x, y, aWidth, aHeight) && vx != 0 &&player.dashActive==true) {
       reset();
     } else if (player.hitboxCollision(x, y, aWidth, aHeight) && vx != 0 && player.dashActive!=true) {
+      interfaces.arrowDamage=true;
       player.enemyDamage = true;
       reset();
     } 

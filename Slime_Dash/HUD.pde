@@ -6,7 +6,14 @@ void interfacesSetup() {
 HUD interfaces;
 class HUD {
   //DAMAGE NUMBERS/////////////////////////////////////
-  int swordDMG = 20;
+  boolean meleeDamage = false;
+  boolean arrowDamage = false;
+  boolean archerDamage = false;
+  boolean spikeDamage = false;
+  int meleeDMGnum = 20;
+  int arrowDMGnum = 10;
+  int archerDMGnum = 20;
+  int spikeDMGnum = 10;
   //healthbar
   int noHealth;
   float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight, healthMult, health;
@@ -74,16 +81,32 @@ class HUD {
     } else {
       healthC = color(255, 0, 0);
     }
-    
+
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true&& death==false) {
-      player.enemyDamage= false;
       damage.play();
-      healthC = color(255);
       /*verander deze om enemy damage aan te passen*/
       //healthMult is voor de damageReduction als je een upgrade koopt
-      health = health-(swordDMG*healthMult);
-      health = health-(MagicBarricadeDMG*healthMult);
+      if (meleeDamage==true) {
+        health = health-(meleeDMGnum*healthMult);
+        meleeDamage=false;
+      }
+      // health = health-(MagicBarricadeDMG*healthMult);
+      if ( arrowDamage==true) {
+        health = health-(arrowDMGnum*healthMult);
+        arrowDamage=false;
+      }      
+      if ( archerDamage==true) {
+        health = health-(archerDMGnum*healthMult);
+        archerDamage=false;
+      }      
+      if ( spikeDamage==true) {
+        health = health-(spikeDMGnum*healthMult);
+        spikeDamage=false;
+      }
+
+      player.enemyDamage= false;
+      healthC = color(255);
     }
 
     //dash bar
