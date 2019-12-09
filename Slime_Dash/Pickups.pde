@@ -2,8 +2,8 @@
 PCoin[] CoinList;
 PHealth[] HealthList;
 
-final int PICKUP_AMOUNT = 20;
-final int GAIN_HEALTH = 20;
+final int PICKUP_AMOUNT = 2;
+final int GAIN_HEALTH = 2;
 int coinValue = 1;
 
 void pickupSetup() {
@@ -61,7 +61,6 @@ void pickupDraw() {
 
 class PCoin {
   float x, y, size;
-  float collisionCorrector = 0.5;
   boolean pickedUp, isActive = false;
   color c = color(255, 255, 0);
 
@@ -86,13 +85,14 @@ class PCoin {
   void update() {
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
-    if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
-      pickedUp = true;
-    }
-    // score update bij pickup van coin & reset terug naar false zodat er opnieuw een coin opgepakt kan worden
-    if (pickedUp) {
+    
+    if (player.Collision(x - (0.5 * globalScale), y - (0.5 * globalScale), size)) {
       reset();
       coins += coinValue;
+    }
+    
+    if (x < 0 - globalScale * 2) {
+      reset();
     }
   }
 
@@ -130,12 +130,14 @@ class PHealth {
   void update() {
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
+    
     if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
-      pickedUp = true;
-    }
-    if (pickedUp) {
       reset();
       interfaces.health += GAIN_HEALTH;
+    }
+    
+    if (x < 0 - globalScale * 2) {
+      reset();
     }
   }
   void draw() {
