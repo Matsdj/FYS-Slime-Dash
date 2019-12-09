@@ -83,16 +83,13 @@ void makeMap(PImage template) {
       color col = mapTemplate.pixels[loc];
       if (col == COLOR_SAME_RANDOM) {
         colSameChance = mapTemplate.pixels[loc+1];
-        println(red(colSameChance), green(colSameChance), blue(colSameChance), alpha(colSameChance));
         if (random(255) <= alpha(mapTemplate.pixels[loc+1])) {
           colAllow = true;
         }
-        println(colAllow);
       }
       if (col == colSameChance) {
         if (colAllow) {
           col = color(red(col), green(col), blue(col), 255);
-          println("new Color",red(col), green(col), blue(col), alpha(col));
         } else {
           col = color(255, 0);
         }
