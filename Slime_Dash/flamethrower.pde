@@ -71,6 +71,7 @@ class Flame {
 
   //controleerd op player aanraking
   void update() {
+    println(burn);
     timeflame = timeflame+1;
     if (burn == true&&burndamage <= totalburndamage*60) {
       burndamage = burndamage +1;
@@ -80,7 +81,8 @@ class Flame {
         interfaces.health = interfaces.health-1;
       }
       createParticle(player.x+(player.hitSize/2), player.y+(player.hitSize/2), 5, color(#FFF300), color(#FF9900), -.05, 2, 1);
-    }
+    } else burn = false;
+
     if (player.dashActive==true && burn == true) {
       burn = false;
       createParticle(player.x+(player.hitSize/2), player.y+(player.hitSize/2), 15, color(#FFF300), color(#FF9900), -.2, 2, 3);
