@@ -24,7 +24,7 @@ final color HOSTILE_RANGED = color(255, 0, 150);
 final color MAGIC_SWITCH = color(255,0,255);
 final color MAGIC1 = color(255,1,255);
 final color MAGIC2 = color(255,2,255);
-final color ALLOW_VERTICAL_MOVEMENT = color(255,255,255);
+final color ALLOW_VERTICAL_MOVEMENT = color(0,0,255);
 
 //Setup allows for reset
 void mapSetup() {
