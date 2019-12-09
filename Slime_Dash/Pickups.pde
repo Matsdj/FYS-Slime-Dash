@@ -2,7 +2,7 @@
 PCoin[] CoinList;
 PHealth[] HealthList;
 
-final int PICKUP_AMOUNT = 20;
+final int PICKUP_AMOUNT = 100;
 final int GAIN_HEALTH = 20;
 int coinValue = 1;
 
