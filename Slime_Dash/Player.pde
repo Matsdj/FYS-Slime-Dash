@@ -361,8 +361,9 @@ class Player {
 
 //Dash Blink////////////////////////////////////////
 
-final int MAX_BLINK_AMOUNT = 10;
+final int MAX_BLINK_AMOUNT = 15;
 final int BLINK_FRAMERATE = 2; 
+final int WALK_BLINK_FRAMERATE = 3; 
 
 dashBlinks[] dashBlink;
 
@@ -373,10 +374,10 @@ void blinkSetup() {
   }
 }
 
-void blinkUpdate() {
+void blinkUpdate() { 
   //adds new dash blink every given frame amount while the dash is active
   for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
-    if (player.dashActive && !dashBlink[iBlink].isActive && player.dashTime % BLINK_FRAMERATE == 0) {
+    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown < 0 && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive) {
       dashBlink[iBlink].activate();
       break;
     }
@@ -398,10 +399,11 @@ void blinkDraw() {
 }
 
 class dashBlinks {
-  final int DASH_BLINK_FADE_V = 20;
+  final int DASH_BLINK_FADE_V = 15;
+  final int WALK_BLINK_FADE_V = 30;
 
   int dashBlinkCooldown;
-  boolean isActive, pointLeft;
+  boolean isActive, pointLeft, isDashing;
   float x, y;
 
   dashBlinks() {
@@ -427,10 +429,19 @@ class dashBlinks {
       pointLeft = false;
       x = player.xSpriteR;
     }
+
+    if (player.dashActive) {
+      isDashing = true;
+    } else
+      isDashing = false;
   }
 
   void update() {
-    dashBlinkCooldown -= DASH_BLINK_FADE_V;
+    if (isDashing) {
+      dashBlinkCooldown -= DASH_BLINK_FADE_V;
+    } else
+      dashBlinkCooldown -= WALK_BLINK_FADE_V;
+
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
 
@@ -447,10 +458,16 @@ class dashBlinks {
     if (pointLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerDashBlink, -x-playerDashBlink.width, y);
+      if (isDashing) {
+        image(playerDashBlink, -x-playerDashBlink.width, y);
+      } else
+        image(playerWalkBlink, -x-playerWalkBlink.width, y);
       popMatrix();
     } else {
-      image(playerDashBlink, x, y);
+      if (isDashing) {
+        image(playerDashBlink, x, y);
+      } else
+        image(playerWalkBlink, x, y);
     }
     tint(255);
   }

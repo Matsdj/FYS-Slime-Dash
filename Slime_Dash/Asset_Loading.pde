@@ -5,6 +5,7 @@ PImage enemyDeathSprite;
 PImage[] playerSprite;
 PImage playerDmgBlink;
 PImage playerDashBlink;
+PImage playerWalkBlink;
 PImage[] flamethrowerSprite;
 PImage spikeSprite;
 PImage[] bgHouse;
@@ -102,6 +103,14 @@ public void assetSetup() {
   playerDmgBlink.resize(playerSpriteWidth, playerSpriteHeight);
   playerDashBlink = loadImage("sprites/player/playerDashBlink.png");
   playerDashBlink.resize(playerSpriteWidth, playerSpriteHeight);
+  playerWalkBlink = loadImage("sprites/player/player0.png");
+  playerWalkBlink.resize(playerSpriteWidth, playerSpriteHeight);
+  playerWalkBlink.loadPixels();
+  for (int iPixel = 0; iPixel < playerWalkBlink.pixels.length; iPixel++) {
+    if (alpha(playerWalkBlink.pixels[iPixel]) > 0) {
+      playerWalkBlink.pixels[iPixel] = color(255);
+    }
+  }
 
   flamethrowerSprite = new PImage[FLAME_SPRITE_AMOUNT];
   for (int iSprite = 0; iSprite < FLAME_SPRITE_AMOUNT; iSprite++) {
