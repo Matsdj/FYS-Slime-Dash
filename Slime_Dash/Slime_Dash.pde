@@ -8,7 +8,7 @@
 
 //remember, ctrl+t
 
-float globalScale, globalScrollSpeed, time, globalVerticalSpeed, VerticalDistance, coins = 0;
+float globalScale, globalScrollSpeed, time, globalVerticalSpeed, playerCatchUp, VerticalDistance, coins = 0;
 final float MAX_SCROLL_SPEED = 7;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
@@ -62,8 +62,9 @@ void updateGame() {
   //ScrollSpeed
   globalScrollSpeed = 1+time/100000*globalScale;
   globalScrollSpeed = constrain(globalScrollSpeed, 0, MAX_SCROLL_SPEED);
+  playerCatchUp = player.DASHSPEED*(pow(player.x, 5)/pow(width*1.2, 5));
   if (player.x > 0) {
-    globalScrollSpeed += player.DASHSPEED*(pow(player.x, 5)/pow(width*1.2, 5));
+    globalScrollSpeed += playerCatchUp;
   }
   //tutorial mode
   if (room == "game2") {
