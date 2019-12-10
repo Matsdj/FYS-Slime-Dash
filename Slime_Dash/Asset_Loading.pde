@@ -3,7 +3,7 @@ PImage[] archerSprite;
 PImage arrowSprite;
 PImage enemyDeathSprite;
 PImage[] playerSprite;
-PImage playerDmgBlink;
+PImage[] playerBlinkSprite;
 PImage playerDashBlink;
 PImage playerWalkBlink;
 PImage[] flamethrowerSprite;
@@ -94,13 +94,21 @@ public void assetSetup() {
   arrowSprite.resize(arrowSpriteWidth, arrowSpriteHeight);
 
   playerSprite = new PImage[PLAYER_FRAME_AMOUNT];
+  playerBlinkSprite = new PImage[PLAYER_FRAME_AMOUNT];
   for (int iSprite = 0; iSprite < PLAYER_FRAME_AMOUNT; iSprite++) {
     playerSprite[iSprite] = loadImage("sprites/player/player"+ iSprite +".png");
     playerSprite[iSprite].resize(playerSpriteWidth, playerSpriteHeight);
+
+    playerBlinkSprite[iSprite] = loadImage("sprites/player/player"+ iSprite +".png");
+    playerBlinkSprite[iSprite].resize(playerSpriteWidth, playerSpriteHeight);
+
+    for (int iPixel = 0; iPixel < playerBlinkSprite[iSprite].pixels.length; iPixel++) {
+      if (alpha(playerBlinkSprite[iSprite].pixels[iPixel]) > 0) {
+        playerBlinkSprite[iSprite].pixels[iPixel] = color(255, 10, 10);
+      }
+    }
   }
 
-  playerDmgBlink = loadImage("sprites/player/playerDamageBlink.png");
-  playerDmgBlink.resize(playerSpriteWidth, playerSpriteHeight);
   playerDashBlink = loadImage("sprites/player/playerDashBlink.png");
   playerDashBlink.resize(playerSpriteWidth, playerSpriteHeight);
   playerWalkBlink = loadImage("sprites/player/player0.png");

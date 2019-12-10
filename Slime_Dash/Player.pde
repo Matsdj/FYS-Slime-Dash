@@ -1,6 +1,6 @@
 //Chris (met een beetje hulp van mats)
 
-final int PLAYER_FRAME_AMOUNT = 10;
+final int PLAYER_FRAME_AMOUNT = 11;
 void playerSetup() {
   player = new Player();
 }
@@ -11,7 +11,7 @@ class Player {
     dashSpeed, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
     parGrav, parSpeed;
 
-  int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, walkFrameCounter, deathFrameCounter, deathFramerate, jumpedAmount;
+  int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
@@ -19,7 +19,8 @@ class Player {
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
-  final int PLAYER_FRAME_AMOUNT = 4;
+  final int PLAYER_WALK_FRAME_AMOUNT = 4;
+  final int PLAYER_DEATH_FRAME_MAX = 10;
   final int DMG_BLINK_FRAMERATE = 6;
 
   final float JUMPSPEED = globalScale/2.3; //jump force
@@ -33,6 +34,7 @@ class Player {
   final float MAX_VY = globalScale/2;
 
   Player() {
+    deathFramerate = 0;
     size = globalScale-1;
     x = globalScale * 4; //spawn cords
     y = globalScale * 2;
@@ -48,8 +50,7 @@ class Player {
     dmgCooldown = 0;
     enemyDamage = false;
     moveLeft = false;
-    walkFrameCounter = 0;
-    deathFrameCounter = 0;
+    frameCounter = 0;
     deathFramerate = 0;
     maxJumpAmount = 0; // +1 this to activate dubble jump;
     jumpedAmount = 0;
@@ -75,72 +76,49 @@ class Player {
     } else dmgBlink = true;
 
     //dash animation
-    if (dashActive && moveLeft) {
-      pushMatrix();
-      scale(-1.0, 1.0);
-      image(playerSprite[5], -xSpriteL-playerSprite[0].width, ySprite);
-      popMatrix();
-    } else if (dashActive && !moveLeft) {
-      image(playerSprite[5], xSpriteR, ySprite);
+    if (dashActive) {
+      frameCounter = 5;
     }
 
     //death animatie
-    else if (interfaces.death && moveLeft) {
-      pushMatrix();
-      scale(-1.0, 1.0);
-      image(playerSprite[6+deathFrameCounter], -xSpriteL-playerSprite[0].width, ySprite);
-      popMatrix();
-    } else if (interfaces.death && !moveLeft) {
-      image(playerSprite[6+deathFrameCounter], xSpriteR, ySprite);
+    else if (interfaces.death) {
+      deathFramerate++;
+      if (deathFramerate % ANIMATION_FRAMERATE==0 && frameCounter != PLAYER_DEATH_FRAME_MAX-1) {
+        frameCounter++;
+      }
+      if (frameCounter < 7 || frameCounter > 9) {
+        frameCounter = 6;
+      }
     }
 
     //damaged animatie
-    else if ((burn || dmgCooldown >=0) && moveLeft) {
+    else if (burn || dmgCooldown >=0) {
       //makes player blink white when damaged
-      pushMatrix();
-      scale(-1.0, 1.0);
       if (!dmgBlink) {
-        image(playerSprite[6], -xSpriteL-playerSprite[0].width, ySprite);
+        frameCounter = 6;
       } else if (dmgBlink) {
-        image(playerDmgBlink, -xSpriteL-playerSprite[0].width, ySprite);
+        frameCounter = 10;
       }
-      popMatrix();
-    } else if ((burn || dmgCooldown >=0) && !moveLeft) {
-      if (!dmgBlink) {
-        image(playerSprite[6], xSpriteR, ySprite);
-      } else if (dmgBlink) {
-        image(playerDmgBlink, xSpriteR, ySprite);
-      }
-    }
-
-    //jump animation
-    else if (vy != 0 && moveLeft) {
-      pushMatrix();
-      scale(-1.0, 1.0);
-      image(playerSprite[4], -xSpriteL-playerSprite[0].width, ySprite);
-      popMatrix();
-    } else if (vy != 0 && !moveLeft) {
-      image(playerSprite[4], xSpriteR, ySprite);
-    }
-
-    //walking animatie
-    else if (moving && inputs.hasValue(LEFT) == true) {
-      pushMatrix();
-      scale(-1.0, 1.0);
-      image(playerSprite[walkFrameCounter], -xSpriteL-playerSprite[0].width, ySprite);
-      popMatrix();
-    } else if (moving && inputs.hasValue(RIGHT) == true) {
-      image(playerSprite[walkFrameCounter], xSpriteR, ySprite);
     } 
 
+    //jump animation
+    else if (vy != 0) {
+      frameCounter = 4;
+    } 
+
+    //walking animatie
+    else if (moving && inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) {
+      if (frameCount % ANIMATION_FRAMERATE == 0) {
+        frameCounter++;
+      }
+      if (frameCounter >= PLAYER_WALK_FRAME_AMOUNT) {
+        frameCounter = 0;
+      }
+    }
+
     //stand still animatie
-    else if (moveLeft && !moving) {
-      pushMatrix();
-      scale(-1.0, 1.0);
-      image(playerSprite[0], -xSpriteL-playerSprite[0].width, ySprite);
-      popMatrix();
-    } else if (!moveLeft && !moving) {
-      image(playerSprite[0], xSpriteR, ySprite);
+    else if (!moving) {
+      frameCounter = 0;
     }
   }
 
@@ -318,22 +296,6 @@ class Player {
     if (x + size < 0) {
       interfaces.death = true;
     }
-
-    //player animation updates
-    if (frameCount % ANIMATION_FRAMERATE == 0) {
-      walkFrameCounter++;
-    }
-    if (walkFrameCounter == PLAYER_FRAME_AMOUNT) {
-      walkFrameCounter = 0;
-    }
-
-    //activates death animation for the player
-    if (interfaces.death) {
-      deathFramerate++;
-      if (deathFramerate % ANIMATION_FRAMERATE==0 && deathFrameCounter != PLAYER_FRAME_AMOUNT-1) {
-        deathFrameCounter++;
-      }
-    }
   } 
 
   //method that checks if there is player collision (used for pickups)
@@ -356,6 +318,14 @@ class Player {
 
   void draw() {
     playerAnimation();
+    if (moveLeft) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width, ySprite);
+      popMatrix();
+    } else if (!moveLeft) {
+      image(playerSprite[frameCounter], xSpriteR, ySprite);
+    }
   }
 }
 
@@ -402,7 +372,7 @@ class dashBlinks {
   final int DASH_BLINK_FADE_V = 15;
   final int WALK_BLINK_FADE_V = 30;
 
-  int dashBlinkCooldown;
+  int dashBlinkCooldown, walkFrame;
   boolean isActive, pointLeft, isDashing;
   float x, y;
 
@@ -417,6 +387,7 @@ class dashBlinks {
   }
 
   void activate() {
+    walkFrame = player.frameCounter;
     isActive = true;
     y = player.ySprite;
     dashBlinkCooldown = 255; //reset to full opacity
@@ -461,13 +432,13 @@ class dashBlinks {
       if (isDashing) {
         image(playerDashBlink, -x-playerDashBlink.width, y);
       } else
-        image(playerWalkBlink, -x-playerWalkBlink.width, y);
+        image(playerBlinkSprite[walkFrame], -x-playerWalkBlink.width, y);
       popMatrix();
     } else {
       if (isDashing) {
         image(playerDashBlink, x, y);
       } else
-        image(playerWalkBlink, x, y);
+        image(playerBlinkSprite[walkFrame], x, y);
     }
     tint(255);
   }

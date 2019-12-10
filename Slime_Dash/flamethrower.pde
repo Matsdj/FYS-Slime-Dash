@@ -92,7 +92,7 @@ class Flame {
         burndamage = 0;
         if (player.dashActive==false) {
           burn = true;
-        }
+        } else burn = false;
       }
       //animates flamethrower
       if (timeflame % (activeFlameFramesAmount/ FLAME_ACTIVE_SPRITE_AMOUNT) == 0) {
