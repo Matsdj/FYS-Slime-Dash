@@ -23,7 +23,7 @@ class HUD {
   final float DASH_SMOL_MAX =globalScale;
   float dashSmol, dashLsmol, dashLsmol2;
   //score
-  float scoreX, scoreY, scoreSize, score;
+  float scoreX, scoreY, scoreSize, score, scoreNormal;
   //game over
   String gOver;
   float gOverX, gOverY, goFadeIn, gOSize;
@@ -54,6 +54,7 @@ class HUD {
     scoreX = width*0.98;
     scoreY = width*0.039;
     scoreSize = width*0.025;
+    scoreNormal= width*0.025;
     score = 0;
     //coins
 
@@ -66,6 +67,8 @@ class HUD {
   }
 
   void update() {
+    //score
+    scoreSize = width*0.025+constrain(playerCatchUp*2, 0, 100);
     //healthbar
 
     /*zorgt ervoor dat de healthbar altijd de juiste ronding heeft*/
@@ -166,7 +169,7 @@ class HUD {
     /*static border*/
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(255);
-    textSize(scoreSize);
+    textSize(scoreNormal);
     text(floor(health), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
     /*dashbar backdrop*/
@@ -192,8 +195,10 @@ class HUD {
     fill(0);
     textSize(scoreSize);
     text(floor(score), scoreX, scoreY);
+    createParticle(width+50, scoreY+20, floor(playerCatchUp/2), color(255, 0, 0), color(100, 100, 0), -.01, floor(playerCatchUp), floor(playerCatchUp));
     line(width-(width/8), scoreY+20, width, scoreY+20);
     //coins
+    textSize(scoreNormal);
     text(floor(coins), scoreX-30, scoreY+70);
     stroke(0);
     fill(255, 255, 0);

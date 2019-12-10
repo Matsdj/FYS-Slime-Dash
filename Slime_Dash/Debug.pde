@@ -24,7 +24,8 @@ if (inputsPressed.hasValue(96)) {
     text("P.insideblock:"+player.insideBlock(),0,500);
     text("ActiveBlocks:"+activeBlocks,0,550);
     text("BackgroundBlocks:"+backgroundBlocks,0,600);
-    text(cooldown,0,650);
+    text(playerCatchUp,0,650);
+    text(interfaces.scoreSize,0,700);
     
   }
   fill(0);
