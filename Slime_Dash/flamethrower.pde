@@ -79,9 +79,12 @@ class Flame {
         burntimer-=60;
         interfaces.health = interfaces.health-1;
       }
-    }
-    if (player.dashActive==true) {
+      createParticle(player.x+(player.hitSize/2), player.y+(player.hitSize/2), 5, color(#FFF300), color(#FF9900), -.05, 2, 1);
+    } else burn = false;
+
+    if (player.dashActive==true && burn == true) {
       burn = false;
+      createParticle(player.x+(player.hitSize/2), player.y+(player.hitSize/2), 15, color(#FFF300), color(#FF9900), -.2, 2, 3);
     }
     if (timeflame>timeflamemax/2) {
       if ( player.hitboxCollision(x, y, size, size)) {

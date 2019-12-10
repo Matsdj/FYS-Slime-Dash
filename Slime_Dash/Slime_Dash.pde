@@ -23,7 +23,7 @@ int cooldown;
 
 void setup() {
   size(1280, 720, P2D);
- // fullScreen(P2D);
+  //fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;
@@ -49,6 +49,7 @@ void setup() {
   mapSetup();
   upgradeSetup();
   difSetup();
+  particleSetup();
   //database
   //  CreateDatabaseConnection();
   //  GetUsers();
@@ -93,6 +94,7 @@ void updateGame() {
   bgUpdate();
   hordeUpdate();
   blockUpdate();
+  //Obstacles
   spikeUpdate();
   pickupUpdate();
   flameUpdate();
@@ -100,11 +102,12 @@ void updateGame() {
   //Moving Enemy
   arrowUpdate();
   hostileUpdate();
+  //Overlay
+  interfaces.update();
+  particleUpdate();
   //Player
   player.update();
   blinkUpdate();
-  //Overlay
-  interfaces.update();
 }
 
 void drawGame() {
@@ -113,6 +116,7 @@ void drawGame() {
   drawBackgroundBlocks();
   hostileDraw();
   blinkDraw();
+  particleDraw();
   player.draw();
   spikeDraw();
   blockDraw();
@@ -141,6 +145,8 @@ void draw() {
     cooldown=COOLDOWN_MAX;
   }
   soundUpdate();
+
+
   if (room == "pause") {
     pause.draw();
     pause.update();
@@ -175,6 +181,4 @@ void draw() {
   debug();
   inputsPressedUpdate();
   //particle
-  // ps.addParticle();
-  // ps.run();
 }

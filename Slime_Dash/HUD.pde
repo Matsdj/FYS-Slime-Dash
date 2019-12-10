@@ -6,7 +6,14 @@ void interfacesSetup() {
 HUD interfaces;
 class HUD {
   //DAMAGE NUMBERS/////////////////////////////////////
-  int swordDMG = 20;
+  boolean meleeDamage = false;
+  boolean arrowDamage = false;
+  boolean archerDamage = false;
+  boolean spikeDamage = false;
+  int meleeDMGnum = 20;
+  int arrowDMGnum = 10;
+  int archerDMGnum = 20;
+  int spikeDMGnum = 10;
   //healthbar
   int noHealth;
   float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight, healthMult, health;
@@ -74,15 +81,32 @@ class HUD {
     } else {
       healthC = color(255, 0, 0);
     }
+
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true&& death==false) {
-      player.enemyDamage= false;
       damage.play();
-      healthC = color(255);
       /*verander deze om enemy damage aan te passen*/
       //healthMult is voor de damageReduction als je een upgrade koopt
-      health = health-(swordDMG*healthMult);
-      health = health-(MagicBarricadeDMG*healthMult);
+      if (meleeDamage==true) {
+        health = health-(meleeDMGnum*healthMult);
+        meleeDamage=false;
+      }
+      // health = health-(MagicBarricadeDMG*healthMult);
+      if ( arrowDamage==true) {
+        health = health-(arrowDMGnum*healthMult);
+        arrowDamage=false;
+      }      
+      if ( archerDamage==true) {
+        health = health-(archerDMGnum*healthMult);
+        archerDamage=false;
+      }      
+      if ( spikeDamage==true) {
+        health = health-(spikeDMGnum*healthMult);
+        spikeDamage=false;
+      }
+
+      player.enemyDamage= false;
+      healthC = color(255);
     }
 
     //dash bar
@@ -103,14 +127,14 @@ class HUD {
       /*stops player movement*/
       player.moveSpeed = 0;
       //Q om naar main menu te gaan
-      if (keyCode ==81) {
+      if (keyCode ==77) {
         Dede.stop();
         setup();
         room= "mainM";
       }
     }
     /* B om te resetten*/
-    if (death ==true && inputs.hasValue(32)==true && room=="game") {
+    if (death ==true && inputs.hasValue(66)==true && room=="game") {
       death = false;
       Dede.stop();
       setup();
@@ -120,7 +144,7 @@ class HUD {
       march[2]= true;
       march[3]= true;
     }
-    if (death ==true && inputs.hasValue(32)==true && room=="game2") {
+    if (death ==true && inputs.hasValue(66)==true && room=="game2") {
       death = false;
       Dede.stop();
       setup();
@@ -189,13 +213,13 @@ class HUD {
     text("score " + floor(score), gOverX, gOverY+100);
     textAlign(LEFT);
     textSize(main.tekstSize[2]);
-    fill(255, 0, 0, goFadeIn);
-    text("A", main.tekstX, main.tekstY*2.8);
+    fill(255, goFadeIn);
+    text("Sta", main.tekstX, main.tekstY*2.8);
     fill(0, goFadeIn);
-    text("  " +"Retry", main.tekstX, main.tekstY*2.8);
-    fill(255, 255, 0, goFadeIn);
-    text("B", main.tekstX*2, main.tekstY*2.8);
+    text("  " +"Retry", main.tekstX+50, main.tekstY*2.8);
+    fill(255, goFadeIn);
+    text("Sel", main.tekstX*2, main.tekstY*2.8);
     fill(0, goFadeIn);
-    text("  "+"Menu", main.tekstX*2, main.tekstY*2.8);
+    text("  "+"Menu", main.tekstX*2+50, main.tekstY*2.8);
   }
 }

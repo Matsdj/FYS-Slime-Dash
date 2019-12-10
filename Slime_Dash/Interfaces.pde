@@ -219,13 +219,12 @@ class Upgrades {
         coins += 10;
       }
       if (perchTLState < perch.length - 1) {       
-        if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchUp && cooldown < 0 && coins >= doubleJumpPrice) {
+        if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice) {
           perchTLState = 3;
           perchTL = perch[perchTLState];
-          cooldown = COOLDOWN_UPGRADE;
           coins -= doubleJumpPrice;
           player.maxJumpAmount = 1;
-        } else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchUp && cooldown < 0 && perchTLState < 3) {
+        } else if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
           println("gay"); 
           textAlign(CENTER);
           fill(0);
@@ -236,7 +235,7 @@ class Upgrades {
         }
       }
       if (perchTRState < perch.length - 1) {       
-        if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchUp && cooldown < 0 && coins >= dashPrice) {
+        if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice) {
           perchTRState++;
           perchTR = perch[perchTRState];
           cooldown = COOLDOWN_UPGRADE;
@@ -249,7 +248,7 @@ class Upgrades {
           fill(0);
           text("DASH COOLDOWN REDUCED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        } else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchUp && cooldown < 0 && perchTRState < 3) {
+        } else if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -259,7 +258,7 @@ class Upgrades {
         }
       }
       if (perchBLState < perch.length - 1) {       
-        if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchDown && cooldown < 0 && coins >= healthPrice) {
+        if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchDown && coins >= healthPrice) {
           perchBLState++;
           perchBL = perch[perchBLState];
           cooldown = COOLDOWN_UPGRADE;
@@ -274,7 +273,7 @@ class Upgrades {
           fill(0);
           text("HEALTH INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        } else if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchDown && cooldown < 0 && perchBLState < 3) {
+        } else if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -284,7 +283,7 @@ class Upgrades {
         }
       }
       if (perchBRState < perch.length - 1) {       
-        if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchDown && cooldown < 0 && coins >= coinPrice) {
+        if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchDown && coins >= coinPrice) {
           perchBRState++;
           perchBR = perch[perchBRState];
           cooldown = COOLDOWN_UPGRADE;
@@ -297,7 +296,7 @@ class Upgrades {
           fill(0);
           text("COIN VALUE INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        } else if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchDown && cooldown < 0 && perchBRState < 3) {
+        } else if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -306,7 +305,7 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }
-      if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState == perch.length -1 ) {
+      if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState == perch.length -1 ) {
         textAlign(CENTER);
         fill(255);
         text(upgradeMaxText, width/2+2, height/2+2);
@@ -314,7 +313,7 @@ class Upgrades {
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
-      if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState == perch.length -1 ) {
+      if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState == perch.length -1 ) {
         textAlign(CENTER);
         fill(255);
         text(upgradeMaxText, width/2+2, height/2+2);
@@ -322,7 +321,7 @@ class Upgrades {
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
-      if (keyPressed && key == ' ' && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState == perch.length -1 ) {
+      if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState == perch.length -1 ) {
         textAlign(CENTER);
         fill(255);
         text(upgradeMaxText, width/2+2, height/2+2);
@@ -330,7 +329,7 @@ class Upgrades {
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
-      if (keyPressed && key == ' ' && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
+      if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
         textAlign(CENTER);
         fill(255);
         text(upgradeMaxText, width/2+2, height/2+2);

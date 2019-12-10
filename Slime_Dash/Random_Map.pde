@@ -1,6 +1,6 @@
 //Mats
 //hier maak ik de variabelen aan
-float GenerateDistance,
+float GenerateDistance, 
   traveledDistance;
 PImage[] mapTemplateList;
 PImage random = null;
@@ -21,16 +21,17 @@ final color COIN = color(255, 255, 0);
 final color HEALTH = color(0, 255, 0);
 final color HOSTILE_MELEE = color(255, 0, 100);
 final color HOSTILE_RANGED = color(255, 0, 150);
-final color MAGIC_SWITCH = color(255,0,255);
-final color MAGIC1 = color(255,1,255);
-final color MAGIC2 = color(255,2,255);
-final color ALLOW_VERTICAL_MOVEMENT = color(255,255,255);
+final color MAGIC_SWITCH = color(255, 0, 255);
+final color MAGIC1 = color(255, 1, 255);
+final color MAGIC2 = color(255, 2, 255);
+final color ALLOW_VERTICAL_MOVEMENT = color(0, 0, 255);
+final color COLOR_SAME_RANDOM = color(255, 200, 200);
 
 //Setup allows for reset
 void mapSetup() {
   startTemplate = loadImage("templates/start.png");
   tutorialTemplate = loadImage("templates/tutorial.png");
-  // we'll have a look in the data folder
+  //look in the data/templates folder
   java.io.File templates = new java.io.File(dataPath("templates/random"));
   // list the files in the data folder
   String[] fileNames = templates.list();
@@ -68,17 +69,32 @@ void makeMap(PImage template) {
     mapTemplate = template;
   }
   mapTemplate.loadPixels();
+  color colSameChance = color(255, 0);
+  boolean colAllow = false;
   //Loops through list and places blocks at the correct place
   for (int templateY = mapTemplate.height-1; templateY > -1; templateY--) {
     for (int templateX = 0; templateX < mapTemplate.width; templateX++) {
       //location of the pixel in the pixels list
       int loc = templateX + (templateY * mapTemplate.width);
       //Determines wat the X and Y of the blocks is going to be
-      float x = (GenerateDistance+templateX)*globalScale,
+      float x = (GenerateDistance+templateX)*globalScale, 
         y = (templateY-(mapTemplate.height-height/globalScale-1))*globalScale+VerticalDistance;
       //color of pixel in picture
       color col = mapTemplate.pixels[loc];
-      if (random(255) <= alpha(mapTemplate.pixels[loc])) {
+      if (col == COLOR_SAME_RANDOM) {
+        colSameChance = mapTemplate.pixels[loc+1];
+        if (random(255) <= alpha(mapTemplate.pixels[loc+1])) {
+          colAllow = true;
+        }
+      }
+      if (col == colSameChance) {
+        if (colAllow) {
+          col = color(red(col), green(col), blue(col), 255);
+        } else {
+          col = color(255, 0);
+        }
+      }
+      if (random(255) <= alpha(col)) {
         col = color(red(col), green(col), blue(col), 255);
         //Places Blocks,Spikes etc.
         if (col == BRICK) {
