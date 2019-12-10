@@ -108,7 +108,13 @@ public void assetSetup() {
   playerWalkBlink.loadPixels();
   for (int iPixel = 0; iPixel < playerWalkBlink.pixels.length; iPixel++) {
     if (alpha(playerWalkBlink.pixels[iPixel]) > 0) {
-      playerWalkBlink.pixels[iPixel] = color(255);
+      playerWalkBlink.pixels[iPixel] = color(255, 10, 10);
+    }
+  }
+
+  for (int iPixel = 0; iPixel < playerDashBlink.pixels.length; iPixel++) {
+    if (alpha(playerDashBlink.pixels[iPixel]) > 0) {
+      playerDashBlink.pixels[iPixel] = color(255, 210, 210);
     }
   }
 
