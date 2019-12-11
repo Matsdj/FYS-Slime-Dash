@@ -1,5 +1,5 @@
 //Mats
-Particle[] particles = new Particle[1000];
+Particle[] particles = new Particle[10000];
 
 void createParticle(float x, float y, float size, color kleurMin, color kleurMax, float gravity, float speed, float count) {
   for (int i = 0; i < count; i++) {
