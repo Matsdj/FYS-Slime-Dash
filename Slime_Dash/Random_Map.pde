@@ -53,7 +53,11 @@ void mapUpdate() {
     traveledDistance += 0.000001;
   }
   if (GenerateDistance < width/globalScale) {
-    if ()
+    if (room == "game2") {
+      room = "game";
+      interfaces.score = 0;
+      time = 0;
+    }
       makeMap(random);
   }
   GenerateDistance-=globalScrollSpeed/globalScale;
