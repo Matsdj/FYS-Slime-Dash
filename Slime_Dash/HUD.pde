@@ -170,7 +170,7 @@ class HUD {
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(255);
     textSize(scoreNormal);
-    text(floor(health), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
+    text(constrain(floor(health),0,100), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
     /*dashbar backdrop*/
     noStroke();
@@ -181,7 +181,7 @@ class HUD {
     fill(255, 255);
     rect(dashX, dashY, dashL2, dashH);
     fill(255, 255);
-    rect(player.x, player.y-(globalScale/5), dashLsmol2, globalScale/10);
+
     /* border*/
     stroke(0);
     noFill();
