@@ -9,7 +9,7 @@ Player player;
 class Player {
   float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
     dashSpeed, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
-    parGrav, parSpeed;
+    parGrav, parSpeed, jumpedHeight;
 
   int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
@@ -23,7 +23,8 @@ class Player {
   final int PLAYER_DEATH_FRAME_MAX = 10;
   final int DMG_BLINK_FRAMERATE = 6;
 
-  final float JUMPSPEED = globalScale/2.3; //jump force
+  final float JUMPSPEED = globalScale/3.5; //jump force
+  final float MAX_JUMP_HEIGHT = globalScale * 3;
   final float DASHSPEED = globalScale/1.6; //dash speed
   final float MOVESPEED = globalScale/16; //starting speed
   final float SPEEDMULT = 1.9;
@@ -34,6 +35,7 @@ class Player {
   final float MAX_VY = globalScale/2;
 
   Player() {
+    jumpedHeight = -MAX_JUMP_HEIGHT;
     deathFramerate = 0;
     size = globalScale-1;
     x = globalScale * 4; //spawn cords
@@ -52,7 +54,7 @@ class Player {
     moveLeft = false;
     frameCounter = 0;
     deathFramerate = 0;
-    maxJumpAmount = 0; // +1 this to activate dubble jump;
+    maxJumpAmount = 1; // +1 this to activate dubble jump;
     jumpedAmount = 0;
     smashedGround = false;
     parSize = globalScale / 7;
@@ -204,13 +206,15 @@ class Player {
         vx = -MAXMOVESPEED;
       }
 
-      //checks if player is onground by looking 1 pixel below him. If true, he can jumo
-      if (blockCollision(x, y + 1, size) != null) {
+      //jump mechanics
+      if (jumpedHeight > -MAX_JUMP_HEIGHT && keyUp == 1) {
         vy = keyUp * -JUMPSPEED;
-        jumpedAmount = 0;
+        jumpedHeight += vy;
       } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < maxJumpAmount) {
-        vy = keyUp * -JUMPSPEED;
+        jumpedHeight = 0;
         jumpedAmount ++;
+      } else {
+        jumpedHeight = -MAX_JUMP_HEIGHT;
       }
 
       //Dash abilty
@@ -268,13 +272,16 @@ class Player {
       while (blockCollision(x, y+sign(vy), size) == null) {
         y += sign(vy);
       }
-      onGround = true;
+      if (vy > 0) {
+        onGround = true;
+        jumpedHeight = 0;
+        jumpedAmount = 0;
+      }
       //ground smash effect
       if (onGround && vy > MAX_VY/1.2 && smashedGround) {
         smashedGround = false;
         createParticle(x + size/2, y + size/2, parSize, color(#FF9455), color(#FF5555), parGrav, parSpeed, 10);
       }
-
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
     } else { 
