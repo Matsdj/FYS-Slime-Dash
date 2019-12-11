@@ -48,13 +48,13 @@ void mapUpdate() {
   if (traveledDistance == 0) {
     if (room == "game2") {
       makeMap(tutorialTemplate);
-    } else {
-      makeMap(startTemplate);
     }
+    makeMap(startTemplate);
     traveledDistance += 0.000001;
   }
   if (GenerateDistance < width/globalScale) {
-    makeMap(random);
+    if ()
+      makeMap(random);
   }
   GenerateDistance-=globalScrollSpeed/globalScale;
   traveledDistance += globalScrollSpeed/globalScale;
