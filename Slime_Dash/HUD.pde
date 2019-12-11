@@ -195,7 +195,7 @@ class HUD {
     fill(0);
     textSize(scoreSize);
     text(floor(score), scoreX, scoreY);
-    createParticle(width+50, scoreY+20, floor(playerCatchUp/1.3), color(255), color(200), -.01, floor(playerCatchUp), 1);
+    createParticle(width+50, scoreY+20, constrain(floor(playerCatchUp/1.3),0,100), color(255), color(200), -.01, floor(playerCatchUp), 1);
     line(width-(width/8), scoreY+20, width, scoreY+20);
     //coins
     textSize(scoreNormal);
