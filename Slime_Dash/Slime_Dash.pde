@@ -135,7 +135,7 @@ void draw() {
   if (inputsPressed.hasValue(ESC)) {
     if (room == "mainM") {
       exit();
-    } else if (room=="pause2"||room=="pause") {
+    } else {
       room = "mainM";
     }
   }
@@ -168,6 +168,7 @@ void draw() {
     bgDraw();
     main.update();
     main.draw();
+    interfaces.death = false;
   } else if (room == "difficulty") {
     bgUpdate();
     bgDraw();

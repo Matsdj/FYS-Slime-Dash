@@ -27,7 +27,7 @@ class Pause {
       cooldown= COOLDOWN_MAX;
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true&&cooldown<0) {
+    else if (room == "game2" && inputs.hasValue(80) && interfaces.death == false &&cooldown<0) {
       room = "pause2";
       cooldown= COOLDOWN_MAX;
     }
@@ -37,10 +37,10 @@ class Pause {
       cooldown= COOLDOWN_MAX;
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game" && inputs.hasValue(80) && interfaces.death != true ) {
+    else if (room == "game" && inputs.hasValue(80) && interfaces.death == false ) {
       room = "pause";
       // druk op q of t om naar main menu te gaan
-    } else if (room == "game2" && inputs.hasValue(80) && interfaces.death != true) {
+    } else if (room == "game2" && inputs.hasValue(80) && interfaces.death == false) {
       room = "pause2";
     } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(81)||inputs.hasValue(84))&&cooldown<0) {
       cooldown= COOLDOWN_MAX;

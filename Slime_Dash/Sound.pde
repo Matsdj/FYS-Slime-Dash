@@ -29,7 +29,7 @@ void soundSetup() {
   Dede = new SoundFile(this, "sounds/dede.wav");
   DashSlime = new SoundFile(this, "sounds/DashSlime.wav");
   hordeMarch = new SoundFile(this, "sounds/horde march.wav");
-  damage = new SoundFile(this,"sounds/damage.mp3");
+  damage = new SoundFile(this, "sounds/damage.mp3");
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {
