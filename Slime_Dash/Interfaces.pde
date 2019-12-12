@@ -71,14 +71,24 @@ class Pause {
     text("Score "+ floor(interfaces.score), width/2, height/2);
     text("Coins "+ floor(coins), width/2, height/1.6);
     textSize(main.tekstSize[2]);
-    fill(255, 0, 0);
     textAlign(LEFT);
+    fill(0);
+    text("A", main.tekstX+2, main.tekstY*2.8+2);
+    text("A", main.tekstX-2, main.tekstY*2.8-2);
+    fill(255, 0, 0);
     text("A", main.tekstX, main.tekstY*2.8);
+    text("  " +"Continue", main.tekstX+2, main.tekstY*2.8+2);
+    text("  " +"Continue", main.tekstX-2, main.tekstY*2.8-2);
     fill(0);
     text("  " +"Continue", main.tekstX, main.tekstY*2.8);
     //yellow back
+    fill(0);
+    text("B", main.tekstX*2+2, main.tekstY*2.8+2);
+    text("B", main.tekstX*2-2, main.tekstY*2.8-2);
     fill(255, 255, 0);
     text("B", main.tekstX*2, main.tekstY*2.8);
+    text("  "+"Menu", main.tekstX*2+2, main.tekstY*2.8+2);
+    text("  "+"Menu", main.tekstX*2-2, main.tekstY*2.8-2);
     fill(0);
     text("  "+"Menu", main.tekstX*2, main.tekstY*2.8);
   }
@@ -151,8 +161,13 @@ class MainM {
     fill(select2);
     text("Upgrades", tekstX, tekstY*1.5);
     textSize(tekstSize[2]);
+    fill(0);
+    text("A", main.tekstX+2, main.tekstY*2.8+2);
+    text("A", main.tekstX-2, main.tekstY*2.8-2);
     fill(255, 0, 0);
     text("A", main.tekstX, main.tekstY*2.8);
+    text("  " +"Select", main.tekstX-2, main.tekstY*2.8-2);
+    text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
     fill(0);
     text("  " +"Select", main.tekstX, main.tekstY*2.8);
     image(slimeDash, width/4, height/100, width/3, height/3);
@@ -360,12 +375,21 @@ class Upgrades {
     image(perchBR, perchRight, perchDown, perchW, perchH);
     text("Coin Value : " + coinPrice, perchRight+xOffset, perchDown+yOffset);
     textSize(main.tekstSize[2]);
+    fill(0);
+    text("A", main.tekstX+2, main.tekstY*2.8+2);
+    text("A", main.tekstX-2, main.tekstY*2.8-2);
     fill(255, 0, 0);
     text("A", main.tekstX, main.tekstY*2.8);
+    text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
+    text("  " +"Select", main.tekstX-2, main.tekstY*2.8-2);
     fill(0);
+    text("B", main.tekstX*2+2, main.tekstY*2.8+2);
+    text("B", main.tekstX*2-2, main.tekstY*2.8-2);
     text("  " +"Select", main.tekstX, main.tekstY*2.8);
     fill(255, 255, 0);
     text("B", main.tekstX*2, main.tekstY*2.8);
+    text("  "+"Back", main.tekstX*2+2, main.tekstY*2.8+2);
+    text("  "+"Back", main.tekstX*2-2, main.tekstY*2.8-2);
     fill(0);
     text("  "+"Back", main.tekstX*2, main.tekstY*2.8);
     text(floor(coins), width - 100, 50);
@@ -445,13 +469,25 @@ class DIF {
     fill(select2);
     text("Tutorial Mode", tekstX, tekstY*1.5);
     textSize(tekstSize[2]);
+    //red A
+    fill(0);
+    text("A", main.tekstX+2, main.tekstY*2.8+2);
+    text("A", main.tekstX-2, main.tekstY*2.8-2);
+
     fill(255, 0, 0);
     text("A", main.tekstX, main.tekstY*2.8);
+    text("  " +"Select", main.tekstX-2, main.tekstY*2.8-2);
+    text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
     fill(0);
     text("  " +"Select", main.tekstX, main.tekstY*2.8);
     //yellow back
+    fill(0);
+    text("B", tekstX*2+2, tekstY*2.8+2);
+    text("B", tekstX*2-2, tekstY*2.8-2);
     fill(255, 255, 0);
     text("B", tekstX*2, tekstY*2.8);
+    text("  "+"Back", tekstX*2+2, tekstY*2.8+2);
+    text("  "+"Back", tekstX*2-2, tekstY*2.8-2);
     fill(0);
     text("  "+"Back", tekstX*2, tekstY*2.8);
   }
