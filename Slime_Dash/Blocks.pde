@@ -55,14 +55,15 @@ class Block {
         breakTime--;
         if (breakTime < 0) {
           active = false;
-          createParticle(x, y, 10, color(100), color(200), 0.2, 5, 100);
         }
       }
       //Cracked break because of dash
       if (cracked && player.dashActive && player.Collision(x, y+1, size-1)) {
         active = false;
         breakTime = 0;
-        createParticle(x, y, 10, color(100), color(200), 0.2, 5, 100);
+      }
+      if (active == false) {
+        createParticle(x, y, 10, color(100), color(200), 0.2, 5, true, "", 100);
       }
       //Allow Vertical Movement
       if (enableVerticalMovement) {

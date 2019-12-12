@@ -115,7 +115,7 @@ class HostileMelee {
     //if player dashes through the enemy, it dies
     if (player.Collision(x, y, size) && player.dashActive) {
       dead = true;
-      createParticle(x, y, 10, color(255, 0, 0), 0, 0.5, 5, 10);
+      createParticle(x, y, 10, color(255, 0, 0), 0, 0.5, 5, true, "", 10);
     } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       interfaces.meleeDamage = true;
@@ -193,7 +193,7 @@ class HostileRanged {
       player.enemyDamage = true;
       interfaces.archerDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
-      createParticle(x, y, 10, color(255, 0, 0), 0, 0.5, 5, 10);
+      createParticle(x, y, 10, color(255, 0, 0), 0, 0.5, 5, true, "", 10);
     } 
     if (dead) {
       reset();
