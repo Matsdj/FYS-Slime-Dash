@@ -261,6 +261,11 @@ class Player {
         x += sign(vx);
       }
       vx = 0;
+    } else if (room == "game2" && x+vx <= 0) {
+      while (x + sign(vx) > 0) {
+        x += sign(vx);
+      }
+      vx = 0;
     }
 
     if (!interfaces.death) {
