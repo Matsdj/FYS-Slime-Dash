@@ -109,6 +109,7 @@ class HostileMelee {
     } else if (blockCollision(x-size, y+1, size) == null || blockCollision(x+size, y+1, size) == null) {
       vx *= -1;
     }
+
     x += vx;
 
     //checks hitbox collision with player
@@ -126,6 +127,14 @@ class HostileMelee {
 
     if (dead) {
       vx = 0;
+    }
+
+    //when player jumps on an enemy head, he bounces up
+    if (player.Collision(x, y - player.vy, size) && player.vy > 0) {
+      while (!player.Collision(x, y - sign(player.vy), size)) {
+        player.y += sign(player.vy);
+      }
+      player.vy *= -1;
     }
 
     //animatie updates
