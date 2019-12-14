@@ -1,5 +1,9 @@
 //collin
 
+final int MAGIC_FRAME_AMOUNT = 3;
+final int MAGIC_TYPE_AMOUNT = 2;
+final int MAGIC_FRAMERATE = 10;
+
 float MagicBarricadeDMG = 0;
 boolean switchA = false;
 boolean SwitchTimerA = false;
@@ -62,11 +66,12 @@ void magic1Draw() {
 }
 
 class Magic1 {
-  float x, y, size;
-
+  float x, y, size, spriteY;
+  int frameCounter;
 
   Magic1(float inputX, float inputY) {
 
+    frameCounter = 0;
     x = inputX;
     y = inputY;
 
@@ -74,7 +79,8 @@ class Magic1 {
     player.enemyDamage = false;
   }
   //controleerd op player aanraking
-  void update() {
+  void update() { 
+    spriteY = y - globalScale;
 
     if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==true) {
       if (interfaces.health <= 40) {
@@ -88,6 +94,13 @@ class Magic1 {
     }
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
+
+    if (frameCount % MAGIC_FRAMERATE == 0) {
+      frameCounter++;
+      if (frameCounter >= MAGIC_FRAME_AMOUNT) {
+        frameCounter = 0;
+      }
+    }
   }
 
 
@@ -96,13 +109,14 @@ class Magic1 {
   //tekent de eerste magic wall (rood)
   void draw()
   {
-    stroke(0);
-    fill (255, 0, 0);
+    /* stroke(0);
+     fill (255, 0, 0);*/
 
     if (switchA==true) {
-      fill (255, 0, 0);
-      quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
-    }
+      /*fill (255, 0, 0);
+       quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);*/
+      image(magicSprite[0][frameCounter], x, spriteY);
+    } else image(magicStaticSprite, x, spriteY);
   }
 }
 
@@ -147,11 +161,12 @@ void magic2Draw() {
 }
 
 class Magic2 {
-  float x, y, size;
-
+  float x, y, size, spriteY;
+  int frameCounter;
 
   Magic2(float inputX, float inputY) {
 
+    frameCounter = 0;
     x = inputX;
     y = inputY;
 
@@ -160,6 +175,7 @@ class Magic2 {
   }
   //controleerd op player aanraking
   void update() {
+    spriteY = y - globalScale;
 
     if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==false) {
       if (interfaces.health <= 40) {
@@ -173,6 +189,13 @@ class Magic2 {
     }
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
+
+    if (frameCount % MAGIC_FRAMERATE == 0) {
+      frameCounter++;
+      if (frameCounter >= MAGIC_FRAME_AMOUNT) {
+        frameCounter = 0;
+      }
+    }
   }
 
 
@@ -185,9 +208,10 @@ class Magic2 {
     fill (255, 0, 0);
 
     if (switchA==false) {
-      fill (0, 0, 255);
-      quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);
-    }
+      /*fill (255, 0, 0);
+       quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);*/
+      image(magicSprite[1][frameCounter], x, spriteY);
+    } else image(magicStaticSprite, x, spriteY);
   }
 }
 

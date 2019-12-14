@@ -7,6 +7,8 @@ PImage[] playerBlinkSprite;
 PImage playerDashBlink;
 PImage playerWalkBlink;
 PImage[] flamethrowerSprite;
+PImage[][] magicSprite;
+PImage magicStaticSprite;
 PImage spikeSprite;
 PImage[] bgHouse;
 PImage[] bgCloud;
@@ -23,7 +25,7 @@ PImage dashbar;
 
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, 
   meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight, 
-  arrowSpriteWidth, arrowSpriteHeight;
+  arrowSpriteWidth, arrowSpriteHeight, magicSpriteWidth, magicSpriteHeight;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
 //Blocks
@@ -68,6 +70,9 @@ public void assetSetup() {
   //flamethrower resize
   flamethrowerSpriteWidth = int(globalScale);
   flamethrowerSpriteHeight = int(globalScale * 2);
+
+  magicSpriteWidth = int(globalScale);
+  magicSpriteHeight = int(globalScale * 2);
 
   //hordeResize
   hordeSpriteWidth = int(globalScale * 2);
@@ -128,11 +133,22 @@ public void assetSetup() {
 
   flamethrowerSprite = new PImage[FLAME_SPRITE_AMOUNT];
   for (int iSprite = 0; iSprite < FLAME_SPRITE_AMOUNT; iSprite++) {
-    flamethrowerSprite[iSprite] = loadImage("sprites/flamethrower/flame"+ iSprite +".png");
+    flamethrowerSprite[iSprite] = loadImage("sprites/obstacles/flame"+ iSprite +".png");
     flamethrowerSprite[iSprite].resize(flamethrowerSpriteWidth, flamethrowerSpriteHeight);
   }
 
-  spikeSprite = loadImage("sprites/flamethrower/spikes.png");
+  magicSprite = new PImage[MAGIC_TYPE_AMOUNT][MAGIC_FRAME_AMOUNT];
+  for (int iSprite = 0; iSprite < MAGIC_TYPE_AMOUNT; iSprite++) {
+    for (int jSprite = 0; jSprite < MAGIC_FRAME_AMOUNT; jSprite++) {
+      magicSprite[iSprite][jSprite] = loadImage("sprites/obstacles/magic"+ iSprite +"-"+ jSprite +".png");
+      magicSprite[iSprite][jSprite].resize(magicSpriteWidth, magicSpriteHeight);
+    }
+  }
+
+  magicStaticSprite = loadImage("sprites/obstacles/magicStatic.png");
+  magicStaticSprite.resize(magicSpriteWidth, magicSpriteHeight);
+
+  spikeSprite = loadImage("sprites/obstacles/spikes.png");
   spikeSprite.resize(int(globalScale), int(globalScale));
 
   bgHouse = new PImage[BG_HOUSES_AMOUNT];
