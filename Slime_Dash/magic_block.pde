@@ -85,7 +85,7 @@ class Magic1 {
       }
       player.enemyDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
-    }
+      interfaces.health = interfaces.health - MagicBarricadeDMG;   }
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
   }
@@ -170,6 +170,7 @@ class Magic2 {
       }
       player.enemyDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
+            interfaces.health = interfaces.health - MagicBarricadeDMG; 
     }
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
