@@ -18,7 +18,7 @@ class Block {
     active = true;
     scrollPercentage = iScrollPercentage;
     scrollSpeedChange = iScrollSpeedChange;
-    cracked = iCracked;
+    cracked = true;
     breakTime = BREAK_TIME_MAX;
     enableVerticalMovement = iAllowVertical;
     if (c == BRICK) {

@@ -26,10 +26,10 @@ void debug() {
     text("BackgroundBlocks:"+backgroundBlocks, 0, 600);
     text(playerCatchUp, 0, 650);
     text(interfaces.scoreSize, 0, 700);
+    if (mousePressed) {
+      player.x = mouseX;
+      player.y = mouseY;
+    }
   }
   fill(0);
-  if (mousePressed) {
-    player.x = mouseX;
-    player.y = mouseY;
-  }
 }
