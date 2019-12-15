@@ -9,7 +9,7 @@
 //remember, ctrl+t
 
 float globalScale, globalScrollSpeed, time, globalVerticalSpeed, playerCatchUp, VerticalDistance, coins = 0;
-final float MAX_SCROLL_SPEED = 7;
+final float MAX_SCROLL_SPEED = 9;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -22,8 +22,8 @@ int cooldown;
 
 
 void setup() {
-  //size(1280, 720, P2D);
-  fullScreen(P2D);
+  size(1280, 720, P2D);
+  //fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;

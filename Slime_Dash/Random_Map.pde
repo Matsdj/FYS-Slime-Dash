@@ -2,7 +2,9 @@
 //hier maak ik de variabelen aan
 float GenerateDistance, 
   traveledDistance;
-PImage[] mapTemplateList;
+PImage[] templateListStart;
+PImage[] templateListMid;
+PImage[] templateListEnd;
 PImage random = null;
 PImage startTemplate;
 PImage tutorialTemplate;
@@ -31,13 +33,36 @@ final color COLOR_SAME_RANDOM = color(255, 200, 200);
 void mapSetup() {
   startTemplate = loadImage("templates/start.png");
   tutorialTemplate = loadImage("templates/tutorial.png");
-  //look in the data/templates folder
-  java.io.File templates = new java.io.File(dataPath("templates/random"));
-  // list the files in the data folder
-  String[] fileNames = templates.list();
-  mapTemplateList = new PImage[fileNames.length];
-  for (int i = 0; i < mapTemplateList.length; i++) {
-    mapTemplateList[i] = loadImage("templates/random/"+fileNames[i]);
+  String[] filesStart = (new java.io.File(dataPath("templates/start"))).list();
+  String[] filesMid = (new java.io.File(dataPath("templates/mid"))).list();
+  String[] filesEnd = (new java.io.File(dataPath("templates/end"))).list();
+  String[] filesAlways = (new java.io.File(dataPath("templates/always"))).list();
+  int imageCount = filesStart.length + (filesAlways.length);
+  templateListStart = new PImage[imageCount];
+  for (int i = 0; i < imageCount; i++) {
+    if (i < filesStart.length) {
+      templateListStart[i] = loadImage("templates/start/"+filesStart[i]);
+    } else {
+      templateListStart[i] = loadImage("templates/always/"+filesAlways[i-filesStart.length]);
+    }
+  }
+  imageCount = filesMid.length + (filesAlways.length);
+  templateListMid = new PImage[imageCount];
+  for (int i = 0; i < imageCount; i++) {
+    if (i < filesMid.length) {
+      templateListMid[i] = loadImage("templates/mid/"+filesMid[i]);
+    } else {
+      templateListMid[i] = loadImage("templates/always/"+filesAlways[i-filesMid.length]);
+    }
+  }
+  imageCount = filesEnd.length + (filesAlways.length);
+  templateListEnd = new PImage[imageCount];
+  for (int i = 0; i < imageCount; i++) {
+    if (i < filesEnd.length) {
+      templateListEnd[i] = loadImage("templates/end/"+filesEnd[i]);
+    } else {
+      templateListEnd[i] = loadImage("templates/always/"+filesAlways[i-filesEnd.length]);
+    }
   }
   GenerateDistance = 0;
   //Traveled Distance
@@ -58,7 +83,7 @@ void mapUpdate() {
       interfaces.score = 0;
       time = 0;
     }
-      makeMap(random);
+    makeMap(random);
   }
   GenerateDistance-=globalScrollSpeed/globalScale;
   traveledDistance += globalScrollSpeed/globalScale;
@@ -67,8 +92,19 @@ void mapUpdate() {
 void makeMap(PImage template) {
   PImage mapTemplate;
   if (template == null) {
-    //Grabs random Template
-    mapTemplate = mapTemplateList[floor(random(mapTemplateList.length))];
+    if (globalScrollSpeed-playerCatchUp < MAX_SCROLL_SPEED/2) {
+      //Grabs random Template
+      int randomTemplateIndex = floor(random(templateListStart.length));
+      mapTemplate = templateListStart[randomTemplateIndex];
+    } else if (globalScrollSpeed-playerCatchUp >= MAX_SCROLL_SPEED/2) {
+      //Grabs random Template
+      int randomTemplateIndex = floor(random(templateListMid.length));
+      mapTemplate = templateListMid[randomTemplateIndex];
+    } else {
+      //Grabs random Template
+      int randomTemplateIndex = floor(random(templateListEnd.length));
+      mapTemplate = templateListEnd[randomTemplateIndex];
+    }
   } else {
     mapTemplate = template;
   }
