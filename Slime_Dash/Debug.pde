@@ -1,3 +1,5 @@
+boolean debug = false, 
+  testTemplates = false;
 void debug() {
   if (inputsPressed.hasValue(96)) {
     if (debug == false) {
@@ -23,13 +25,24 @@ void debug() {
     text("Room:"+room, 0, 450);
     text("P.insideblock:"+player.insideBlock(), 0, 500);
     text("ActiveBlocks:"+activeBlocks, 0, 550);
-    text("BackgroundBlocks:"+backgroundBlocks, 0, 600);
+    text("TestTemplates:"+testTemplates, 0, 600);
     text(playerCatchUp, 0, 650);
     text(interfaces.scoreSize, 0, 700);
     if (mousePressed) {
       player.x = mouseX;
       player.y = mouseY;
     }
+    if (inputsPressed.hasValue(84)) {
+      if (testTemplates) {
+        testTemplates = false;
+      } else {
+        testTemplates = true;
+      }
+    }
+  } else {
+  if (testTemplates){
+    testTemplates = false;
+  }
   }
   fill(0);
 }

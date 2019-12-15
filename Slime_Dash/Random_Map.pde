@@ -5,6 +5,7 @@ float GenerateDistance,
 PImage[] templateListStart;
 PImage[] templateListMid;
 PImage[] templateListEnd;
+PImage[] templateListTest;
 PImage random = null;
 PImage startTemplate;
 PImage tutorialTemplate;
@@ -37,6 +38,7 @@ void mapSetup() {
   String[] filesMid = (new java.io.File(dataPath("templates/mid"))).list();
   String[] filesEnd = (new java.io.File(dataPath("templates/end"))).list();
   String[] filesAlways = (new java.io.File(dataPath("templates/always"))).list();
+  String[] filesTest = (new java.io.File(dataPath("templates/test"))).list();
   int imageCount = filesStart.length + (filesAlways.length);
   templateListStart = new PImage[imageCount];
   for (int i = 0; i < imageCount; i++) {
@@ -63,6 +65,11 @@ void mapSetup() {
     } else {
       templateListEnd[i] = loadImage("templates/always/"+filesAlways[i-filesEnd.length]);
     }
+  }
+  imageCount = filesTest.length;
+  templateListTest = new PImage[imageCount];
+  for (int i = 0; i < filesTest.length; i++) {
+    templateListTest[i] = loadImage("templates/test/"+filesTest[i]);
   }
   GenerateDistance = 0;
   //Traveled Distance
@@ -92,16 +99,16 @@ void mapUpdate() {
 void makeMap(PImage template) {
   PImage mapTemplate;
   if (template == null) {
-    if (globalScrollSpeed-playerCatchUp < MAX_SCROLL_SPEED/2) {
-      //Grabs random Template
+    if (testTemplates){
+      int randomTemplateIndex = floor(random(templateListTest.length));
+      mapTemplate = templateListTest[randomTemplateIndex];
+    } else if (globalScrollSpeed-playerCatchUp < MAX_SCROLL_SPEED/2) {
       int randomTemplateIndex = floor(random(templateListStart.length));
       mapTemplate = templateListStart[randomTemplateIndex];
     } else if (globalScrollSpeed-playerCatchUp >= MAX_SCROLL_SPEED/2) {
-      //Grabs random Template
       int randomTemplateIndex = floor(random(templateListMid.length));
       mapTemplate = templateListMid[randomTemplateIndex];
     } else {
-      //Grabs random Template
       int randomTemplateIndex = floor(random(templateListEnd.length));
       mapTemplate = templateListEnd[randomTemplateIndex];
     }

@@ -14,8 +14,7 @@ final float MAX_SCROLL_SPEED = 9;
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
-boolean debug = false, 
-  allowVerticalMovement = false;
+boolean allowVerticalMovement = false;
 final int COOLDOWN_MAX=15;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
