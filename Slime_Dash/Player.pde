@@ -287,6 +287,10 @@ class Player {
       while (blockCollision(x+sign(vx), y, size) == null) {
         x += sign(vx);
       }
+      if (dashActive) {
+        shake(globalScale/3);
+      }
+
       vx = 0;
     } else if (room == "game2" && x+vx <= 0) {
       while (x + sign(vx) > 0) {
