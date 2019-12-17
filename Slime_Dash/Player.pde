@@ -7,15 +7,16 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
-    dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
+  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy,
+    dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize,
     parGrav, parSpeed, jumpedHeight;
 
   int dashCooldown, dashCooldownReset, maxJumpAmount, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
-  final int DASH_COOLDOWN_START = 100;
+  final int DASH_COOLDOWN_START = 260;
+  final int DASH_COOLDOWN_CHARGE = DASH_COOLDOWN_START/3;
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
@@ -46,7 +47,7 @@ class Player {
     slowDown = SPEEDSLOWDOWN;
     vx = 0;
     vy = 0;
-    dashCooldownReset = DASH_COOLDOWN_START; //change this to upgrade dash cooldown
+    dashCooldownMax = DASH_COOLDOWN_START; //change this to upgrade dash cooldown
     dashCooldown = 0;
     dashTime = DASH_TIME;
     dmgCooldown = 0;
@@ -58,9 +59,9 @@ class Player {
     jumpedAmount = 0;
     smashedGround = false;
     parSize = globalScale / 7;
-    parGrav = globalScale/256; 
+    parGrav = globalScale/256;
     parSpeed = globalScale/13;
-  } 
+  }
 
   //player animation is done in this function. It looks if the player is looking left or right, and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
   void playerAnimation() {
@@ -101,12 +102,12 @@ class Player {
       } else if (dmgBlink) {
         frameCounter = 10;
       }
-    } 
+    }
 
     //jump animation
     else if (vy != 0) {
       frameCounter = 4;
-    } 
+    }
 
     //walking animatie
     else if (moving && inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) {
@@ -154,6 +155,25 @@ class Player {
     }
   }
 
+  void playerTween() {
+    final float MAX_TWEEN = globalScale / 5;
+    float xTween, yTween;
+
+    yTween = pow(vy, 2)/20;
+
+    if (yTween > MAX_TWEEN) {
+      yTween = MAX_TWEEN;
+    }
+
+    xTween = -yTween;
+    spriteWidth = playerSpriteWidth + xTween;
+    spriteHeight = playerSpriteHeight + yTween;
+
+    xSpriteR += xTween;
+    xSpriteL += xTween;
+    ySprite -= yTween;
+  }
+
   //Boolean that checks if the player is inside of a block
   boolean insideBlock() {
     if (blockCollision(x, y, size) != null && (y+size) > blockCollision(x, y, size).y) {
@@ -164,7 +184,10 @@ class Player {
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
 
-    dashCooldown --;
+    dashCooldown ++;
+    if (dashCooldown > dashCooldownMax) {
+      dashCooldown = dashCooldownMax;
+    }
     dmgCooldown--;
 
     blockTypeDetection();
@@ -184,7 +207,7 @@ class Player {
         moving = true;
         moveSpeed *= SPEEDMULT;
         vx += moveSpeed;
-      } else { 
+      } else {
         moving = false;
         vx *= slowDown;
         moveSpeed = MOVESPEED;
@@ -197,7 +220,7 @@ class Player {
           SlimeJump.rate(random(0.5, 1.5));
           SlimeJump.play();
         }
-      } else keyUp = 0;     
+      } else keyUp = 0;
 
       //sets the max movement speed for the player
       if (vx > MAXMOVESPEED) {
@@ -218,9 +241,9 @@ class Player {
       }
 
       //Dash abilty
-      if (inputs.hasValue(90) == true && dashCooldown < 0 || dashActive && dashTime > 0) {
+      if (inputsPressed.hasValue(90) == true && dashCooldown > 0 || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
-          DashSlime.rate(random(0.8, 1.2)); 
+          DashSlime.rate(random(0.8, 1.2));
           DashSlime.play();
         }
 
@@ -231,7 +254,10 @@ class Player {
         if (!moveLeft) {
           vx = DASHSPEED;
         }
-        dashCooldown = dashCooldownReset;
+
+        if (!dashActive)
+          dashCooldown -= DASH_COOLDOWN_CHARGE;
+
         dashActive = true;
         dashTime -= speedModifier;
 
@@ -289,7 +315,7 @@ class Player {
       }
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
-    } else { 
+    } else {
       onGround = false;
       smashedGround = true;
     }
@@ -308,7 +334,9 @@ class Player {
     if (x + size < 0) {
       interfaces.death = true;
     }
-  } 
+
+    playerTween();
+  }
 
   //method that checks if there is player collision (used for pickups)
   boolean Collision(float cX, float cY, float cSize) {
@@ -333,10 +361,14 @@ class Player {
     if (moveLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width, ySprite);
+      image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width, ySprite, spriteWidth, spriteHeight);
+      if (hasCrown)
+        image(crownSprite, -xSpriteL-playerSprite[0].width, ySprite - crownOffset, spriteWidth, spriteHeight);
       popMatrix();
     } else if (!moveLeft) {
-      image(playerSprite[frameCounter], xSpriteR, ySprite);
+      image(playerSprite[frameCounter], xSpriteR, ySprite, spriteWidth, spriteHeight);
+      if (hasCrown)
+        image(crownSprite, xSpriteR, ySprite - crownOffset, spriteWidth, spriteHeight);
     }
   }
 }
@@ -344,8 +376,8 @@ class Player {
 //Dash Blink////////////////////////////////////////
 
 final int MAX_BLINK_AMOUNT = 15;
-final int BLINK_FRAMERATE = 2; 
-final int WALK_BLINK_FRAMERATE = 3; 
+final int BLINK_FRAMERATE = 2;
+final int WALK_BLINK_FRAMERATE = 3;
 
 dashBlinks[] dashBlink;
 
@@ -356,10 +388,10 @@ void blinkSetup() {
   }
 }
 
-void blinkUpdate() { 
+void blinkUpdate() {
   //adds new dash blink every given frame amount while the dash is active
   for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
-    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown < 0 && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
+    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown > 0 && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
       dashBlink[iBlink].activate();
       break;
     }
@@ -458,7 +490,7 @@ class dashBlinks {
 
 //if a number is below 0, it returns -1, and if its above, it returns 1. This is used to detect in witch direction the player goes
 int sign(float v) {
-  int vel = 0; 
+  int vel = 0;
   if (v < 0) vel = -1;
   else if (v > 0) vel = 1;
 
