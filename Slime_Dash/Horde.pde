@@ -22,6 +22,9 @@ void hordeSetup() {
 
 void hordeUpdate() {
   hordeFramerate = HORDE_FRAMERATE / int(globalScrollSpeed+1);
+  if (hordeFramerate < 1) {
+    hordeFramerate = 1;
+  }
 
   if (frameCount % hordeFramerate == 0) {
     hordeFrameCounter ++;
