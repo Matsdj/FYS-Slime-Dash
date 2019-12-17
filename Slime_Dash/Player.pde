@@ -16,7 +16,7 @@ class Player {
 
   //terugzet waardes van de dashCooldown en dashTime
   final int DASH_COOLDOWN_CHARGE = 100;
-  final int DASH_COOLDOWN_START = DASH_COOLDOWN_CHARGE * 2;
+  final int DASH_COOLDOWN_START = DASH_COOLDOWN_CHARGE * 3;
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
@@ -60,10 +60,11 @@ class Player {
     smashedGround = false;
     parSize = globalScale / 7;
     parGrav = globalScale/256;
-    parSpeed = globalScale/13;
+    parSpeed = globalScale/18;
   }
 
-  //player animation is done in this function. It looks if the player is looking left or right, and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
+  //player animation is done in this function. It looks if the player is looking left or right, 
+  //and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
   void playerAnimation() {
     ySprite = y - pushPlayerSpriteUp;
     xSpriteL = x - pushPlayerSpriteL;
@@ -241,7 +242,7 @@ class Player {
       }
 
       //Dash abilty
-      if (inputsPressed.hasValue(90) == true && dashCooldown > 0 || dashActive && dashTime > 0) {
+      if (inputsPressed.hasValue(90) == true && dashCooldown > DASH_COOLDOWN_CHARGE || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
           DashSlime.rate(random(0.8, 1.2));
           DashSlime.play();
@@ -309,9 +310,9 @@ class Player {
         jumpedAmount = 0;
       }
       //ground smash effect
-      if (onGround && vy > MAX_VY/1.2 && smashedGround) {
+      if (onGround && smashedGround) {
         smashedGround = false;
-        createParticle(x + size/2, y + size/2, parSize, color(#FF9455), color(#FF5555), parGrav, parSpeed, true, "", 10);
+        createParticle(x + size/2, y + size/2, parSize, color(#FF9455), color(#FF5555), parGrav, parSpeed, true, "", vy/3);
       }
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
@@ -391,7 +392,7 @@ void blinkSetup() {
 void blinkUpdate() {
   //adds new dash blink every given frame amount while the dash is active
   for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
-    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown > 0 && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
+    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown > player.DASH_COOLDOWN_CHARGE && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
       dashBlink[iBlink].activate();
       break;
     }
