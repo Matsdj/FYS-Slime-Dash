@@ -8,10 +8,10 @@ void playerSetup() {
 Player player;
 class Player {
   float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
-    dashSpeed, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
+    dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
     parGrav, parSpeed, jumpedHeight;
 
-  int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
+  int dashCooldown, dashCooldownReset, maxJumpAmount, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
@@ -233,7 +233,7 @@ class Player {
         }
         dashCooldown = dashCooldownReset;
         dashActive = true;
-        dashTime--;
+        dashTime -= speedModifier;
 
         //sets back normal speed, if not dashing
       } else {
@@ -269,7 +269,7 @@ class Player {
     }
 
     if (!interfaces.death) {
-      x+= vx;
+      x+= vx*speedModifier;
     }
     //Vertical collision
     //works like horizontal collision, only now with vy

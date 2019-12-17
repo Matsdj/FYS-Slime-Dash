@@ -116,6 +116,7 @@ class HostileMelee {
     if (player.Collision(x, y, size) && player.dashActive) {
       dead = true;
       createParticle(x, y, 10, color(255, 0, 0), 0, 0.5, 5, true, "", 10);
+      speedModifier = 0.001;
     } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       interfaces.meleeDamage = true;
