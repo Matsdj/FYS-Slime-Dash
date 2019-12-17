@@ -8,7 +8,7 @@
 
 //remember, ctrl+t
 
-float globalScale, speedModifier = 0, globalScrollSpeed, time, globalVerticalSpeed, playerCatchUp, VerticalDistance, coins = 0;
+float globalScale, speedModifier = 1, globalScrollSpeed, time, globalVerticalSpeed, playerCatchUp, VerticalDistance, coins = 0;
 final float MAX_SCROLL_SPEED = 9;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
@@ -58,7 +58,7 @@ void setup() {
 //GAME
 void updateGame() {
   if (speedModifier < 1) {
-    speedModifier += 0.1;
+    speedModifier += 0.01;
   } else {
     speedModifier = 1;
   }
