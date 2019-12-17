@@ -83,8 +83,8 @@ class Arrow {
     if (isLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(arrowSprite, -x-arrowSprite.width+xshake, y);
+      image(arrowSprite, -x-arrowSprite.width+shake, y);
       popMatrix();
-    } else image(arrowSprite, x+xshake, y);
+    } else image(arrowSprite, x+shake, y);
   }
 }
