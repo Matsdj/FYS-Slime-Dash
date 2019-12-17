@@ -8,7 +8,7 @@
 
 //remember, ctrl+t
 
-float globalScale, globalScrollSpeed, time, globalVerticalSpeed, playerCatchUp, VerticalDistance, coins = 0;
+float globalScale, speedModifier = 0, globalScrollSpeed, time, globalVerticalSpeed, playerCatchUp, VerticalDistance, coins = 0;
 final float MAX_SCROLL_SPEED = 9;
 // Arrays of booleans for Keyboard handling. One boolean for each keyCode
 final int KEY_LIMIT = 1024;
@@ -57,13 +57,21 @@ void setup() {
 }
 //GAME
 void updateGame() {
-  time += 1 ;
+  if (speedModifier < 1) {
+    speedModifier += 0.1;
+  } else {
+    speedModifier = 1;
+  }
+  time += 1*speedModifier;
   //ScrollSpeed
   globalScrollSpeed = 1+time/100000*globalScale;
   globalScrollSpeed = constrain(globalScrollSpeed, 0, MAX_SCROLL_SPEED);
   playerCatchUp = player.DASHSPEED*(pow(player.x, 5)/pow(width*1.2, 5));
   if (player.x > 0) {
     globalScrollSpeed += playerCatchUp;
+  }
+  if (player.x > width-globalScale*2) {
+    globalScrollSpeed = player.vx;
   }
   //tutorial mode
   if (room == "game2") {
@@ -74,6 +82,7 @@ void updateGame() {
       globalScrollSpeed = 0;
     }
   }
+  globalScrollSpeed *= speedModifier;
   //Vertical Distance
   if (time > 60) {
     globalVerticalSpeed = floor(globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3)));
@@ -86,6 +95,7 @@ void updateGame() {
     VerticalDistance += globalVerticalSpeed;
     allowVerticalMovement = false;
   }
+  globalVerticalSpeed *= speedModifier;
   //input cooldown
 
   //Adds Terrain

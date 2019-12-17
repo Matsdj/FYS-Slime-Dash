@@ -3,12 +3,12 @@ int activeBlocks = 0;
 int backgroundBlocks = 0;
 class Block {
   final float BREAK_TIME_MAX = 10;
-  float x, y, size, speed = globalScale/30, vx = 0, scrollSpeedChange = -1, breakTime = BREAK_TIME_MAX;
+  float x, y, size, speed = globalScale/30, vx = 0, breakTime = BREAK_TIME_MAX;
   int id = -1;
   color c = BRICK;
   PImage sprite;
-  boolean active = false, moving = false, scrollPercentage = false, cracked = false, enableVerticalMovement = false;
-  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iScrollPercentage, float iScrollSpeedChange, boolean iCracked, boolean iAllowVertical) {
+  boolean active = false, moving = false, cracked = false, enableVerticalMovement = false;
+  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iCracked, boolean iAllowVertical) {
     x = ix;
     y = iy;
     size = globalScale;
@@ -16,8 +16,6 @@ class Block {
     moving = iMoving;
     vx = speed;
     active = true;
-    scrollPercentage = iScrollPercentage;
-    scrollSpeedChange = iScrollSpeedChange;
     cracked = iCracked;
     breakTime = BREAK_TIME_MAX;
     enableVerticalMovement = iAllowVertical;
@@ -34,18 +32,11 @@ class Block {
     }
   }
   Block() {
-    blockSetup(0, 0, BRICK, moving, scrollPercentage, scrollSpeedChange, cracked, allowVerticalMovement);
+    blockSetup(0, 0, BRICK, moving, cracked, allowVerticalMovement);
     active = false;
   }
   void update() {
     y += globalVerticalSpeed;
-    if (scrollSpeedChange >= 0 && x < width) {
-      if (scrollPercentage) {
-        globalScrollSpeed = globalScrollSpeed*(scrollSpeedChange/100);
-      } else {
-        globalScrollSpeed = scrollSpeedChange;
-      }
-    }
     if (x > -globalScale) {
       x -= globalScrollSpeed;
     }
@@ -77,7 +68,7 @@ class Block {
     if (blockCollision(x+vx, y, size, id) != null) {
       vx *= -1;
     }
-    x += vx;
+    x += vx*speedModifier;
   }
   void draw() {
     if (x < width && c != ALLOW_VERTICAL_MOVEMENT) {
@@ -137,14 +128,6 @@ Block blockCollision(float x, float y, float size, float blockId) {
 //als je geen blockId invult default het naar -1
 Block blockCollision(float x, float y, float size) {
   return blockCollision(x, y, size, -1);
-}
-//Disables scrollBlocks
-void disableActiveScrollBlocks() {
-  for (int i = 0; i<blocks.length; i++) {
-    if (blocks[i].active && blocks[i].scrollSpeedChange >= 0 && blocks[i].x < width) {
-      blocks[i].scrollSpeedChange = -1;
-    }
-  }
 }
 //Block Setup
 void blockSetup() {

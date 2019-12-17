@@ -7,11 +7,11 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
-    dashSpeed, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
-    parGrav, parSpeed, jumpedHeight, spriteHeight, spriteWidth;
+  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy,
+    dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize,
+    parGrav, parSpeed, jumpedHeight;
 
-  int dashCooldown, dashCooldownMax, maxJumpAmount, dashTime, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
+  int dashCooldown, dashCooldownReset, maxJumpAmount, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
@@ -59,9 +59,9 @@ class Player {
     jumpedAmount = 0;
     smashedGround = false;
     parSize = globalScale / 7;
-    parGrav = globalScale/256; 
+    parGrav = globalScale/256;
     parSpeed = globalScale/13;
-  } 
+  }
 
   //player animation is done in this function. It looks if the player is looking left or right, and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
   void playerAnimation() {
@@ -102,12 +102,12 @@ class Player {
       } else if (dmgBlink) {
         frameCounter = 10;
       }
-    } 
+    }
 
     //jump animation
     else if (vy != 0) {
       frameCounter = 4;
-    } 
+    }
 
     //walking animatie
     else if (moving && inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) {
@@ -207,7 +207,7 @@ class Player {
         moving = true;
         moveSpeed *= SPEEDMULT;
         vx += moveSpeed;
-      } else { 
+      } else {
         moving = false;
         vx *= slowDown;
         moveSpeed = MOVESPEED;
@@ -220,7 +220,7 @@ class Player {
           SlimeJump.rate(random(0.5, 1.5));
           SlimeJump.play();
         }
-      } else keyUp = 0;     
+      } else keyUp = 0;
 
       //sets the max movement speed for the player
       if (vx > MAXMOVESPEED) {
@@ -243,7 +243,7 @@ class Player {
       //Dash abilty
       if (inputsPressed.hasValue(90) == true && dashCooldown > 0 || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
-          DashSlime.rate(random(0.8, 1.2)); 
+          DashSlime.rate(random(0.8, 1.2));
           DashSlime.play();
         }
 
@@ -259,7 +259,7 @@ class Player {
           dashCooldown -= DASH_COOLDOWN_CHARGE;
 
         dashActive = true;
-        dashTime--;
+        dashTime -= speedModifier;
 
         //sets back normal speed, if not dashing
       } else {
@@ -295,7 +295,7 @@ class Player {
     }
 
     if (!interfaces.death) {
-      x+= vx;
+      x+= vx*speedModifier;
     }
     //Vertical collision
     //works like horizontal collision, only now with vy
@@ -315,7 +315,7 @@ class Player {
       }
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
-    } else { 
+    } else {
       onGround = false;
       smashedGround = true;
     }
@@ -336,7 +336,7 @@ class Player {
     }
 
     playerTween();
-  } 
+  }
 
   //method that checks if there is player collision (used for pickups)
   boolean Collision(float cX, float cY, float cSize) {
@@ -376,8 +376,8 @@ class Player {
 //Dash Blink////////////////////////////////////////
 
 final int MAX_BLINK_AMOUNT = 15;
-final int BLINK_FRAMERATE = 2; 
-final int WALK_BLINK_FRAMERATE = 3; 
+final int BLINK_FRAMERATE = 2;
+final int WALK_BLINK_FRAMERATE = 3;
 
 dashBlinks[] dashBlink;
 
@@ -388,7 +388,7 @@ void blinkSetup() {
   }
 }
 
-void blinkUpdate() { 
+void blinkUpdate() {
   //adds new dash blink every given frame amount while the dash is active
   for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
     if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown > 0 && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
@@ -490,7 +490,7 @@ class dashBlinks {
 
 //if a number is below 0, it returns -1, and if its above, it returns 1. This is used to detect in witch direction the player goes
 int sign(float v) {
-  int vel = 0; 
+  int vel = 0;
   if (v < 0) vel = -1;
   else if (v > 0) vel = 1;
 

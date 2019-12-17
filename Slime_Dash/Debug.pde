@@ -12,22 +12,22 @@ void debug() {
     textAlign(LEFT);
     fill(255, 255, 255);
     textSize(40);
-    text("Fps:"+frameRate, 0, 150);
+    text("Fps:"+frameRate, 0, 200);
     String inputsString = "Inputs:";
     for (int i = 0; i < inputs.size(); i++) {
       inputsString += inputs.get(i) + "|";
     }
-    text(inputsString, 0, 200);
-    text("Time:"+time, 0, 250);
-    text("ScrollSpeed:"+globalScrollSpeed, 0, 300);
-    text("Height:"+VerticalDistance, 0, 350);
-    text("TravelDist:"+traveledDistance, 0, 400);
-    text("Room:"+room, 0, 450);
-    text("P.insideblock:"+player.insideBlock(), 0, 500);
-    text("ActiveBlocks:"+activeBlocks, 0, 550);
-    text("TestTemplates:"+testTemplates, 0, 600);
-    text(playerCatchUp, 0, 650);
-    text(interfaces.scoreSize, 0, 700);
+    text(inputsString, 0, 250);
+    text("Time:"+time, 0, 300);
+    text("ScrollSpeed:"+globalScrollSpeed, 0, 350);
+    text("Height:"+VerticalDistance, 0, 400);
+    text("TravelDist:"+traveledDistance, 0, 450);
+    text("Room:"+room, 0, 500);
+    text("P.insideblock:"+player.insideBlock(), 0, 550);
+    text("ActiveBlocks:"+activeBlocks, 0, 600);
+    text("TestTemplates:"+testTemplates, 0, 650);
+    text("Slow Mo:"+ speedModifier, 0, 700);
+    text(interfaces.scoreSize, 0, 750);
     if (mousePressed) {
       player.x = mouseX;
       player.y = mouseY;
@@ -40,9 +40,9 @@ void debug() {
       }
     }
   } else {
-  if (testTemplates){
-    testTemplates = false;
-  }
+    if (testTemplates) {
+      testTemplates = false;
+    }
   }
   fill(0);
 }

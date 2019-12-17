@@ -145,37 +145,28 @@ void makeMap(PImage template) {
         col = color(red(col), green(col), blue(col), 255);
         //Places Blocks,Spikes etc.
         if (col == BRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, -1, false, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, false);
         }
         if (col == STONE) {
-          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, false, -1, false, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, false, false);
         }
         if (col == DIRT) {
-          blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false, false, -1, false, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, DIRT, false, false, false);
         }
         if (col == PLANKS) {
-          blocks[freeBlockIndex()].blockSetup(x, y, PLANKS, false, false, -1, false, false);
-        }
-        if (red(col) == SCROLL_BLOCK_RED) {
-          boolean scrollPercentage;
-          if (green(col) < 1) {
-            scrollPercentage = false;
-          } else {
-            scrollPercentage = true;
-          }
-          blocks[freeBlockIndex()].blockSetup(x, y, STONE, false, scrollPercentage, blue(col), false, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, PLANKS, false, false, false);
         }
         if (col == ICE) {
-          blocks[freeBlockIndex()].blockSetup(x, y, ICE, false, false, -1, false, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, ICE, false, false, false);
         }
         if (col == MOVING_BRICK) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true, false, -1, false, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, true, false, false);
         }
         if (col == CRACKED) {
-          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, false, -1, true, false);
+          blocks[freeBlockIndex()].blockSetup(x, y, BRICK, false, true, false);
         }
         if (col == ALLOW_VERTICAL_MOVEMENT) {
-          blocks[freeBlockIndex()].blockSetup(x, y, ALLOW_VERTICAL_MOVEMENT, false, false, -1, false, true);
+          blocks[freeBlockIndex()].blockSetup(x, y, ALLOW_VERTICAL_MOVEMENT, false, false, true);
         }
         if (col == SPIKE) {
           addSpike(x, y);
