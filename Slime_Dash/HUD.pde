@@ -129,13 +129,13 @@ class HUD {
 
     //dash bar
     if (charge1==true) {
-      createParticle(healthBarLength*0.25, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 20, false, "", 100);
+      createParticle(healthBarLength*0.25, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, "", 100);
     }        
     if (charge2==true) {
-      createParticle(healthBarLength*0.5, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 20, false, "", 100);
+      createParticle(healthBarLength*0.5, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, "", 100);
     }    
     if (charge3==true) {
-      createParticle(healthBarLength*0.75, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 20, false, "", 100);
+      createParticle(healthBarLength*0.75, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, "", 100);
     }
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
       if (player.dashCooldown ==player.DASH_COOLDOWN_CHARGE) {
