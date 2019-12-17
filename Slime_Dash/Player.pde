@@ -15,8 +15,8 @@ class Player {
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
-  final int DASH_COOLDOWN_START = 260;
-  final int DASH_COOLDOWN_CHARGE = DASH_COOLDOWN_START/3;
+  final int DASH_COOLDOWN_CHARGE = 80;
+  final int DASH_COOLDOWN_START = 80 * 2;
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
