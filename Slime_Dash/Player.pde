@@ -16,7 +16,7 @@ class Player {
 
   //terugzet waardes van de dashCooldown en dashTime
   final int DASH_COOLDOWN_CHARGE = 100;
-  final int DASH_COOLDOWN_START = DASH_COOLDOWN_CHARGE * 2;
+  final int DASH_COOLDOWN_START = DASH_COOLDOWN_CHARGE * 3;
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
@@ -241,7 +241,7 @@ class Player {
       }
 
       //Dash abilty
-      if (inputsPressed.hasValue(90) == true && dashCooldown > 0 || dashActive && dashTime > 0) {
+      if (inputsPressed.hasValue(90) == true && dashCooldown > DASH_COOLDOWN_CHARGE || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
           DashSlime.rate(random(0.8, 1.2));
           DashSlime.play();
@@ -391,7 +391,7 @@ void blinkSetup() {
 void blinkUpdate() {
   //adds new dash blink every given frame amount while the dash is active
   for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
-    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown > 0 && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
+    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown > player.DASH_COOLDOWN_CHARGE && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
       dashBlink[iBlink].activate();
       break;
     }
