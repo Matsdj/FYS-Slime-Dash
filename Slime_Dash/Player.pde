@@ -9,7 +9,7 @@ Player player;
 class Player {
   float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
     dashSpeed, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
-    parGrav, parSpeed, jumpedHeight;
+    parGrav, parSpeed, jumpedHeight, spriteHeight, spriteWidth;
 
   int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
@@ -152,6 +152,25 @@ class Player {
         x += 1;
       }
     }
+  }
+
+  void playerTween() {
+    final float MAX_TWEEN = globalScale / 5;
+    float xTween, yTween;
+
+    yTween = pow(vy, 2)/20;
+
+    if (yTween > MAX_TWEEN) {
+      yTween = MAX_TWEEN;
+    }
+
+    xTween = -yTween;
+    spriteWidth = playerSpriteWidth + xTween;
+    spriteHeight = playerSpriteHeight + yTween;
+
+    xSpriteR += xTween;
+    xSpriteL += xTween;
+    ySprite -= yTween;
   }
 
   //Boolean that checks if the player is inside of a block
@@ -308,6 +327,8 @@ class Player {
     if (x + size < 0) {
       interfaces.death = true;
     }
+
+    playerTween();
   } 
 
   //method that checks if there is player collision (used for pickups)
@@ -333,12 +354,14 @@ class Player {
     if (moveLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width, ySprite);
-      image(crownSprite, -xSpriteL-playerSprite[0].width, ySprite - crownOffset);
+      image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width, ySprite, spriteWidth, spriteHeight);
+      if (hasCrown)
+        image(crownSprite, -xSpriteL-playerSprite[0].width, ySprite - crownOffset, spriteWidth, spriteHeight);
       popMatrix();
     } else if (!moveLeft) {
-      image(playerSprite[frameCounter], xSpriteR, ySprite);
-      image(crownSprite, xSpriteR, ySprite - crownOffset);
+      image(playerSprite[frameCounter], xSpriteR, ySprite, spriteWidth, spriteHeight);
+      if (hasCrown)
+        image(crownSprite, xSpriteR, ySprite - crownOffset, spriteWidth, spriteHeight);
     }
   }
 }
