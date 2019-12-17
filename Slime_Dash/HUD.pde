@@ -25,7 +25,7 @@ class HUD {
   float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight, healthMult, health;
   color healthC = color(255, 0, 0, 255);
   //dashbar
-  float dashmain, dashH, dashL, dashL2, dashX, dashY;
+  float dashmain, dashH, dashL, dashL2, dashX, dashY, dashX2;
   final float DASH_SMOL_MAX =globalScale;
   float dashSmol, dashLsmol, dashLsmol2;
   //score
@@ -56,9 +56,10 @@ class HUD {
     death = false;
     //dash bar
     dashH = healthBarHeight/3;
-    dashL = healthBarLength;
-    dashL2 = constrain(healthBarLength, 0, healthBarLength);
+    dashL = dashX;
+    dashL2 = dashX2;
     dashX = healthBarX+(globalScale/4);
+    dashX2 = healthBarX+width/10+(globalScale/4);
     dashY = healthBarY+globalScale*1.5;
     dashLsmol = globalScale/5;
     //score
@@ -124,9 +125,12 @@ class HUD {
     }
 
     //dash bar
-    dashL2 = constrain(player.dashCooldown*5, 0, dashL);
-    dashLsmol2 = constrain(-player.dashCooldown*50, 0, dashLsmol);
-
+    if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
+      dashL = (globalScale*4)/2;
+    } else dashL=dashX;
+    if (player.dashCooldown >=player.dashCooldownMax) {
+      dashL2 = globalScale*4;
+    } else dashL2 = dashX2;
 
     //game over
     /*game over text*/
@@ -199,7 +203,6 @@ class HUD {
     fill(0, 50);
     rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(100, 0, 100))/100), globalScale*0.7);
     /*actual health indicator*/
-
     fill(healthC);
     if (health > 100) health = 100;
     rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*((constrain(health, 0, 100))/100), globalScale*0.7);
@@ -210,21 +213,12 @@ class HUD {
     textSize(scoreNormal);
     text(constrain(floor(health), 0, 100), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
-    /*dashbar backdrop*/
-    noStroke();
-    fill(155);
-    rect(dashX, dashY, dashL, dashH);
-    /*actual dash indicator*/
-    noStroke();
-    fill(255, 255);
-    rect(dashX, dashY, dashL2, dashH);
-    fill(255, 255);
+    stroke(255);
+    strokeWeight(20);
+    line(dashX, dashY, dashL, dashY);  
+    line(dashX2, dashY, dashL2, dashY);  
 
-    /* border*/
-    stroke(0);
-    noFill();
-    rect(dashX, dashY, dashL, dashH);
-    // image(dashbar, 10, 90, 425, 70);
+
     //score
     if (death==false&&room=="game") {
       score +=globalScrollSpeed/globalScale*10;
@@ -234,6 +228,8 @@ class HUD {
     textSize(scoreSize);
     text(floor(score), scoreX, scoreY);
     createParticle(width+50, scoreY+20, constrain(floor(playerCatchUp/1.3), 0, 100), color(255), color(200), -.01, floor(playerCatchUp), false, "", 1);
+    stroke(0);
+    strokeWeight(2);
     line(width-(width/8), scoreY+20, width, scoreY+20);
     //coins
     textSize(scoreNormal);
