@@ -7,16 +7,16 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy,
-    dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize,
-    parGrav, parSpeed, jumpedHeight;
+  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
+    dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
+    parGrav, parSpeed, jumpedHeight, spriteWidth, spriteHeight;
 
-  int dashCooldown, dashCooldownReset, maxJumpAmount, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
+  int dashCooldown, dashCooldownMax, maxJumpAmount, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
-  final int DASH_COOLDOWN_CHARGE = 80;
-  final int DASH_COOLDOWN_START = 80 * 2;
+  final int DASH_COOLDOWN_CHARGE = 100;
+  final int DASH_COOLDOWN_START = DASH_COOLDOWN_CHARGE * 2;
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
