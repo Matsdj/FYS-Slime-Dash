@@ -99,7 +99,7 @@ class PCoin {
   void draw() {
     imageMode(CORNER);
 
-    image(coin, x-size/2, y-size/2, size, size);
+    image(coin, x-size/2+xshake, y-size/2, size, size);
   }
 }
 
@@ -143,6 +143,6 @@ class PHealth {
   void draw() {
     imageMode(CORNER);
 
-    image(heart, x-size/2, y-size/2, size, size);
+    image(heart, x-size/2+xshake, y-size/2, size, size);
   }
 }

@@ -170,7 +170,7 @@ class MainM {
     text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
     fill(0);
     text("  " +"Select", main.tekstX, main.tekstY*2.8);
-    image(slimeDash, width/4, height/100, width/3, height/3);
+    image(slimeDash, width/4+xshake, height/100, width/3, height/3);
   }
 }
 

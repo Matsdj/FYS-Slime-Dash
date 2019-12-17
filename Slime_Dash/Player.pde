@@ -361,14 +361,14 @@ class Player {
     if (moveLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width, ySprite, spriteWidth, spriteHeight);
+      image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width+xshake, ySprite, spriteWidth, spriteHeight);
       if (hasCrown)
-        image(crownSprite, -xSpriteL-playerSprite[0].width, ySprite - crownOffset, spriteWidth, spriteHeight);
+        image(crownSprite, -xSpriteL-playerSprite[0].width+xshake, ySprite - crownOffset, spriteWidth, spriteHeight);
       popMatrix();
     } else if (!moveLeft) {
-      image(playerSprite[frameCounter], xSpriteR, ySprite, spriteWidth, spriteHeight);
+      image(playerSprite[frameCounter], xSpriteR+xshake, ySprite, spriteWidth, spriteHeight);
       if (hasCrown)
-        image(crownSprite, xSpriteR, ySprite - crownOffset, spriteWidth, spriteHeight);
+        image(crownSprite, xSpriteR+xshake, ySprite - crownOffset, spriteWidth, spriteHeight);
     }
   }
 }

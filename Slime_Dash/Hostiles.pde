@@ -90,10 +90,10 @@ class HostileMelee {
     } else if (vx<0) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(enemySprite[enemyWalkFrame], -x-globalScale, y - globalScale/32*2);
+      image(enemySprite[enemyWalkFrame], -x-globalScale+xshake, y - globalScale/32*2);
       popMatrix();
     } else {
-      image(enemySprite[enemyWalkFrame], x, y - globalScale/32*2);
+      image(enemySprite[enemyWalkFrame], x+xshake, y - globalScale/32*2);
     }
   }
   void update() {
@@ -178,10 +178,10 @@ class HostileRanged {
     if (isLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(archerSprite[enemyBreathFrame], -x-globalScale, y - globalScale/32);
+      image(archerSprite[enemyBreathFrame], -x-globalScale+xshake, y - globalScale/32);
       popMatrix();
     } else {
-      image(archerSprite[enemyBreathFrame], x, y - globalScale/32);
+      image(archerSprite[enemyBreathFrame], x+xshake, y - globalScale/32);
     }
   }
 
