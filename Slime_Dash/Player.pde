@@ -60,7 +60,7 @@ class Player {
     smashedGround = false;
     parSize = globalScale / 7;
     parGrav = globalScale/256;
-    parSpeed = globalScale/13;
+    parSpeed = globalScale/18;
   }
 
   //player animation is done in this function. It looks if the player is looking left or right, and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
@@ -309,9 +309,9 @@ class Player {
         jumpedAmount = 0;
       }
       //ground smash effect
-      if (onGround && vy > MAX_VY/1.2 && smashedGround) {
+      if (onGround && smashedGround) {
         smashedGround = false;
-        createParticle(x + size/2, y + size/2, parSize, color(#FF9455), color(#FF5555), parGrav, parSpeed, true, "", 10);
+        createParticle(x + size/2, y + size/2, parSize, color(#FF9455), color(#FF5555), parGrav, parSpeed, true, "", vy/3);
       }
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
