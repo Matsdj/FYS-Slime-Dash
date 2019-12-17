@@ -68,6 +68,6 @@ class Spike {
      
      triangle(x+size/4, y, x+size/2, y+size, x, y+size);
      triangle(x+size/4*3, y, x+size/2, y+size, x+size, y+size);*/
-    image(spikeSprite, x, y);
+    image(spikeSprite, x+shake, y);
   }
 }

@@ -63,7 +63,8 @@ class Player {
     parSpeed = globalScale/18;
   }
 
-  //player animation is done in this function. It looks if the player is looking left or right, and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
+  //player animation is done in this function. It looks if the player is looking left or right, 
+  //and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
   void playerAnimation() {
     ySprite = y - pushPlayerSpriteUp;
     xSpriteL = x - pushPlayerSpriteL;
@@ -361,14 +362,14 @@ class Player {
     if (moveLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width, ySprite, spriteWidth, spriteHeight);
+      image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width+shake, ySprite, spriteWidth, spriteHeight);
       if (hasCrown)
-        image(crownSprite, -xSpriteL-playerSprite[0].width, ySprite - crownOffset, spriteWidth, spriteHeight);
+        image(crownSprite, -xSpriteL-playerSprite[0].width+shake, ySprite - crownOffset, spriteWidth, spriteHeight);
       popMatrix();
     } else if (!moveLeft) {
-      image(playerSprite[frameCounter], xSpriteR, ySprite, spriteWidth, spriteHeight);
+      image(playerSprite[frameCounter], xSpriteR+shake, ySprite, spriteWidth, spriteHeight);
       if (hasCrown)
-        image(crownSprite, xSpriteR, ySprite - crownOffset, spriteWidth, spriteHeight);
+        image(crownSprite, xSpriteR+shake, ySprite - crownOffset, spriteWidth, spriteHeight);
     }
   }
 }

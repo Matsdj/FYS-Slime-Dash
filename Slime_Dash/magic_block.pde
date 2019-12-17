@@ -115,8 +115,8 @@ class Magic1 {
     if (switchA==true) {
       /*fill (255, 0, 0);
        quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);*/
-      image(magicSprite[0][frameCounter], x, spriteY);
-    } else image(magicStaticSprite, x, spriteY);
+      image(magicSprite[0][frameCounter], x+shake, spriteY);
+    } else image(magicStaticSprite, x+shake, spriteY);
   }
 }
 
@@ -211,8 +211,8 @@ class Magic2 {
     if (switchA==false) {
       /*fill (255, 0, 0);
        quad(x, y+size, x, y-size, x+size, y-size, x+size, y+size);*/
-      image(magicSprite[1][frameCounter], x, spriteY);
-    } else image(magicStaticSprite, x, spriteY);
+      image(magicSprite[1][frameCounter], x+shake, spriteY);
+    } else image(magicStaticSprite, x+shake, spriteY);
   }
 }
 
@@ -299,14 +299,14 @@ class MagicSwitch {
 
 
     fill (140);
-    quad(x, y+size, x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size, y+size);
+    quad(x+shake, y+size, x+0.3*size+shake, y+0.8*size, x+size-0.3*size+shake, y+0.8*size, x+size+shake, y+size);
     if (switchA==false) {
       fill(0, 0, 255);
-      quad(x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size-0.4*size, y+0.7*size, x+0.4*size, y+0.7*size);
+      quad(x+0.3*size+shake, y+0.8*size, x+size-0.3*size+shake, y+0.8*size, x+size-0.4*size+shake, y+0.7*size, x+0.4*size+shake, y+0.7*size);
     }
     if (switchA==true) {
       fill(255, 0, 0);
-      quad(x+0.3*size, y+0.8*size, x+size-0.3*size, y+0.8*size, x+size-0.4*size, y+0.7*size, x+0.4*size, y+0.7*size);
+      quad(x+0.3*size+shake, y+0.8*size, x+size-0.3*size+shake, y+0.8*size, x+size-0.4*size+shake, y+0.7*size, x+0.4*size+shake, y+0.7*size);
     }
   }
 }

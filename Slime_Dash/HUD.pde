@@ -236,7 +236,7 @@ class HUD {
     text(floor(coins), scoreX-30, scoreY+70);
     stroke(0);
     fill(255, 255, 0);
-    image(coin, scoreX-20, scoreY+40, 40, 40);
+    image(coin, scoreX-20+shake, scoreY+40, 40, 40);
 
     //Game Over
     fill(#A300FC, goFadeIn);

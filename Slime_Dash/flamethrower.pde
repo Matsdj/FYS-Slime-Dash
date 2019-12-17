@@ -63,9 +63,9 @@ class Flame {
     if (timeflame > timeflamemax/2) {
       image(flamethrowerSprite[flameFrameCounter], x, spriteY);
     } else if (timeflame <= flameCancelFrame) {
-      image(flamethrowerSprite[6], x, spriteY);
+      image(flamethrowerSprite[6], x+shake, spriteY);
     } else {
-      image(flamethrowerSprite[0], x, spriteY);
+      image(flamethrowerSprite[0], x+shake, spriteY);
     }
   }
 

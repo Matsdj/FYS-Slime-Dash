@@ -137,6 +137,7 @@ void drawGame() {
   hordeDraw();
   skyChange();
   interfaces.draw();
+  shakeUpdate();
 }
 
 void draw() {

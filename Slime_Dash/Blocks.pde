@@ -79,10 +79,10 @@ class Block {
           sprite = dirtSprite;
         }
       }
-      image(sprite, x, y);
+      image(sprite, x+shake, y);
       if (cracked) {
         tint(255, ((BREAK_TIME_MAX-breakTime)/BREAK_TIME_MAX)*155+100);
-        image(crackedSprite, x, y);
+        image(crackedSprite, x+shake, y);
         tint(255);
       }
     }
@@ -93,9 +93,9 @@ class Block {
     for (float i = y+globalScale; ((blockCollision(xScroll, i, hitbox, id) == null || blockCollision(xScroll, i, hitbox, id).moving || blockCollision(xScroll, i, hitbox, id).cracked) && i < height); i+= globalScale) {
       tint(100);
       if (sprite == grassSprite) {
-        image(dirtSprite, x, i);
+        image(dirtSprite, x+shake, i);
       } else
-        image(sprite, x, i);
+        image(sprite, x+shake, i);
       tint(255);
       backgroundBlocks +=1;
     }

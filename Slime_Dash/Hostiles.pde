@@ -90,10 +90,10 @@ class HostileMelee {
     } else if (vx<0) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(enemySprite[enemyWalkFrame], -x-globalScale, y - globalScale/32*2);
+      image(enemySprite[enemyWalkFrame], -x-globalScale+shake, y - globalScale/32*2);
       popMatrix();
     } else {
-      image(enemySprite[enemyWalkFrame], x, y - globalScale/32*2);
+      image(enemySprite[enemyWalkFrame], x+shake, y - globalScale/32*2);
     }
   }
   void update() {
@@ -117,6 +117,7 @@ class HostileMelee {
       dead = true;
       createParticle(x, y, 10, color(255, 0, 0), 0, 2, 50, true, "", 100);
       speedModifier = 0.001;
+      shake(globalScale/2);
     } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
       player.enemyDamage = true;
       interfaces.meleeDamage = true;
@@ -178,10 +179,10 @@ class HostileRanged {
     if (isLeft) {
       pushMatrix();
       scale(-1.0, 1.0);
-      image(archerSprite[enemyBreathFrame], -x-globalScale, y - globalScale/32);
+      image(archerSprite[enemyBreathFrame], -x-globalScale+shake, y - globalScale/32);
       popMatrix();
     } else {
-      image(archerSprite[enemyBreathFrame], x, y - globalScale/32);
+      image(archerSprite[enemyBreathFrame], x+shake, y - globalScale/32);
     }
   }
 
@@ -197,6 +198,8 @@ class HostileRanged {
     if (player.Collision(x, y, size) && player.dashActive && !dead) {
       dead = true;
       createParticle(x, y, 10, color(255, 0, 0), 0, 2, 50, true, "", 100);
+      speedModifier = 0.0001;
+      shake(globalScale/2);
     }
     if (dead) {
       reset();

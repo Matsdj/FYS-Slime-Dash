@@ -75,6 +75,6 @@ class Horde {
   }
 
   void draw() {
-    image(hordeSprite[hordeIndex][hordeFrameCounter], x, hordeY);
+    image(hordeSprite[hordeIndex][hordeFrameCounter], x+shake, hordeY);
   }
 }
