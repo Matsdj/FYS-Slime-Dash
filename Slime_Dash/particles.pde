@@ -73,15 +73,13 @@ class Particle {
   }
   void update() {
     if (collision) {
-      if (blockCollision(x+vx, y, size) != null && vx != 0) {
+      if (blockCollision(x, y, size) != null) {
         vx = 0;
-      }
-      if (blockCollision(x, y+vy, size) != null && vy != 0) {
         vy = 0;
       }
     }
-    x -= vx+globalScrollSpeed;
-    y += vy+globalVerticalSpeed;
+    x -= vx*speedModifier+globalScrollSpeed;
+    y += vy*speedModifier+globalVerticalSpeed;
     vy += gravity;
     if (life <= 0) {
       active = false;
