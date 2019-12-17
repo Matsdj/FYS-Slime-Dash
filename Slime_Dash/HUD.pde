@@ -124,7 +124,7 @@ class HUD {
     }
 
     //dash bar
-    dashL2 = constrain(-player.dashCooldown*50, 0, dashL);
+    dashL2 = constrain(player.dashCooldown*5, 0, dashL);
     dashLsmol2 = constrain(-player.dashCooldown*50, 0, dashLsmol);
 
 
