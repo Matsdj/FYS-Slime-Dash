@@ -6,6 +6,7 @@ PImage[] playerSprite;
 PImage[] playerBlinkSprite;
 PImage playerDashBlink;
 PImage playerWalkBlink;
+PImage crownSprite;
 PImage[] flamethrowerSprite;
 PImage[][] magicSprite;
 PImage magicStaticSprite;
@@ -23,9 +24,17 @@ PImage slimeDash;
 PImage healthbar;
 PImage dashbar;
 
+final color DASH_AFTER_IMAGE_COLOR = color(255, 210, 210);
+final color STANDARD_AFTER_COLOR = color(255, 10, 10);
+final color KING_AFTER_COLOR = color(200, 200, 0);
+
+color afterColor;
+
+boolean hasCrown = true;
+
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, 
   meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight, 
-  arrowSpriteWidth, arrowSpriteHeight, magicSpriteWidth, magicSpriteHeight;
+  arrowSpriteWidth, arrowSpriteHeight, magicSpriteWidth, magicSpriteHeight, crownOffset;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
 //Blocks
@@ -41,6 +50,11 @@ PImage crackedSprite;
 PFont font;
 
 public void assetSetup() {
+  if (hasCrown) {
+    afterColor = KING_AFTER_COLOR;
+  } else
+    afterColor = STANDARD_AFTER_COLOR;
+
   //houseResize
   houseSpriteWidth = int(10 * globalScale);
   houseSpriteHeight = int(8 * globalScale);
@@ -81,6 +95,7 @@ public void assetSetup() {
   //playerResize + variables that pushes center of player sprite into the hitbox of the player 
   playerSpriteWidth = int(globalScale/32 * 52);
   playerSpriteHeight = int(globalScale/32 * 38);
+  crownOffset = int(globalScale/32 * 5);
   pushPlayerSpriteR = globalScale/32 * 12;
   pushPlayerSpriteL = globalScale/32 * 8;
   pushPlayerSpriteUp = globalScale/32 * 2;
@@ -109,7 +124,7 @@ public void assetSetup() {
 
     for (int iPixel = 0; iPixel < playerBlinkSprite[iSprite].pixels.length; iPixel++) {
       if (alpha(playerBlinkSprite[iSprite].pixels[iPixel]) > 0) {
-        playerBlinkSprite[iSprite].pixels[iPixel] = color(255, 10, 10);
+        playerBlinkSprite[iSprite].pixels[iPixel] = afterColor;
       }
     }
   }
@@ -119,15 +134,13 @@ public void assetSetup() {
   playerWalkBlink = loadImage("sprites/player/player0.png");
   playerWalkBlink.resize(playerSpriteWidth, playerSpriteHeight);
   playerWalkBlink.loadPixels();
-  for (int iPixel = 0; iPixel < playerWalkBlink.pixels.length; iPixel++) {
-    if (alpha(playerWalkBlink.pixels[iPixel]) > 0) {
-      playerWalkBlink.pixels[iPixel] = color(255, 10, 10);
-    }
-  }
+
+  crownSprite = loadImage("sprites/player/crown.png");
+  crownSprite.resize(playerSpriteWidth, playerSpriteHeight + crownOffset);
 
   for (int iPixel = 0; iPixel < playerDashBlink.pixels.length; iPixel++) {
     if (alpha(playerDashBlink.pixels[iPixel]) > 0) {
-      playerDashBlink.pixels[iPixel] = color(255, 210, 210);
+      playerDashBlink.pixels[iPixel] = DASH_AFTER_IMAGE_COLOR;
     }
   }
 

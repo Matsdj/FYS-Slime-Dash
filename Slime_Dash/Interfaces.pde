@@ -255,7 +255,7 @@ class Upgrades {
           perchTR = perch[perchTRState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= dashPrice;
-          player.dashCooldownReset -= 20;
+          player.dashCooldownMax += 20;
           dashPrice = dashPrice * 2;
           textAlign(CENTER);
           fill(255);
