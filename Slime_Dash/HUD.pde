@@ -25,9 +25,10 @@ class HUD {
   float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight, healthMult, health;
   color healthC = color(255, 0, 0, 255);
   //dashbar
-  float dashmain, dashH, dashL, dashL2, dashX, dashY, dashX2;
+  float dashmain, dashH, dashL, dashL2, dashX, dashY, dashX2, dashL3, dashX3;
   final float DASH_SMOL_MAX =globalScale;
   float dashSmol, dashLsmol, dashLsmol2;
+  boolean charge1=false, charge2=false, charge3=false;
   //score
   float scoreX, scoreY, scoreSize, score, scoreNormal;
   //game over
@@ -38,13 +39,13 @@ class HUD {
 
   HUD() {
     //tutorial
-    tutX=width/2;
-    tutY=height/4;
+    tutX = width/2;
+    tutY = height/4;
     tutText = "";
     tutorial[0] = playerSprite[4];
     //healthbar
-    healthBarX= 30+(globalScale/18);
-    healthBarY= 40;
+    healthBarX = 30+(globalScale/18);
+    healthBarY = 40;
     healthBarLength = globalScale*4;
     healthBarHeight = globalScale*0.8;
     healthBarCurve = 20;
@@ -58,15 +59,17 @@ class HUD {
     dashH = healthBarHeight/3;
     dashL = dashX;
     dashL2 = dashX2;
-    dashX = healthBarX+(globalScale/4);
-    dashX2 = healthBarX+width/10+(globalScale/4);
+    dashL3 = dashX3;
+    dashX = healthBarX;
+    dashX2 = healthBarLength*0.35;
+    dashX3 = healthBarLength*0.6;
     dashY = healthBarY+globalScale*1.5;
     dashLsmol = globalScale/5;
     //score
     scoreX = width*0.98;
     scoreY = width*0.039;
     scoreSize = width*0.025;
-    scoreNormal= width*0.025;
+    scoreNormal = width*0.025;
     score = 0;
     //coins
 
@@ -125,12 +128,33 @@ class HUD {
     }
 
     //dash bar
+    if (charge1==true) {
+      createParticle(healthBarLength*0.25, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 20, false, "", 100);
+    }        
+    if (charge2==true) {
+      createParticle(healthBarLength*0.5, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 20, false, "", 100);
+    }    
+    if (charge3==true) {
+      createParticle(healthBarLength*0.75, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 20, false, "", 100);
+    }
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
-      dashL = (globalScale*4)/2;
+      if (player.dashCooldown ==player.DASH_COOLDOWN_CHARGE) {
+        charge1=true;
+      } else charge1=false;
+      dashL = healthBarLength*0.25;
     } else dashL=dashX;
+    if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE*2) {
+      if (player.dashCooldown == player.DASH_COOLDOWN_CHARGE*2) {
+        charge2=true;
+      } else charge2=false;
+      dashL2 = healthBarLength*0.5;
+    } else dashL2=dashX2;
     if (player.dashCooldown >=player.dashCooldownMax) {
-      dashL2 = globalScale*4;
-    } else dashL2 = dashX2;
+      dashL3 = healthBarLength*0.75;
+    } else dashL3 = dashX3;
+    if (player.dashCooldown ==player.dashCooldownMax-1) {
+      charge3=true;
+    } else charge3=false;
 
     //game over
     /*game over text*/
@@ -213,10 +237,17 @@ class HUD {
     textSize(scoreNormal);
     text(constrain(floor(health), 0, 100), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
-    stroke(255);
+    stroke(0);
     strokeWeight(20);
     line(dashX, dashY, dashL, dashY);  
     line(dashX2, dashY, dashL2, dashY);  
+    line(dashX3, dashY, dashL3, dashY);  
+    stroke(0, 100, 200);
+    strokeWeight(10);
+    line(dashX, dashY, dashL, dashY);  
+    line(dashX2, dashY, dashL2, dashY);  
+    line(dashX3, dashY, dashL3, dashY);  
+
 
 
     //score
