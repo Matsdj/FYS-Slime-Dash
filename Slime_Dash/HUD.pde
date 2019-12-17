@@ -14,6 +14,12 @@ class HUD {
   int arrowDMGnum = 10;
   int archerDMGnum = 20;
   int spikeDMGnum = 10;
+  // tutorial
+  float tutX, tutY;
+  String tutText;
+  PImage[] tutorial = new PImage[4];
+  color circleColor = color(255, 255, 0);
+  ;
   //healthbar
   int noHealth;
   float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight, healthMult, health;
@@ -31,6 +37,11 @@ class HUD {
   //coins
 
   HUD() {
+    //tutorial
+    tutX=width/2;
+    tutY=height/4;
+    tutText = "";
+    tutorial[0] = playerSprite[4];
     //healthbar
     healthBarX= 30+(globalScale/18);
     healthBarY= 40;
@@ -156,8 +167,35 @@ class HUD {
     }
   }
   void draw() {
+    //tutorial
+
+    if (room=="game2") {
+      fill(circleColor);
+      ellipseMode(RADIUS);
+      stroke(0);
+      strokeWeight(5);
+      ellipse(width/2+(width/100), height/5-15, 35, 35);
+      fill(0);
+      textSize(50);
+      text(tutText, width/2, height/5);
+      tint(155);
+      imageMode(CENTER);
+      image(tutorial[0], width*0.6, height/5-20);
+      if (traveledDistance >0) {
+        tutText = "B";
+        tutorial[0] = playerSprite[4];
+      }
+      if (traveledDistance >13) {
+        circleColor = color(255, 0, 0);
+        tutText = "A";
+        tutorial[0] = playerSprite[5];
+      }
+    } 
+    imageMode(CORNER);
+    tint(255);
     //healthbar
     /*healthbar backdrop*/
+
     fill(0, 50);
     rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(100, 0, 100))/100), globalScale*0.7);
     /*actual health indicator*/
@@ -170,7 +208,7 @@ class HUD {
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(255);
     textSize(scoreNormal);
-    text(constrain(floor(health),0,100), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
+    text(constrain(floor(health), 0, 100), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
     /*dashbar backdrop*/
     noStroke();
@@ -195,7 +233,7 @@ class HUD {
     fill(0);
     textSize(scoreSize);
     text(floor(score), scoreX, scoreY);
-    createParticle(width+50, scoreY+20, constrain(floor(playerCatchUp/1.3),0,100), color(255), color(200), -.01, floor(playerCatchUp), false, "", 1);
+    createParticle(width+50, scoreY+20, constrain(floor(playerCatchUp/1.3), 0, 100), color(255), color(200), -.01, floor(playerCatchUp), false, "", 1);
     line(width-(width/8), scoreY+20, width, scoreY+20);
     //coins
     textSize(scoreNormal);
@@ -226,5 +264,6 @@ class HUD {
     text("Sel", main.tekstX*2, main.tekstY*2.8);
     fill(0, goFadeIn);
     text("  "+"Menu", main.tekstX*2+50, main.tekstY*2.8);
+    println(traveledDistance);
   }
 }
