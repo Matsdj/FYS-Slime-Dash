@@ -11,11 +11,12 @@ class Player {
     dashSpeed, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
     parGrav, parSpeed, jumpedHeight, spriteHeight, spriteWidth;
 
-  int dashCooldown, dashCooldownReset, maxJumpAmount, dashTime, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
+  int dashCooldown, dashCooldownMax, maxJumpAmount, dashTime, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
-  final int DASH_COOLDOWN_START = 100;
+  final int DASH_COOLDOWN_START = 180;
+  final int DASH_COOLDOWN_CHARGE = DASH_COOLDOWN_START/3;
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
@@ -46,7 +47,7 @@ class Player {
     slowDown = SPEEDSLOWDOWN;
     vx = 0;
     vy = 0;
-    dashCooldownReset = DASH_COOLDOWN_START; //change this to upgrade dash cooldown
+    dashCooldownMax = DASH_COOLDOWN_START; //change this to upgrade dash cooldown
     dashCooldown = 0;
     dashTime = DASH_TIME;
     dmgCooldown = 0;
@@ -183,7 +184,10 @@ class Player {
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
 
-    dashCooldown --;
+    dashCooldown ++;
+    if (dashCooldown > dashCooldownMax) {
+      dashCooldown = dashCooldownMax;
+    }
     dmgCooldown--;
 
     blockTypeDetection();
@@ -237,7 +241,7 @@ class Player {
       }
 
       //Dash abilty
-      if (inputs.hasValue(90) == true && dashCooldown < 0 || dashActive && dashTime > 0) {
+      if (inputsPressed.hasValue(90) == true && dashCooldown > 0 || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
           DashSlime.rate(random(0.8, 1.2)); 
           DashSlime.play();
@@ -250,7 +254,10 @@ class Player {
         if (!moveLeft) {
           vx = DASHSPEED;
         }
-        dashCooldown = dashCooldownReset;
+
+        if (!dashActive)
+          dashCooldown -= DASH_COOLDOWN_CHARGE;
+
         dashActive = true;
         dashTime--;
 
@@ -384,7 +391,7 @@ void blinkSetup() {
 void blinkUpdate() { 
   //adds new dash blink every given frame amount while the dash is active
   for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
-    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown < 0 && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
+    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown > 0 && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
       dashBlink[iBlink].activate();
       break;
     }
