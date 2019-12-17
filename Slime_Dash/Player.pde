@@ -63,7 +63,8 @@ class Player {
     parSpeed = globalScale/18;
   }
 
-  //player animation is done in this function. It looks if the player is looking left or right, and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
+  //player animation is done in this function. It looks if the player is looking left or right, 
+  //and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
   void playerAnimation() {
     ySprite = y - pushPlayerSpriteUp;
     xSpriteL = x - pushPlayerSpriteL;
