@@ -334,9 +334,11 @@ class Player {
       pushMatrix();
       scale(-1.0, 1.0);
       image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width, ySprite);
+      image(crownSprite, -xSpriteL-playerSprite[0].width, ySprite - crownOffset);
       popMatrix();
     } else if (!moveLeft) {
       image(playerSprite[frameCounter], xSpriteR, ySprite);
+      image(crownSprite, xSpriteR, ySprite - crownOffset);
     }
   }
 }
