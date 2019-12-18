@@ -126,7 +126,6 @@ void drawGame() {
   drawBackgroundBlocks();
   hostileDraw();
   blinkDraw();
-  particleDraw();
   player.draw();
   spikeDraw();
   blockDraw();
@@ -136,6 +135,7 @@ void drawGame() {
   magicBlockDraw();
   hordeDraw();
   skyChange();
+  particleDraw();
   interfaces.draw();
   shakeUpdate();
 }
