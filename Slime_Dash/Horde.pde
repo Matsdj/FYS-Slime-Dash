@@ -1,6 +1,6 @@
 final int HORDE_STAGES = 4;
 final int HORDE_STAGE_SPRITE_AMOUNT = 2;
-final int HORDE_FRAMERATE = 40;
+final int HORDE_FRAMERATE = 60;
 
 Horde[] horde;
 
@@ -22,6 +22,9 @@ void hordeSetup() {
 
 void hordeUpdate() {
   hordeFramerate = HORDE_FRAMERATE / int(globalScrollSpeed+1);
+  if (hordeFramerate < 1) {
+    hordeFramerate = 1;
+  }
 
   if (frameCount % hordeFramerate == 0) {
     hordeFrameCounter ++;
