@@ -85,12 +85,12 @@ class PCoin {
   void update() {
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
-    
+
     if (player.Collision(x - (0.5 * globalScale), y - (0.5 * globalScale), size)) {
       reset();
       coins += coinValue;
     }
-    
+
     if (x < 0 - globalScale * 2) {
       reset();
     }
@@ -130,12 +130,12 @@ class PHealth {
   void update() {
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
-    
+
     if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
       reset();
       interfaces.health += GAIN_HEALTH;
     }
-    
+
     if (x < 0 - globalScale * 2) {
       reset();
     }

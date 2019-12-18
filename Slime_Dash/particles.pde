@@ -93,7 +93,7 @@ class Particle {
     if (text == "") {
       rect(x, y, size, size);
     } else {
-      text(text,x,y);
+      text(text, x, y);
     }
   }
 }

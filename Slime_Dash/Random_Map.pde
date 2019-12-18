@@ -99,7 +99,7 @@ void mapUpdate() {
 void makeMap(PImage template) {
   PImage mapTemplate;
   if (template == null) {
-    if (testTemplates){
+    if (testTemplates) {
       int randomTemplateIndex = floor(random(templateListTest.length));
       mapTemplate = templateListTest[randomTemplateIndex];
     } else if (globalScrollSpeed-playerCatchUp < MAX_SCROLL_SPEED/2) {
