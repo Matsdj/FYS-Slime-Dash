@@ -22,27 +22,27 @@ class Pause {
 
   void update() {
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause2" && (inputs.hasValue(32)||inputs.hasValue(39))&&cooldown<0) {
+    if (room == "pause2" && (inputs.hasValue(keySpace)||inputs.hasValue(keyRight))&&cooldown<0) {
       room = "game2";
       cooldown= COOLDOWN_MAX;
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game2" && inputs.hasValue(80) && interfaces.death == false &&cooldown<0) {
+    else if (room == "game2" && inputs.hasValue(keyP) && interfaces.death == false &&cooldown<0) {
       room = "pause2";
       cooldown= COOLDOWN_MAX;
     }
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause" && (inputs.hasValue(32)||inputs.hasValue(39))&&cooldown<0) {
+    if (room == "pause" && (inputs.hasValue(keySpace)||inputs.hasValue(keyRight))&&cooldown<0) {
       room = "game";
       cooldown= COOLDOWN_MAX;
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game" && inputs.hasValue(80) && interfaces.death == false ) {
+    else if (room == "game" && inputs.hasValue(keyP) && interfaces.death == false ) {
       room = "pause";
       // druk op q of t om naar main menu te gaan
-    } else if (room == "game2" && inputs.hasValue(80) && interfaces.death == false) {
+    } else if (room == "game2" && inputs.hasValue(keyP) && interfaces.death == false) {
       room = "pause2";
-    } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(81)||inputs.hasValue(84))&&cooldown<0) {
+    } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(keyQ)||inputs.hasValue(keyT))&&cooldown<0) {
       cooldown= COOLDOWN_MAX;
       GameSlow.stop();
       GameMid.stop();
@@ -126,7 +126,7 @@ class MainM {
       tekstSize[0] =75;
       tekstSize[1] =50;
     }//Down in het menu
-    if (select1 == highlight&&keyCode==40 ) {
+    if (select1 == highlight&&keyCode==keyDown ) {
       select1 = 180;
       select2 = highlight;
     }
@@ -134,18 +134,18 @@ class MainM {
       tekstSize[1]= 75;
       tekstSize[0]= 50;
     }//Up in het menu
-    if (select2 == highlight&&keyCode==38 ) {
+    if (select2 == highlight&&keyCode==keyUp ) {
       select2 = 180;
       select1 = highlight;
     }
 
     // spatie om naar andere rooms te gaan
-    if (select1==highlight&&room == "mainM" && keyCode ==32&&cooldown<0) {
+    if (select1==highlight&&room == "mainM" && keyCode == keySpace &&cooldown<0) {
       room = "difficulty";
       SpeedUp.play();
       cooldown= COOLDOWN_MAX;
     }
-    if (select2==highlight &&room == "mainM" && keyCode ==32&&cooldown<0) {
+    if (select2==highlight &&room == "mainM" && keyCode == keySpace &&cooldown<0) {
       room = "upgrades";
       cooldown= COOLDOWN_MAX;
     }
@@ -212,21 +212,21 @@ class Upgrades {
     perchBRState = 0;
   }
   void update() {
-    if (keyCode ==81&&cooldown<0) {
+    if (keyCode ==keyQ&&cooldown<0) {
       room= "mainM";
       cooldown=COOLDOWN_MAX;
     }
     if (room=="upgrades") {
-      if (keyCode==40 && perchSelectY == perchUp) {
+      if (keyCode==keyDown && perchSelectY == perchUp) {
         perchSelectY = perchDown;
       }  
-      if (keyCode ==38 && perchSelectY == perchDown) {
+      if (keyCode ==keyUp && perchSelectY == perchDown) {
         perchSelectY = perchUp;
       }      
-      if (keyCode==39 && perchSelectX == perchLeft) {
+      if (keyCode==keyRight && perchSelectX == perchLeft) {
         perchSelectX = perchRight;
       }  
-      if (keyCode ==37 && perchSelectX == perchRight) {
+      if (keyCode ==keyLeft && perchSelectX == perchRight) {
         perchSelectX = perchLeft;
       }
       // ff quick coin cheat
@@ -234,12 +234,12 @@ class Upgrades {
         coins += 10;
       }
       if (perchTLState < perch.length - 1) {       
-        if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice) {
+        if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice) {
           perchTLState = 3;
           perchTL = perch[perchTLState];
           coins -= doubleJumpPrice;
           player.maxJumpAmount = 1;
-        } else if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
+        } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
           println("gay"); 
           textAlign(CENTER);
           fill(0);
@@ -250,7 +250,7 @@ class Upgrades {
         }
       }
       if (perchTRState < perch.length - 1) {       
-        if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice) {
+        if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice) {
           perchTRState++;
           perchTR = perch[perchTRState];
           cooldown = COOLDOWN_UPGRADE;
@@ -263,7 +263,7 @@ class Upgrades {
           fill(0);
           text("DASH COOLDOWN REDUCED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        } else if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
+        } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -273,7 +273,7 @@ class Upgrades {
         }
       }
       if (perchBLState < perch.length - 1) {       
-        if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchDown && coins >= healthPrice) {
+        if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && coins >= healthPrice) {
           perchBLState++;
           perchBL = perch[perchBLState];
           cooldown = COOLDOWN_UPGRADE;
@@ -288,7 +288,7 @@ class Upgrades {
           fill(0);
           text("HEALTH INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        } else if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
+        } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -298,7 +298,7 @@ class Upgrades {
         }
       }
       if (perchBRState < perch.length - 1) {       
-        if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchDown && coins >= coinPrice) {
+        if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && coins >= coinPrice) {
           perchBRState++;
           perchBR = perch[perchBRState];
           cooldown = COOLDOWN_UPGRADE;
@@ -311,7 +311,7 @@ class Upgrades {
           fill(0);
           text("COIN VALUE INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
-        } else if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
+        } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
           textAlign(CENTER);
           fill(0);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
@@ -320,7 +320,7 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }
-      if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState == perch.length -1 ) {
+      if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState == perch.length -1 ) {
         textAlign(CENTER);
         fill(255);
         text(upgradeMaxText, width/2+2, height/2+2);
@@ -328,7 +328,7 @@ class Upgrades {
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
-      if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState == perch.length -1 ) {
+      if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState == perch.length -1 ) {
         textAlign(CENTER);
         fill(255);
         text(upgradeMaxText, width/2+2, height/2+2);
@@ -336,7 +336,7 @@ class Upgrades {
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
-      if (inputsPressed.hasValue(32) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState == perch.length -1 ) {
+      if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState == perch.length -1 ) {
         textAlign(CENTER);
         fill(255);
         text(upgradeMaxText, width/2+2, height/2+2);
@@ -344,7 +344,7 @@ class Upgrades {
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
-      if (inputsPressed.hasValue(32) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
+      if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
         textAlign(CENTER);
         fill(255);
         text(upgradeMaxText, width/2+2, height/2+2);
@@ -431,7 +431,7 @@ class DIF {
       tekstSize[0] =75;
       tekstSize[1] =50;
     }//naar beneden in menu
-    if (select1 == highlight&&keyCode==40) {
+    if (select1 == highlight&&keyCode==keyDown) {
       select1 = 180;
       select2 = highlight;
     }
@@ -439,20 +439,20 @@ class DIF {
       tekstSize[1]= 75;
       tekstSize[0]= 50;
     }//naar boven in het menu
-    if (select2 == highlight&&keyCode==38) {
+    if (select2 == highlight&&keyCode==keyUp) {
       select2 = 180;
       select1 = highlight;
     }//q om terug te gaan
-    if (keyCode ==81&&cooldown<0) {
+    if (keyCode ==keyQ&&cooldown<0) {
       room= "mainM";
       cooldown=COOLDOWN_MAX;
     }//normal game
-    if (select1==highlight&&room == "difficulty" && inputs.hasValue(32)&&cooldown<0 ) {
+    if (select1==highlight&&room == "difficulty" && inputs.hasValue(keySpace)&&cooldown<0 ) {
       room = "game";
       SpeedUp.play();
       cooldown=COOLDOWN_MAX;
     }//tutorial game
-    if (select2==highlight &&room == "difficulty" && inputs.hasValue(32)&&cooldown<0) {
+    if (select2==highlight &&room == "difficulty" && inputs.hasValue(keySpace)&&cooldown<0) {
       room = "game2";
       SpeedUp.play();
       cooldown=COOLDOWN_MAX;

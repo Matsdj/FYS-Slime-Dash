@@ -169,14 +169,14 @@ class HUD {
       /*stops player movement*/
       player.moveSpeed = 0;
       //Q om naar main menu te gaan
-      if (keyCode ==77) {
+      if (keyCode ==keyM) {
         Dede.stop();
         setup();
         room= "mainM";
       }
     }
     /* B om te resetten*/
-    if (death ==true && inputs.hasValue(66)==true && room=="game") {
+    if (death ==true && inputs.hasValue(keyB)==true && room=="game") {
       death = false;
       Dede.stop();
       setup();
@@ -186,7 +186,7 @@ class HUD {
       march[2]= true;
       march[3]= true;
     }
-    if (death ==true && inputs.hasValue(66)==true && room=="game2") {
+    if (death ==true && inputs.hasValue(keyB)==true && room=="game2") {
       death = false;
       Dede.stop();
       setup();

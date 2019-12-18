@@ -31,3 +31,7 @@ void inputsPressedUpdate() {
  keyCodes kan je krijgen op: https://keycode.info
  
  */
+
+int keySpace = 32, keyQ = 81, keyP = 80, keyM = 77, keyB = 66;
+int keyLeft = 37, keyRight = 39, keyUp = 38, keyDown = 40;
+int keyZ = 90,keyT = 84;

@@ -32,7 +32,7 @@ void debug() {
       player.x = mouseX;
       player.y = mouseY;
     }
-    if (inputsPressed.hasValue(84)) {
+    if (inputsPressed.hasValue(keyT)) {
       if (testTemplates) {
         testTemplates = false;
       } else {
