@@ -10,10 +10,10 @@ class HUD {
   boolean arrowDamage = false;
   boolean archerDamage = false;
   boolean spikeDamage = false;
-  int meleeDMGnum = 20;
-  int arrowDMGnum = 10;
-  int archerDMGnum = 20;
-  int spikeDMGnum = 10;
+  final int MELEE_DAMAGE = 20;
+  final int ARROW_DAMAGE = 10;
+  final int ARCHER_DAMAGE = 20;
+  final int SPIKE_DAMAGE = 10;
   // tutorial
   float tutX, tutY;
   String tutText;
@@ -21,14 +21,14 @@ class HUD {
   color circleColor = color(255, 255, 0);
   ;
   //healthbar
-  int noHealth;
+  final int NO_HEALTH = 0;
   float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight, healthMult, health;
   color healthC = color(255, 0, 0, 255);
   //dashbar
   float dashmain, dashH, dashL, dashL2, dashX, dashY, dashX2, dashL3, dashX3;
   final float DASH_SMOL_MAX =globalScale;
   float dashSmol, dashLsmol, dashLsmol2;
-  boolean charge1=false, charge2=false, charge3=false;
+  boolean charge1 = false, charge2 = false, charge3 = false;
   //score
   float scoreX, scoreY, scoreSize, score, scoreNormal;
   //game over
@@ -50,7 +50,6 @@ class HUD {
     healthBarHeight = globalScale*0.8;
     healthBarCurve = 20;
     healthBarCurveNormal = 20;
-    noHealth = 0;
     /*als je jou object of enemy damage wil laten gebruik je health*/
     health = 100;
     healthMult = 1;
@@ -106,20 +105,20 @@ class HUD {
       /*verander deze om enemy damage aan te passen*/
       //healthMult is voor de damageReduction als je een upgrade koopt
       if (meleeDamage==true) {
-        health = health-(meleeDMGnum*healthMult);
+        health = health-(MELEE_DAMAGE*healthMult);
         meleeDamage=false;
       }
       // health = health-(MagicBarricadeDMG*healthMult);
       if ( arrowDamage==true) {
-        health = health-(arrowDMGnum*healthMult);
+        health = health-(ARROW_DAMAGE*healthMult);
         arrowDamage=false;
       }      
       if ( archerDamage==true) {
-        health = health-(archerDMGnum*healthMult);
+        health = health-(ARCHER_DAMAGE*healthMult);
         archerDamage=false;
       }      
       if ( spikeDamage==true) {
-        health = health-(spikeDMGnum*healthMult);
+        health = health-(SPIKE_DAMAGE*healthMult);
         spikeDamage=false;
       }
 
@@ -158,7 +157,7 @@ class HUD {
 
     //game over
     /*game over text*/
-    if (health <= noHealth) {
+    if (health <= NO_HEALTH) {
       death = true;
       health = 0;
     }
