@@ -70,8 +70,8 @@ void updateGame() {
   if (player.x > 0) {
     globalScrollSpeed += playerCatchUp;
   }
-  if (player.x > width-globalScale*2) {
-    globalScrollSpeed = player.vx;
+  if (player.x > width-globalScale) {
+    globalScrollSpeed += player.vx;
   }
   //tutorial mode
   if (room == "game2") {
@@ -147,6 +147,7 @@ void draw() {
       exit();
     } else {
       room = "mainM";
+      setup();
     }
   }
   if (cooldown>-1) {

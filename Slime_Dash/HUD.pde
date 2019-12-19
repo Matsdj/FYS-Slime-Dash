@@ -296,6 +296,5 @@ class HUD {
     text("Sel", main.tekstX*2, main.tekstY*2.8);
     fill(BLACK, goFadeIn);
     text("  "+"Menu", main.tekstX*2+50, main.tekstY*2.8);
-    println(traveledDistance);
   }
 }

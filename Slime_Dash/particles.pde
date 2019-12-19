@@ -1,4 +1,4 @@
-//Mats
+//Mats en Laurens
 Particle[] particles = new Particle[10000];
 
 void createParticle(float x, float y, float size, color kleurMin, color kleurMax, float gravity, float speed, boolean collision, String text, float count) {

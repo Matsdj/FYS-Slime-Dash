@@ -1,4 +1,4 @@
-//Chris (met een beetje hulp van mats)
+//Chris
 
 final int PLAYER_FRAME_AMOUNT = 11;
 void playerSetup() {

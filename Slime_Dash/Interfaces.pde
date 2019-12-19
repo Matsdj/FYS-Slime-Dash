@@ -239,8 +239,7 @@ class Upgrades {
           perchTL = perch[perchTLState];
           coins -= doubleJumpPrice;
           player.maxJumpAmount = 1;
-        } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
-          println("gay"); 
+        } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) { 
           textAlign(CENTER);
           fill(BLACK);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
