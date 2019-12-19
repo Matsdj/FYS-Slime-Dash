@@ -36,10 +36,6 @@ class Block {
     active = false;
   }
   void update() {
-    y += globalVerticalSpeed;
-    if (x > -globalScale) {
-      x -= globalScrollSpeed;
-    }
     if (x < width) {
       //Cracked break under player
       if (cracked && (x < player.x+globalScale && x+globalScale > player.x && y-1 < player.y+globalScale && y > player.y)) {
@@ -62,7 +58,12 @@ class Block {
       }
     }
     //Push away player
-    //pushAwayPlayer();
+    pushAwayPlayer();
+    //Move block
+    y += globalVerticalSpeed;
+    if (x > -globalScale) {
+      x -= globalScrollSpeed;
+    }
   }
   void moving() {
     if (blockCollision(x+vx, y, size, id) != null) {
@@ -101,13 +102,17 @@ class Block {
     }
   }
   void pushAwayPlayer() {
-    if (dist(x+size/2, y+size/2, player.x+player.size/2, player.y+player.size/2) < size*2) {
+    float blockCenterX = x+size/2,
+    blockCenterY = y+size/2,
+    playerCenterX = player.x+player.size/2,
+    playerCenterY = player.y+player.size/2;
+    if (dist(blockCenterX, blockCenterY, playerCenterX, playerCenterY) < globalScale*PI/2) {
       float Cx = player.x-x;
       float Cy = player.y-y;
       float a = atan2(Cx, Cy);
-      while (player.Collision(x+4, y, size-8)) {
-        player.x += sin(a)/2;
-        player.y += cos(a)/2;
+      while (player.Collision(x, y, size)) {
+        player.x += sin(a);
+        player.y += cos(a);
       }
     }
   }

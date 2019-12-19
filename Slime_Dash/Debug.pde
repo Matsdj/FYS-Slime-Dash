@@ -29,8 +29,8 @@ void debug() {
     text("Slow Mo:"+ speedModifier, 0, 700);
     text(interfaces.scoreSize, 0, 750);
     if (mousePressed) {
-      player.x = mouseX;
-      player.y = mouseY;
+      player.x = mouseX-player.size/2;
+      player.y = mouseY-player.size/2;
     }
     if (inputsPressed.hasValue(keyT)) {
       if (testTemplates) {

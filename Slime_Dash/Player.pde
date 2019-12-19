@@ -143,17 +143,6 @@ class Player {
       } else movingBlockSpeed = blockCollision(x, y + 1, size).vx;
       x += movingBlockSpeed;
     }
-
-    //Pushes player out of block if needed
-    if (insideBlock()) {
-      if (blockCollision(x, y, size).moving) {
-        y--;
-      } else if (blockCollision(x+globalScale/2, y, size) != null) {
-        x -= 1;
-      } else if (blockCollision(x-globalScale/2, y, size) != null) {
-        x += 1;
-      }
-    }
   }
 
   void playerTween() {
