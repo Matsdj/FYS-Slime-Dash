@@ -6,6 +6,7 @@
  Q = terug (B)
  SPACE = verder (A)
  */
+   int  textNorm = 50, textBig = 75;
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
   pause = new Pause();
@@ -61,9 +62,9 @@ class Pause {
   }
 
   void draw() {
-    fill(0, 0, 0, pauseV);
+    fill(BLACK, pauseV);
     rect(0, 0, width, height);
-    fill(255);
+    fill(WHITE);
     textAlign(CENTER);
     textSize(100);
     text("PAUSED", width/2, height/4);
@@ -72,20 +73,20 @@ class Pause {
     text("Coins "+ floor(coins), width/2, height/1.6);
     textSize(main.tekstSize[2]);
     textAlign(LEFT);
-    fill(0);
+    fill(BLACK);
     text("A", main.tekstX+2, main.tekstY*2.8+2);
     text("A", main.tekstX-2, main.tekstY*2.8-2);
-    fill(255, 0, 0);
+    fill(RED);
     text("A", main.tekstX, main.tekstY*2.8);
     text("  " +"Continue", main.tekstX+2, main.tekstY*2.8+2);
     text("  " +"Continue", main.tekstX-2, main.tekstY*2.8-2);
-    fill(0);
+    fill(BLACK);
     text("  " +"Continue", main.tekstX, main.tekstY*2.8);
-    //yellow back
-    fill(0);
+    //YELLOW back
+    fill(BLACK);
     text("B", main.tekstX*2+2, main.tekstY*2.8+2);
     text("B", main.tekstX*2-2, main.tekstY*2.8-2);
-    fill(255, 255, 0);
+    fill(RED);
     text("B", main.tekstX*2, main.tekstY*2.8);
     text("  "+"Menu", main.tekstX*2+2, main.tekstY*2.8+2);
     text("  "+"Menu", main.tekstX*2-2, main.tekstY*2.8-2);
@@ -107,7 +108,6 @@ class MainM {
   color highlight;
   float[] tekstSize = new float[3];
   MainM() {
-
     sizeH = height/7;
     sizeW = width/2.8;
     background(0);
@@ -116,26 +116,26 @@ class MainM {
     tekstSize[2] = 40;    
     tekstX = width/4;
     tekstY = height/3;
-    highlight = color(255);
+    highlight = color(WHITE);
     select1 = highlight;
-    select2 = 180;
+    select2 = GREY;
   }
   void update() {
 
     if (select1 == highlight) {
-      tekstSize[0] =75;
-      tekstSize[1] =50;
+      tekstSize[0] =textBig;
+      tekstSize[1] =textNorm;
     }//Down in het menu
     if (select1 == highlight&&keyCode==keyDown ) {
-      select1 = 180;
+      select1 = GREY;
       select2 = highlight;
     }
     if (select2 == highlight) {
-      tekstSize[1]= 75;
-      tekstSize[0]= 50;
+      tekstSize[1]= textBig;
+      tekstSize[0]= textNorm;
     }//Up in het menu
     if (select2 == highlight&&keyCode==keyUp ) {
-      select2 = 180;
+      select2 = GREY;
       select1 = highlight;
     }
 
@@ -161,14 +161,14 @@ class MainM {
     fill(select2);
     text("Upgrades", tekstX, tekstY*1.5);
     textSize(tekstSize[2]);
-    fill(0);
+    fill(BLACK);
     text("A", main.tekstX+2, main.tekstY*2.8+2);
     text("A", main.tekstX-2, main.tekstY*2.8-2);
-    fill(255, 0, 0);
+    fill(RED);
     text("A", main.tekstX, main.tekstY*2.8);
     text("  " +"Select", main.tekstX-2, main.tekstY*2.8-2);
     text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
-    fill(0);
+    fill(BLACK);
     text("  " +"Select", main.tekstX, main.tekstY*2.8);
     image(slimeDash, width/4+shake, height/100, width/3, height/3);
   }
@@ -242,9 +242,9 @@ class Upgrades {
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
           println("gay"); 
           textAlign(CENTER);
-          fill(0);
+          fill(BLACK);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
-          fill(255, 0, 0);
+          fill(RED);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
@@ -258,16 +258,16 @@ class Upgrades {
           player.dashCooldownMax += 20;
           dashPrice = dashPrice * 2;
           textAlign(CENTER);
-          fill(255);
+          fill(WHITE);
           text("DASH COOLDOWN REDUCED", width/2+2, height/2+2);
-          fill(0);
+          fill(BLACK);
           text("DASH COOLDOWN REDUCED", width/2, height/2);
           textAlign(LEFT, CENTER);
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
           textAlign(CENTER);
-          fill(0);
+          fill(BLACK);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
-          fill(255, 0, 0);
+          fill(RED);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
@@ -283,16 +283,16 @@ class Upgrades {
           if (perchBLState==2)interfaces.healthMult =0.7;
           if (perchBLState==3)interfaces.healthMult =0.5;
           textAlign(CENTER);
-          fill(255);
+          fill(WHITE);
           text("HEALTH INCREASED", width/2+2, height/2+2);
-          fill(0);
+          fill(BLACK);
           text("HEALTH INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
           textAlign(CENTER);
-          fill(0);
+          fill(BLACK);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
-          fill(255, 0, 0);
+          fill(RED);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
@@ -306,49 +306,49 @@ class Upgrades {
           coinValue = coinValue * 2;
           coinPrice = coinPrice * 2;
           textAlign(CENTER);
-          fill(255);
+          fill(WHITE);
           text("COIN VALUE INCREASED", width/2+2, height/2+2);
-          fill(0);
+          fill(BLACK);
           text("COIN VALUE INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
           textAlign(CENTER);
-          fill(0);
+          fill(BLACK);
           text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
-          fill(255, 0, 0);
+          fill(RED);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
       }
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState == perch.length -1 ) {
         textAlign(CENTER);
-        fill(255);
+        fill(WHITE);
         text(upgradeMaxText, width/2+2, height/2+2);
-        fill(0);
+        fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState == perch.length -1 ) {
         textAlign(CENTER);
-        fill(255);
+        fill(WHITE);
         text(upgradeMaxText, width/2+2, height/2+2);
-        fill(0);
+        fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState == perch.length -1 ) {
         textAlign(CENTER);
-        fill(255);
+        fill(WHITE);
         text(upgradeMaxText, width/2+2, height/2+2);
-        fill(0);
+        fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
         textAlign(CENTER);
-        fill(255);
+        fill(WHITE);
         text(upgradeMaxText, width/2+2, height/2+2);
-        fill(0);
+        fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
       }
@@ -375,26 +375,26 @@ class Upgrades {
     image(perchBR, perchRight, perchDown, perchW, perchH);
     text("Coin Value : " + coinPrice, perchRight+xOffset, perchDown+yOffset);
     textSize(main.tekstSize[2]);
-    fill(0);
+    fill(BLACK);
     text("A", main.tekstX+2, main.tekstY*2.8+2);
     text("A", main.tekstX-2, main.tekstY*2.8-2);
-    fill(255, 0, 0);
+    fill(RED);
     text("A", main.tekstX, main.tekstY*2.8);
     text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
     text("  " +"Select", main.tekstX-2, main.tekstY*2.8-2);
-    fill(0);
+    fill(BLACK);
     text("B", main.tekstX*2+2, main.tekstY*2.8+2);
     text("B", main.tekstX*2-2, main.tekstY*2.8-2);
     text("  " +"Select", main.tekstX, main.tekstY*2.8);
-    fill(255, 255, 0);
+    fill(YELLOW);
     text("B", main.tekstX*2, main.tekstY*2.8);
     text("  "+"Back", main.tekstX*2+2, main.tekstY*2.8+2);
     text("  "+"Back", main.tekstX*2-2, main.tekstY*2.8-2);
-    fill(0);
+    fill(BLACK);
     text("  "+"Back", main.tekstX*2, main.tekstY*2.8);
     text(floor(coins), width - 100, 50);
-    stroke(0);
-    fill(255, 255, 0);
+    stroke(BLACK);
+    fill(YELLOW);
     image(coin, width - 175, 30, 40, 40);
   }
 }
@@ -417,30 +417,30 @@ class DIF {
     sizeH = height/7;
     sizeW = width/2.8;
     background(0);
-    tekstSize[0] = 75;
-    tekstSize[1] = 50;
+    tekstSize[0] = textBig;
+    tekstSize[1] = textNorm;
     tekstSize[2] = 40;    
     tekstX = width/4;
     tekstY = height/3;
-    highlight = color(255);
+    highlight = color(WHITE);
     select1 = highlight;
-    select2 = 180;
+    select2 = GREY;
   }
   void update() {
     if (select1 == highlight) {
-      tekstSize[0] =75;
-      tekstSize[1] =50;
+      tekstSize[0] =textBig;
+      tekstSize[1] =textNorm;
     }//naar beneden in menu
     if (select1 == highlight&&keyCode==keyDown) {
-      select1 = 180;
+      select1 = GREY;
       select2 = highlight;
     }
     if (select2 == highlight) {
-      tekstSize[1]= 75;
-      tekstSize[0]= 50;
+      tekstSize[1]= textBig;
+      tekstSize[0]= textNorm;
     }//naar boven in het menu
     if (select2 == highlight&&keyCode==keyUp) {
-      select2 = 180;
+      select2 = GREY;
       select1 = highlight;
     }//q om terug te gaan
     if (keyCode ==keyQ&&cooldown<0) {
@@ -469,26 +469,26 @@ class DIF {
     fill(select2);
     text("Tutorial Mode", tekstX, tekstY*1.5);
     textSize(tekstSize[2]);
-    //red A
-    fill(0);
+    //RED A
+    fill(BLACK);
     text("A", main.tekstX+2, main.tekstY*2.8+2);
     text("A", main.tekstX-2, main.tekstY*2.8-2);
 
-    fill(255, 0, 0);
+    fill(RED);
     text("A", main.tekstX, main.tekstY*2.8);
     text("  " +"Select", main.tekstX-2, main.tekstY*2.8-2);
     text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
-    fill(0);
+    fill(BLACK);
     text("  " +"Select", main.tekstX, main.tekstY*2.8);
-    //yellow back
-    fill(0);
+    //YELLOW back
+    fill(BLACK);
     text("B", tekstX*2+2, tekstY*2.8+2);
     text("B", tekstX*2-2, tekstY*2.8-2);
-    fill(255, 255, 0);
+    fill(YELLOW);
     text("B", tekstX*2, tekstY*2.8);
     text("  "+"Back", tekstX*2+2, tekstY*2.8+2);
     text("  "+"Back", tekstX*2-2, tekstY*2.8-2);
-    fill(0);
+    fill(BLACK);
     text("  "+"Back", tekstX*2, tekstY*2.8);
   }
 }

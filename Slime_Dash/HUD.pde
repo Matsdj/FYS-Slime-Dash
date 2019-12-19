@@ -1,5 +1,9 @@
 //Laurens
-
+final color RED = color(255,0,0);
+final color YELLOW = color(255,255,0);
+final color BLACK = color(0);
+final color WHITE = color(255);
+final color GREY = color(180);
 void interfacesSetup() {
   interfaces = new HUD();
 }
@@ -18,12 +22,12 @@ class HUD {
   float tutX, tutY;
   String tutText;
   PImage[] tutorial = new PImage[4];
-  color circleColor = color(255, 255, 0);
+  color circleColor = YELLOW;
   ;
   //healthbar
   final int NO_HEALTH = 0;
   float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight, healthMult, health;
-  color healthC = color(255, 0, 0, 255);
+  color healthC = color(RED, 255);
   //dashbar
   float dashmain, dashH, dashL, dashL2, dashX, dashY, dashX2, dashL3, dashX3;
   final float DASH_SMOL_MAX =globalScale;
@@ -96,14 +100,14 @@ class HUD {
     if (player.dmgCooldown >=0) {
       healthC = color(150, 0, 0);
     } else {
-      healthC = color(255, 0, 0);
+      healthC = color(RED);
     }
 
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true&& death==false) {
       damage.play();
       /*verander deze om enemy damage aan te passen*/
-      //healthMult is voor de damageReduction als je een upgrade koopt
+      //healthMult is voor de damageREDuction als je een upgrade koopt
       if (meleeDamage==true) {
         health = health-(MELEE_DAMAGE*healthMult);
         meleeDamage=false;
@@ -123,7 +127,7 @@ class HUD {
       }
 
       player.enemyDamage= false;
-      healthC = color(255);
+      healthC = color(WHITE);
     }
 
     //dash bar
@@ -199,10 +203,10 @@ class HUD {
     if (room=="game2") {
       fill(circleColor);
       ellipseMode(RADIUS);
-      stroke(0);
+      stroke(BLACK);
       strokeWeight(5);
       ellipse(width/2+(width/100), height/5-15, 35, 35);
-      fill(0);
+      fill(BLACK);
       textSize(50);
       text(tutText, width/2, height/5);
       tint(155);
@@ -213,17 +217,17 @@ class HUD {
         tutorial[0] = playerSprite[4];
       }
       if (traveledDistance >13) {
-        circleColor = color(255, 0, 0);
+        circleColor = color(RED);
         tutText = "A";
         tutorial[0] = playerSprite[5];
       }
     } 
     imageMode(CORNER);
-    tint(255);
+    tint(WHITE);
     //healthbar
     /*healthbar backdrop*/
 
-    fill(0, 50);
+    fill(BLACK, 50);
     rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(100, 0, 100))/100), globalScale*0.7);
     /*actual health indicator*/
     fill(healthC);
@@ -232,11 +236,11 @@ class HUD {
 
     /*static border*/
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
-    fill(255);
+    fill(WHITE);
     textSize(scoreNormal);
     text(constrain(floor(health), 0, 100), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
-    stroke(0);
+    stroke(BLACK);
     strokeWeight(20);
     line(dashX, dashY, dashL, dashY);  
     line(dashX2, dashY, dashL2, dashY);  
@@ -254,18 +258,20 @@ class HUD {
       score +=globalScrollSpeed/globalScale*10;
     }
     textAlign(RIGHT);
-    fill(0);
+    fill(BLACK);
     textSize(scoreSize);
     text(floor(score), scoreX, scoreY);
-    createParticle(width+50, scoreY+20, constrain(floor(playerCatchUp/1.3), 0, 100), color(255), color(200), -.01, floor(playerCatchUp), false, "", 1);
-    stroke(0);
+    //particles die meer worden aan wanneer je aan de rechterkant van het scherm zit
+    float catchUpX = width+50, catchUpY = scoreY+20, catchUpSize = constrain(floor(playerCatchUp/1.3), 0, 100),catchUpGravity = -0.1, catchUpSpeed = floor(playerCatchUp), catchUpAmount = 1;
+    createParticle(catchUpX, catchUpY, catchUpSize, color(WHITE), color(200), catchUpGravity, catchUpSpeed, false, "", catchUpAmount);
+    stroke(BLACK);
     strokeWeight(2);
     line(width-(width/8), scoreY+20, width, scoreY+20);
     //coins
     textSize(scoreNormal);
     text(floor(coins), scoreX-30, scoreY+70);
-    stroke(0);
-    fill(255, 255, 0);
+    stroke(BLACK);
+    fill(YELLOW);
     image(coin, scoreX-20+shake, scoreY+40, 40, 40);
 
     //Game Over
@@ -274,21 +280,21 @@ class HUD {
     textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX-2, gOverY-2);
     text("score " + floor(score), gOverX-2, gOverY+98);
-    fill(255, 255, 0, goFadeIn);
+    fill(YELLOW, goFadeIn);
     text(gOver, gOverX+2, gOverY+2);
     text("score " + floor(score), gOverX+2, gOverY+102);
-    fill(0, 0, 0, goFadeIn);
+    fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
     text("score " + floor(score), gOverX, gOverY+100);
     textAlign(LEFT);
     textSize(main.tekstSize[2]);
-    fill(255, goFadeIn);
+    fill(WHITE, goFadeIn);
     text("Sta", main.tekstX, main.tekstY*2.8);
-    fill(0, goFadeIn);
+    fill(BLACK, goFadeIn);
     text("  " +"Retry", main.tekstX+50, main.tekstY*2.8);
-    fill(255, goFadeIn);
+    fill(WHITE, goFadeIn);
     text("Sel", main.tekstX*2, main.tekstY*2.8);
-    fill(0, goFadeIn);
+    fill(BLACK, goFadeIn);
     text("  "+"Menu", main.tekstX*2+50, main.tekstY*2.8);
     println(traveledDistance);
   }
