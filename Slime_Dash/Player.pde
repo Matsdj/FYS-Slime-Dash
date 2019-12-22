@@ -9,7 +9,7 @@ Player player;
 class Player {
   float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
     dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
-    parGrav, parSpeed, jumpedHeight, spriteWidth, spriteHeight;
+    parGrav, parSpeed, jumpedHeight, spriteWidth, spriteHeight, xTween, yTween, blobEffect;
 
   int dashCooldown, dashCooldownMax, maxJumpAmount, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
@@ -61,14 +61,17 @@ class Player {
     parSize = globalScale / 7;
     parGrav = globalScale/256;
     parSpeed = globalScale/18;
+    xTween = 0;
+    yTween = 0;
+    blobEffect = 0;
   }
 
   //player animation is done in this function. It looks if the player is looking left or right, 
   //and looks what action the player is doing. Push matrix and pop matrix statements are there for mirroring player sprites
   void playerAnimation() {
-    ySprite = y - pushPlayerSpriteUp;
-    xSpriteL = x - pushPlayerSpriteL;
-    xSpriteR = x - pushPlayerSpriteR;
+    ySprite = y - pushPlayerSpriteUp - yTween;
+    xSpriteL = x - pushPlayerSpriteL + xTween;
+    xSpriteR = x - pushPlayerSpriteR - xTween;
 
     //switches between dmg sprites, causing a blink effect
     if (burn || dmgCooldown > 0) {
@@ -147,21 +150,28 @@ class Player {
 
   void playerTween() {
     final float MAX_TWEEN = globalScale / 5;
-    float xTween, yTween;
+    final float TWEEN_STRENGTH = 20;
+    final float BLOB_EFFECT_SPEED = globalScale / 70; //speed at which the blob effect moves
+    final float BLOB_EFFECT_POWER_DIVIDE = 5; //number divided by vy, defines how much speed the blob will start with
 
-    yTween = pow(vy, 2)/20;
+    if (vy != 0) {
+      yTween =+ pow(vy, 2)/TWEEN_STRENGTH; //Makes the tween always positive
+      blobEffect = vy/BLOB_EFFECT_POWER_DIVIDE;
+    } else {
+      yTween -= blobEffect; //after hitting ground, it will keep some of the falling speed and gives the player a blob effect
+      blobEffect -= BLOB_EFFECT_SPEED;
+      if (yTween > 0)
+        yTween = 0;
+    }
 
     if (yTween > MAX_TWEEN) {
       yTween = MAX_TWEEN;
     }
 
-    xTween = -yTween;
+    xTween =+ -yTween;
+
     spriteWidth = playerSpriteWidth + xTween;
     spriteHeight = playerSpriteHeight + yTween;
-
-    xSpriteR += xTween;
-    xSpriteL += xTween;
-    ySprite -= yTween;
   }
 
   //Boolean that checks if the player is inside of a block
