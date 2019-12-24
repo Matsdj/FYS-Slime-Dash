@@ -31,8 +31,6 @@ class HUD {
   color healthC = color(RED, 255);
   //dashbar
   float dashmain, dashH, dashL, dashL2, dashX, dashY, dashX2, dashL3, dashX3;
-  final float DASH_SMOL_MAX =globalScale;
-  float dashSmol, dashLsmol, dashLsmol2;
   boolean charge1 = false, charge2 = false, charge3 = false;
   //score
   float scoreX, scoreY, scoreSize, score, scoreNormal;
@@ -56,7 +54,7 @@ class HUD {
     healthBarCurve = 20;
     healthBarCurveNormal = 20;
     /*als je jou object of enemy damage wil laten gebruik je health*/
-    health = 100;
+    health = MAX_HEALTH;
     healthMult = 1;
     death = false;
     //dash bar
@@ -68,7 +66,6 @@ class HUD {
     dashX2 = healthBarLength*0.35;
     dashX3 = healthBarLength*0.6;
     dashY = healthBarY+globalScale*1.5;
-    dashLsmol = globalScale/5;
     //score
     scoreX = width*0.98;
     scoreY = width*0.039;
@@ -89,14 +86,6 @@ class HUD {
     //score
     scoreSize = width*0.025+constrain(playerCatchUp*2, 0, 100);
     //healthbar
-
-    /*zorgt ervoor dat de healthbar altijd de juiste ronding heeft*/
-    noStroke();
-    if (health >= 95) {
-      healthBarCurve= 20-((float(20)*(100-health)/5));
-    } else {
-      healthBarCurve = 0;
-    }
     //healthbar laat damage cooldown zien door donkerrood te worden
     if (player.dmgCooldown >=0) {
       healthC = color(150, 0, 0);
@@ -239,7 +228,7 @@ class HUD {
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(WHITE);
     textSize(scoreNormal);
-    text(constrain(floor(health), NO_HEALTH, MAX_HEALTH), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
+  //  text(constrain(floor(health), NO_HEALTH, MAX_HEALTH), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
     stroke(BLACK);
     strokeWeight(20);
