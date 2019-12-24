@@ -6,7 +6,8 @@
  Q = terug (B)
  SPACE = verder (A)
  */
-   int  textNorm = 50, textBig = 75;
+int  textNorm = 50, textBig = 75, generalTextOffset =2;
+
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
   pause = new Pause();
@@ -14,26 +15,29 @@ void pauseSetup() {
 Pause pause;
 
 class Pause {
-  float pauseV, fade;
+  float pauseV, fade, pauseBackX, pauseBackY, pauseTxtY, pauseTxtX;
   Pause() {
     //fade voor pause
     fade = 2;
     pauseV +=fade;
+    pauseBackX = pauseBackY = 0;
+    pauseTxtX = width/2;
+    pauseTxtY = height/4;
   }
 
   void update() {
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause2" && (inputs.hasValue(keySpace)||inputs.hasValue(keyRight))&&cooldown<0) {
+    if (room == "pause2" && (inputs.hasValue(keySpace)||inputs.hasValue(keyRight))&&cooldown<COOLDOWN_MIN) {
       room = "game2";
       cooldown= COOLDOWN_MAX;
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game2" && inputs.hasValue(keyP) && interfaces.death == false &&cooldown<0) {
+    else if (room == "game2" && inputs.hasValue(keyP) && interfaces.death == false &&cooldown<COOLDOWN_MIN) {
       room = "pause2";
       cooldown= COOLDOWN_MAX;
     }
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause" && (inputs.hasValue(keySpace)||inputs.hasValue(keyRight))&&cooldown<0) {
+    if (room == "pause" && (inputs.hasValue(keySpace)||inputs.hasValue(keyRight))&&cooldown<COOLDOWN_MIN) {
       room = "game";
       cooldown= COOLDOWN_MAX;
     }
@@ -43,7 +47,7 @@ class Pause {
       // druk op q of t om naar main menu te gaan
     } else if (room == "game2" && inputs.hasValue(keyP) && interfaces.death == false) {
       room = "pause2";
-    } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(keyQ)||inputs.hasValue(keyT))&&cooldown<0) {
+    } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(keyQ)||inputs.hasValue(keyT))&&cooldown<COOLDOWN_MIN) {
       cooldown= COOLDOWN_MAX;
       GameSlow.stop();
       GameMid.stop();
@@ -63,35 +67,36 @@ class Pause {
 
   void draw() {
     fill(BLACK, pauseV);
-    rect(0, 0, width, height);
+    rect(pauseBackX, pauseBackY, width, height);
     fill(WHITE);
     textAlign(CENTER);
     textSize(100);
-    text("PAUSED", width/2, height/4);
+    text("PAUSED", pauseTxtX, pauseTxtY);
     textSize(60);
-    text("Score "+ floor(interfaces.score), width/2, height/2);
-    text("Coins "+ floor(coins), width/2, height/1.6);
+    text("Score "+ floor(interfaces.score), pauseTxtX, height/2);
+    text("Coins "+ floor(coins), pauseTxtX, height/1.6);
+    //NAVIGATION
     textSize(main.tekstSize[2]);
     textAlign(LEFT);
     fill(BLACK);
-    text("A", main.tekstX+2, main.tekstY*2.8+2);
-    text("A", main.tekstX-2, main.tekstY*2.8-2);
+    text("A", main.tekstX+2, main.navTextY+generalTextOffset);
+    text("A", main.tekstX-2, main.navTextY-generalTextOffset);
     fill(RED);
-    text("A", main.tekstX, main.tekstY*2.8);
-    text("  " +"Continue", main.tekstX+2, main.tekstY*2.8+2);
-    text("  " +"Continue", main.tekstX-2, main.tekstY*2.8-2);
+    text("A", main.tekstX, main.navTextY);
+    text("  " +"Continue", main.tekstX+2, main.navTextY+generalTextOffset);
+    text("  " +"Continue", main.tekstX-2, main.navTextY-generalTextOffset);
     fill(BLACK);
-    text("  " +"Continue", main.tekstX, main.tekstY*2.8);
+    text("  " +"Continue", main.tekstX, main.navTextY);
     //YELLOW back
     fill(BLACK);
-    text("B", main.tekstX*2+2, main.tekstY*2.8+2);
-    text("B", main.tekstX*2-2, main.tekstY*2.8-2);
+    text("B", main.tekstX*2+2, main.navTextY+generalTextOffset);
+    text("B", main.tekstX*2-2, main.navTextY-generalTextOffset);
     fill(RED);
-    text("B", main.tekstX*2, main.tekstY*2.8);
-    text("  "+"Menu", main.tekstX*2+2, main.tekstY*2.8+2);
-    text("  "+"Menu", main.tekstX*2-2, main.tekstY*2.8-2);
+    text("B", main.tekstX*2, main.navTextY);
+    text("  "+"Menu", main.tekstX*2+2, main.navTextY+generalTextOffset);
+    text("  "+"Menu", main.tekstX*2-2, main.navTextY-generalTextOffset);
     fill(0);
-    text("  "+"Menu", main.tekstX*2, main.tekstY*2.8);
+    text("  "+"Menu", main.tekstX*2, main.navTextY);
   }
 }
 
@@ -103,7 +108,7 @@ MainM main;
 
 class MainM {
 
-  float sizeW, sizeH, tekstX, tekstY;
+  float sizeW, sizeH, tekstX, tekstY, navTextY ;
   int  select1, select2;
   color highlight;
   float[] tekstSize = new float[3];
@@ -119,6 +124,7 @@ class MainM {
     highlight = color(WHITE);
     select1 = highlight;
     select2 = GREY;
+    navTextY = (height/3)*2.8;
   }
   void update() {
 
@@ -162,14 +168,14 @@ class MainM {
     text("Upgrades", tekstX, tekstY*1.5);
     textSize(tekstSize[2]);
     fill(BLACK);
-    text("A", main.tekstX+2, main.tekstY*2.8+2);
-    text("A", main.tekstX-2, main.tekstY*2.8-2);
+    text("A", main.tekstX+2, main.navTextY+generalTextOffset);
+    text("A", main.tekstX-2, main.navTextY-generalTextOffset);
     fill(RED);
-    text("A", main.tekstX, main.tekstY*2.8);
-    text("  " +"Select", main.tekstX-2, main.tekstY*2.8-2);
-    text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
+    text("A", main.tekstX, main.navTextY);
+    text("  " +"Select", main.tekstX-2, main.navTextY-generalTextOffset);
+    text("  " +"Select", main.tekstX+2, main.navTextY+generalTextOffset);
     fill(BLACK);
-    text("  " +"Select", main.tekstX, main.tekstY*2.8);
+    text("  " +"Select", main.tekstX, main.navTextY);
     image(slimeDash, width/4+shake, height/100, width/3, height/3);
   }
 }
@@ -202,17 +208,17 @@ class Upgrades {
     perchSelect = loadImage("./sprites/menus/perchselect.png");
     perchSelectX = perchLeft;
     perchSelectY = perchUp;
-    perchTL = perch[0];
-    perchTR = perch[0];
-    perchBL = perch[0];
-    perchBR = perch[0];
+    perchTL = perch[perchTLState];
+    perchTR = perch[perchTRState];
+    perchBL = perch[perchBLState];
+    perchBR = perch[perchBRState];
     perchTLState = 0;
     perchTRState = 0;
     perchBLState = 0;
     perchBRState = 0;
   }
   void update() {
-    if (keyCode ==keyQ&&cooldown<0) {
+    if (keyCode ==keyQ&&cooldown<COOLDOWN_MIN) {
       room= "mainM";
       cooldown=COOLDOWN_MAX;
     }
@@ -242,7 +248,7 @@ class Upgrades {
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) { 
           textAlign(CENTER);
           fill(BLACK);
-          text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
+          text("YOU CAN'T AFFORD THAT", width/2+generalTextOffset, height/2+generalTextOffset);
           fill(RED);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
@@ -258,14 +264,14 @@ class Upgrades {
           dashPrice = dashPrice * 2;
           textAlign(CENTER);
           fill(WHITE);
-          text("DASH COOLDOWN REDUCED", width/2+2, height/2+2);
+          text("DASH COOLDOWN REDUCED", width/2+generalTextOffset, height/2+generalTextOffset);
           fill(BLACK);
           text("DASH COOLDOWN REDUCED", width/2, height/2);
           textAlign(LEFT, CENTER);
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
           textAlign(CENTER);
           fill(BLACK);
-          text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
+          text("YOU CAN'T AFFORD THAT", width/2+generalTextOffset, height/2+generalTextOffset);
           fill(RED);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
@@ -283,14 +289,14 @@ class Upgrades {
           if (perchBLState==3)interfaces.healthMult =0.5;
           textAlign(CENTER);
           fill(WHITE);
-          text("HEALTH INCREASED", width/2+2, height/2+2);
+          text("HEALTH INCREASED", width/2+generalTextOffset, height/2+generalTextOffset);
           fill(BLACK);
           text("HEALTH INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
           textAlign(CENTER);
           fill(BLACK);
-          text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
+          text("YOU CAN'T AFFORD THAT", width/2+generalTextOffset, height/2+generalTextOffset);
           fill(RED);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
@@ -306,14 +312,14 @@ class Upgrades {
           coinPrice = coinPrice * 2;
           textAlign(CENTER);
           fill(WHITE);
-          text("COIN VALUE INCREASED", width/2+2, height/2+2);
+          text("COIN VALUE INCREASED", width/2+generalTextOffset, height/2+generalTextOffset);
           fill(BLACK);
           text("COIN VALUE INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
           textAlign(CENTER);
           fill(BLACK);
-          text("YOU CAN'T AFFORD THAT", width/2+2, height/2+2);
+          text("YOU CAN'T AFFORD THAT", width/2+generalTextOffset, height/2+generalTextOffset);
           fill(RED);
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
@@ -322,7 +328,7 @@ class Upgrades {
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState == perch.length -1 ) {
         textAlign(CENTER);
         fill(WHITE);
-        text(upgradeMaxText, width/2+2, height/2+2);
+        text(upgradeMaxText, width/2+generalTextOffset, height/2+generalTextOffset);
         fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
@@ -330,7 +336,7 @@ class Upgrades {
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState == perch.length -1 ) {
         textAlign(CENTER);
         fill(WHITE);
-        text(upgradeMaxText, width/2+2, height/2+2);
+        text(upgradeMaxText, width/2+generalTextOffset, height/2+generalTextOffset);
         fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
@@ -338,7 +344,7 @@ class Upgrades {
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState == perch.length -1 ) {
         textAlign(CENTER);
         fill(WHITE);
-        text(upgradeMaxText, width/2+2, height/2+2);
+        text(upgradeMaxText, width/2+generalTextOffset, height/2+generalTextOffset);
         fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
@@ -346,7 +352,7 @@ class Upgrades {
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
         textAlign(CENTER);
         fill(WHITE);
-        text(upgradeMaxText, width/2+2, height/2+2);
+        text(upgradeMaxText, width/2+generalTextOffset, height/2+generalTextOffset);
         fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
@@ -375,22 +381,22 @@ class Upgrades {
     text("Coin Value : " + coinPrice, perchRight+xOffset, perchDown+yOffset);
     textSize(main.tekstSize[2]);
     fill(BLACK);
-    text("A", main.tekstX+2, main.tekstY*2.8+2);
-    text("A", main.tekstX-2, main.tekstY*2.8-2);
+    text("A", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
+    text("A", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
     fill(RED);
-    text("A", main.tekstX, main.tekstY*2.8);
-    text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
-    text("  " +"Select", main.tekstX-2, main.tekstY*2.8-2);
+    text("A", main.tekstX, main.navTextY);
+    text("  " +"Select", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
+    text("  " +"Select", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
     fill(BLACK);
-    text("B", main.tekstX*2+2, main.tekstY*2.8+2);
-    text("B", main.tekstX*2-2, main.tekstY*2.8-2);
-    text("  " +"Select", main.tekstX, main.tekstY*2.8);
+    text("B", main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
+    text("B", main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
+    text("  " +"Select", main.tekstX, main.navTextY);
     fill(YELLOW);
-    text("B", main.tekstX*2, main.tekstY*2.8);
-    text("  "+"Back", main.tekstX*2+2, main.tekstY*2.8+2);
-    text("  "+"Back", main.tekstX*2-2, main.tekstY*2.8-2);
+    text("B", main.tekstX*2, main.navTextY);
+    text("  "+"Back", main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
+    text("  "+"Back", main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
     fill(BLACK);
-    text("  "+"Back", main.tekstX*2, main.tekstY*2.8);
+    text("  "+"Back", main.tekstX*2, main.navTextY);
     text(floor(coins), width - 100, 50);
     stroke(BLACK);
     fill(YELLOW);
@@ -468,26 +474,26 @@ class DIF {
     fill(select2);
     text("Tutorial Mode", tekstX, tekstY*1.5);
     textSize(tekstSize[2]);
-    //RED A
+    //NAVIGATION 
+    //A=select
     fill(BLACK);
-    text("A", main.tekstX+2, main.tekstY*2.8+2);
-    text("A", main.tekstX-2, main.tekstY*2.8-2);
-
+    text("A", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
+    text("A", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
     fill(RED);
     text("A", main.tekstX, main.tekstY*2.8);
-    text("  " +"Select", main.tekstX-2, main.tekstY*2.8-2);
-    text("  " +"Select", main.tekstX+2, main.tekstY*2.8+2);
+    text("  " +"Select", main.tekstX-2, main.navTextY-generalTextOffset);
+    text("  " +"Select", main.tekstX+2, main.navTextY+generalTextOffset);
     fill(BLACK);
-    text("  " +"Select", main.tekstX, main.tekstY*2.8);
-    //YELLOW back
+    text("  " +"Select", main.tekstX, main.navTextY);
+    //B=back
     fill(BLACK);
-    text("B", tekstX*2+2, tekstY*2.8+2);
-    text("B", tekstX*2-2, tekstY*2.8-2);
+    text("B", tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
+    text("B", tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
     fill(YELLOW);
     text("B", tekstX*2, tekstY*2.8);
-    text("  "+"Back", tekstX*2+2, tekstY*2.8+2);
-    text("  "+"Back", tekstX*2-2, tekstY*2.8-2);
+    text("  "+"Back", tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
+    text("  "+"Back", tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
     fill(BLACK);
-    text("  "+"Back", tekstX*2, tekstY*2.8);
+    text("  "+"Back", tekstX*2, main.navTextY);
   }
 }

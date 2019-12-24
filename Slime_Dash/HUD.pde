@@ -1,6 +1,6 @@
 //Laurens
-final color RED = color(255,0,0);
-final color YELLOW = color(255,255,0);
+final color RED = color(255, 0, 0);
+final color YELLOW = color(255, 255, 0);
 final color BLACK = color(0);
 final color WHITE = color(255);
 final color GREY = color(180);
@@ -24,8 +24,9 @@ class HUD {
   PImage[] tutorial = new PImage[4];
   color circleColor = YELLOW;
   ;
-  //healthbar
+  //HEALTHBAR
   final int NO_HEALTH = 0;
+  final float MAX_HEALTH = 100;
   float healthBarX, healthBarY, healthBarCurve, healthBarCurveNormal, healthBarLength, healthBarHeight, healthMult, health;
   color healthC = color(RED, 255);
   //dashbar
@@ -228,17 +229,17 @@ class HUD {
     /*healthbar backdrop*/
 
     fill(BLACK, 50);
-    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*(float(constrain(100, 0, 100))/100), globalScale*0.7);
+    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*((constrain(MAX_HEALTH, NO_HEALTH, MAX_HEALTH))/MAX_HEALTH), globalScale*0.7);
     /*actual health indicator*/
     fill(healthC);
-    if (health > 100) health = 100;
-    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*((constrain(health, 0, 100))/100), globalScale*0.7);
+    if (health > MAX_HEALTH) health = MAX_HEALTH;
+    rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*((constrain(health, NO_HEALTH, MAX_HEALTH))/MAX_HEALTH), globalScale*0.7);
 
     /*static border*/
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(WHITE);
     textSize(scoreNormal);
-    text(constrain(floor(health), 0, 100), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
+    text(constrain(floor(health), NO_HEALTH, MAX_HEALTH), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
     stroke(BLACK);
     strokeWeight(20);
@@ -262,7 +263,7 @@ class HUD {
     textSize(scoreSize);
     text(floor(score), scoreX, scoreY);
     //particles die meer worden aan wanneer je aan de rechterkant van het scherm zit
-    float catchUpX = width+50, catchUpY = scoreY+20, catchUpSize = constrain(floor(playerCatchUp/1.3), 0, 100),catchUpGravity = -0.1, catchUpSpeed = floor(playerCatchUp), catchUpAmount = 1;
+    float catchUpX = width+50, catchUpY = scoreY+20, catchUpSize = constrain(floor(playerCatchUp/1.3), 0, 100), catchUpGravity = -0.1, catchUpSpeed = floor(playerCatchUp), catchUpAmount = 1;
     createParticle(catchUpX, catchUpY, catchUpSize, color(WHITE), color(200), catchUpGravity, catchUpSpeed, false, "", catchUpAmount);
     stroke(BLACK);
     strokeWeight(2);
@@ -278,23 +279,24 @@ class HUD {
     fill(#A300FC, goFadeIn);
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
-    text(gOver, gOverX-2, gOverY-2);
-    text("score " + floor(score), gOverX-2, gOverY+98);
+    text(gOver, gOverX-generalTextOffset, gOverY-generalTextOffset);
+    text("score " + floor(score), gOverX-generalTextOffset, gOverY+98);
     fill(YELLOW, goFadeIn);
-    text(gOver, gOverX+2, gOverY+2);
-    text("score " + floor(score), gOverX+2, gOverY+102);
+    text(gOver, gOverX+generalTextOffset, gOverY+generalTextOffset);
+    text("score " + floor(score), gOverX+generalTextOffset, gOverY+102);
     fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
     text("score " + floor(score), gOverX, gOverY+100);
+    //NAVIGATION
     textAlign(LEFT);
     textSize(main.tekstSize[2]);
     fill(WHITE, goFadeIn);
-    text("Sta", main.tekstX, main.tekstY*2.8);
+    text("Sta", main.tekstX, main.navTextY);
     fill(BLACK, goFadeIn);
-    text("  " +"Retry", main.tekstX+50, main.tekstY*2.8);
+    text("  " +"Retry", main.tekstX+50, main.navTextY);
     fill(WHITE, goFadeIn);
-    text("Sel", main.tekstX*2, main.tekstY*2.8);
+    text("Sel", main.tekstX*2, main.navTextY);
     fill(BLACK, goFadeIn);
-    text("  "+"Menu", main.tekstX*2+50, main.tekstY*2.8);
+    text("  "+"Menu", main.tekstX*2+50, main.navTextY);
   }
 }
