@@ -29,8 +29,8 @@ void setup() {
   room = "mainM";
   time = 0;
   cooldown=COOLDOWN_MAX;
-  CreateDatabaseConnection();
-  GetAchievements();
+  //CreateDatabaseConnection();
+  //GetAchievements();
   assetSetup();
   soundSetup();
   bgSetup();
