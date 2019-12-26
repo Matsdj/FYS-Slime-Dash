@@ -15,7 +15,7 @@ final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean allowVerticalMovement = false;
-final int COOLDOWN_MAX=15,COOLDOWN_MIN=0;
+final int COOLDOWN_MAX=15, COOLDOWN_MIN=0;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
 
@@ -158,7 +158,6 @@ void draw() {
   }
   soundUpdate();
 
-
   if (room == "pause") {
     pause.draw();
     pause.update();
@@ -190,6 +189,7 @@ void draw() {
     bgDraw();
     upgrade.draw();
     upgrade.update();
+  } else if (room == "achievements") {
   }
   debug();
   inputsPressedUpdate();
