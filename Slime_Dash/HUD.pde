@@ -211,6 +211,13 @@ class HUD {
         tutText = "A";
         tutorial[0] = playerSprite[5];
       }
+      if (traveledDistance >55) {
+        circleColor = color(RED);
+        tutText = "A";
+        tutorial[0] = playerSprite[5];
+        image(enemySprite[0], width*0.65, height/5-20);
+        image(enemyDeathSprite, width*0.7, height/5-20);
+      }
     } 
     imageMode(CORNER);
     tint(WHITE);
@@ -228,7 +235,7 @@ class HUD {
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(WHITE);
     textSize(scoreNormal);
-  //  text(constrain(floor(health), NO_HEALTH, MAX_HEALTH), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
+    //  text(constrain(floor(health), NO_HEALTH, MAX_HEALTH), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
     stroke(BLACK);
     strokeWeight(20);

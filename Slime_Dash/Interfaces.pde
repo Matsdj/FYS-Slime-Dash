@@ -91,11 +91,11 @@ class Pause {
     fill(BLACK);
     text("B", main.tekstX*2+2, main.navTextY+generalTextOffset);
     text("B", main.tekstX*2-2, main.navTextY-generalTextOffset);
-    fill(RED);
+    fill(YELLOW);
     text("B", main.tekstX*2, main.navTextY);
     text("  "+"Menu", main.tekstX*2+2, main.navTextY+generalTextOffset);
     text("  "+"Menu", main.tekstX*2-2, main.navTextY-generalTextOffset);
-    fill(0);
+    fill(BLACK);
     text("  "+"Menu", main.tekstX*2, main.navTextY);
   }
 }
