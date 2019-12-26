@@ -29,6 +29,8 @@ void setup() {
   room = "mainM";
   time = 0;
   cooldown=COOLDOWN_MAX;
+  CreateDatabaseConnection();
+  GetAchievements();
   assetSetup();
   soundSetup();
   bgSetup();
@@ -190,6 +192,9 @@ void draw() {
     upgrade.draw();
     upgrade.update();
   } else if (room == "achievements") {
+    bgUpdate();
+    bgDraw();
+    drawAch();
   }
   debug();
   inputsPressedUpdate();
