@@ -1,9 +1,9 @@
 //Mats en Laurens
 Particle[] particles = new Particle[10000];
 
-void createParticle(float x, float y, float size, color kleurMin, color kleurMax, float gravity, float speed, boolean collision, String text, float count) {
+void createParticle(float x, float y, float size, color kleurMin, color kleurMax, float gravity, float speed, boolean collision, int life, String text, float count) {
   for (int i = 0; i < count; i++) {
-    particles[freeParticleIndex()].enableParticle(x, y, size, kleurMin, kleurMax, gravity, speed, collision, text);
+    particles[freeParticleIndex()].enableParticle(x, y, size, kleurMin, kleurMax, gravity, speed, collision, life, text);
   }
 }
 int freeParticleIndex() {
@@ -44,9 +44,9 @@ class Particle {
   color kleur;
   boolean active = false, collision = true;
   String text = "";
-  final int LIFE_MAX = 60;
+  int LifeMax = 60;
 
-  void enableParticle(float ix, float iy, float iSize, color kleurMin, color kleurMax, float iGravity, float speed, boolean iCollision, String iText) {
+  void enableParticle(float ix, float iy, float iSize, color kleurMin, color kleurMax, float iGravity, float speed, boolean iCollision, int iLife, String iText) {
     x = ix;
     y = iy;
     size = iSize;
@@ -69,7 +69,8 @@ class Particle {
     vx = sin(a)*speed;
     vy = cos(a)*speed;
     active = true;
-    life = LIFE_MAX;
+    LifeMax = iLife;
+    life = LifeMax;
   }
   void update() {
     if (collision) {
@@ -89,7 +90,8 @@ class Particle {
   }
   void draw() {
     noStroke();
-    fill(kleur);
+    float alpha = 255*life/LifeMax;
+    fill(kleur,alpha);
     if (text == "") {
       rect(x, y, size, size);
     } else {

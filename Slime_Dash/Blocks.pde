@@ -38,19 +38,19 @@ class Block {
   void update() {
     if (x < width) {
       //Cracked break under player
-      if (cracked && (x < player.x+globalScale && x+globalScale > player.x && y-1 < player.y+globalScale && y > player.y)) {
+      if (cracked && (x+1 < player.x+globalScale && x+globalScale > player.x && y-1 < player.y+globalScale && y > player.y)) {
         breakTime--;
         if (breakTime < 0) {
           active = false;
         }
       }
       //Cracked break because of dash
-      if (cracked && player.dashActive && player.Collision(x, y+1, size-1)) {
+      if (cracked && player.dashActive && player.Collision(x-1, y+1, size+2)) {
         active = false;
         breakTime = 0;
       }
       if (active == false) {
-        createParticle(x, y, 10, color(100), color(200), 0.2, 5, true, "", 100);
+        createParticle(x+size/2, y+size/2, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
       }
       //Allow Vertical Movement
       if (enableVerticalMovement) {
@@ -102,10 +102,10 @@ class Block {
     }
   }
   void pushAwayPlayer() {
-    float blockCenterX = x+size/2,
-    blockCenterY = y+size/2,
-    playerCenterX = player.x+player.size/2,
-    playerCenterY = player.y+player.size/2;
+    float blockCenterX = x+size/2, 
+      blockCenterY = y+size/2, 
+      playerCenterX = player.x+player.size/2, 
+      playerCenterY = player.y+player.size/2;
     if (dist(blockCenterX, blockCenterY, playerCenterX, playerCenterY) < globalScale*PI/2) {
       float Cx = player.x-x;
       float Cy = player.y-y;

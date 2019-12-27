@@ -64,7 +64,9 @@ void updateGame() {
   } else {
     speedModifier = 1;
   }
-  time += 1*speedModifier;
+  if (room == "game2") {
+    time += 1*speedModifier;
+  }
   //ScrollSpeed
   globalScrollSpeed = 1+time/100000*globalScale;
   globalScrollSpeed = constrain(globalScrollSpeed, 0, MAX_SCROLL_SPEED);

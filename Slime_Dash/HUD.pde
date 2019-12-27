@@ -122,13 +122,13 @@ class HUD {
 
     //dash bar
     if (charge1==true) {
-      createParticle(healthBarLength*0.25, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, "", 100);
+      createParticle(healthBarLength*0.25, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }        
     if (charge2==true) {
-      createParticle(healthBarLength*0.5, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, "", 100);
+      createParticle(healthBarLength*0.5, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }    
     if (charge3==true) {
-      createParticle(healthBarLength*0.75, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, "", 100);
+      createParticle(healthBarLength*0.75, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
       if (player.dashCooldown ==player.DASH_COOLDOWN_CHARGE) {
@@ -260,7 +260,7 @@ class HUD {
     text(floor(score), scoreX, scoreY);
     //particles die meer worden aan wanneer je aan de rechterkant van het scherm zit
     float catchUpX = width+50, catchUpY = scoreY+20, catchUpSize = constrain(floor(playerCatchUp/1.3), 0, 100), catchUpGravity = -0.1, catchUpSpeed = floor(playerCatchUp), catchUpAmount = 1;
-    createParticle(catchUpX, catchUpY, catchUpSize, color(WHITE), color(200), catchUpGravity, catchUpSpeed, false, "", catchUpAmount);
+    createParticle(catchUpX, catchUpY, catchUpSize, color(WHITE), color(200), catchUpGravity, catchUpSpeed, false, 60, "", catchUpAmount);
     stroke(BLACK);
     strokeWeight(2);
     line(width-(width/8), scoreY+20, width, scoreY+20);
