@@ -55,14 +55,19 @@ class Horde {
     x = hordeX;
 
     //checks the time that the horde has to become bigger
-    if (hordeIndex == 0) {
+    switch (hordeIndex) {
+    case 0:
       hordeActivate = 0;
-    } else if (hordeIndex == 1) {
+      break;
+    case 1:
       hordeActivate = slow/2;
-    } else if (hordeIndex == 2) {
+      break;
+    case 2:
       hordeActivate = slow;
-    } else if (hordeIndex == 3) {
+      break;
+    case 3:
       hordeActivate = mid;
+      break;
     }
   }
 
