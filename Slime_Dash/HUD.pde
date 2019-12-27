@@ -300,24 +300,21 @@ class HUD {
 
 //Mats en Laurens
 Particle[] particles = new Particle[10000];
-
+//variablen die je kan invullen terwijl je je particles creert
 void createParticle(float x, float y, float size, color kleurMin, color kleurMax, float gravity, float speed, boolean collision, int life, String text, float count) {
   for (int i = 0; i < count; i++) {
     particles[freeParticleIndex()].enableParticle(x, y, size, kleurMin, kleurMax, gravity, speed, collision, life, text);
   }
 }
+//checkt of de particle actief is en kijkt voor een vrije plek in de particle array
 int freeParticleIndex() {
-  int index = -1;
-  for (int i = particles.length-1; i > 0; i--) {
+  for (int i = 0; i < particles.length; i++) {
     if (particles[i].active == false) {
-      index = i;
+      return i;
     }
   }
-  if (index == -1) {
-    println("ERROR MAX("+particles.length+")ACTIVE PARTICLES REACHED");
-    index = particles.length-1;
-  }
-  return index;
+  println("ERROR MAX("+particles.length+")ACTIVE PARTICLES REACHED");
+  return particles.length-1;
 }
 void particleSetup() {
   for (int i = 0; i < particles.length; i++) {
@@ -346,6 +343,7 @@ class Particle {
   String text = "";
   int LifeMax = 60;
 
+// setup van de particle
   void enableParticle(float ix, float iy, float iSize, color kleurMin, color kleurMax, float iGravity, float speed, boolean iCollision, int iLife, String iText) {
     x = ix;
     y = iy;
