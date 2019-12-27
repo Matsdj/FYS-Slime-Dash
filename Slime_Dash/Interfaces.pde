@@ -186,6 +186,7 @@ void upgradeSetup() {
 Upgrades upgrade;
 
 class Upgrades {
+  float upgradetekstLow, upgradetekstHigh;
   int perchW = 320, perchH = 213, yOffset = perchH/2, xOffset=perchW/8, 
     perchLeft=width/8, perchRight=width - width/8 - perchW, 
     perchUp=height/8, perchDown=height - height/8 - perchH, 
@@ -216,6 +217,8 @@ class Upgrades {
     perchTRState = 0;
     perchBLState = 0;
     perchBRState = 0;
+    upgradetekstLow = perchDown*1.075;
+    upgradetekstHigh = perchUp*1.35;
   }
   void update() {
     if (keyCode ==keyQ&&cooldown<COOLDOWN_MIN) {
@@ -367,18 +370,22 @@ class Upgrades {
     image(perchSelect, perchSelectX, perchSelectY, perchW, perchH);
     //top left
     image(perchTL, perchLeft, perchUp, perchW, perchH);
-    text("Double Jump : " + doubleJumpPrice, perchLeft+xOffset, perchUp+yOffset);
+    text("Double Jump : ", perchLeft+xOffset, upgradetekstHigh);
+    text(doubleJumpPrice, perchLeft+xOffset, perchUp+yOffset);
     //top right
     image(perchTR, perchRight, perchUp, perchW, perchH);
     textSize(23);
-    text("Dash Cooldown : " + dashPrice, perchRight+xOffset, perchUp+yOffset);
+    text("Dash Cooldown : ", perchRight+xOffset, upgradetekstHigh);
+    text(dashPrice, perchRight+xOffset, perchUp+yOffset);
     //bottom left
     textSize(25);
     image(perchBL, perchLeft, perchDown, perchW, perchH);
-    text("Health : " + healthPrice, perchLeft+xOffset, perchDown+yOffset);
+    text("Health : ", perchLeft+xOffset, upgradetekstLow);
+    text(healthPrice, perchLeft+xOffset, perchDown+yOffset);
     //bottom right
     image(perchBR, perchRight, perchDown, perchW, perchH);
-    text("Coin Value : " + coinPrice, perchRight+xOffset, perchDown+yOffset);
+    text("Coin Value : ", perchRight+xOffset, upgradetekstLow);
+    text(coinPrice, perchRight+xOffset, perchDown+yOffset);
     textSize(main.tekstSize[2]);
     fill(BLACK);
     text("A", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
