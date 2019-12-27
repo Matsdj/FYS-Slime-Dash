@@ -52,7 +52,7 @@ class Pause {
       GameSlow.stop();
       GameMid.stop();
       GameFast.stop();
-      setup();
+      gameReset();
       room = "mainM";
       march[0]=true;
       march[1]=true;

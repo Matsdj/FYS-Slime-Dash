@@ -19,19 +19,10 @@ final int COOLDOWN_MAX=15, COOLDOWN_MIN=0;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
 
-
-void setup() {
-  size(1280, 720, P2D);
-  //fullScreen(P2D);
-  smooth(0);
-  frameRate(60);
-  globalScale = height/12;
+void gameReset() {
   room = "mainM";
   time = 0;
   cooldown=COOLDOWN_MAX;
-  //CreateDatabaseConnection();
-  //GetAchievements();
-  assetSetup();
   soundSetup();
   bgSetup();
   hordeSetup();
@@ -48,9 +39,21 @@ void setup() {
   pauseSetup();
   pickupSetup();
   mapSetup();
-  upgradeSetup();
   difSetup();
   particleSetup();
+}
+
+void setup() {
+  size(1280, 720, P2D);
+  //fullScreen(P2D);
+  smooth(0);
+  frameRate(60);
+  globalScale = height/12;
+  CreateDatabaseConnection();
+  GetAchievements();
+  assetSetup();
+  gameReset();
+  upgradeSetup();
   //database
   //  CreateDatabaseConnection();
   //  GetUsers();
@@ -64,7 +67,7 @@ void updateGame() {
   } else {
     speedModifier = 1;
   }
-  if (room == "game2") {
+  if (room != "game2") {
     time += 1*speedModifier;
   }
   //ScrollSpeed
