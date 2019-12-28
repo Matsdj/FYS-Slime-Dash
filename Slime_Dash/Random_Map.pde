@@ -16,7 +16,6 @@ final color DIRT = color(150, 100, 50);
 final color PLANKS = color(200, 150, 100);
 final color MOVING_BRICK = color(170, 170, 170);
 final color CRACKED = color(100, 100, 100);
-final int SCROLL_BLOCK_RED = 6; //vul bij rood 1, bij groen 1 of 0 (percentage ja of nee), en bij blauw de hoeveelheid.
 final color ICE = color(0, 255, 255);
 final color SPIKE = color(255, 0, 0);
 final color FLAME = color(255, 150, 0);
@@ -74,6 +73,7 @@ void mapSetup() {
   GenerateDistance = 0;
   //Traveled Distance
   traveledDistance = 0;
+  VerticalDistance = 0;
 }
 //Looks if it has generated to the edge of the screen
 void mapUpdate() {
