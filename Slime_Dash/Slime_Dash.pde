@@ -154,7 +154,7 @@ void draw() {
       exit();
     } else {
       room = "mainM";
-      setup();
+      gameReset();
     }
   }
   if (cooldown>-1) {
