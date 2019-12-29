@@ -98,7 +98,6 @@ class HUD {
       /*verander deze om enemy damage aan te passen*/
       //healthMult is voor de damageREDuction als je een upgrade koopt
       if (meleeDamage==true) {
-        meleeDmg.amp(1.7);
         meleeDmg.play();
         health = health-(MELEE_DAMAGE*healthMult);
         meleeDamage=false;
@@ -159,6 +158,7 @@ class HUD {
       health = 0;
     }
     if (death == true) {
+      miniMarch.stop();
       /*makes GO text fade in*/
       gOver = "Game over";
       goFadeIn += 2;
