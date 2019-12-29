@@ -11,7 +11,7 @@ class Player {
     dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
     parGrav, parSpeed, jumpedHeight, spriteWidth, spriteHeight, xTween, yTween, blobEffect;
 
-  int dashCooldown, dashCooldownMax, maxJumpAmount, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount;
+  int dashCooldown, dashCooldownMax, maxJumpAmount, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount, crownFade;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
@@ -23,6 +23,8 @@ class Player {
   final int PLAYER_WALK_FRAME_AMOUNT = 4;
   final int PLAYER_DEATH_FRAME_MAX = 10;
   final int DMG_BLINK_FRAMERATE = 6;
+  final int CROWN_FADE_STANDARD = 255;
+  final int CROWN_FADE_SPEED = 3;
 
   final float JUMPSPEED = globalScale/3.5; //jump force
   final float MAX_JUMP_HEIGHT = globalScale * 3;
@@ -64,6 +66,7 @@ class Player {
     xTween = 0;
     yTween = 0;
     blobEffect = 0;
+    crownFade = CROWN_FADE_STANDARD;
   }
 
   //player animation is done in this function. It looks if the player is looking left or right, 
@@ -96,6 +99,8 @@ class Player {
       if (frameCounter < 7 || frameCounter > 9) {
         frameCounter = 6;
       }
+
+      crownFade -= CROWN_FADE_SPEED;
     }
 
     //damaged animatie
@@ -369,13 +374,19 @@ class Player {
       pushMatrix();
       scale(-1.0, 1.0);
       image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width+shake, ySprite, spriteWidth, spriteHeight);
-      if (hasCrown)
+      if (hasCrown) {
+        tint(255, crownFade);
         image(crownSprite, -xSpriteL-playerSprite[0].width+shake, ySprite - crownOffset, spriteWidth, spriteHeight);
+        tint(255);
+      }
       popMatrix();
     } else if (!moveLeft) {
       image(playerSprite[frameCounter], xSpriteR+shake, ySprite, spriteWidth, spriteHeight);
-      if (hasCrown)
+      if (hasCrown) {
+        tint(255, crownFade);
         image(crownSprite, xSpriteR+shake, ySprite - crownOffset, spriteWidth, spriteHeight);
+        tint(255);
+      }
     }
   }
 }
