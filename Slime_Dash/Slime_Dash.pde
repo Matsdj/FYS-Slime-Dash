@@ -91,17 +91,15 @@ void updateGame() {
   }
   globalScrollSpeed *= speedModifier;
   //Vertical Distance
-  if (time > 60) {
-    globalVerticalSpeed = floor(globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3)));
-    if (globalVerticalSpeed >= 0 && !allowVerticalMovement) {
-      globalVerticalSpeed = 0;
-    }
-    if (VerticalDistance + globalVerticalSpeed <= 0) {
-      globalVerticalSpeed = -VerticalDistance;
-    }
-    VerticalDistance += globalVerticalSpeed;
-    allowVerticalMovement = false;
+  globalVerticalSpeed = floor(globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3)));
+  if (globalVerticalSpeed > 0 && !allowVerticalMovement) {
+    globalVerticalSpeed = 0;
   }
+  if (VerticalDistance + globalVerticalSpeed <= 0) {
+    globalVerticalSpeed = -VerticalDistance;
+  }
+  VerticalDistance += globalVerticalSpeed;
+  allowVerticalMovement = false;
   globalVerticalSpeed *= speedModifier;
   //input cooldown
 
@@ -154,7 +152,7 @@ void draw() {
       exit();
     } else {
       room = "mainM";
-      setup();
+      gameReset();
     }
   }
   if (cooldown>-1) {

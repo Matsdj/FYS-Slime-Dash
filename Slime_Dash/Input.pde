@@ -51,23 +51,24 @@ void debug() {
   if (debug == true) {
     textAlign(LEFT);
     fill(255, 255, 255);
-    textSize(40);
+    textSize(25);
     text("Fps:"+frameRate, 0, 200);
     String inputsString = "Inputs:";
     for (int i = 0; i < inputs.size(); i++) {
       inputsString += inputs.get(i) + "|";
     }
     text(inputsString, 0, 250);
-    text("Time:"+time, 0, 300);
-    text("ScrollSpeed:"+globalScrollSpeed, 0, 350);
-    text("Height:"+VerticalDistance, 0, 400);
-    text("TravelDist:"+traveledDistance, 0, 450);
-    text("Room:"+room, 0, 500);
-    text("P.insideblock:"+player.insideBlock(), 0, 550);
-    text("ActiveBlocks:"+activeBlocks, 0, 600);
-    text("TestTemplates:"+testTemplates, 0, 650);
-    text("Slow Mo:"+ speedModifier, 0, 700);
-    text(interfaces.scoreSize, 0, 750);
+    text("Time:"+time, 0, 275);
+    text("ScrollSpeed:"+globalScrollSpeed, 0, 300);
+    text("Height:"+VerticalDistance, 0, 325);
+    text("TravelDist:"+traveledDistance, 0, 350);
+    text("Room:"+room, 0, 375);
+    text("P.insideblock:"+player.insideBlock(), 0, 400);
+    text("ActiveBlocks:"+activeBlocks, 0, 425);
+    text("TestTemplates:"+testTemplates, 0, 450);
+    text("AllowVertical:"+ allowVerticalMovement, 0, 475);
+    text("VerticalDistance:"+ VerticalDistance, 0, 500);
+    text(interfaces.scoreSize, 0, 525);
     if (mousePressed) {
       player.x = mouseX-player.size/2;
       player.y = mouseY-player.size/2;

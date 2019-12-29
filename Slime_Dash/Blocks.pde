@@ -17,6 +17,10 @@ class Block {
     vx = speed;
     active = true;
     cracked = iCracked;
+    /*
+    if (y < height-globalScale)
+     cracked = true;
+     */
     breakTime = BREAK_TIME_MAX;
     enableVerticalMovement = iAllowVertical;
     if (c == BRICK) {
@@ -37,24 +41,30 @@ class Block {
   }
   void update() {
     if (x < width) {
-      //Cracked break under player
-      if (cracked && (x+1 < player.x+globalScale && x+globalScale > player.x && y-1 < player.y+globalScale && y > player.y)) {
-        breakTime--;
-        if (breakTime < 0) {
+      if (cracked) {
+        //Cracked break under player
+        if (player.Collision(x+1, y-1, size-2)) {
+          breakTime--;
+          if (breakTime < 0) {
+            active = false;
+          }
+        }
+        //Cracked break because of dash
+        if (player.dashActive && player.Collision(x-1, y+1, size+2)) {
           active = false;
         }
-      }
-      //Cracked break because of dash
-      if (cracked && player.dashActive && player.Collision(x-1, y+1, size+2)) {
-        active = false;
-        breakTime = 0;
-      }
-      if (active == false) {
-        createParticle(x+size/2, y+size/2, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
+        //break because of jump
+        if (player.vy < -10 && player.Collision(x+1, y-player.vy, size-2)) {
+          active = false;
+          player.jumpedAmount = -1000;
+        }
+        if (active == false) {
+          createParticle(x+size/2, y+size/2, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
+        }
       }
       //Allow Vertical Movement
       if (enableVerticalMovement) {
-        allowVerticalMovement = enableVerticalMovement;
+        allowVerticalMovement = true;
       }
     }
     //Push away player
@@ -82,9 +92,9 @@ class Block {
       }
       image(sprite, x+shake, y);
       if (cracked) {
-        tint(255, ((BREAK_TIME_MAX-breakTime)/BREAK_TIME_MAX)*155+100);
+        //tint(255, ((BREAK_TIME_MAX-breakTime)/BREAK_TIME_MAX)*155+100);
         image(crackedSprite, x+shake, y);
-        tint(255);
+        //tint(255);
       }
     }
   }
