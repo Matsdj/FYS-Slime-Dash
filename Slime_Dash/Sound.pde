@@ -18,6 +18,9 @@ SoundFile Electric;
 SoundFile doorDown;
 SoundFile Thud;
 SoundFile wallArrow;
+SoundFile arrowHit;
+SoundFile arrowRelease;
+SoundFile spikeDmg;
 float slow = 2500, mid = 6000;
 boolean[] march = new boolean[4];
 void soundSetup() {
@@ -41,7 +44,11 @@ void soundSetup() {
   doorDown = new SoundFile(this, "sounds/doorDown.mp3");
   Thud = new SoundFile(this, "sounds/Thud.mp3");
   wallArrow = new SoundFile(this, "sounds/wallArrow.wav");
+  arrowHit = new SoundFile(this, "sounds/arrowhit.wav");
+  arrowRelease = new SoundFile(this, "sounds/arrowRelease.mp3");
+  spikeDmg = new SoundFile(this, "sounds/spikeDmg.mp3");
   Hoofdmenu.amp(volume);
+  damage.amp(.5);
 }
 void soundUpdate() {
   if (speedModifier !=1) {

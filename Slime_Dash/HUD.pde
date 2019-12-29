@@ -95,16 +95,17 @@ class HUD {
 
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true&& death==false) {
-      // damage.play();
       /*verander deze om enemy damage aan te passen*/
       //healthMult is voor de damageREDuction als je een upgrade koopt
       if (meleeDamage==true) {
+        meleeDmg.amp(1.7);
         meleeDmg.play();
         health = health-(MELEE_DAMAGE*healthMult);
         meleeDamage=false;
       }
       // health = health-(MagicBarricadeDMG*healthMult);
       if ( arrowDamage==true) {
+        arrowHit.play();
         health = health-(ARROW_DAMAGE*healthMult);
         arrowDamage=false;
       }      
@@ -113,6 +114,7 @@ class HUD {
         archerDamage=false;
       }      
       if ( spikeDamage==true) {
+        spikeDmg.play();
         health = health-(SPIKE_DAMAGE*healthMult);
         spikeDamage=false;
       }

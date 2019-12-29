@@ -48,7 +48,7 @@ class Arrow {
   void activate(float activatex, float activatey, boolean isLefti) {
     isActive = true;
     y = activatey;
-
+    arrowRelease.play();
     isLeft = isLefti;
     if (isLefti) {
       vx = -ARROW_VELOCITY;
@@ -72,7 +72,7 @@ class Arrow {
       reset();
     } 
     if (vx != 0 && blockCollision(x, y, aHeight) != null) {
-      
+
       wallArrow.play();
       vx = 0;
     }
