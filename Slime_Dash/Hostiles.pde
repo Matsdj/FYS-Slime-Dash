@@ -114,6 +114,9 @@ class HostileMelee {
     //checks hitbox collision with player
     //if player dashes through the enemy, it dies
     if (player.Collision(x, y, size) && player.dashActive && !dead) {
+      if (meleeDeath.isPlaying() ==false) {
+        meleeDeath.play();
+      }
       dead = true;
       createParticle(x, y, 10, color(255, 0, 0), 0, 2, 50, true, 60, "", 100);
       speedModifier = 0.001;
@@ -200,7 +203,8 @@ class HostileRanged {
       createParticle(x, y, 10, color(255, 0, 0), 0, 2, 50, true, 60, "", 100);
       speedModifier = 0.0001;
       shake(globalScale/2);
-    }
+    } 
+    
     if (dead) {
       reset();
       interfaces.score += ENEMYSCORE;

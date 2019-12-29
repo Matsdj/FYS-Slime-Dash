@@ -83,6 +83,9 @@ class Magic1 {
     spriteY = y - globalScale;
 
     if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==true) {
+      if (interfaces.death==false) {
+        Electric.play();
+      }
       if (interfaces.health <= 40) {
         MagicBarricadeDMG = 20;
       }
@@ -179,6 +182,10 @@ class Magic2 {
     spriteY = y - globalScale;
 
     if ( player.hitboxCollision(x, y, size, size)&& player.dmgCooldown < 0&&switchA==false) {
+      if (interfaces.death==false) {
+        Electric.play();
+      }
+
       if (interfaces.health <= 40) {
         MagicBarricadeDMG = 20;
       }
@@ -274,6 +281,11 @@ class MagicSwitch {
   void update() {
 
     if ( player.hitboxCollision(x, y, size, size)&& SwitchTimerA == false) {
+      if (interfaces.death ==false) {
+        doorDown.rate(1.8);
+        doorDown.amp(0.3);
+        doorDown.play();
+      }
       SwitchTimer = SwitchTimerMax;
       switchA = !switchA;
       SwitchTimerA = true;

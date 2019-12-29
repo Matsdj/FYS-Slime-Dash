@@ -12,7 +12,12 @@ SoundFile SlimeJump;
 SoundFile DashSlime;
 SoundFile hordeMarch;
 SoundFile damage;
-
+SoundFile meleeDeath;
+SoundFile meleeDmg;
+SoundFile Electric;
+SoundFile doorDown;
+SoundFile Thud;
+SoundFile wallArrow;
 float slow = 2500, mid = 6000;
 boolean[] march = new boolean[4];
 void soundSetup() {
@@ -30,9 +35,20 @@ void soundSetup() {
   DashSlime = new SoundFile(this, "sounds/DashSlime.wav");
   hordeMarch = new SoundFile(this, "sounds/horde march.wav");
   damage = new SoundFile(this, "sounds/damage.mp3");
+  meleeDeath = new SoundFile(this, "sounds/meleedeath.wav");
+  meleeDmg = new SoundFile(this, "sounds/meleedamage.wav");
+  Electric = new SoundFile(this, "sounds/electric.wav");
+  doorDown = new SoundFile(this, "sounds/doorDown.mp3");
+  Thud = new SoundFile(this, "sounds/Thud.mp3");
+  wallArrow = new SoundFile(this, "sounds/wallArrow.wav");
   Hoofdmenu.amp(volume);
 }
 void soundUpdate() {
+  if (speedModifier !=1) {
+    GameSlow.rate(constrain(speedModifier*3, 0.5, 1));
+    GameMid.rate(constrain(speedModifier*3, 0.5, 1));
+    GameFast.rate(constrain(speedModifier*3, 0.5, 1));
+  }
   //marching geluiden worden in de tutorial uitgezet
   if (room =="game2") {
     march[0]=false;

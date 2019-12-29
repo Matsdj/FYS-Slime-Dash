@@ -72,6 +72,8 @@ class Arrow {
       reset();
     } 
     if (vx != 0 && blockCollision(x, y, aHeight) != null) {
+      
+      wallArrow.play();
       vx = 0;
     }
     if (x + aWidth < 0 || x > width) {

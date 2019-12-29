@@ -288,6 +288,9 @@ class Player {
       }
       if (dashActive) {
         shake(globalScale/3);
+        if (Thud.isPlaying() ==false) {
+          Thud.play();
+        }
       }
 
       vx = 0;

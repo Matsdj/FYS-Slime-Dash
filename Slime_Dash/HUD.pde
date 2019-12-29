@@ -95,10 +95,11 @@ class HUD {
 
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true&& death==false) {
-      damage.play();
+      // damage.play();
       /*verander deze om enemy damage aan te passen*/
       //healthMult is voor de damageREDuction als je een upgrade koopt
       if (meleeDamage==true) {
+        meleeDmg.play();
         health = health-(MELEE_DAMAGE*healthMult);
         meleeDamage=false;
       }
@@ -343,7 +344,7 @@ class Particle {
   String text = "";
   int LifeMax = 60;
 
-// setup van de particle
+  // setup van de particle
   void enableParticle(float ix, float iy, float iSize, color kleurMin, color kleurMax, float iGravity, float speed, boolean iCollision, int iLife, String iText) {
     x = ix;
     y = iy;
