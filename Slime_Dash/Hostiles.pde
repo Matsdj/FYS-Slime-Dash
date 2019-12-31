@@ -2,6 +2,8 @@
 HostileMelee[] hostileMelee;
 HostileRanged[] hostileRanged;
 
+int killCount = 0;
+
 final int HOSTILE_AMOUNT = 10;
 
 final float ENEMYSCORE = 200;
@@ -118,6 +120,7 @@ class HostileMelee {
         damage.play();
         meleeDeath.play();
       }
+      killCount++;
       dead = true;
       createParticle(x, y, 10, color(255, 0, 0), 0, 2, 50, true, 60, "", 100);
       speedModifier = 0.001;
@@ -201,6 +204,7 @@ class HostileRanged {
     }
     if (player.Collision(x, y, size) && player.dashActive && !dead) {
       damage.play();
+      killCount++;
       dead = true;
       createParticle(x, y, 10, color(255, 0, 0), 0, 2, 50, true, 60, "", 100);
       speedModifier = 0.0001;

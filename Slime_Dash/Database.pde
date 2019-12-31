@@ -77,13 +77,13 @@ void GetAchievements() {
 }
 
 void updateAchievements() { //make sure to run this function once and not several times in a row to prevent lag/crashes
-  if (dbAch.get(0).progress < int(interfaces.score)) {
-    if ( msql.connect() )
-    {
-      for (int iAch = 0; iAch < achRecordCount; iAch++) {
+  if ( msql.connect() )
+  {
+    for (int iAch = 0; iAch < achRecordCount; iAch++) {
+      if (!dbAch.get(iAch).completed) {
 
         //updates score based achievements, checks if ach has new progress, is correct scoretype and if its already completed
-        if (dbAch.get(iAch).scoreType == 1 && dbAch.get(iAch).progress < int(interfaces.score) && !dbAch.get(iAch).completed) {
+        if (dbAch.get(iAch).scoreType == 1 && dbAch.get(iAch).progress < int(interfaces.score)) {
           msql.query( "UPDATE Achievements_Progres SET progres = " + int(interfaces.score) + " WHERE Users_id = " + User + " AND Achievements_id = "+ dbAch.get(iAch).id );
 
           dbAch.get(iAch).progress = int(interfaces.score);
@@ -92,10 +92,24 @@ void updateAchievements() { //make sure to run this function once and not severa
             dbAch.get(achRecordCount).completed = true;
           }
         }
+
+        //updates enemie kill based achievements
+        if (dbAch.get(iAch).scoreType == 2 && dbAch.get(iAch).progress < dbAch.get(iAch).progress + killCount) {
+          msql.query( "UPDATE Achievements_Progres SET progres = " + (dbAch.get(iAch).progress + killCount) + " WHERE Users_id = " + User + " AND Achievements_id = "+ dbAch.get(iAch).id );
+
+          dbAch.get(iAch).progress += killCount;
+          if (dbAch.get(iAch).progress >= dbAch.get(iAch).requiredScore) {
+            coins += dbAch.get(iAch).reward;
+            dbAch.get(achRecordCount).completed = true;
+          }
+        }
       }
     }
+
+    killCount = 0; //resets the enemie kills
   }
 }
+
 
 void drawAch() {
   for (int iAch = 0; iAch < achRecordCount; iAch++) {
