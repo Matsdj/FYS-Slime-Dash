@@ -124,13 +124,13 @@ class HUD {
 
     //dash bar
     if (charge1==true) {
-      createParticle(healthBarLength*0.25, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
+      createParticle(healthBarLength*0.25, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }        
     if (charge2==true) {
-      createParticle(healthBarLength*0.5, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
+      createParticle(healthBarLength*0.5, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }    
     if (charge3==true) {
-      createParticle(healthBarLength*0.75, dashY, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
+      createParticle(healthBarLength*0.75, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
       if (player.dashCooldown ==player.DASH_COOLDOWN_CHARGE) {
@@ -263,7 +263,7 @@ class HUD {
     text(floor(score), scoreX, scoreY);
     //particles die meer worden aan wanneer je aan de rechterkant van het scherm zit
     float catchUpX = width+50, catchUpY = scoreY+20, catchUpSize = constrain(floor(playerCatchUp/1.3), 0, 100), catchUpGravity = -0.1, catchUpSpeed = floor(playerCatchUp), catchUpAmount = 1;
-    createParticle(catchUpX, catchUpY, catchUpSize, color(WHITE), color(200), catchUpGravity, catchUpSpeed, false, 60, "", catchUpAmount);
+    createParticle(catchUpX, catchUpY, 0, catchUpSize, color(WHITE), color(200), catchUpGravity, catchUpSpeed, false, 60, "", catchUpAmount);
     stroke(BLACK);
     strokeWeight(2);
     line(width-(width/8), scoreY+20, width, scoreY+20);
@@ -304,10 +304,13 @@ class HUD {
 //Mats en Laurens
 Particle[] particles = new Particle[10000];
 //variablen die je kan invullen terwijl je je particles creert
-void createParticle(float x, float y, float size, color kleurMin, color kleurMax, float gravity, float speed, boolean collision, int life, String text, float count) {
+void createParticle(float x, float y, float particleArea, float particleSize, color kleurMin, color kleurMax, float gravity, float speed, boolean collision, int life, String text, float count) {
   for (int i = 0; i < count; i++) {
-    particles[freeParticleIndex()].enableParticle(x, y, size, kleurMin, kleurMax, gravity, speed, collision, life, text);
+    particles[freeParticleIndex()].enableParticle(x, y, particleArea, particleSize, kleurMin, kleurMax, gravity, speed, collision, life, text);
   }
+}
+void particleDashable(float x, float y, float area){
+  createParticle(x, y, area, 5, color(0,255,0), color(100,255,100), 0, 2, false, 30, "", 1);
 }
 //checkt of de particle actief is en kijkt voor een vrije plek in de particle array
 int freeParticleIndex() {
@@ -347,7 +350,7 @@ class Particle {
   int LifeMax = 60;
 
   // setup van de particle
-  void enableParticle(float ix, float iy, float iSize, color kleurMin, color kleurMax, float iGravity, float speed, boolean iCollision, int iLife, String iText) {
+  void enableParticle(float ix, float iy, float area, float iSize, color kleurMin, color kleurMax, float iGravity, float speed, boolean iCollision, int iLife, String iText) {
     x = ix;
     y = iy;
     size = iSize;
@@ -369,6 +372,8 @@ class Particle {
     speed = random(speed/10, speed);
     vx = sin(a)*speed;
     vy = cos(a)*speed;
+    x -= sin(a)*random(area/2);
+    y += cos(a)*random(area/2);
     active = true;
     LifeMax = iLife;
     life = LifeMax;

@@ -98,7 +98,7 @@ void updateGame() {
   if (VerticalDistance + globalVerticalSpeed <= 0) {
     globalVerticalSpeed = -VerticalDistance;
   }
-  VerticalDistance += globalVerticalSpeed;
+  VerticalDistance += globalVerticalSpeed*speedModifier;
   allowVerticalMovement = false;
   globalVerticalSpeed *= speedModifier;
   //input cooldown

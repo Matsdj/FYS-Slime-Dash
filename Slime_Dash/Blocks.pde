@@ -59,7 +59,7 @@ class Block {
           player.jumpedAmount = -1000;
         }
         if (active == false) {
-          createParticle(x+size/2, y+size/2, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
+          createParticle(x+size/2, y+size/2, size, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
         }
       }
       //Allow Vertical Movement
@@ -92,9 +92,10 @@ class Block {
       }
       image(sprite, x+shake, y);
       if (cracked) {
-        //tint(255, ((BREAK_TIME_MAX-breakTime)/BREAK_TIME_MAX)*155+100);
+        tint(255, ((BREAK_TIME_MAX-breakTime)/BREAK_TIME_MAX)*155+100);
         image(crackedSprite, x+shake, y);
-        //tint(255);
+        tint(255);
+        particleDashable(x+size/2, y+size/2, size);
       }
     }
   }
@@ -152,17 +153,13 @@ void blockSetup() {
 }
 //Free Block Index
 int freeBlockIndex() {
-  int index = -1;
-  for (int i = blocks.length-1; i > 0; i--) {
+  for (int i = 0; i < blocks.length; i++) {
     if (blocks[i].active == false) {
-      index = i;
+      return i;
     }
   }
-  if (index == -1) {
-    println("ERROR MAX("+blocks.length+")ACTIVE BLOCKS REACHED");
-    index = blocks.length-1;
-  }
-  return index;
+  println("ERROR MAX("+blocks.length+")ACTIVE BLOCKS REACHED");
+  return blocks.length-1;
 }
 //block Update
 void blockUpdate() {

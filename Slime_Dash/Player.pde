@@ -323,7 +323,7 @@ class Player {
       //ground smash effect
       if (onGround && smashedGround) {
         smashedGround = false;
-        createParticle(x + size/2, y + size/2, parSize, color(#FF9455), color(#FF5555), parGrav, parSpeed, true, 60, "", vy/3);
+        createParticle(x+size/2, y+size/2, size, parSize, color(#FF9455), color(#FF5555), parGrav, parSpeed, true, 60, "", vy/3);
       }
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
