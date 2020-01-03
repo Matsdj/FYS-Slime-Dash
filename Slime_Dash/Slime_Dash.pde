@@ -147,14 +147,14 @@ void drawGame() {
 
 void draw() {
   //ESC
-  if (inputsPressed.hasValue(ESC)) {
+/*  if (inputsPressed.hasValue(ESC)) {
     if (room == "mainM") {
       exit();
     } else {
       room = "mainM";
       gameReset();
     }
-  }
+  }*/
   if (cooldown>-1) {
     cooldown--;
   }

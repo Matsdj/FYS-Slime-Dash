@@ -209,12 +209,12 @@ class HUD {
         tutText = "B";
         tutorial[0] = playerSprite[4];
       }
-      if (traveledDistance >13) {
+      if (traveledDistance >5) {
         circleColor = color(RED);
         tutText = "A";
         tutorial[0] = playerSprite[5];
       }
-      if (traveledDistance >55) {
+      if (traveledDistance >25) {
         circleColor = color(RED);
         tutText = "A";
         tutorial[0] = playerSprite[5];
