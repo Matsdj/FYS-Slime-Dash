@@ -93,6 +93,19 @@ void GetAchievements() {
   }
 }
 
+void makeAchforUser(int user) { //when making a new account, use this function to make achievements for that person
+  IntList achId = new IntList();
+
+  msql.query( "SELECT id FROM Achievements;");
+  while (msql.next()) {
+    achId.append(msql.getInt("id"));
+  }
+
+  for (int iAch = 0; iAch < achId.size(); iAch++) {
+    msql.query( "INSERT INTO Achievements_Progres (Users_id, Achievements_id) VALUES (" + user + ", " + achId.get(iAch) + ");");
+  }
+}
+
 void updateAchievements() { //make sure to run this function once and not several times in a row to prevent lag/crashes
   if ( msql.connect() )
   {
