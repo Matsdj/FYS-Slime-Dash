@@ -55,9 +55,8 @@ void setup() {
   gameReset();
   upgradeSetup();
   //database
-  //  CreateDatabaseConnection();
-  //  GetUsers();
-  //particle system
+  databaseSetup();
+//particle system
   //  ps = new ParticleSystem(new PVector(width/2, 50));
 }
 //GAME

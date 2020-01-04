@@ -88,6 +88,7 @@ void soundUpdate() {
       GameFast.stop();
       SpeedUp.stop();
       Dede.stop();
+      miniMarch.stop();
     }
   } else if ((room =="game"||room == "game2")) {
     Hoofdmenu.pause();
@@ -162,6 +163,11 @@ void soundUpdate() {
       hordeMarch.rate(1);
       hordeMarch.play();
       march[3] =false;
+    }
+  }
+  if (room == "pause" || room == "pause2") {
+    if (miniMarch.isPlaying() ==true) {
+      miniMarch.pause();
     }
   }
 }

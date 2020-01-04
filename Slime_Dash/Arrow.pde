@@ -48,7 +48,6 @@ class Arrow {
   void activate(float activatex, float activatey, boolean isLefti) {
     isActive = true;
     y = activatey;
-    arrowRelease.play();
     isLeft = isLefti;
     if (isLefti) {
       vx = -ARROW_VELOCITY;

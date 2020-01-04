@@ -17,7 +17,18 @@ String email;
 boolean emailActive;
 boolean uploadAccount;
 
+void databaseSetup() {
+  CreateDatabaseConnection();
+  println(msql.connect());
+}
 
+void CreateDatabaseConnection() {
+  String dbHostID = "oege.ie.hva.nl";    // ip address, domain or hostname such as localhost
+  String dbUsername = "lokhorc";
+  String dbUserPass = "dw5dZKtaln1AHIK2";
+  String dbSchema = "zlokhorc";
+  msql = new MySQL( this, dbHostID, dbSchema, dbUsername, dbUserPass );
+}
 
 
 class RecordUser {
@@ -32,7 +43,7 @@ class RecordUser {
 class RecordScore {
   public int userId;
   public int gameId;
-  public int score;
+  public float score;
   public RecordScore(int userId, int gameId, int score) {
     this.userId = userId;
     this.gameId = gameId;
@@ -57,17 +68,8 @@ class recordAchievements {
 }
 
 ArrayList<recordAchievements> dbAch;
-ArrayList<RecordUser> dbUsers; 
+ArrayList<RecordUser> dbUsers;
 int positionYSpacing = 36;        // The spacing height between lines
-String dbHostID = "oege.ie.hva.nl";    // ip address, domain or hostname such as localhost
-String dbUsername = "lokhorc";
-String dbUserPass = "dw5dZKtaln1AHIK2";
-String dbSchema = "zlokhorc";
-
-void CreateDatabaseConnection() {
-  msql = new MySQL( this, dbHostID, dbSchema, dbUsername, dbUserPass );
-}
-
 
 ///Achievements//////////////////
 
@@ -142,6 +144,23 @@ void drawAch() {
    updateAchievements();
    }*/
 }
+
+//Laurens
+float getScore(int userId, float currentScore) {
+  msql.query("SELECT * FROM zlokhorc.Highscores WHERE Users_id = "+userId);
+  //check of er al een score is
+  if (msql.next()) {
+    if (msql.getFloat("score") > currentScore) {
+      currentScore = msql.getFloat("score");
+    } else if (msql.getFloat("score") < currentScore ) {
+      msql.query("UPDATE zlokhorc.Highscores SET score = " +currentScore );
+    }
+  }
+  return currentScore;
+}
+
+
+
 
 //collin
 

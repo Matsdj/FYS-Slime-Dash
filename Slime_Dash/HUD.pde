@@ -35,6 +35,7 @@ class HUD {
   //score
   float scoreX, scoreY, scoreSize, score, scoreNormal;
   //game over
+  float Highscore = 0;
   String gOver;
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
@@ -107,11 +108,11 @@ class HUD {
         arrowHit.play();
         health = health-(ARROW_DAMAGE*healthMult);
         arrowDamage=false;
-      }      
+      }
       if ( archerDamage==true) {
         health = health-(ARCHER_DAMAGE*healthMult);
         archerDamage=false;
-      }      
+      }
       if ( spikeDamage==true) {
         spikeDmg.play();
         health = health-(SPIKE_DAMAGE*healthMult);
@@ -125,10 +126,10 @@ class HUD {
     //dash bar
     if (charge1==true) {
       createParticle(healthBarLength*0.25, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
-    }        
+    }
     if (charge2==true) {
       createParticle(healthBarLength*0.5, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
-    }    
+    }
     if (charge3==true) {
       createParticle(healthBarLength*0.75, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }
@@ -156,6 +157,10 @@ class HUD {
     if (health <= NO_HEALTH) {
       death = true;
       health = 0;
+      Highscore = floor(getScore(1, score));
+    }
+    if (death ==false) {
+      Highscore = 0;
     }
     if (death == true) {
       miniMarch.stop();
@@ -170,24 +175,24 @@ class HUD {
         gameReset();
         room= "mainM";
       }
-    }
-    /* B om te resetten*/
-    if (death ==true && inputs.hasValue(keyB)==true && room=="game") {
-      death = false;
-      Dede.stop();
-      gameReset();
-      room = "game";
-      march[0]= true;
-      march[1]= true;
-      march[2]= true;
-      march[3]= true;
-    }
-    if (death ==true && inputs.hasValue(keyB)==true && room=="game2") {
-      death = false;
-      Dede.stop();
-      gameReset();
-      room = "game2";
-      march[0] = false;
+      /* B om te resetten*/
+      if (inputs.hasValue(keyB)==true && room=="game") {
+        death = false;
+        Dede.stop();
+        gameReset();
+        room = "game";
+        march[0]= true;
+        march[1]= true;
+        march[2]= true;
+        march[3]= true;
+      }
+      if (inputs.hasValue(keyB)==true && room=="game2") {
+        death = false;
+        Dede.stop();
+        gameReset();
+        room = "game2";
+        march[0] = false;
+      }
     }
   }
   void draw() {
@@ -221,7 +226,7 @@ class HUD {
         image(enemySprite[0], width*0.65, height/5-20);
         image(enemyDeathSprite, width*0.7, height/5-20);
       }
-    } 
+    }
     imageMode(CORNER);
     tint(WHITE);
     //healthbar
@@ -242,14 +247,14 @@ class HUD {
     //dash bar
     stroke(BLACK);
     strokeWeight(20);
-    line(dashX, dashY, dashL, dashY);  
-    line(dashX2, dashY, dashL2, dashY);  
-    line(dashX3, dashY, dashL3, dashY);  
+    line(dashX, dashY, dashL, dashY);
+    line(dashX2, dashY, dashL2, dashY);
+    line(dashX3, dashY, dashL3, dashY);
     stroke(0, 100, 200);
     strokeWeight(10);
-    line(dashX, dashY, dashL, dashY);  
-    line(dashX2, dashY, dashL2, dashY);  
-    line(dashX3, dashY, dashL3, dashY);  
+    line(dashX, dashY, dashL, dashY);
+    line(dashX2, dashY, dashL2, dashY);
+    line(dashX3, dashY, dashL3, dashY);
 
 
 
@@ -286,6 +291,16 @@ class HUD {
     fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
     text("score " + floor(score), gOverX, gOverY+100);
+    text(gOver, gOverX-generalTextOffset, gOverY-generalTextOffset);
+    //highscore
+    fill(#A300FC, goFadeIn);
+    text("highscore " + floor(Highscore), gOverX-generalTextOffset, gOverY+148);
+    fill(YELLOW, goFadeIn);
+    text(gOver, gOverX+generalTextOffset, gOverY+generalTextOffset);
+    text("highscore " + floor(Highscore), gOverX+generalTextOffset, gOverY+152);
+    fill(BLACK, goFadeIn);
+    text(gOver, gOverX, gOverY);
+    text("highscore " + floor(Highscore), gOverX, gOverY+150);
     //NAVIGATION
     textAlign(LEFT);
     textSize(main.tekstSize[2]);
@@ -309,8 +324,8 @@ void createParticle(float x, float y, float particleArea, float particleSize, co
     particles[freeParticleIndex()].enableParticle(x, y, particleArea, particleSize, kleurMin, kleurMax, gravity, speed, collision, life, text);
   }
 }
-void particleDashable(float x, float y, float area){
-  createParticle(x, y, area, 5, color(0,255,0), color(100,255,100), 0, 2, false, 30, "", 1);
+void particleDashable(float x, float y, float area) {
+  createParticle(x, y, area, 5, color(0, 255, 0), color(100, 255, 100), 0, 2, false, 30, "", 1);
 }
 //checkt of de particle actief is en kijkt voor een vrije plek in de particle array
 int freeParticleIndex() {
