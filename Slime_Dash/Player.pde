@@ -15,8 +15,10 @@ class Player {
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
 
   //terugzet waardes van de dashCooldown en dashTime
+
   final int DASH_COOLDOWN_CHARGE = 100;
-  final int DASH_COOLDOWN_START = DASH_COOLDOWN_CHARGE * 3;
+  final int DASH_COOLDOWN_START = DASH_COOLDOWN_CHARGE;
+
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;
   final int ANIMATION_FRAMERATE = 10;
@@ -49,7 +51,7 @@ class Player {
     slowDown = SPEEDSLOWDOWN;
     vx = 0;
     vy = 0;
-    dashCooldownMax = DASH_COOLDOWN_START; //change this to upgrade dash cooldown
+    dashCooldownMax = DASH_COOLDOWN_CHARGE * upgrade.perchTRState; //change this to upgrade dash cooldown
     dashCooldown = 0;
     dashTime = DASH_TIME;
     dmgCooldown = 0;
@@ -245,8 +247,8 @@ class Player {
         jumpedHeight = -MAX_JUMP_HEIGHT;
       }
 
-      //Dash abilty
-      if (inputsPressed.hasValue(keyZ) == true && dashCooldown > DASH_COOLDOWN_CHARGE || dashActive && dashTime > 0) {
+      //Dash abilty////////////////
+      if (inputsPressed.hasValue(keyZ) == true && dashCooldown >= DASH_COOLDOWN_CHARGE || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
           DashSlime.rate(random(0.8, 1.2));
           DashSlime.play();

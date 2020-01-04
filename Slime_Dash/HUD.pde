@@ -134,21 +134,22 @@ class HUD {
       createParticle(healthBarLength*0.75, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
-      if (player.dashCooldown ==player.DASH_COOLDOWN_CHARGE) {
-        charge1=true;
-      } else charge1=false;
+
       dashL = healthBarLength*0.25;
     } else dashL=dashX;
+    if (player.dashCooldown ==player.DASH_COOLDOWN_CHARGE-1) {
+      charge1=true;
+    } else charge1=false;
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE*2) {
-      if (player.dashCooldown == player.DASH_COOLDOWN_CHARGE*2) {
-        charge2=true;
-      } else charge2=false;
       dashL2 = healthBarLength*0.5;
     } else dashL2=dashX2;
-    if (player.dashCooldown >=player.dashCooldownMax) {
+    if (player.dashCooldown == player.DASH_COOLDOWN_CHARGE*2-1) {
+      charge2=true;
+    } else charge2=false;
+    if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE*3) {
       dashL3 = healthBarLength*0.75;
     } else dashL3 = dashX3;
-    if (player.dashCooldown ==player.dashCooldownMax-1) {
+    if (player.dashCooldown ==player.DASH_COOLDOWN_CHARGE*3-1) {
       charge3=true;
     } else charge3=false;
 

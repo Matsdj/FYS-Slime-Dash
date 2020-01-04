@@ -52,11 +52,11 @@ void setup() {
   CreateDatabaseConnection();
   GetAchievements();
   assetSetup();
-  gameReset();
   upgradeSetup();
+  gameReset();
   //database
   databaseSetup();
-//particle system
+  //particle system
   //  ps = new ParticleSystem(new PVector(width/2, 50));
 }
 //GAME
@@ -146,14 +146,14 @@ void drawGame() {
 
 void draw() {
   //ESC
-/*  if (inputsPressed.hasValue(ESC)) {
-    if (room == "mainM") {
-      exit();
-    } else {
-      room = "mainM";
-      gameReset();
-    }
-  }*/
+  /*  if (inputsPressed.hasValue(ESC)) {
+   if (room == "mainM") {
+   exit();
+   } else {
+   room = "mainM";
+   gameReset();
+   }
+   }*/
   if (cooldown>-1) {
     cooldown--;
   }
