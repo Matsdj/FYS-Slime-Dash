@@ -146,20 +146,21 @@ void drawAch() {
 }
 
 //Laurens
+
 float getScore(int userId, float currentScore) {
-  msql.query("SELECT * FROM zlokhorc.Highscores WHERE Users_id = "+userId);
-  //check of er al een score is
-  if (msql.next()) {
-    if (msql.getFloat("score") > currentScore) {
-      currentScore = msql.getFloat("score");
-    } else if (msql.getFloat("score") < currentScore ) {
-      msql.query("UPDATE zlokhorc.Highscores SET score = " +currentScore );
+  if ( msql.connect()) {
+    msql.query("SELECT * FROM zlokhorc.Highscores WHERE Users_id = "+userId);
+    //check of er al een score is
+    if (msql.next()) {
+      if (msql.getFloat("score") > currentScore) {
+        currentScore = msql.getFloat("score");
+      } else if (msql.getFloat("score") < currentScore ) {
+        msql.query("UPDATE zlokhorc.Highscores SET score = " +currentScore );
+      }
     }
-  }
+  }  
   return currentScore;
 }
-
-
 
 
 //collin
