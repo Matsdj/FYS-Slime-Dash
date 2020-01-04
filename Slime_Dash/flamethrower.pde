@@ -1,4 +1,4 @@
-//collin
+ //collin
 final int FLAME_SPRITE_AMOUNT = 7;
 final int FLAME_ACTIVE_SPRITE_AMOUNT = 5;
 boolean burn = false;
