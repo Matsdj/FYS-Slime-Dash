@@ -522,6 +522,7 @@ class Selection {
   int[] ySelected;
   String[][] options;
   int holdKeyTime = 0;
+  final color SELECTED_OPTION_COLOR = color(0,100,0);
   Selection(String[][] inputOptions, int inputCenterX, int inputCenterY) {
     options = inputOptions;
     ySelected = new int[inputOptions[0].length];
@@ -570,9 +571,14 @@ class Selection {
         } else {
           textSize(textNorm);
         }
-        float yLoc = centerY+(dist*(iy-ySelected[ix]+1));
-        fill(WHITE, 255-pow(ySelected[ix]-iy,2)*10);
-        float xLoc = centerX+(dist*(ix-xSelected+1));
+        float yLoc = centerY+(dist*(iy-ySelected[ix]));
+        float xLoc = centerX+(dist*(ix-xSelected));
+        if (iy == ySelected[ix] && ix == xSelected && options[ix][iy].length() == 1) {
+          fill(BLACK,100);
+          noStroke();
+          rect(xLoc-textBig/2,yLoc-textBig/2,textBig,textBig);
+        }
+        fill(WHITE, 255-pow(ySelected[ix]-iy, 2)*10);
         text(options[ix][iy], xLoc, yLoc);
         if (options[ix][iy] == " ") {
           text('_', xLoc, yLoc);

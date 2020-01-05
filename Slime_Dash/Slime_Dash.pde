@@ -174,14 +174,14 @@ void drawGame() {
 void draw() {
   //ESC
   if (inputsPressed(ESC)) {
-   /*if (room == "mainM") {
-   exit();
-   } else {
-   room = "mainM";
-   gameReset();
-   }*/
-   exit();
-   }
+    /*if (room == "mainM") {
+     exit();
+     } else {
+     room = "mainM";
+     gameReset();
+     }*/
+    exit();
+  }
   if (cooldown>-1) {
     cooldown--;
   }
@@ -241,10 +241,11 @@ void draw() {
     bgUpdate();
     bgDraw();
     accountPassword.draw();
-    String testStr = accountName.selection();
-    text("Login password for "+testStr.replaceAll(" ", ""), width/2, height/4);
-    text(accountName.selection()+","+accountPassword.selection(), 0, height);
-    if (inputsPressed(keySpace)) {
+    text("Login password for ", width/2, height/4);
+    textSize(textBig);
+    text(accountName.selection(),width/2,height/4+textBig);
+    textSize(textNorm);
+      if (inputsPressed(keySpace)) {
       if (createAccount) {
         createUser(accountName.selection(), accountPassword.selection());
       } else {
