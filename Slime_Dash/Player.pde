@@ -240,7 +240,7 @@ class Player {
       if (jumpedHeight > -MAX_JUMP_HEIGHT && keyUp == 1) {
         vy = keyUp * -JUMPSPEED;
         jumpedHeight += vy;
-      } else if (inputsPressed.hasValue(UP) == true && jumpedAmount < maxJumpAmount) {
+      } else if (inputsPressed(UP) == true && jumpedAmount < maxJumpAmount) {
         jumpedHeight = 0;
         jumpedAmount ++;
       } else {
@@ -248,7 +248,7 @@ class Player {
       }
 
       //Dash abilty////////////////
-      if (inputsPressed.hasValue(keyZ) == true && dashCooldown >= DASH_COOLDOWN_CHARGE || dashActive && dashTime > 0) {
+      if (inputsPressed(keyZ) == true && dashCooldown >= DASH_COOLDOWN_CHARGE || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
           DashSlime.rate(random(0.8, 1.2));
           DashSlime.play();

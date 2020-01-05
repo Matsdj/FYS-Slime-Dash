@@ -54,7 +54,7 @@ void setup() {
   frameRate(60);
   globalScale = height/12;
   //database
-  CreateDatabaseConnection();
+  //CreateDatabaseConnection();
   //  loginUser("Chris", "123");
   //  GetAchievements();
   assetSetup();
@@ -162,7 +162,7 @@ void drawGame() {
 
 void draw() {
   //ESC
-  /*  if (inputsPressed.hasValue(ESC)) {
+  /*  if (inputsPressed(ESC)) {
    if (room == "mainM") {
    exit();
    } else {
@@ -218,9 +218,9 @@ void draw() {
     bgDraw();
     accountSelect.draw();
     text(accountSelect.selection(), 0, height);
-    if (inputsPressed.hasValue(keySpace)) {
+    if (inputsPressed(keySpace)) {
     }
-    if (inputsPressed.hasValue(keyQ)) {
+    if (inputsPressed(keyQ)) {
       room = "start";
     }
   } else if (room == "createAccount") {
@@ -228,7 +228,7 @@ void draw() {
     bgDraw();
     accountSelect.draw();
     text(accountSelect.selection(), 0, height);
-    if (inputsPressed.hasValue(keyQ)) {
+    if (inputsPressed(keyQ)) {
       room = "start";
     }
   } else if (room == "start") {
@@ -236,7 +236,7 @@ void draw() {
     bgDraw();
     askIfLogin.draw();
     text(askIfLogin.selection(), 0, height);
-    if (inputsPressed.hasValue(keySpace)) {
+    if (inputsPressed(keySpace)) {
       if (askIfLogin.intSelection(0) == 0) {
         room = "login";
         println("room switch");

@@ -22,6 +22,14 @@ void keyReleased() {
 void inputsPressedUpdate() {
   inputsPressed.clear();
 }
+boolean inputsPressed(int inputKeyCode){
+  if (inputsPressed(inputKeyCode)){
+    inputsPressed.removeValue(inputKeyCode);
+    return true;
+  } else {
+    return false;
+  }
+}
 /* Je kan dit gebruiken door:
  
  if (inputs.hasValue(keyCode) == true) {
@@ -41,7 +49,7 @@ int keyZ = 90,keyT = 84;
 boolean debug = false, 
   testTemplates = false;
 void debug() {
-  if (inputsPressed.hasValue(96)) {
+  if (inputsPressed(96)) {
     if (debug == false) {
       debug = true;
     } else {
@@ -73,7 +81,7 @@ void debug() {
       player.x = mouseX-player.size/2;
       player.y = mouseY-player.size/2;
     }
-    if (inputsPressed.hasValue(keyT)) {
+    if (inputsPressed(keyT)) {
       if (testTemplates) {
         testTemplates = false;
       } else {
