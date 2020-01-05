@@ -3,6 +3,8 @@
 IntList inputs = new IntList();
 //Alleen op de frame waarin de toets is ingedrukt bevat inputPressed de toets
 IntList inputsPressed = new IntList();
+int inputsPressedCooldown = 0;
+final int INPUTS_PRESSED_COOLDOWN_MAX = 6;
 void keyPressed() {
   if (inputs.hasValue(keyCode) == false) {
     inputs.append(keyCode);
@@ -21,6 +23,17 @@ void keyReleased() {
 }
 void inputsPressedUpdate() {
   inputsPressed.clear();
+  if (inputsPressedCooldown > 0) {
+    inputsPressedCooldown--;
+  }
+}
+boolean inputsPressed(int keyNumber) {
+  if (inputsPressed.hasValue(keyNumber) && inputsPressedCooldown <= 0) {
+    inputsPressedCooldown = INPUTS_PRESSED_COOLDOWN_MAX;
+    return true;
+  } else {
+    return false;
+  }
 }
 /* Je kan dit gebruiken door:
  
@@ -35,13 +48,13 @@ void inputsPressedUpdate() {
 //INPUT CODES
 int keySpace = 32, keyQ = 81, keyP = 80, keyM = 77, keyB = 66;
 int keyLeft = 37, keyRight = 39, keyUp = 38, keyDown = 40;
-int keyZ = 90,keyT = 84;
+int keyZ = 90, keyT = 84;
 
 //DEBUG///////////////////////////////////////////////
 boolean debug = false, 
   testTemplates = false;
 void debug() {
-  if (inputsPressed.hasValue(96)) {
+  if (inputsPressed(96)) {
     if (debug == false) {
       debug = true;
     } else {
@@ -73,7 +86,7 @@ void debug() {
       player.x = mouseX-player.size/2;
       player.y = mouseY-player.size/2;
     }
-    if (inputsPressed.hasValue(keyT)) {
+    if (inputsPressed(keyT)) {
       if (testTemplates) {
         testTemplates = false;
       } else {

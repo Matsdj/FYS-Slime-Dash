@@ -20,8 +20,8 @@ final int COOLDOWN_UPGRADE=30;
 int cooldown;
 int secondsPlayed;
 Selection askIfLogin;
-Selection accountSelect;
-Selection passwordSelect;
+Selection accountName;
+Selection accountPassword;
 
 void gameReset() {
   room = "start";
@@ -65,12 +65,23 @@ void setup() {
 
   String[][] askIfLoginOptions = {{"Login", "Create Account", "Offline"}};
   askIfLogin = new Selection(askIfLoginOptions);
-  String[] characters = {" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-  String[][] accountNameStrings = new String[10][characters.length];
+  String[] letters = {" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+  String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+  String[] characters = concat(letters, numbers);
+  
+  //Creating Account name Selection
+  String[][] accountNameStrings = new String[10][letters.length];
   for (int i = 0; i < accountNameStrings.length; i++) {
-    accountNameStrings[i] = characters;
+    accountNameStrings[i] = letters;
   }
-  accountSelect = new Selection(accountNameStrings);
+  accountName = new Selection(accountNameStrings);
+  
+  //Creating Account password Selection
+  String[][] accountPasswordStrings = new String[10][letters.length];
+  for (int i = 0; i < accountPasswordStrings.length; i++) {
+    accountPasswordStrings[i] = letters;
+  }
+  accountPassword = new Selection(accountPasswordStrings);
 }
 //GAME
 void updateGame() {
@@ -162,7 +173,7 @@ void drawGame() {
 
 void draw() {
   //ESC
-  /*  if (inputsPressed.hasValue(ESC)) {
+  /*  if (inputsPressed(ESC)) {
    if (room == "mainM") {
    exit();
    } else {
@@ -216,19 +227,25 @@ void draw() {
   } else if (room == "login") {
     bgUpdate();
     bgDraw();
-    accountSelect.draw();
-    text(accountSelect.selection(), 0, height);
-    if (inputsPressed.hasValue(keySpace)) {
+    accountName.draw();
+    text(accountName.selection(), 0, height);
+    if (inputsPressed(keySpace)) {
+      room = "password";
     }
-    if (inputsPressed.hasValue(keyQ)) {
+    if (inputsPressed(keyQ)) {
       room = "start";
     }
+  } else if (room == "password") {
+    bgUpdate();
+    bgDraw();
+    accountPassword.draw();
+    text(accountName.selection()+","+accountPassword.selection(), 0, height);
   } else if (room == "createAccount") {
     bgUpdate();
     bgDraw();
-    accountSelect.draw();
-    text(accountSelect.selection(), 0, height);
-    if (inputsPressed.hasValue(keyQ)) {
+    accountName.draw();
+    text(accountName.selection(), 0, height);
+    if (inputsPressed(keyQ)) {
       room = "start";
     }
   } else if (room == "start") {
@@ -236,7 +253,7 @@ void draw() {
     bgDraw();
     askIfLogin.draw();
     text(askIfLogin.selection(), 0, height);
-    if (inputsPressed.hasValue(keySpace)) {
+    if (inputsPressed(keySpace)) {
       if (askIfLogin.intSelection(0) == 0) {
         room = "login";
         println("room switch");
