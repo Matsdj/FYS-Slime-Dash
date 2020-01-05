@@ -370,21 +370,21 @@ class Upgrades {
     image(perchSelect, perchSelectX, perchSelectY, perchW, perchH);
     //top left
     image(perchTL, perchLeft, perchUp, perchW, perchH);
-    text("Double Jump : ", perchLeft+xOffset, upgradetekstHigh);
+    text("Double Jump : ", perchLeft+xOffset, perchUp-yOffset/4);
     text(doubleJumpPrice, perchLeft+xOffset, perchUp+yOffset);
     //top right
     image(perchTR, perchRight, perchUp, perchW, perchH);
     textSize(23);
-    text("Dash Cooldown : ", perchRight+xOffset, upgradetekstHigh);
+    text("Dash Cooldown : ", perchRight+xOffset, perchUp-yOffset/4);
     text(dashPrice, perchRight+xOffset, perchUp+yOffset);
     //bottom left
     textSize(25);
     image(perchBL, perchLeft, perchDown, perchW, perchH);
-    text("Health : ", perchLeft+xOffset, upgradetekstLow);
+    text("Health : ", perchLeft+xOffset, perchDown-yOffset/4);
     text(healthPrice, perchLeft+xOffset, perchDown+yOffset);
     //bottom right
     image(perchBR, perchRight, perchDown, perchW, perchH);
-    text("Coin Value : ", perchRight+xOffset, upgradetekstLow);
+    text("Coin Value : ", perchRight+xOffset, perchDown-yOffset/4);
     text(coinPrice, perchRight+xOffset, perchDown+yOffset);
     textSize(main.tekstSize[2]);
     fill(BLACK);
@@ -408,6 +408,18 @@ class Upgrades {
     stroke(BLACK);
     fill(YELLOW);
     image(coin, width - 175, 30, 40, 40);
+
+    if (perchTLState == 3 && perchTRState == 3 && perchBLState == 3 && perchBRState == 3) {
+      fill(0, 0, 0, 60);
+      rect(0, 0, width, height);
+      imageMode(CENTER);
+      image(perch[2], width/2, height/2);
+      fill(0);
+      textAlign(CENTER);
+      text("KING SLIME", width/2, height*0.3);
+      imageMode(CORNER);
+      textAlign(LEFT);
+    }
   }
 }
 ////////////////// difficultekstY scherm//////////////

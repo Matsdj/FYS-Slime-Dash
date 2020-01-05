@@ -35,6 +35,7 @@ class HUD {
   //score
   float scoreX, scoreY, scoreSize, score, scoreNormal;
   //game over
+  boolean getHighscore=false;
   float Highscore = 0;
   String gOver;
   float gOverX, gOverY, goFadeIn, gOSize;
@@ -154,13 +155,17 @@ class HUD {
 
     //game over
     /*game over text*/
-    if (health <= NO_HEALTH) {
-      death = true;
-      health = 0;
+    if (getHighscore ==true) {
       Highscore = floor(getScore(1, score));
     }
-    if (death ==false) {
-      Highscore = 0;
+
+    if (health <= NO_HEALTH) {
+      getHighscore =true;
+      death = true;
+      health = 0;
+    }
+    if (Highscore!= 0) {
+      getHighscore =false;
     }
     if (death == true) {
       miniMarch.stop();

@@ -4,7 +4,6 @@ MySQL msql;
 
 int User = 1; //temporary testing user
 int achRecordCount = 0;
-
 int totalCoins = 0;
 char userLetter;
 String userName;
@@ -160,6 +159,21 @@ float getScore(int userId, float currentScore) {
     }
   }  
   return currentScore;
+}
+
+float getOnlineTempTime(int userId, float currentTime, int templateId) {
+  if ( msql.connect()) {
+    msql.query("SELECT * FROM zlokhorc.Template_Highscores WHERE Users_id = "+userId);
+    //check of er al een score is
+    if (msql.next()) {
+      if (msql.getFloat("time") > currentTime) {
+        currentTime = msql.getFloat("time");
+      } else if (msql.getFloat("time") < currentTime ) {
+        msql.query("UPDATE zlokhorc.Template_Highscores SET time = " +currentTime );
+      }
+    }
+  }  
+  return currentTime;
 }
 
 
