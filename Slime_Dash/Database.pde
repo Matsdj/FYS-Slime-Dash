@@ -93,7 +93,7 @@ void GetAchievements() {
   }
 }
 
-void makeAchforUser(int user) { //when making a new account, use this function to make achievements for that person
+void makeAchforUser(int user) { //when making a new account, use this function to fill achievements for that person
   IntList achId = new IntList();
 
   msql.query( "SELECT id FROM Achievements;");
@@ -247,5 +247,24 @@ void addUser () {
 
     uploadAccount=false;
     msql.query("INSERT INTO Users (name, password, email, coins) VALUES ('String', 'String', 'String', 'int')", userName, password, email, totalCoins);
+  }
+}
+
+void createUser(String userName, String password) {
+  int userUsed; //looks id any user already has the name and password
+  if ( msql.connect()) {
+    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
+    msql.next();
+    userUsed = msql.getInt("count(*)");
+
+    if (userUsed == 0) {
+      msql.query("INSERT INTO Users (name, password) VALUES ('" + userName + "', '" + password + "');");
+
+      msql.query("SELECT id FROM Users WHERE name = '" + userName +"' AND password = '"+ password +"';");
+      msql.next();
+      makeAchforUser(msql.getInt("id"));
+      println("Welcome, " + userName + "!");
+    } else
+      println("Account already exists!");
   }
 }
