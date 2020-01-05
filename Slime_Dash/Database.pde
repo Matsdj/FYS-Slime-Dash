@@ -209,63 +209,6 @@ class account {
 
 account user;
 
-
-void addUser () {
-
-
-
-  if ((inputs.hasValue(40))&& userNameActive==true) {
-    userNameActive=false;
-    passwordActive=true;
-  }
-  if ((inputs.hasValue(40))&& passwordActive==true) {
-    passwordActive=false;
-    emailActive=true;
-  }
-  if ((inputs.hasValue(40))&& emailActive==true) {
-    emailActive=false;
-    uploadAccount=true;
-  }
-  if ((inputs.hasValue(38))&& uploadAccount==true) {
-    uploadAccount=false;
-    emailActive=true;
-  }
-  if ((inputs.hasValue(38))&& emailActive==true) {
-    emailActive=false;
-    passwordActive=true;
-  }
-  if (inputs.hasValue(38)&& passwordActive==true) {
-    passwordActive=false;
-    userNameActive=true;
-  }
-
-
-  if ((key >= 'A' && key <= 'z')&& userNameActive==true) {
-    userLetter = key;
-    userName = userName + key;
-  }
-  if ((key >= 'A' && key <= 'z')&& userNameActive==true) {
-    userLetter = key;
-    userName = userName + key;
-  }
-
-  if ((key >= 'A' && key <= 'z')&& passwordActive==true) {
-    passwordLetter = key;
-    password = password + key;
-  }
-
-  if ((key >= 'A' && key <= 'z')&& emailActive==true) {
-    emailLetter = key;
-    email = email + key;
-  }
-
-  if (inputs.hasValue(13) == true&& uploadAccount==true) {
-
-    uploadAccount=false;
-    msql.query("INSERT INTO Users (name, password, email, coins) VALUES ('String', 'String', 'String', 'int')", userName, password, email, totalCoins);
-  }
-}
-
 void createUser(String userName, String password) {
   int userUsed; //looks id any user already has the name and password
   if ( msql.connect()) {
