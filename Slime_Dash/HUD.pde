@@ -157,8 +157,9 @@ class HUD {
     //game over
     /*game over text*/
     if (getHighscore ==true) {
-      Highscore = floor(getScore(1, score));
+      Highscore = floor(getScore(user.id, score));
       updateUser();
+      updateAchievements();
     }
 
     if (health <= NO_HEALTH) {
