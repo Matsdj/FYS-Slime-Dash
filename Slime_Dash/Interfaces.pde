@@ -561,7 +561,6 @@ class Selection {
       }
     }
     //Drawing Selection
-    fill(WHITE);
     textAlign(CENTER, CENTER);
     for (int ix = 0; ix < options.length; ix++) {
       for (int iy = 0; iy < options[0].length; iy++) {
@@ -572,6 +571,7 @@ class Selection {
           textSize(textNorm);
         }
         float yLoc = centerY+(dist*(iy-ySelected[ix]+1));
+        fill(WHITE, 255-pow(ySelected[ix]-iy,2)*10);
         float xLoc = centerX+(dist*(ix-xSelected+1));
         text(options[ix][iy], xLoc, yLoc);
         if (options[ix][iy] == " ") {
@@ -579,6 +579,7 @@ class Selection {
         }
       }
     }
+    fill(WHITE);
     textSize(textNorm);
   }
   String selection() {

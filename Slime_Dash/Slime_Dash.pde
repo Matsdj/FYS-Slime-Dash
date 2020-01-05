@@ -173,14 +173,15 @@ void drawGame() {
 
 void draw() {
   //ESC
-  /*  if (inputsPressed(ESC)) {
-   if (room == "mainM") {
+  if (inputsPressed(ESC)) {
+   /*if (room == "mainM") {
    exit();
    } else {
    room = "mainM";
    gameReset();
-   }
    }*/
+   exit();
+   }
   if (cooldown>-1) {
     cooldown--;
   }
@@ -228,7 +229,8 @@ void draw() {
     bgUpdate();
     bgDraw();
     accountName.draw();
-    text(accountName.selection(), 0, height);
+    textAlign(CENTER, CENTER);
+    text("Login Name", width/2, height/4);
     if (inputsPressed(keySpace)) {
       room = "password";
     }
@@ -239,6 +241,8 @@ void draw() {
     bgUpdate();
     bgDraw();
     accountPassword.draw();
+    String testStr = accountName.selection();
+    text("Login password for "+testStr.replaceAll(" ", ""), width/2, height/4);
     text(accountName.selection()+","+accountPassword.selection(), 0, height);
     if (inputsPressed(keySpace)) {
       if (createAccount) {
@@ -247,30 +251,28 @@ void draw() {
         loginUser(accountName.selection(), accountPassword.selection());
       }
     }
+    if (inputsPressed(keyQ)) {
+      room = "start";
+    }
   } else if (room == "start") {
     bgUpdate();
     bgDraw();
     askIfLogin.draw();
-    text(askIfLogin.selection(), 0, height);
     if (inputsPressed(keySpace)) {
       if (askIfLogin.intSelection(0) == 0) {
         room = "login";
         createAccount = false;
-        println("room switch");
       }
       if (askIfLogin.intSelection(0) == 1) {
         room = "login";
         createAccount = true;
-        println("room switch");
       }
       if (askIfLogin.intSelection(0) == 2) {
         offline = true;
         room = "mainM";
-        println("room switch");
       }
     }
   }
   debug();
   inputsPressedUpdate();
-  //particle
 }
