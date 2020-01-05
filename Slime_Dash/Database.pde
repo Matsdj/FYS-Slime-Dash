@@ -110,7 +110,7 @@ void updateAchievements() { //make sure to run this function once and not severa
       if (!dbAch.get(iAch).completed) {
 
         //updates score based achievements, checks if ach has new progress, is correct scoretype and if its already completed
-        
+
         if (dbAch.get(iAch).scoreType == 1 && dbAch.get(iAch).progress < int(interfaces.score)) {
           msql.query( "UPDATE Achievements_Progres SET progres = " + int(interfaces.score) + " WHERE Users_id = " + User + " AND Achievements_id = "+ dbAch.get(iAch).id );
 
@@ -122,7 +122,7 @@ void updateAchievements() { //make sure to run this function once and not severa
         }
 
         //updates enemie kill based achievements
-        
+
         if (dbAch.get(iAch).scoreType == 2 && dbAch.get(iAch).progress < dbAch.get(iAch).progress + killCount) {
           msql.query( "UPDATE Achievements_Progres SET progres = " + (dbAch.get(iAch).progress + killCount) + " WHERE Users_id = " + User + " AND Achievements_id = "+ dbAch.get(iAch).id );
 
@@ -167,7 +167,7 @@ float getScore(int userId, float currentScore) {
       if (msql.getFloat("score") > currentScore) {
         currentScore = msql.getFloat("score");
       } else if (msql.getFloat("score") < currentScore ) {
-        msql.query("UPDATE zlokhorc.Highscores SET score = " +currentScore );
+        msql.query("UPDATE zlokhorc.Highscores SET score = " +currentScore+ " WHERE Users_id = "+ user.id );
       }
     }
   }
@@ -348,9 +348,9 @@ class OnlineTemplates {
       //Looping through Strings to create the image (bitmap)
       for (int Stringi = 0; Stringi < bitmap.pixels.length; Stringi++) {
         String[] rgba = imgNumberClusters[Stringi+1].split(",");
-        float red = Float.valueOf(rgba[0]),
-          green = Float.valueOf(rgba[1]),
-          blue = Float.valueOf(rgba[2]),
+        float red = Float.valueOf(rgba[0]), 
+          green = Float.valueOf(rgba[1]), 
+          blue = Float.valueOf(rgba[2]), 
           alpha = Float.valueOf(rgba[3]);
         color col = color(red, green, blue, alpha);
         bitmap.pixels[Stringi] = col;
