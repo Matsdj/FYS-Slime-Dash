@@ -15,6 +15,7 @@ final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean allowVerticalMovement = false;
+boolean createAccount = false;
 final int COOLDOWN_MAX=15, COOLDOWN_MIN=0;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
@@ -55,8 +56,6 @@ void setup() {
   globalScale = height/12;
   //database
   CreateDatabaseConnection();
-  //  loginUser("Chris", "123");
-  //  GetAchievements();
   assetSetup();
   upgradeSetup();
   gameReset();
@@ -68,14 +67,14 @@ void setup() {
   String[] letters = {" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
   String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
   String[] characters = concat(letters, numbers);
-  
+
   //Creating Account name Selection
   String[][] accountNameStrings = new String[10][letters.length];
   for (int i = 0; i < accountNameStrings.length; i++) {
     accountNameStrings[i] = letters;
   }
   accountName = new Selection(accountNameStrings);
-  
+
   //Creating Account password Selection
   String[][] accountPasswordStrings = new String[10][letters.length];
   for (int i = 0; i < accountPasswordStrings.length; i++) {
@@ -240,13 +239,14 @@ void draw() {
     bgDraw();
     accountPassword.draw();
     text(accountName.selection()+","+accountPassword.selection(), 0, height);
-  } else if (room == "createAccount") {
-    bgUpdate();
-    bgDraw();
-    accountName.draw();
-    text(accountName.selection(), 0, height);
-    if (inputsPressed(keyQ)) {
-      room = "start";
+    if (inputsPressed(keySpace)) {
+      if (createAccount) {
+        createUser(accountName.selection(), accountPassword.selection());
+        GetAchievements();
+      } else {
+        loginUser(accountName.selection(), accountPassword.selection());
+        GetAchievements();
+      }
     }
   } else if (room == "start") {
     bgUpdate();
@@ -256,10 +256,12 @@ void draw() {
     if (inputsPressed(keySpace)) {
       if (askIfLogin.intSelection(0) == 0) {
         room = "login";
+        createAccount = false;
         println("room switch");
       }
       if (askIfLogin.intSelection(0) == 1) {
-        room = "createAccount";
+        room = "login";
+        createAccount = true;
         println("room switch");
       }
       if (askIfLogin.intSelection(0) == 2) {
