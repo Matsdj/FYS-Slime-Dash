@@ -17,7 +17,6 @@ boolean emailActive;
 boolean uploadAccount;
 
 void databaseSetup() {
-  CreateDatabaseConnection();
   println(msql.connect());
 }
 
@@ -169,7 +168,7 @@ float getScore(int userId, float currentScore) {
         msql.query("UPDATE zlokhorc.Highscores SET score = " +currentScore );
       }
     }
-  }  
+  }
   return currentScore;
 }
 
@@ -184,7 +183,7 @@ float getOnlineTempTime(int userId, float currentTime, int templateId) {
         msql.query("UPDATE zlokhorc.Template_Highscores SET time = " +currentTime );
       }
     }
-  }  
+  }
   return currentTime;
 }
 
@@ -268,7 +267,7 @@ void addUser () {
 void createUser(String userName, String password) {
   int userUsed; //looks id any user already has the name and password
   if ( msql.connect()) {
-    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
+    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"';");
     msql.next();
     userUsed = msql.getInt("count(*)");
 
@@ -278,7 +277,7 @@ void createUser(String userName, String password) {
       msql.query("SELECT * FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
       msql.next();
       user = new account(msql.getInt("id"), msql.getString("name"), msql.getString("password"), msql.getFloat("hours_played"), msql.getInt("coins"));
-      makeAchforUser(user.id); 
+      makeAchforUser(user.id);
 
       msql.query("INSERT INTO Highscores (Users_id, score, time) VALUES (" + user.id + ", 0, 0);");
       println("Welcome, " + userName + "!");
@@ -290,7 +289,7 @@ void createUser(String userName, String password) {
 void loginUser(String userName, String password) {
   int userExists;
   if ( msql.connect()) {
-    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
+    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"';");
     msql.next();
     userExists = msql.getInt("count(*)");
 
@@ -312,6 +311,55 @@ void updateUser() {
   if ( msql.connect()) {
     if (coins > user.coins || hoursPlayed > user.hoursPlayed) {
       msql.query( "UPDATE Users SET coins = " + coins + ", hours_played = " + hoursPlayed + " WHERE id = " + user.id + ";");
+    }
+  }
+}
+
+//Mats
+OnlineTemplates onlineTemplates = new OnlineTemplates();
+class OnlineTemplates {
+  String[] names;
+  PImage[] bitmaps;
+  PImage[] bitmapsView;
+  int selected = 0;
+  void setup() {
+    //Get Amount of templates
+    msql.query("SELECT count(*) FROM zlokhorc.Weekly_Templates;");
+    msql.next();
+    int templateCount = msql.getInt(1);
+    println("templateCount:", templateCount);
+    //Setting the arrays to the right size
+    bitmaps = new PImage[templateCount];
+    names = new String[templateCount];
+    msql.query("SELECT * FROM zlokhorc.Weekly_Templates;");
+    //Looping through all the online templates
+    for (int i = 0; msql.next(); i++) {
+      names[i] = msql.getString("name");
+      String OnlineTemplateStrings = msql.getString("map_png");
+      //Using the split function to cut the string into usable pieces
+      String[] imgNumberClusters = OnlineTemplateStrings.split(";");
+      String[] imgWidthAndHeight = imgNumberClusters[0].split(",");
+      PImage bitmap = createImage(Integer.valueOf(imgWidthAndHeight[0]), Integer.valueOf(imgWidthAndHeight[1]), ARGB);
+      bitmap.loadPixels();
+      //Looping through Strings to create the image (bitmap)
+      for (int Stringi = 0; Stringi < bitmap.pixels.length; Stringi++) {
+        String[] rgba = imgNumberClusters[Stringi+1].split(",");
+        float red = Float.valueOf(rgba[0]),
+          green = Float.valueOf(rgba[1]),
+          blue = Float.valueOf(rgba[2]),
+          alpha = Float.valueOf(rgba[3]);
+        color col = color(red, green, blue, alpha);
+        bitmap.pixels[Stringi] = col;
+      }
+      bitmaps[i] = bitmap;
+    }
+    //Making images to be displayed for debug
+    bitmapsView = bitmaps;
+    for (int i = 0; i < bitmapsView.length; i++) {
+      bitmapsView[i].resize(width, width/bitmapsView[i].width*bitmapsView[i].height);
+      if (bitmapsView[i].height > height) {
+        bitmapsView[i].resize(height/bitmapsView[i].height*bitmapsView[i].width, height);
+      }
     }
   }
 }

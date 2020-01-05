@@ -20,8 +20,8 @@ final int COOLDOWN_UPGRADE=30;
 int cooldown;
 int secondsPlayed;
 Selection askIfLogin;
-Selection accountSelect;
-Selection passwordSelect;
+Selection askIfCreateAccount;
+Selection loginName;
 
 void gameReset() {
   room = "start";
@@ -53,24 +53,18 @@ void setup() {
   smooth(0);
   frameRate(60);
   globalScale = height/12;
-  //database
-  CreateDatabaseConnection();
+  //  CreateDatabaseConnection();
   //  loginUser("Chris", "123");
   //  GetAchievements();
   assetSetup();
   upgradeSetup();
   gameReset();
+  //database
+  databaseSetup();
   //particle system
   //  ps = new ParticleSystem(new PVector(width/2, 50));
-
   String[][] askIfLoginOptions = {{"Login", "Create Account", "Offline"}};
   askIfLogin = new Selection(askIfLoginOptions);
-  String[] characters = {" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-  String[][] accountNameStrings = new String[10][characters.length];
-  for (int i = 0; i < accountNameStrings.length; i++) {
-    accountNameStrings[i] = characters;
-  }
-  accountSelect = new Selection(accountNameStrings);
 }
 //GAME
 void updateGame() {
@@ -216,38 +210,24 @@ void draw() {
   } else if (room == "login") {
     bgUpdate();
     bgDraw();
-    accountSelect.draw();
-    text(accountSelect.selection(), 0, height);
-    if (inputsPressed.hasValue(keySpace)) {
-    }
-    if (inputsPressed.hasValue(keyQ)) {
-      room = "start";
-    }
-  } else if (room == "createAccount") {
-    bgUpdate();
-    bgDraw();
-    accountSelect.draw();
-    text(accountSelect.selection(), 0, height);
-    if (inputsPressed.hasValue(keyQ)) {
-      room = "start";
-    }
   } else if (room == "start") {
     bgUpdate();
     bgDraw();
     askIfLogin.draw();
     text(askIfLogin.selection(), 0, height);
     if (inputsPressed.hasValue(keySpace)) {
-      if (askIfLogin.intSelection(0) == 0) {
+      println("space");
+      if (askIfLogin.selection() == "Login") {
         room = "login";
-        println("room switch");
+        println(askIfLogin.selection());
       }
-      if (askIfLogin.intSelection(0) == 1) {
+      if (askIfLogin.selection() == "Create Account") {
         room = "createAccount";
-        println("room switch");
+        println(askIfLogin.selection());
       }
-      if (askIfLogin.intSelection(0) == 2) {
-        room = "mainM";
-        println("room switch");
+      if (askIfLogin.selection() == "Offline") {
+        room = "mainM"; 
+        println(askIfLogin.selection());
       }
     }
   }

@@ -118,7 +118,7 @@ class MainM {
     background(0);
     tekstSize[0] = 75;
     tekstSize[1] = 50;
-    tekstSize[2] = 40;    
+    tekstSize[2] = 40;
     tekstX = width/4;
     tekstY = height/3;
     highlight = color(WHITE);
@@ -228,13 +228,13 @@ class Upgrades {
     if (room=="upgrades") {
       if (keyCode==keyDown && perchSelectY == perchUp) {
         perchSelectY = perchDown;
-      }  
+      }
       if (keyCode ==keyUp && perchSelectY == perchDown) {
         perchSelectY = perchUp;
-      }      
+      }
       if (keyCode==keyRight && perchSelectX == perchLeft) {
         perchSelectX = perchRight;
-      }  
+      }
       if (keyCode ==keyLeft && perchSelectX == perchRight) {
         perchSelectX = perchLeft;
       }
@@ -242,13 +242,13 @@ class Upgrades {
       if (keyPressed && key == '=') {
         coins += 10;
       }
-      if (perchTLState < perch.length - 1) {       
+      if (perchTLState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice) {
           perchTLState = 3;
           perchTL = perch[perchTLState];
           coins -= doubleJumpPrice;
           player.maxJumpAmount = 1;
-        } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) { 
+        } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
           textAlign(CENTER);
           fill(BLACK);
           text("YOU CAN'T AFFORD THAT", width/2+generalTextOffset, height/2+generalTextOffset);
@@ -257,7 +257,7 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }
-      if (perchTRState < perch.length - 1) {       
+      if (perchTRState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice) {
           perchTRState++;
           perchTR = perch[perchTRState];
@@ -280,7 +280,7 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }
-      if (perchBLState < perch.length - 1) {       
+      if (perchBLState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && coins >= healthPrice) {
           perchBLState++;
           perchBL = perch[perchBLState];
@@ -305,7 +305,7 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }
-      if (perchBRState < perch.length - 1) {       
+      if (perchBRState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && coins >= coinPrice) {
           perchBRState++;
           perchBR = perch[perchBRState];
@@ -443,7 +443,7 @@ class DIF {
     background(0);
     tekstSize[0] = textBig;
     tekstSize[1] = textNorm;
-    tekstSize[2] = 40;    
+    tekstSize[2] = 40;
     tekstX = width/4;
     tekstY = height/3;
     highlight = color(WHITE);
@@ -493,7 +493,7 @@ class DIF {
     fill(select2);
     text("Tutorial Mode", tekstX, tekstY*1.5);
     textSize(tekstSize[2]);
-    //NAVIGATION 
+    //NAVIGATION
     //A=select
     fill(BLACK);
     text("A", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
@@ -514,5 +514,87 @@ class DIF {
     text("  "+"Back", tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
     fill(BLACK);
     text("  "+"Back", tekstX*2, main.navTextY);
+  }
+}
+//Mats
+class Selection {
+  int xSelected = 0;
+  int[] ySelected;
+  String[][] options;
+  int holdKeyTime = 0;
+  Selection(String[][] inputOptions) {
+    options = inputOptions;
+    ySelected = new int[inputOptions[0].length];
+  }
+  void draw() {
+    fill(WHITE);
+    //HoldKey
+    if (inputs.hasValue(UP) || inputs.hasValue(DOWN)) {
+      holdKeyTime++;
+    } else {
+      holdKeyTime = 0;
+    }
+    //Selection
+    if (inputsPressed.hasValue(LEFT)) {
+      xSelected--;
+      if (xSelected < 0) {
+        xSelected = options.length-1;
+      }
+    }
+    if (inputsPressed.hasValue(RIGHT)) {
+      xSelected++;
+      if (xSelected >= options.length) {
+        xSelected = 0;
+      }
+    }
+    if (inputsPressed.hasValue(UP) || (holdKeyTime > 20 && inputs.hasValue(UP) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
+      ySelected[xSelected]--;
+      if (ySelected[xSelected] < 0) {
+        ySelected[xSelected] = options[0].length-1;
+      }
+    }
+    if (inputsPressed.hasValue(DOWN) || (holdKeyTime > 20 && inputs.hasValue(DOWN) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
+      ySelected[xSelected]++;
+      if (ySelected[xSelected] >= options[0].length) {
+        ySelected[xSelected] = 0;
+      }
+    }
+    //Drawing Selection
+    for (int ix = 0; ix < options.length; ix++) {
+      for (int iy = 0; iy < options[0].length; iy++) {
+        int dist = 50;
+        if (iy == ySelected[ix]) {
+          textSize(textBig);
+        } else {
+          textSize(textNorm);
+        }
+        float yLoc = height/2+(dist*(iy-ySelected[ix]+1));
+        float xLoc = width/2+(dist*(ix-xSelected+1));
+        text(options[ix][iy], xLoc, yLoc);
+        if (options[ix][iy] == " ") {
+          text('_', xLoc, yLoc);
+        }
+      }
+    }
+    textSize(main.textNorm);
+  }
+  String selection() {
+    String string = "";
+    for (int ix = 0; ix < options.length; ix++) {
+      for (int iy = 0; iy < options[0].length; iy++) {
+        if (iy == ySelected[ix]) {
+          string += options[ix][iy];
+        }
+      }
+    }
+    return string;
+  }
+  int intSelection(int row) {
+    for (int i = 0; i < ySelected.length; i++) {
+      if (i == ySelected[row]) {
+        return i;
+      }
+    }
+    return 0;
   }
 }
