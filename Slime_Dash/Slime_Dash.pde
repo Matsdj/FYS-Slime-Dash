@@ -77,9 +77,9 @@ void setup() {
   accountName = new Selection(accountNameStrings);
 
   //Creating Account password Selection
-  String[][] accountPasswordStrings = new String[10][letters.length];
+  String[][] accountPasswordStrings = new String[10][characters.length];
   for (int i = 0; i < accountPasswordStrings.length; i++) {
-    accountPasswordStrings[i] = letters;
+    accountPasswordStrings[i] = characters;
   }
   accountPassword = new Selection(accountPasswordStrings);
 }
