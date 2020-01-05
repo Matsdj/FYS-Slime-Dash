@@ -16,6 +16,7 @@ boolean[] keysPressed = new boolean[KEY_LIMIT];
 String room;
 boolean allowVerticalMovement = false;
 boolean createAccount = false;
+boolean offline = true;
 final int COOLDOWN_MAX=15, COOLDOWN_MIN=0;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
@@ -242,8 +243,10 @@ void draw() {
     if (inputsPressed(keySpace)) {
       if (createAccount) {
         createUser(accountName.selection(), accountPassword.selection());
+        offline = false;
       } else {
         loginUser(accountName.selection(), accountPassword.selection());
+        offline = false;
       }
     }
   } else if (room == "start") {
@@ -263,6 +266,7 @@ void draw() {
         println("room switch");
       }
       if (askIfLogin.intSelection(0) == 2) {
+        offline = true;
         room = "mainM";
         println("room switch");
       }

@@ -156,7 +156,7 @@ class HUD {
 
     //game over
     /*game over text*/
-    if (getHighscore ==true) {
+    if (getHighscore ==true && !offline) {
       Highscore = floor(getScore(user.id, score));
       updateUser();
       updateAchievements();
