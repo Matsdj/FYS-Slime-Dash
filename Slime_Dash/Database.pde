@@ -78,10 +78,9 @@ void GetAchievements() {
 
   if ( msql.connect() )
   {
-    msql.query( "SELECT a.id, a.score_type, a.required_score, a.reward, ap.Users_id, ap.progres FROM Achievements a INNER JOIN Achievements_Progres ap ON ap.Achievements_id = a.id WHERE ap.Users_id = " + User );
+    msql.query( "SELECT a.id, a.score_type, a.required_score, a.reward, ap.Users_id, ap.progres FROM Achievements a INNER JOIN Achievements_Progres ap ON ap.Achievements_id = a.id WHERE ap.Users_id = " + user.id );
 
     while ( msql.next() ) {
-      //println( " \t " + msql.getInt("id") + " \t\t " + msql.getInt("score_type") + " \t\t " + msql.getInt("required_score") + " \t\t " + msql.getInt("reward") + " \t\t " + msql.getInt("progres") + " \t\t ");
       dbAch.add(new recordAchievements(msql.getInt("id"), msql.getInt("score_type"), msql.getInt("required_score"), msql.getInt("reward"), msql.getInt("progres")));
 
       if (dbAch.get(achRecordCount).progress >= dbAch.get(achRecordCount).requiredScore) {
@@ -182,16 +181,18 @@ class account {
   public int id;
   public String name;
   public String password;
-  public String email;
+  public float hoursPlayed;
   public int coins;
-  public account(int id, String name, String password) {
+  public account(int id, String name, String password, float hoursPlayed, int coins) {
     this.id = id;
     this.name = name;
     this.password = password;
+    this.hoursPlayed = hoursPlayed;
+    this.coins = coins;
   }
 }
 
-
+account user;
 
 
 void addUser () {
@@ -266,5 +267,23 @@ void createUser(String userName, String password) {
       println("Welcome, " + userName + "!");
     } else
       println("Account already exists!");
+  }
+}
+
+void loginUser(String userName, String password) {
+  int userExists;
+  if ( msql.connect()) {
+    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
+    msql.next();
+    userExists = msql.getInt("count(*)");
+
+    if (userExists > 0) {
+      msql.query("SELECT * FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
+      msql.next();
+      user = new account(msql.getInt("id"), msql.getString("name"), msql.getString("password"), msql.getFloat("hours_played"), msql.getInt("coins"));
+      println("Welcome, " + user.name + "!");
+    } else {
+      println("Wrong password or username!");
+    }
   }
 }
