@@ -227,7 +227,7 @@ void createUser(String userName, String password) {
       msql.query("INSERT INTO Highscores (Users_id, score, time) VALUES (" + user.id + ", 0, 0);");
 
       GetAchievements();
-
+      offline = false;
       println("Welcome, " + userName + "!");
       room = "mainM";
     } else
@@ -249,7 +249,7 @@ void loginUser(String userName, String password) {
       coins = user.coins;
 
       GetAchievements();
-
+      offline = false;
       println("Welcome, " + user.name + "!");
       room = "mainM";
     } else {
