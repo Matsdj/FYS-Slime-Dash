@@ -243,10 +243,8 @@ void draw() {
     if (inputsPressed(keySpace)) {
       if (createAccount) {
         createUser(accountName.selection(), accountPassword.selection());
-        offline = false;
       } else {
         loginUser(accountName.selection(), accountPassword.selection());
-        offline = false;
       }
     }
   } else if (room == "start") {
