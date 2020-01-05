@@ -27,27 +27,27 @@ class Pause {
 
   void update() {
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause2" && (inputs.hasValue(keySpace)||inputs.hasValue(keyRight))&&cooldown<COOLDOWN_MIN) {
+    if (room == "pause2" && (inputsPressed(keySpace)||inputsPressed(keyRight))&&cooldown<COOLDOWN_MIN) {
       room = "game2";
       cooldown= COOLDOWN_MAX;
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game2" && inputs.hasValue(keyP) && interfaces.death == false &&cooldown<COOLDOWN_MIN) {
+    else if (room == "game2" && inputsPressed(keyP) && interfaces.death == false &&cooldown<COOLDOWN_MIN) {
       room = "pause2";
       cooldown= COOLDOWN_MAX;
     }
     /*druk op spacebar om naar game te gaan*/
-    if (room == "pause" && (inputs.hasValue(keySpace)||inputs.hasValue(keyRight))&&cooldown<COOLDOWN_MIN) {
+    if (room == "pause" && (inputsPressed(keySpace)||inputsPressed(keyRight))&&cooldown<COOLDOWN_MIN) {
       room = "game";
       cooldown= COOLDOWN_MAX;
     }
     /*druk op 'p' om naar pause te gaan*/
-    else if (room == "game" && inputs.hasValue(keyP) && interfaces.death == false ) {
+    else if (room == "game" && inputsPressed(keyP) && interfaces.death == false ) {
       room = "pause";
       // druk op q of t om naar main menu te gaan
-    } else if (room == "game2" && inputs.hasValue(keyP) && interfaces.death == false) {
+    } else if (room == "game2" && inputsPressed(keyP) && interfaces.death == false) {
       room = "pause2";
-    } else if ((room == "pause"||room =="pause2") && (inputs.hasValue(keyQ)||inputs.hasValue(keyT))&&cooldown<COOLDOWN_MIN) {
+    } else if ((room == "pause"||room =="pause2") && (inputsPressed(keyQ)||inputsPressed(keyT))&&cooldown<COOLDOWN_MIN) {
       cooldown= COOLDOWN_MAX;
       GameSlow.stop();
       GameMid.stop();
@@ -132,7 +132,7 @@ class MainM {
       tekstSize[0] =textBig;
       tekstSize[1] =textNorm;
     }//Down in het menu
-    if (select1 == highlight&&keyCode==keyDown ) {
+    if (select1 == highlight&&inputsPressed(keyDown) ) {
       select1 = GREY;
       select2 = highlight;
     }
@@ -140,18 +140,18 @@ class MainM {
       tekstSize[1]= textBig;
       tekstSize[0]= textNorm;
     }//Up in het menu
-    if (select2 == highlight&&keyCode==keyUp ) {
+    if (select2 == highlight&&inputsPressed(keyUp) ) {
       select2 = GREY;
       select1 = highlight;
     }
 
     // spatie om naar andere rooms te gaan
-    if (select1==highlight&&room == "mainM" && keyCode == keySpace &&cooldown<0) {
+    if (select1==highlight&&room == "mainM" && inputsPressed(keySpace) ) {
       room = "difficulty";
       SpeedUp.play();
       cooldown= COOLDOWN_MAX;
     }
-    if (select2==highlight &&room == "mainM" && keyCode == keySpace &&cooldown<0) {
+    if (select2==highlight &&room == "mainM" && inputsPressed(keySpace)) {
       room = "upgrades";
       cooldown= COOLDOWN_MAX;
     }
@@ -221,21 +221,21 @@ class Upgrades {
     upgradetekstHigh = perchUp*1.35;
   }
   void update() {
-    if (keyCode ==keyQ&&cooldown<COOLDOWN_MIN) {
+    if (inputsPressed(keyQ)) {
       room= "mainM";
       cooldown=COOLDOWN_MAX;
     }
     if (room=="upgrades") {
-      if (keyCode==keyDown && perchSelectY == perchUp) {
+      if (inputsPressed(keyDown) && perchSelectY == perchUp) {
         perchSelectY = perchDown;
       }
-      if (keyCode ==keyUp && perchSelectY == perchDown) {
+      if (inputsPressed(keyUp) && perchSelectY == perchDown) {
         perchSelectY = perchUp;
       }
-      if (keyCode==keyRight && perchSelectX == perchLeft) {
+      if (inputsPressed(keyRight) && perchSelectX == perchLeft) {
         perchSelectX = perchRight;
       }
-      if (keyCode ==keyLeft && perchSelectX == perchRight) {
+      if (inputsPressed(keyLeft) && perchSelectX == perchRight) {
         perchSelectX = perchLeft;
       }
       // ff quick coin cheat
@@ -455,7 +455,7 @@ class DIF {
       tekstSize[0] =textBig;
       tekstSize[1] =textNorm;
     }//naar beneden in menu
-    if (select1 == highlight&&keyCode==keyDown) {
+    if (select1 == highlight&&inputsPressed(keyDown)) {
       select1 = GREY;
       select2 = highlight;
     }
@@ -463,20 +463,20 @@ class DIF {
       tekstSize[1]= textBig;
       tekstSize[0]= textNorm;
     }//naar boven in het menu
-    if (select2 == highlight&&keyCode==keyUp) {
+    if (select2 == highlight&&inputsPressed(keyUp)) {
       select2 = GREY;
       select1 = highlight;
     }//q om terug te gaan
-    if (keyCode ==keyQ&&cooldown<0) {
+    if (inputsPressed(keyQ)) {
       room= "mainM";
       cooldown=COOLDOWN_MAX;
     }//normal game
-    if (select1==highlight&&room == "difficulty" && inputs.hasValue(keySpace)&&cooldown<0 ) {
+    if (select1==highlight&&room == "difficulty" && inputsPressed(keySpace) ) {
       room = "game";
       SpeedUp.play();
       cooldown=COOLDOWN_MAX;
     }//tutorial game
-    if (select2==highlight &&room == "difficulty" && inputs.hasValue(keySpace)&&cooldown<0) {
+    if (select2==highlight &&room == "difficulty" && inputsPressed(keySpace)) {
       room = "game2";
       SpeedUp.play();
       cooldown=COOLDOWN_MAX;

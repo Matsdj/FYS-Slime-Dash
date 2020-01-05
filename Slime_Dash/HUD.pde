@@ -178,13 +178,13 @@ class HUD {
       /*stops player movement*/
       player.moveSpeed = 0;
       //Q om naar main menu te gaan
-      if (keyCode ==keyM) {
+      if (inputsPressed(keyM)) {
         Dede.stop();
         gameReset();
         room= "mainM";
       }
       /* B om te resetten*/
-      if (inputs.hasValue(keyB)==true && room=="game") {
+      if (inputsPressed(keyB)==true && room=="game") {
         death = false;
         Dede.stop();
         gameReset();
@@ -194,7 +194,7 @@ class HUD {
         march[2]= true;
         march[3]= true;
       }
-      if (inputs.hasValue(keyB)==true && room=="game2") {
+      if (inputsPressed(keyB)==true && room=="game2") {
         death = false;
         Dede.stop();
         gameReset();
