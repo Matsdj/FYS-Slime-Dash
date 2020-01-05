@@ -18,6 +18,7 @@ boolean allowVerticalMovement = false;
 final int COOLDOWN_MAX=15, COOLDOWN_MIN=0;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
+int secondsPlayed;
 
 void gameReset() {
   room = "mainM";
@@ -61,6 +62,9 @@ void setup() {
 }
 //GAME
 void updateGame() {
+  if (frameCount % frameRate == 0) { 
+    secondsPlayed ++; //increases every second
+  }
   if (speedModifier < 1) {
     speedModifier += 0.01;
   } else {

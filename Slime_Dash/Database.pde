@@ -281,9 +281,20 @@ void loginUser(String userName, String password) {
       msql.query("SELECT * FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
       msql.next();
       user = new account(msql.getInt("id"), msql.getString("name"), msql.getString("password"), msql.getFloat("hours_played"), msql.getInt("coins"));
+      coins = user.coins;
       println("Welcome, " + user.name + "!");
     } else {
       println("Wrong password or username!");
+    }
+  }
+}
+
+void updateUser() {
+  final int SEC_P_HOUR = 3600;
+  float hoursPlayed = secondsPlayed / SEC_P_HOUR;
+  if ( msql.connect()) {
+    if (coins > user.coins || hoursPlayed > user.hoursPlayed) {
+      msql.query( "UPDATE Users SET coins = " + coins + ", hours_played = " + hoursPlayed + " WHERE id = " + user.id + ";");
     }
   }
 }
