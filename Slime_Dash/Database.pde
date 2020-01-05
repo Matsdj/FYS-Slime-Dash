@@ -282,6 +282,9 @@ void createUser(String userName, String password) {
       makeAchforUser(user.id);
 
       msql.query("INSERT INTO Highscores (Users_id, score, time) VALUES (" + user.id + ", 0, 0);");
+
+      GetAchievements();
+
       println("Welcome, " + userName + "!");
       room = "mainM";
     } else
@@ -292,7 +295,7 @@ void createUser(String userName, String password) {
 void loginUser(String userName, String password) {
   int userExists;
   if ( msql.connect()) {
-    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"';");
+    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"' AND password = '" + password +"';");
     msql.next();
     userExists = msql.getInt("count(*)");
 
@@ -301,6 +304,9 @@ void loginUser(String userName, String password) {
       msql.next();
       user = new account(msql.getInt("id"), msql.getString("name"), msql.getString("password"), msql.getFloat("hours_played"), msql.getInt("coins"));
       coins = user.coins;
+
+      GetAchievements();
+
       println("Welcome, " + user.name + "!");
       room = "mainM";
     } else {

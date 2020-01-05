@@ -242,10 +242,8 @@ void draw() {
     if (inputsPressed(keySpace)) {
       if (createAccount) {
         createUser(accountName.selection(), accountPassword.selection());
-        GetAchievements();
       } else {
         loginUser(accountName.selection(), accountPassword.selection());
-        GetAchievements();
       }
     }
   } else if (room == "start") {
