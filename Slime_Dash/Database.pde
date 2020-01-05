@@ -275,9 +275,12 @@ void createUser(String userName, String password) {
     if (userUsed == 0) {
       msql.query("INSERT INTO Users (name, password) VALUES ('" + userName + "', '" + password + "');");
 
-      msql.query("SELECT id FROM Users WHERE name = '" + userName +"' AND password = '"+ password +"';");
+      msql.query("SELECT * FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
       msql.next();
-      makeAchforUser(msql.getInt("id"));
+      user = new account(msql.getInt("id"), msql.getString("name"), msql.getString("password"), msql.getFloat("hours_played"), msql.getInt("coins"));
+      makeAchforUser(user.id); 
+
+      msql.query("INSERT INTO Highscores (Users_id, score, time) VALUES (" + user.id + ", 0, 0);");
       println("Welcome, " + userName + "!");
     } else
       println("Account already exists!");

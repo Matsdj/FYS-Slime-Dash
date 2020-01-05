@@ -51,7 +51,7 @@ void setup() {
   frameRate(60);
   globalScale = height/12;
   CreateDatabaseConnection();
-  loginUser("Mats", "212");
+  loginUser("Chris", "123");
   GetAchievements();
   assetSetup();
   upgradeSetup();
