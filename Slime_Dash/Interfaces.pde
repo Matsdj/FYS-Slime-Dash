@@ -209,14 +209,14 @@ class Upgrades {
     perchSelect = loadImage("./sprites/menus/perchselect.png");
     perchSelectX = perchLeft;
     perchSelectY = perchUp;
+    perchTLState = 0;
+    perchTRState = 1; //dash
+    perchBLState = 0;
+    perchBRState = 0;
     perchTL = perch[perchTLState];
     perchTR = perch[perchTRState];
     perchBL = perch[perchBLState];
     perchBR = perch[perchBRState];
-    perchTLState = 0;
-    perchTRState = 0;
-    perchBLState = 0;
-    perchBRState = 0;
     upgradetekstLow = perchDown*1.075;
     upgradetekstHigh = perchUp*1.35;
   }
@@ -261,15 +261,15 @@ class Upgrades {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice) {
           perchTRState++;
           perchTR = perch[perchTRState];
+          player.dashCooldownMax = player.DASH_COOLDOWN_CHARGE * upgrade.perchTRState;
           cooldown = COOLDOWN_UPGRADE;
           coins -= dashPrice;
-          player.dashCooldownMax += 20;
           dashPrice = dashPrice * 2;
           textAlign(CENTER);
           fill(WHITE);
-          text("DASH COOLDOWN REDUCED", width/2+generalTextOffset, height/2+generalTextOffset);
+          text("DASH CHARGES INCREASED", width/2+generalTextOffset, height/2+generalTextOffset);
           fill(BLACK);
-          text("DASH COOLDOWN REDUCED", width/2, height/2);
+          text("DASH CHARGES INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
           textAlign(CENTER);

@@ -18,6 +18,7 @@ boolean allowVerticalMovement = false;
 final int COOLDOWN_MAX=15, COOLDOWN_MIN=0;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
+int secondsPlayed;
 
 void gameReset() {
   room = "mainM";
@@ -52,15 +53,18 @@ void setup() {
   CreateDatabaseConnection();
   GetAchievements();
   assetSetup();
-  gameReset();
   upgradeSetup();
+  gameReset();
   //database
   databaseSetup();
-//particle system
+  //particle system
   //  ps = new ParticleSystem(new PVector(width/2, 50));
 }
 //GAME
 void updateGame() {
+  if (frameCount % frameRate == 0) { 
+    secondsPlayed ++; //increases every second
+  }
   if (speedModifier < 1) {
     speedModifier += 0.01;
   } else {
@@ -146,14 +150,14 @@ void drawGame() {
 
 void draw() {
   //ESC
-/*  if (inputsPressed.hasValue(ESC)) {
-    if (room == "mainM") {
-      exit();
-    } else {
-      room = "mainM";
-      gameReset();
-    }
-  }*/
+  /*  if (inputsPressed.hasValue(ESC)) {
+   if (room == "mainM") {
+   exit();
+   } else {
+   room = "mainM";
+   gameReset();
+   }
+   }*/
   if (cooldown>-1) {
     cooldown--;
   }

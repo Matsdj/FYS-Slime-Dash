@@ -77,10 +77,9 @@ void GetAchievements() {
 
   if ( msql.connect() )
   {
-    msql.query( "SELECT a.id, a.score_type, a.required_score, a.reward, ap.Users_id, ap.progres FROM Achievements a INNER JOIN Achievements_Progres ap ON ap.Achievements_id = a.id WHERE ap.Users_id = " + User );
+    msql.query( "SELECT a.id, a.score_type, a.required_score, a.reward, ap.Users_id, ap.progres FROM Achievements a INNER JOIN Achievements_Progres ap ON ap.Achievements_id = a.id WHERE ap.Users_id = " + user.id );
 
     while ( msql.next() ) {
-      //println( " \t " + msql.getInt("id") + " \t\t " + msql.getInt("score_type") + " \t\t " + msql.getInt("required_score") + " \t\t " + msql.getInt("reward") + " \t\t " + msql.getInt("progres") + " \t\t ");
       dbAch.add(new recordAchievements(msql.getInt("id"), msql.getInt("score_type"), msql.getInt("required_score"), msql.getInt("reward"), msql.getInt("progres")));
 
       if (dbAch.get(achRecordCount).progress >= dbAch.get(achRecordCount).requiredScore) {
@@ -89,6 +88,19 @@ void GetAchievements() {
 
       achRecordCount ++;
     }
+  }
+}
+
+void makeAchforUser(int user) { //when making a new account, use this function to fill achievements for that person
+  IntList achId = new IntList();
+
+  msql.query( "SELECT id FROM Achievements;");
+  while (msql.next()) {
+    achId.append(msql.getInt("id"));
+  }
+
+  for (int iAch = 0; iAch < achId.size(); iAch++) {
+    msql.query( "INSERT INTO Achievements_Progres (Users_id, Achievements_id) VALUES (" + user + ", " + achId.get(iAch) + ");");
   }
 }
 
@@ -183,16 +195,18 @@ class account {
   public int id;
   public String name;
   public String password;
-  public String email;
+  public float hoursPlayed;
   public int coins;
-  public account(int id, String name, String password) {
+  public account(int id, String name, String password, float hoursPlayed, int coins) {
     this.id = id;
     this.name = name;
     this.password = password;
+    this.hoursPlayed = hoursPlayed;
+    this.coins = coins;
   }
 }
 
-
+account user;
 
 
 void addUser () {
@@ -248,5 +262,53 @@ void addUser () {
 
     uploadAccount=false;
     msql.query("INSERT INTO Users (name, password, email, coins) VALUES ('String', 'String', 'String', 'int')", userName, password, email, totalCoins);
+  }
+}
+
+void createUser(String userName, String password) {
+  int userUsed; //looks id any user already has the name and password
+  if ( msql.connect()) {
+    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
+    msql.next();
+    userUsed = msql.getInt("count(*)");
+
+    if (userUsed == 0) {
+      msql.query("INSERT INTO Users (name, password) VALUES ('" + userName + "', '" + password + "');");
+
+      msql.query("SELECT id FROM Users WHERE name = '" + userName +"' AND password = '"+ password +"';");
+      msql.next();
+      makeAchforUser(msql.getInt("id"));
+      println("Welcome, " + userName + "!");
+    } else
+      println("Account already exists!");
+  }
+}
+
+void loginUser(String userName, String password) {
+  int userExists;
+  if ( msql.connect()) {
+    msql.query("SELECT count(*) FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
+    msql.next();
+    userExists = msql.getInt("count(*)");
+
+    if (userExists > 0) {
+      msql.query("SELECT * FROM Users WHERE name =  '" + userName +"' AND password = '"+ password +"';");
+      msql.next();
+      user = new account(msql.getInt("id"), msql.getString("name"), msql.getString("password"), msql.getFloat("hours_played"), msql.getInt("coins"));
+      coins = user.coins;
+      println("Welcome, " + user.name + "!");
+    } else {
+      println("Wrong password or username!");
+    }
+  }
+}
+
+void updateUser() {
+  final int SEC_P_HOUR = 3600;
+  float hoursPlayed = secondsPlayed / SEC_P_HOUR;
+  if ( msql.connect()) {
+    if (coins > user.coins || hoursPlayed > user.hoursPlayed) {
+      msql.query( "UPDATE Users SET coins = " + coins + ", hours_played = " + hoursPlayed + " WHERE id = " + user.id + ";");
+    }
   }
 }
