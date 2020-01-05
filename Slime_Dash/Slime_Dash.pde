@@ -64,7 +64,7 @@ void setup() {
   //  ps = new ParticleSystem(new PVector(width/2, 50));
 
   String[][] askIfLoginOptions = {{"Login", "Create Account", "Offline"}};
-  askIfLogin = new Selection(askIfLoginOptions);
+  askIfLogin = new Selection(askIfLoginOptions, width/2, height/2);
   String[] letters = {" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
   String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
   String[] characters = concat(letters, numbers);
@@ -74,14 +74,14 @@ void setup() {
   for (int i = 0; i < accountNameStrings.length; i++) {
     accountNameStrings[i] = letters;
   }
-  accountName = new Selection(accountNameStrings);
+  accountName = new Selection(accountNameStrings, width/2, height/2);
 
   //Creating Account password Selection
   String[][] accountPasswordStrings = new String[10][characters.length];
   for (int i = 0; i < accountPasswordStrings.length; i++) {
     accountPasswordStrings[i] = characters;
   }
-  accountPassword = new Selection(accountPasswordStrings);
+  accountPassword = new Selection(accountPasswordStrings, width/2, height/2);
 }
 //GAME
 void updateGame() {

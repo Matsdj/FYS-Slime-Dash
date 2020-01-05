@@ -518,16 +518,17 @@ class DIF {
 }
 //Mats
 class Selection {
-  int xSelected = 0;
+  int xSelected = 0, centerX, centerY;
   int[] ySelected;
   String[][] options;
   int holdKeyTime = 0;
-  Selection(String[][] inputOptions) {
+  Selection(String[][] inputOptions, int inputCenterX, int inputCenterY) {
     options = inputOptions;
     ySelected = new int[inputOptions[0].length];
+    centerX = inputCenterX;
+    centerY = inputCenterY;
   }
   void draw() {
-    fill(WHITE);
     //HoldKey
     if (inputs.hasValue(UP) || inputs.hasValue(DOWN)) {
       holdKeyTime++;
@@ -560,16 +561,18 @@ class Selection {
       }
     }
     //Drawing Selection
+    fill(WHITE);
+    textAlign(CENTER, CENTER);
     for (int ix = 0; ix < options.length; ix++) {
       for (int iy = 0; iy < options[0].length; iy++) {
-        int dist = 50;
+        int dist = textBig;
         if (iy == ySelected[ix]) {
           textSize(textBig);
         } else {
           textSize(textNorm);
         }
-        float yLoc = height/2+(dist*(iy-ySelected[ix]+1));
-        float xLoc = width/2+(dist*(ix-xSelected+1));
+        float yLoc = centerY+(dist*(iy-ySelected[ix]+1));
+        float xLoc = centerX+(dist*(ix-xSelected+1));
         text(options[ix][iy], xLoc, yLoc);
         if (options[ix][iy] == " ") {
           text('_', xLoc, yLoc);
