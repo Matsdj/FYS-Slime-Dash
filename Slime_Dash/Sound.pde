@@ -29,13 +29,13 @@ void soundSetup() {
   float volume = 1;
   //hier worden alle bestanden gelinkt aan de soundplayers
   SlimeJump = new SoundFile(this, "sounds/slimeJump.wav");
-  Hoofdmenu = new SoundFile(this, "sounds/mainMenu.wav");
-  GameSlow = new SoundFile(this, "sounds/slowMuzi.wav");
-  GameMid = new SoundFile(this, "sounds/midMuzi.wav");
-  GameFast = new SoundFile(this, "sounds/FastMuzi.wav");
+  Hoofdmenu = new SoundFile(this, "sounds/mainMenu.aiff");
+  GameSlow = new SoundFile(this, "sounds/slowMuzi.aiff");
+  GameMid = new SoundFile(this, "sounds/midMuzi.aiff");
+  GameFast = new SoundFile(this, "sounds/FastMuzi.aiff");
   SpeedUp = new SoundFile(this, "sounds/speedUp.wav");
   Ding = new SoundFile(this, "sounds/ding.wav");
-  Dede = new SoundFile(this, "sounds/dede.wav");
+  Dede = new SoundFile(this, "sounds/dede.aiff");
   DashSlime = new SoundFile(this, "sounds/DashSlime.wav");
   hordeMarch = new SoundFile(this, "sounds/horde march.wav");
   damage = new SoundFile(this, "sounds/damage.mp3");
