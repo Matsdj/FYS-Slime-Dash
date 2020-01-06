@@ -1,10 +1,10 @@
 import de.bezier.data.sql.*;
 MySQL msql;
 // This is a data model class to reflect the content of the User entity from the database.
-
+final int LOGIN_FADE_START = 255;
 boolean wrongPassword = false;
 String loginFailText;
-int achRecordCount = 0;
+int achRecordCount = 0, loginFade;
 
 void databaseSetup() {
   println(msql.connect());
@@ -221,9 +221,11 @@ void createUser(String userName, String password) {
       println("Welcome, " + userName + "!");
       wrongPassword = false;
       room = "mainM";
-    } else
+    } else {
       println("Account already exists!");
-    wrongPassword = true;
+      wrongPassword = true;
+      loginFade = LOGIN_FADE_START;
+    }
   }
 }
 
@@ -248,6 +250,7 @@ void loginUser(String userName, String password) {
     } else {
       println("Wrong password or username!");
       wrongPassword = true;
+      loginFade = LOGIN_FADE_START;
     }
   }
 }

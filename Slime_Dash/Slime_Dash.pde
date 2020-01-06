@@ -247,11 +247,12 @@ void draw() {
     textSize(textNorm);
 
     if (wrongPassword) {
+      loginFade--; //fades the login failed text
       if (createAccount) {
         loginFailText ="Account already exists!";
       } else
         loginFailText = "Wrong password or username!";
-      fill(RED);
+      fill(RED, loginFade);
       text(loginFailText, width/2, height/3);
       fill(255);
     }
