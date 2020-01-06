@@ -4,6 +4,7 @@ final color YELLOW = color(255, 255, 0);
 final color BLACK = color(0);
 final color WHITE = color(255);
 final color GREY = color(180);
+float HighscoreOffline = 0;
 void interfacesSetup() {
   interfaces = new HUD();
 }
@@ -40,6 +41,7 @@ class HUD {
   String gOver;
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
+
   //coins
 
   HUD() {
@@ -156,10 +158,15 @@ class HUD {
 
     //game over
     /*game over text*/
+    if (score > HighscoreOffline && offline) {
+      HighscoreOffline = score;
+    }
     if (getHighscore ==true && !offline) {
       Highscore = floor(getScore(user.id, score));
       updateUser();
       updateAchievements();
+    } else if (getHighscore ==true && offline) {
+      Highscore = HighscoreOffline;
     }
 
     if (health <= NO_HEALTH) {
