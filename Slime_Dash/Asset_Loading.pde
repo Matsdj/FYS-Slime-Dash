@@ -23,6 +23,7 @@ PImage coin;
 PImage slimeDash;
 PImage healthbar;
 PImage dashbar;
+PImage fire;
 
 final color DASH_AFTER_IMAGE_COLOR = color(255, 210, 210);
 final color STANDARD_AFTER_COLOR = color(255, 10, 10);
@@ -225,4 +226,5 @@ public void assetSetup() {
   //HUD
   healthbar = loadImage("./sprites/HUD/healthbar.png");
   dashbar = loadImage("./sprites/HUD/dashbar.png");
+  fire = loadImage("./sprites/HUD/fire.png");
 }

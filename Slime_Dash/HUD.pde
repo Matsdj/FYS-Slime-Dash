@@ -234,12 +234,20 @@ class HUD {
         tutText = "A";
         tutorial[0] = playerSprite[5];
       }
-      if (traveledDistance >25) {
+      if (traveledDistance >25 && traveledDistance <90) {
         circleColor = color(RED);
         tutText = "A";
         tutorial[0] = playerSprite[5];
         image(enemySprite[0], width*0.65, height/5-20);
         image(enemyDeathSprite, width*0.7, height/5-20);
+      }      
+      if (traveledDistance >90) {
+        circleColor = color(RED);
+        tutText = "A";
+        image(fire, width*0.6, height/5-90, globalScale*3, globalScale*3);
+        tutorial[0] = playerSprite[6];
+        image(playerSprite[5], width*0.67, height/5-20);
+        image(playerSprite[1], width*0.75, height/5-20);
       }
     }
     imageMode(CORNER);
