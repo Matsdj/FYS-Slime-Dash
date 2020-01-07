@@ -66,8 +66,7 @@ void setup() {
   //  ps = new ParticleSystem(new PVector(width/2, 50));
   String[] loginOptions = {"Login", "Create Account", "Offline"};
   if (dataFile("lastUser.txt").isFile() == true){
-    println("User logged in before");
-    loginOptions = append(loginOptions, "Load Last Account");
+    loginOptions = append(loginOptions, "Load last User");
     lastUser = loadStrings("lastUser.txt");
   }
   String[][] askIfLoginOptions = {loginOptions};
