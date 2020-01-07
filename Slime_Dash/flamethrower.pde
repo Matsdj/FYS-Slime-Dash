@@ -26,7 +26,7 @@ void burnUpdate() {
     } else if (interfaces.death) {
       burn = false;
     }
-  }
+  } else burn = false;
 }
 void flameUpdate() {
   for (int iFlame =0; iFlame< flames.length; iFlame++) {
