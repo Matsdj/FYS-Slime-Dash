@@ -50,8 +50,8 @@ void gameReset() {
 }
 
 void setup() {
-  size(1280, 720, P2D);
-  //fullScreen(P2D);
+  //size(1280, 720, P2D);
+  fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;
@@ -189,7 +189,6 @@ void draw() {
     cooldown=COOLDOWN_MAX;
   }
   soundUpdate();
-
   if (room == "pause") {
     pause.draw();
     pause.update();
@@ -211,6 +210,9 @@ void draw() {
     main.update();
     main.draw();
     interfaces.death = false;
+    if (inputsPressed(72)) {
+      room = "achievements";
+    }
   } else if (room == "difficulty") {
     bgUpdate();
     bgDraw();
