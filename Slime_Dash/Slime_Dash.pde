@@ -68,7 +68,7 @@ void setup() {
   if (dataFile("lastUser.txt").isFile() == true){
     println("User logged in before");
     loginOptions = append(loginOptions, "Load Last Account");
-    lastUser = loadStrings("lastUser.txt");
+    lastUser = loadStrings("Load last User.txt");
   }
   String[][] askIfLoginOptions = {loginOptions};
   askIfLogin = new Selection(askIfLoginOptions, width/2, height/2);
