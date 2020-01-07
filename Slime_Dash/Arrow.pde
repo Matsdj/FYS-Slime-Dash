@@ -68,6 +68,7 @@ class Arrow {
     } else if (player.hitboxCollision(x, y, aWidth, aHeight) && vx != 0 && player.dashActive!=true) {
       interfaces.arrowDamage=true;
       player.enemyDamage = true;
+      shake(player.DAMAGED_SHAKE_DIAMETER);
       reset();
     } 
     if (vx != 0 && blockCollision(x, y, aHeight) != null) {

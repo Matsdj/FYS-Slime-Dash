@@ -52,6 +52,7 @@ class Spike {
       player.enemyDamage=true;
       interfaces.spikeDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
+      shake(player.DAMAGED_SHAKE_DIAMETER);
     }
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;

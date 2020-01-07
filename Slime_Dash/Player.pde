@@ -1,6 +1,7 @@
 //Chris
 
 final int PLAYER_FRAME_AMOUNT = 11;
+
 void playerSetup() {
   player = new Player();
 }
@@ -18,6 +19,7 @@ class Player {
 
   final int DASH_COOLDOWN_CHARGE = 100;
   final int DASH_COOLDOWN_START = DASH_COOLDOWN_CHARGE;
+  final float DAMAGED_SHAKE_DIAMETER = globalScale/5;
 
   final int DASH_TIME = 8;
   final int DMG_COOLDOWN = 30;

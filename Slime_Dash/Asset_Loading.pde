@@ -30,7 +30,7 @@ final color KING_AFTER_COLOR = color(200, 200, 0);
 
 color afterColor;
 
-boolean hasCrown = true;
+boolean hasCrown = false;
 
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, 
   meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight, 

@@ -440,8 +440,14 @@ class Particle {
 float shake =0, shakeResistance = 0.8;
 
 void shakeUpdate() {
-  shake *= -shakeResistance;
+  if (!interfaces.death) {
+    shake *= -shakeResistance;
+  } else {
+    shake = 0;
+  }
 }
 void shake(float shakeDiameter) {
-  shake = shakeDiameter;
+  if (!interfaces.death) {
+    shake = shakeDiameter;
+  }
 }

@@ -129,6 +129,7 @@ class HostileMelee {
       player.enemyDamage = true;
       interfaces.meleeDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
+      shake(player.DAMAGED_SHAKE_DIAMETER);
     } else if (x < 0 - globalScale *2) {
       reset();
     }
@@ -209,6 +210,7 @@ class HostileRanged {
       player.enemyDamage = true;
       interfaces.archerDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;
+      shake(player.DAMAGED_SHAKE_DIAMETER);
     }
 
     if (dead) {
