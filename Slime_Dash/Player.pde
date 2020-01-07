@@ -411,7 +411,7 @@ void blinkSetup() {
 void blinkUpdate() {
   //adds new dash blink every given frame amount while the dash is active
   for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
-    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown > player.DASH_COOLDOWN_CHARGE && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
+    if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown >= player.DASH_COOLDOWN_CHARGE && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
       dashBlink[iBlink].activate();
       break;
     }
