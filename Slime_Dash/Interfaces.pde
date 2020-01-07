@@ -312,7 +312,7 @@ class Upgrades {
           perchBR = perch[perchBRState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= coinPrice;
-          coinValue = coinValue * 2;
+          coinValue = coinValue++;
           coinPrice = coinPrice * 2;
           textAlign(CENTER);
           fill(WHITE);
@@ -371,21 +371,21 @@ class Upgrades {
     image(perchSelect, perchSelectX, perchSelectY, perchW, perchH);
     //top left
     image(perchTL, perchLeft, perchUp, perchW, perchH);
-    text("Double Jump : ", perchLeft+xOffset, perchUp-yOffset/4);
+    text("Double Jump : "+perchTLState, perchLeft+xOffset, perchUp-yOffset/4);
     text(doubleJumpPrice, perchLeft+xOffset, perchUp+yOffset);
     //top right
     image(perchTR, perchRight, perchUp, perchW, perchH);
     textSize(23);
-    text("Dash Cooldown : ", perchRight+xOffset, perchUp-yOffset/4);
+    text("Dash charges : "+perchTRState, perchRight+xOffset, perchUp-yOffset/4);
     text(dashPrice, perchRight+xOffset, perchUp+yOffset);
     //bottom left
     textSize(25);
     image(perchBL, perchLeft, perchDown, perchW, perchH);
-    text("Health : ", perchLeft+xOffset, perchDown-yOffset/4);
+    text("Health : "+perchBLState, perchLeft+xOffset, perchDown-yOffset/4);
     text(healthPrice, perchLeft+xOffset, perchDown+yOffset);
     //bottom right
     image(perchBR, perchRight, perchDown, perchW, perchH);
-    text("Coin Value : ", perchRight+xOffset, perchDown-yOffset/4);
+    text("Coin Value : "+perchBRState, perchRight+xOffset, perchDown-yOffset/4);
     text(coinPrice, perchRight+xOffset, perchDown+yOffset);
     textSize(main.tekstSize[2]);
     fill(BLACK);
