@@ -1,20 +1,10 @@
 import de.bezier.data.sql.*;
 MySQL msql;
 // This is a data model class to reflect the content of the User entity from the database.
-
-int User = 1; //temporary testing user
-int achRecordCount = 0;
-int totalCoins = 0;
-char userLetter;
-String userName;
-boolean userNameActive;
-char passwordLetter;
-String password;
-boolean passwordActive;
-char emailLetter;
-String email;
-boolean emailActive;
-boolean uploadAccount;
+final int LOGIN_FADE_START = 255;
+boolean wrongPassword = false;
+String loginFailText;
+int achRecordCount = 0, loginFade;
 
 void databaseSetup() {
   println(msql.connect());
@@ -112,7 +102,7 @@ void updateAchievements() { //make sure to run this function once and not severa
         //updates score based achievements, checks if ach has new progress, is correct scoretype and if its already completed
 
         if (dbAch.get(iAch).scoreType == 1 && dbAch.get(iAch).progress < int(interfaces.score)) {
-          msql.query( "UPDATE Achievements_Progres SET progres = " + int(interfaces.score) + " WHERE Users_id = " + User + " AND Achievements_id = "+ dbAch.get(iAch).id );
+          msql.query( "UPDATE Achievements_Progres SET progres = " + int(interfaces.score) + " WHERE Users_id = " + user.id + " AND Achievements_id = "+ dbAch.get(iAch).id );
 
           dbAch.get(iAch).progress = int(interfaces.score);
           if (dbAch.get(iAch).progress >= dbAch.get(iAch).requiredScore) {
@@ -124,7 +114,7 @@ void updateAchievements() { //make sure to run this function once and not severa
         //updates enemie kill based achievements
 
         if (dbAch.get(iAch).scoreType == 2 && dbAch.get(iAch).progress < dbAch.get(iAch).progress + killCount) {
-          msql.query( "UPDATE Achievements_Progres SET progres = " + (dbAch.get(iAch).progress + killCount) + " WHERE Users_id = " + User + " AND Achievements_id = "+ dbAch.get(iAch).id );
+          msql.query( "UPDATE Achievements_Progres SET progres = " + (dbAch.get(iAch).progress + killCount) + " WHERE Users_id = " + user.id + " AND Achievements_id = "+ dbAch.get(iAch).id );
 
           dbAch.get(iAch).progress += killCount;
           if (dbAch.get(iAch).progress >= dbAch.get(iAch).requiredScore) {
@@ -229,9 +219,13 @@ void createUser(String userName, String password) {
       GetAchievements();
       offline = false;
       println("Welcome, " + userName + "!");
+      wrongPassword = false;
       room = "mainM";
-    } else
+    } else {
       println("Account already exists!");
+      wrongPassword = true;
+      loginFade = LOGIN_FADE_START;
+    }
   }
 }
 
@@ -251,9 +245,12 @@ void loginUser(String userName, String password) {
       GetAchievements();
       offline = false;
       println("Welcome, " + user.name + "!");
+      wrongPassword = false;
       room = "mainM";
     } else {
       println("Wrong password or username!");
+      wrongPassword = true;
+      loginFade = LOGIN_FADE_START;
     }
   }
 }
