@@ -362,6 +362,17 @@ class Upgrades {
         textAlign(LEFT, CENTER);
       }
     }
+  /*  if (perchTLState == 3 && perchTRState == 3 && perchBLState == 3 && perchBRState == 3) {
+      fill(0, 0, 0, 60);
+      rect(0, 0, width, height);
+      imageMode(CENTER);
+      image(perch[2], width/2, height/2);
+      fill(0);
+      textAlign(CENTER);
+      text("KING SLIME", width/2, height*0.3);
+      imageMode(CORNER);
+      textAlign(LEFT);
+   } */
   }
   void draw() {
     textSize(55);
@@ -409,18 +420,6 @@ class Upgrades {
     stroke(BLACK);
     fill(YELLOW);
     image(coin, width - 175, 30, 40, 40);
-
-    if (perchTLState == 3 && perchTRState == 3 && perchBLState == 3 && perchBRState == 3) {
-      fill(0, 0, 0, 60);
-      rect(0, 0, width, height);
-      imageMode(CENTER);
-      image(perch[2], width/2, height/2);
-      fill(0);
-      textAlign(CENTER);
-      text("KING SLIME", width/2, height*0.3);
-      imageMode(CORNER);
-      textAlign(LEFT);
-    }
   }
 }
 ////////////////// difficultekstY scherm//////////////
