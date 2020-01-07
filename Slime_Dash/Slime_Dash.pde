@@ -246,9 +246,21 @@ void draw() {
     accountPassword.draw();
     text("Login password for ", width/2, height/4);
     textSize(textBig);
-    text(accountName.selection(),width/2,height/4+textBig);
+    text(accountName.selection(), width/2, height/4+textBig);
     textSize(textNorm);
-      if (inputsPressed(keySpace)) {
+
+    if (wrongPassword) {
+      loginFade--; //fades the login failed text
+      if (createAccount) {
+        loginFailText ="Account already exists!";
+      } else
+        loginFailText = "Wrong password or username!";
+      fill(RED, loginFade);
+      text(loginFailText, width/2, height/3);
+      fill(255);
+    }
+
+    if (inputsPressed(keySpace)) {
       if (createAccount) {
         createUser(accountName.selection(), accountPassword.selection());
       } else {

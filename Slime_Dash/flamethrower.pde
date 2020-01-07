@@ -1,4 +1,4 @@
- //collin
+//collin
 final int FLAME_SPRITE_AMOUNT = 7;
 final int FLAME_ACTIVE_SPRITE_AMOUNT = 5;
 boolean burn = false;
@@ -11,6 +11,23 @@ void flameSetup()
 
   flames = new Flame[100];
 }
+void burnUpdate() {
+  if (burn == true&&burndamage <= totalburndamage*60) {
+    burndamage = burndamage +1;
+    burntimer = burntimer+1;
+    if (burntimer >= 60) {
+      burntimer-=60;
+      interfaces.health = interfaces.health-1;
+    }
+    createParticle(player.x+player.size/2, player.y+player.size/2, player.size, 5, color(#FFF300), color(#FF9900), -.05, 2, true, 60, "", 1);
+    if (player.dashActive==true) {
+      burn = false;
+      createParticle(player.x+player.size/2, player.y+player.size/2, player.size, 15, color(#FFF300), color(#FF9900), -.2, 2, true, 60, "", 3);
+    } else if (interfaces.death) {
+      burn = false;
+    }
+  } else burn = false;
+}
 void flameUpdate() {
   for (int iFlame =0; iFlame< flames.length; iFlame++) {
     if (flames[iFlame] != null) {
@@ -20,6 +37,7 @@ void flameUpdate() {
       }
     }
   }
+  burnUpdate();
 }
 
 void addFlame(float x, float y) {
@@ -72,27 +90,14 @@ class Flame {
   //controleerd op player aanraking
   void update() {
     timeflame = timeflame+1;
-    if (burn == true&&burndamage <= totalburndamage*60) {
-      burndamage = burndamage +1;
-      burntimer = burntimer+1;
-      if (burntimer >= 60) {
-        burntimer-=60;
-        interfaces.health = interfaces.health-1;
-      }
-      createParticle(player.x+player.size/2, player.y+player.size/2, player.size, 5, color(#FFF300), color(#FF9900), -.05, 2, true, 60, "", 1);
-    } else burn = false;
 
-    if (player.dashActive==true && burn == true) {
-      burn = false;
-      createParticle(player.x+player.size/2, player.y+player.size/2, player.size, 15, color(#FFF300), color(#FF9900), -.2, 2, true, 60, "", 3);
-    }
     if (timeflame>timeflamemax/2) {
       if ( player.hitboxCollision(x, y, size, size)) {
         interfaces.health = interfaces.health-0.5;
         burndamage = 0;
         if (player.dashActive==false) {
           burn = true;
-        } else burn = false;
+        }
       }
       //animates flamethrower
       if (timeflame % (activeFlameFramesAmount/ FLAME_ACTIVE_SPRITE_AMOUNT) == 0) {
