@@ -119,7 +119,7 @@ void updateAchievements() { //make sure to run this function once and not severa
           dbAch.get(iAch).progress += killCount;
           if (dbAch.get(iAch).progress >= dbAch.get(iAch).requiredScore) {
             coins += dbAch.get(iAch).reward;
-            dbAch.get(achRecordCount).completed = true;
+            dbAch.get(iAch).completed = true;
           }
         }
       }
