@@ -15,10 +15,10 @@ class HUD {
   boolean arrowDamage = false;
   boolean archerDamage = false;
   boolean spikeDamage = false;
-  final int MELEE_DAMAGE = 20;
-  final int ARROW_DAMAGE = 10;
-  final int ARCHER_DAMAGE = 20;
-  final int SPIKE_DAMAGE = 10;
+  final int MELEE_DAMAGE = 25;
+  final int ARROW_DAMAGE = 15;
+  final int ARCHER_DAMAGE = 25;
+  final int SPIKE_DAMAGE = 15;
   // tutorial
   float tutX, tutY;
   String tutText;
@@ -191,7 +191,7 @@ class HUD {
         room= "mainM";
       }
       /* B om te resetten*/
-      if (inputsPressed(keyB)==true && room=="game") {
+      if (inputsPressed.hasValue(keyB)==true && room=="game") {
         death = false;
         Dede.stop();
         gameReset();
