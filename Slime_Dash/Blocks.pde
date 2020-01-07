@@ -95,7 +95,6 @@ class Block {
         tint(255, ((BREAK_TIME_MAX-breakTime)/BREAK_TIME_MAX)*155+100);
         image(crackedSprite, x+shake, y);
         tint(255);
-        particleDashable(x+size/2, y+size/2, size);
       }
     }
   }
