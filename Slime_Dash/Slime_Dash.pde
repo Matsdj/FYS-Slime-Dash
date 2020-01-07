@@ -149,9 +149,6 @@ void updateGame() {
   //Player
   player.update();
   blinkUpdate();
-  //upgradeshop
-  updateShop();
-  activateShop();
 }
 
 void drawGame() {

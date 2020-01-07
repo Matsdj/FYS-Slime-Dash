@@ -181,56 +181,6 @@ float getOnlineTempTime(int userId, float currentTime, int templateId) {
 
 
 //collin
-class upgrades1 {
-  public int users_id;
-  public int upgrades_id;
-  public int level;
-  public int perchTLState;
-  public int perchBLState;
-
-  public upgrades1(int users_id, int upgrades_id, int level) {
-    this.users_id = users_id;
-    this.upgrades_id = upgrades_id;
-    this.level = level;
-  }
-}
-boolean checkupgrade = false;
-void activateShop() {
-
-  upgrade.perchTLState = 0;
-  upgrade.perchBLState = 0;
-  upgrade.perchTRState = 0;
-  upgrade.perchBRState = 0;
-  if (msql.connect()) {
-    msql.query("SELECT * FROM Player_Upgrades WHERE Users_id = "+user.id+";");  
-    msql.next();
-    upgrade.perchTLState=msql.getInt("level");
-    msql.next();
-    upgrade.perchBLState=msql.getInt("level");
-    msql.next();
-    upgrade.perchTRState=msql.getInt("level");
-    msql.next();
-    upgrade.perchBRState=msql.getInt("level");
-  }
-  checkupgrade = false;
-}
-
-
-
-
-void updateShop() {
-  if (msql.connect()) {
-    if (room=="upgrades"&&checkupgrade==false) {
-      msql.query("UPDATE Player_Upgrades WHERE Upgrades_id = " +1+ "AND User_id = "+user.id+" SET Level = "+upgrade.perchTLState);
-      msql.query("UPDATE Player_Upgrades WHERE Upgrades_id = " +2+ "AND User_id = "+user.id+" SET Level = "+upgrade.perchBLState);
-      msql.query("UPDATE Player_Upgrades WHERE Upgrades_id = " +3+ "AND User_id = "+user.id+" SET Level = "+upgrade.perchTRState);
-      msql.query("UPDATE Player_Upgrades WHERE Upgrades_id = " +4+ "AND User_id = "+user.id+" SET Level = "+upgrade.perchBRState);
-      checkupgrade=true;
-    }
-  }
-}
-
-
 
 class account {
   public int id;
