@@ -26,6 +26,7 @@ Selection accountName;
 Selection accountPassword;
 
 void gameReset() {
+  burn = false;
   room = "start";
   time = 0;
   cooldown=COOLDOWN_MAX;

@@ -7,7 +7,7 @@
  SPACE = verder (A)
  */
 int  textNorm = 50, textBig = 75, generalTextOffset =2;
-
+int jumpUpgradeState = 0;
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
   pause = new Pause();
@@ -247,7 +247,8 @@ class Upgrades {
           perchTLState = 3;
           perchTL = perch[perchTLState];
           coins -= doubleJumpPrice;
-          player.maxJumpAmount = 1;
+          jumpUpgradeState = 1;
+          player.maxJumpAmount = jumpUpgradeState;
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
           textAlign(CENTER);
           fill(BLACK);
@@ -522,7 +523,7 @@ class Selection {
   int[] ySelected;
   String[][] options;
   int holdKeyTime = 0;
-  final color SELECTED_OPTION_COLOR = color(0,100,0);
+  final color SELECTED_OPTION_COLOR = color(0, 100, 0);
   Selection(String[][] inputOptions, int inputCenterX, int inputCenterY) {
     options = inputOptions;
     ySelected = new int[inputOptions[0].length];
@@ -574,9 +575,9 @@ class Selection {
         float yLoc = centerY+(dist*(iy-ySelected[ix]));
         float xLoc = centerX+(dist*(ix-xSelected));
         if (iy == ySelected[ix] && ix == xSelected && options[ix][iy].length() == 1) {
-          fill(BLACK,100);
+          fill(BLACK, 100);
           noStroke();
-          rect(xLoc-textBig/2,yLoc-textBig/2,textBig,textBig);
+          rect(xLoc-textBig/2, yLoc-textBig/2, textBig, textBig);
         }
         fill(WHITE, 255-pow(ySelected[ix]-iy, 2)*10);
         text(options[ix][iy], xLoc, yLoc);

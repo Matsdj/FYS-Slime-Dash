@@ -59,7 +59,7 @@ class Player {
     moveLeft = false;
     frameCounter = 0;
     deathFramerate = 0;
-    maxJumpAmount = 0; // +1 this to activate dubble jump;
+    maxJumpAmount = jumpUpgradeState; // +1 jumpUpgradeState to activate dubble jump;
     jumpedAmount = 0;
     smashedGround = false;
     parSize = globalScale / 7;
