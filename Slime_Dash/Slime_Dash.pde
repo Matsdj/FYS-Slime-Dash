@@ -24,6 +24,7 @@ int secondsPlayed;
 Selection askIfLogin;
 Selection accountName;
 Selection accountPassword;
+String[] lastUser;
 
 void gameReset() {
   burn = false;
@@ -51,8 +52,8 @@ void gameReset() {
 }
 
 void setup() {
-  //size(1280, 720, P2D);
-  fullScreen(P2D);
+  size(1280, 720, P2D);
+  //fullScreen(P2D);
   smooth(0);
   frameRate(60);
   globalScale = height/12;
@@ -63,8 +64,13 @@ void setup() {
   gameReset();
   //particle system
   //  ps = new ParticleSystem(new PVector(width/2, 50));
-
-  String[][] askIfLoginOptions = {{"Login", "Create Account", "Offline"}};
+  String[] loginOptions = {"Login", "Create Account", "Offline"};
+  if (dataFile("lastUser.txt").isFile() == true){
+    println("User logged in before");
+    loginOptions = append(loginOptions, "Load Last Account");
+    lastUser = loadStrings("lastUser.txt");
+  }
+  String[][] askIfLoginOptions = {loginOptions};
   askIfLogin = new Selection(askIfLoginOptions, width/2, height/2);
   String[] letters = {" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
   String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
@@ -258,6 +264,9 @@ void draw() {
       fill(RED, loginFade);
       text(loginFailText, width/2, height/3);
       fill(255);
+    } else {
+      String[] Account = {accountName.selection(),accountPassword.selection()};
+      saveStrings("data/lastUser.txt",Account);
     }
 
     if (inputsPressed(keySpace)) {
@@ -275,17 +284,25 @@ void draw() {
     bgDraw();
     askIfLogin.draw();
     if (inputsPressed(keySpace)) {
-      if (askIfLogin.intSelection(0) == 0) {
+      switch(askIfLogin.intSelection(0)){
+        case 0:
         room = "login";
         createAccount = false;
-      }
-      if (askIfLogin.intSelection(0) == 1) {
+        break;
+        case 1:
         room = "login";
         createAccount = true;
-      }
-      if (askIfLogin.intSelection(0) == 2) {
+        break;
+        case 2:
         offline = true;
         room = "mainM";
+        break;
+        case 3:
+        loginUser(lastUser[0], lastUser[1]);
+        offline = false;
+        room = "mainM";
+        break;
+        
       }
     }
   }
