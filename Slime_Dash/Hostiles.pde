@@ -197,11 +197,6 @@ class HostileRanged {
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
 
-    if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
-      player.enemyDamage = true;
-      interfaces.archerDamage = true;
-      player.dmgCooldown = player.DMG_COOLDOWN;
-    }
     if (player.Collision(x, y, size) && player.dashActive && !dead) {
       damage.play();
       killCount++;
@@ -210,6 +205,11 @@ class HostileRanged {
       speedModifier = 0.0001;
       shake(globalScale/2);
     } 
+    if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
+      player.enemyDamage = true;
+      interfaces.archerDamage = true;
+      player.dmgCooldown = player.DMG_COOLDOWN;
+    }
 
     if (dead) {
       reset();
