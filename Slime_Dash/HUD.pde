@@ -306,7 +306,7 @@ class HUD {
     fill(#A300FC, goFadeIn);
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
-    text(gOver, gOverX-generalTextOffset, gOverY-generalTextOffset);
+    text(gOver, gOverX-generalTextOffset-2, gOverY-generalTextOffset-2);
     text("score " + floor(score), gOverX-generalTextOffset, gOverY+98);
     fill(YELLOW, goFadeIn);
     text(gOver, gOverX+generalTextOffset, gOverY+generalTextOffset);
