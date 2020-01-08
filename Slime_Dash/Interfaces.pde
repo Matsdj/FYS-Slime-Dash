@@ -362,17 +362,17 @@ class Upgrades {
         textAlign(LEFT, CENTER);
       }
     }
-  /*  if (perchTLState == 3 && perchTRState == 3 && perchBLState == 3 && perchBRState == 3) {
-      fill(0, 0, 0, 60);
-      rect(0, 0, width, height);
-      imageMode(CENTER);
-      image(perch[2], width/2, height/2);
-      fill(0);
-      textAlign(CENTER);
-      text("KING SLIME", width/2, height*0.3);
-      imageMode(CORNER);
-      textAlign(LEFT);
-   } */
+    /*  if (perchTLState == 3 && perchTRState == 3 && perchBLState == 3 && perchBRState == 3) {
+     fill(0, 0, 0, 60);
+     rect(0, 0, width, height);
+     imageMode(CENTER);
+     image(perch[2], width/2, height/2);
+     fill(0);
+     textAlign(CENTER);
+     text("KING SLIME", width/2, height*0.3);
+     imageMode(CORNER);
+     textAlign(LEFT);
+     } */
   }
   void draw() {
     textSize(55);
@@ -587,6 +587,27 @@ class Selection {
     }
     fill(WHITE);
     textSize(textNorm);
+    textAlign(CORNER);
+    textSize(main.tekstSize[2]);
+    fill(BLACK);
+    text("A", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
+    text("A", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
+    fill(RED);
+    text("A", main.tekstX, main.navTextY);
+    text("  " +"Select", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
+    text("  " +"Select", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
+    fill(BLACK);
+    text("B", main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
+    text("B", main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
+    text("  " +"Select", main.tekstX, main.navTextY);
+    fill(YELLOW);
+    text("B", main.tekstX*2, main.navTextY);
+    text("  "+"Back", main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
+    text("  "+"Back", main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
+    fill(BLACK);
+    text("  "+"Back", main.tekstX*2, main.navTextY);
+    text(floor(coins), width - 100, 50);
+    stroke(BLACK);
   }
   String selection() {
     String string = "";
