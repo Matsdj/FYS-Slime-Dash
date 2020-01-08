@@ -324,6 +324,9 @@ class Player {
         jumpedHeight = 0;
         jumpedAmount = 0;
       }
+      if (vy < 0) {
+        jumpedHeight = -MAX_JUMP_HEIGHT;
+      }
       //ground smash effect
       if (onGround && smashedGround) {
         smashedGround = false;
