@@ -604,7 +604,6 @@ class Selection {
     text("  "+"Back", main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
     fill(BLACK);
     text("  "+"Back", main.tekstX*2, main.navTextY);
-    text(floor(coins), width - 100, 50);
     stroke(BLACK);
     fill(WHITE);
   }
