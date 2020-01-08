@@ -104,21 +104,25 @@ class HUD {
       if (meleeDamage==true) {
         meleeDmg.play();
         health = health-(MELEE_DAMAGE*healthMult);
+        createParticle(player.x, player.y, 0, 10, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(MELEE_DAMAGE*healthMult), 1);
         meleeDamage=false;
       }
       // health = health-(MagicBarricadeDMG*healthMult);
       if ( arrowDamage==true) {
         arrowHit.play();
         health = health-(ARROW_DAMAGE*healthMult);
+        createParticle(player.x, player.y, 0, 10, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(ARROW_DAMAGE*healthMult), 1);
         arrowDamage=false;
       }
       if ( archerDamage==true) {
         health = health-(ARCHER_DAMAGE*healthMult);
+        createParticle(player.x, player.y, 0, 10, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(ARCHER_DAMAGE*healthMult), 1);
         archerDamage=false;
       }
       if ( spikeDamage==true) {
         spikeDmg.play();
         health = health-(SPIKE_DAMAGE*healthMult);
+        createParticle(player.x, player.y, 0, 10, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(SPIKE_DAMAGE*healthMult), 1);
         spikeDamage=false;
       }
 
