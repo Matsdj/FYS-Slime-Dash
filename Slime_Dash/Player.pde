@@ -89,13 +89,8 @@ class Player {
       }
     } else dmgBlink = true;
 
-    //dash animation
-    if (dashActive) {
-      frameCounter = 5;
-    }
-
     //death animatie
-    else if (interfaces.death) {
+    if (interfaces.death) {
       deathFramerate++;
       if (deathFramerate % ANIMATION_FRAMERATE==0 && frameCounter != PLAYER_DEATH_FRAME_MAX-1) {
         frameCounter++;
@@ -105,6 +100,11 @@ class Player {
       }
 
       crownFade -= CROWN_FADE_SPEED;
+    } 
+
+    //dash animation
+    else if (dashActive) {
+      frameCounter = 5;
     }
 
     //damaged animatie
