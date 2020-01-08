@@ -56,7 +56,6 @@ class Block {
         //break because of jump
         if (player.vy < -10 && player.Collision(x+1, y-player.vy, size-2)) {
           active = false;
-          player.jumpedAmount = -1000;
         }
         if (active == false) {
           createParticle(x+size/2, y+size/2, size, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
