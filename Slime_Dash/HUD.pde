@@ -91,12 +91,15 @@ class HUD {
     scoreSize = width*0.025+constrain(playerCatchUp*2, 0, 100);
     //healthbar
     //healthbar laat damage cooldown zien door donkerrood te worden
+    //easter egg
+    if (health==69) {
+      createParticle(healthBarX, scoreY, 0, 15, color(WHITE), color(WHITE), 1, 0, false, 30, "NICE ;)", 1);
+    }
     if (player.dmgCooldown >=0) {
       healthC = color(150, 0, 0);
     } else {
       healthC = color(RED);
     }
-
     /*wanneer enemy collision heeft met player dan damage*/
     if (player.enemyDamage==true&& death==false) {
       /*verander deze om enemy damage aan te passen*/
@@ -180,7 +183,7 @@ class HUD {
     }
     if (Highscore!= 0) {
       getHighscore =false;
-    }
+    } //navigatie in game over scherm
     if (death == true) {
       miniMarch.stop();
       /*makes GO text fade in*/
@@ -194,7 +197,7 @@ class HUD {
         gameReset();
         room= "mainM";
       }
-      /* B om te resetten*/
+      /* B om opnieuw te proberen in beide modes*/
       if (inputsPressed.hasValue(keyB)==true && room=="game") {
         death = false;
         Dede.stop();
@@ -216,40 +219,50 @@ class HUD {
   }
   void draw() {
     //tutorial
-
+    //if statement voor tutorial mode plaatjes
     if (room=="game2") {
       fill(circleColor);
       ellipseMode(RADIUS);
       stroke(BLACK);
       strokeWeight(5);
-      ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
-      fill(BLACK);
       textSize(50);
-      text(tutText, player.x-(globalScale*2), player.y-100);
       tint(155);
       imageMode(CENTER);
-      image(tutorial[0], player.x, player.y-120);
-      if (traveledDistance >0) {
+      //tutorial plaatjes en button
+      //jump
+      if (traveledDistance >0 && traveledDistance <5) {
         tutText = "B";
-        tutorial[0] = playerSprite[4];
-      }
-      if (traveledDistance >5) {
+        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
+        fill(BLACK);
+        text(tutText, player.x-(globalScale*2), player.y-100);
+        image(playerSprite[4], player.x, player.y-120);
+      } //dash
+      else if (traveledDistance >5 &&traveledDistance <22) {
         circleColor = color(RED);
         tutText = "A";
-        tutorial[0] = playerSprite[5];
-      }
-      if (traveledDistance >25 && traveledDistance <90) {
+        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
+        fill(BLACK);
+        text(tutText, player.x-(globalScale*2), player.y-100);
+        image(playerSprite[5], player.x, player.y-120);
+      } //dash door enemy
+      else if (traveledDistance >25 && traveledDistance <55) {
         circleColor = color(RED);
         tutText = "A";
-        tutorial[0] = playerSprite[5];
+        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
+        fill(BLACK);
+        text(tutText, player.x-(globalScale*2), player.y-100);
+        image(playerSprite[5], player.x, player.y-120);
         image(enemySprite[0], player.x+globalScale, player.y-120);
         image(enemyDeathSprite, player.x+globalScale*2, player.y-120);
-      }      
-      if (traveledDistance >90) {
+      } //dash voor vuur uit
+      else if (traveledDistance >90 && traveledDistance <133) {
         circleColor = color(RED);
         tutText = "A";
+        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
+        fill(BLACK);
+        text(tutText, player.x-(globalScale*2), player.y-100);
         image(fire, player.x, player.y-190, globalScale*3, globalScale*3);
-        tutorial[0] = playerSprite[6];
+        image(playerSprite[6], player.x, player.y-120);
         image(playerSprite[5], player.x+globalScale*1.5, player.y-120);
         image(playerSprite[1], player.x+globalScale*3, player.y-120);
       }
@@ -258,20 +271,18 @@ class HUD {
     tint(WHITE);
     //healthbar
     /*healthbar backdrop*/
-
     fill(BLACK, 50);
     rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*((constrain(MAX_HEALTH, NO_HEALTH, MAX_HEALTH))/MAX_HEALTH), globalScale*0.7);
     /*actual health indicator*/
     fill(healthC);
     if (health > MAX_HEALTH) health = MAX_HEALTH;
     rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*((constrain(health, NO_HEALTH, MAX_HEALTH))/MAX_HEALTH), globalScale*0.7);
-
-    /*static border*/
+    /*health border*/
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(WHITE);
     textSize(scoreNormal);
-      text(floor(constrain(health, NO_HEALTH, MAX_HEALTH)), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
-    //dash bar
+    text(floor(constrain(health, NO_HEALTH, MAX_HEALTH)), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
+    //dash charges
     stroke(BLACK);
     strokeWeight(20);
     line(dashX, dashY, dashL, dashY);
@@ -282,9 +293,6 @@ class HUD {
     line(dashX, dashY, dashL, dashY);
     line(dashX2, dashY, dashL2, dashY);
     line(dashX3, dashY, dashL3, dashY);
-
-
-
     //score
     if (death==false&&room=="game") {
       score +=globalScrollSpeed/globalScale*10;
@@ -305,8 +313,7 @@ class HUD {
     stroke(BLACK);
     fill(YELLOW);
     image(coin, scoreX-20+shake, scoreY+40, 40, 40);
-
-    //Game Over
+    //Game Over text en score
     fill(#A300FC, goFadeIn);
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
@@ -328,7 +335,7 @@ class HUD {
     fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
     text("highscore " + floor(Highscore), gOverX, gOverY+150);
-    //NAVIGATION
+    //NAVIGATION 
     textAlign(LEFT);
     textSize(main.tekstSize[2]);
     fill(WHITE, goFadeIn);
