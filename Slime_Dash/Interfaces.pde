@@ -585,8 +585,6 @@ class Selection {
         }
       }
     }
-    fill(WHITE);
-    textSize(textNorm);
     textAlign(CORNER);
     textSize(main.tekstSize[2]);
     fill(BLACK);
@@ -608,6 +606,7 @@ class Selection {
     text("  "+"Back", main.tekstX*2, main.navTextY);
     text(floor(coins), width - 100, 50);
     stroke(BLACK);
+    fill(WHITE);
   }
   String selection() {
     String string = "";

@@ -251,6 +251,7 @@ void draw() {
     accountPassword.draw();
     text("Login password for ", width/2, height/4);
     textSize(textBig);
+    textAlign(CENTER, CENTER);
     text(accountName.selection(), width/2, height/4+textBig);
     textSize(textNorm);
 
