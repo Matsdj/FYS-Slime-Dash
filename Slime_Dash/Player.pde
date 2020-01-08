@@ -33,8 +33,8 @@ class Player {
   final float JUMPSPEED = globalScale/3.5; //jump force
   final float MAX_JUMP_HEIGHT = globalScale * 3;
   final float DASHSPEED = globalScale/1.6; //dash speed
-  final float MOVESPEED = globalScale/16; //starting speed
-  final float SPEEDMULT = 1.9;
+  final float MOVESPEED = globalScale/80; //starting speed
+  final float SPEEDMULT = 1.2;
   final float SPEEDSLOWDOWN = 0.85; //slowdown rate on normal ground
   final float ICESLOWDOWN = 0.98; //this is the slowdown of the player if he walks on ice
   final float MAXMOVESPEED = globalScale/8; //max player walking speed
