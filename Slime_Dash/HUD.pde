@@ -266,7 +266,7 @@ class HUD {
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
     fill(WHITE);
     textSize(scoreNormal);
-    //  text(constrain(floor(health), NO_HEALTH, MAX_HEALTH), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
+      text(floor(constrain(health, NO_HEALTH, MAX_HEALTH)), healthBarX+(globalScale/2), healthBarY+(globalScale*0.85));
     //dash bar
     stroke(BLACK);
     strokeWeight(20);
