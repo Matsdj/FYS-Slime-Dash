@@ -312,7 +312,7 @@ class Upgrades {
           perchBR = perch[perchBRState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= coinPrice;
-          coinValue = coinValue++;
+          coinValue ++;
           coinPrice = coinPrice * 2;
           textAlign(CENTER);
           fill(WHITE);
