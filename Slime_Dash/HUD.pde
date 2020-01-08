@@ -218,13 +218,13 @@ class HUD {
       ellipseMode(RADIUS);
       stroke(BLACK);
       strokeWeight(5);
-      ellipse(width/2+(width/100), height/5-15, 35, 35);
+      ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
       fill(BLACK);
       textSize(50);
-      text(tutText, width/2, height/5);
+      text(tutText, player.x-(globalScale*2), player.y-100);
       tint(155);
       imageMode(CENTER);
-      image(tutorial[0], width*0.6, height/5-20);
+      image(tutorial[0], player.x, player.y-120);
       if (traveledDistance >0) {
         tutText = "B";
         tutorial[0] = playerSprite[4];
@@ -238,16 +238,16 @@ class HUD {
         circleColor = color(RED);
         tutText = "A";
         tutorial[0] = playerSprite[5];
-        image(enemySprite[0], width*0.65, height/5-20);
-        image(enemyDeathSprite, width*0.7, height/5-20);
+        image(enemySprite[0], player.x+globalScale, player.y-120);
+        image(enemyDeathSprite, player.x+globalScale*2, player.y-120);
       }      
       if (traveledDistance >90) {
         circleColor = color(RED);
         tutText = "A";
-        image(fire, width*0.6, height/5-90, globalScale*3, globalScale*3);
+        image(fire, player.x, player.y-190, globalScale*3, globalScale*3);
         tutorial[0] = playerSprite[6];
-        image(playerSprite[5], width*0.67, height/5-20);
-        image(playerSprite[1], width*0.75, height/5-20);
+        image(playerSprite[5], player.x+globalScale*1.5, player.y-120);
+        image(playerSprite[1], player.x+globalScale*3, player.y-120);
       }
     }
     imageMode(CORNER);
