@@ -65,7 +65,7 @@ void setup() {
   //particle system
   //  ps = new ParticleSystem(new PVector(width/2, 50));
   String[] loginOptions = {"Login", "Create Account", "Offline"};
-  if (dataFile("lastUser.txt").isFile() == true){
+  if (dataFile("lastUser.txt").isFile() == true) {
     loginOptions = append(loginOptions, "Load last User");
     lastUser = loadStrings("lastUser.txt");
   }
@@ -229,6 +229,9 @@ void draw() {
     bgDraw();
     upgrade.draw();
     upgrade.update();
+  } else if (room == "Highscores") {
+    bgUpdate();
+    bgDraw();
   } else if (room == "achievements") {
     bgUpdate();
     bgDraw();
@@ -265,8 +268,8 @@ void draw() {
       text(loginFailText, width/2, height/3);
       fill(255);
     } else {
-      String[] Account = {accountName.selection(),accountPassword.selection()};
-      saveStrings("data/lastUser.txt",Account);
+      String[] Account = {accountName.selection(), accountPassword.selection()};
+      saveStrings("data/lastUser.txt", Account);
     }
 
     if (inputsPressed(keySpace)) {
@@ -284,25 +287,24 @@ void draw() {
     bgDraw();
     askIfLogin.draw();
     if (inputsPressed(keySpace)) {
-      switch(askIfLogin.intSelection(0)){
-        case 0:
+      switch(askIfLogin.intSelection(0)) {
+      case 0:
         room = "login";
         createAccount = false;
         break;
-        case 1:
+      case 1:
         room = "login";
         createAccount = true;
         break;
-        case 2:
+      case 2:
         offline = true;
         room = "mainM";
         break;
-        case 3:
+      case 3:
         loginUser(lastUser[0], lastUser[1]);
         offline = false;
         room = "mainM";
         break;
-        
       }
     }
   }

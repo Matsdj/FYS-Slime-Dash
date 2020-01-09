@@ -109,9 +109,9 @@ MainM main;
 class MainM {
 
   float sizeW, sizeH, tekstX, tekstY, navTextY ;
-  int  select1, select2;
+  int  select1, select2, select3;
   color highlight;
-  float[] tekstSize = new float[3];
+  float[] tekstSize = new float[4];
   MainM() {
     sizeH = height/7;
     sizeW = width/2.8;
@@ -119,11 +119,13 @@ class MainM {
     tekstSize[0] = 75;
     tekstSize[1] = 50;
     tekstSize[2] = 40;
+    tekstSize[3] = 50;
     tekstX = width/4;
     tekstY = height/3;
     highlight = color(WHITE);
     select1 = highlight;
     select2 = GREY;
+    select3 = GREY;
     navTextY = (height/3)*2.8;
   }
   void update() {
@@ -131,18 +133,43 @@ class MainM {
     if (select1 == highlight) {
       tekstSize[0] =textBig;
       tekstSize[1] =textNorm;
-    }//Down in het menu
-    if (select1 == highlight&&inputsPressed(keyDown) ) {
-      select1 = GREY;
-      select2 = highlight;
-    }
+      tekstSize[3]= textNorm;
+    }    
     if (select2 == highlight) {
       tekstSize[1]= textBig;
       tekstSize[0]= textNorm;
-    }//Up in het menu
-    if (select2 == highlight&&inputsPressed(keyUp) ) {
+      tekstSize[3]= textNorm;
+    }    
+    if (select3 == highlight) {
+      tekstSize[0]= textNorm;
+      tekstSize[1]= textNorm;
+      tekstSize[3]= textBig;
+    }
+    //Down in het menu
+    if (select1 == highlight&&inputsPressed(keyDown) ) {
+      Ding.play();
+      select1 = GREY;
+      select2 = highlight;
+      select3 = GREY;
+    }
+    if (select2 == highlight&&inputsPressed(keyDown) ) {
+      Ding.play();
+      select1 = GREY;
       select2 = GREY;
+      select3 = highlight;
+    }
+    //Up in het menu
+    if (select2 == highlight&&inputsPressed(keyUp) ) {
+      Ding.play();
       select1 = highlight;
+      select2 = GREY;
+      select3 = GREY;
+    }
+    if (select3 == highlight&&inputsPressed(keyUp) ) {
+      Ding.play();
+      select1 = GREY;
+      select2 = highlight;
+      select3 = GREY;
     }
 
     // spatie om naar andere rooms te gaan
@@ -153,6 +180,12 @@ class MainM {
     }
     if (select2==highlight &&room == "mainM" && inputsPressed(keySpace)) {
       room = "upgrades";
+      SpeedUp.play();
+      cooldown= COOLDOWN_MAX;
+    }    
+    if (select3==highlight &&room == "mainM" && inputsPressed(keySpace)) {
+      room = "Highscores";
+      SpeedUp.play();
       cooldown= COOLDOWN_MAX;
     }
   }
@@ -166,6 +199,9 @@ class MainM {
     textSize(tekstSize[1]);
     fill(select2);
     text("Upgrades", tekstX, tekstY*1.5);
+    fill(select3);
+    textSize(tekstSize[3]);
+    text("Highscores", tekstX, tekstY*2);
     textSize(tekstSize[2]);
     fill(BLACK);
     text("A", main.tekstX+2, main.navTextY+generalTextOffset);
@@ -228,15 +264,19 @@ class Upgrades {
     if (room=="upgrades") {
       if (inputsPressed(keyDown) && perchSelectY == perchUp) {
         perchSelectY = perchDown;
+        Ding.play();
       }
       if (inputsPressed(keyUp) && perchSelectY == perchDown) {
         perchSelectY = perchUp;
+        Ding.play();
       }
       if (inputsPressed(keyRight) && perchSelectX == perchLeft) {
         perchSelectX = perchRight;
+        Ding.play();
       }
       if (inputsPressed(keyLeft) && perchSelectX == perchRight) {
         perchSelectX = perchLeft;
+        Ding.play();
       }
       // ff quick coin cheat
       if (keyPressed && key == '=') {
@@ -249,6 +289,7 @@ class Upgrades {
           coins -= doubleJumpPrice;
           jumpUpgradeState = 1;
           player.maxJumpAmount = jumpUpgradeState;
+          SpeedUp.play();
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
           textAlign(CENTER);
           fill(BLACK);
@@ -272,6 +313,7 @@ class Upgrades {
           fill(BLACK);
           text("DASH CHARGES INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
+          SpeedUp.play();
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
           textAlign(CENTER);
           fill(BLACK);
@@ -297,6 +339,7 @@ class Upgrades {
           fill(BLACK);
           text("HEALTH INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
+          SpeedUp.play();
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
           textAlign(CENTER);
           fill(BLACK);
@@ -320,6 +363,7 @@ class Upgrades {
           fill(BLACK);
           text("COIN VALUE INCREASED", width/2, height/2);
           textAlign(LEFT, CENTER);
+          SpeedUp.play();
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
           textAlign(CENTER);
           fill(BLACK);
@@ -336,6 +380,7 @@ class Upgrades {
         fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
+        doubleJumpPrice = 1337;
       }
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState == perch.length -1 ) {
         textAlign(CENTER);
@@ -344,6 +389,7 @@ class Upgrades {
         fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
+        dashPrice = 1337;
       }
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState == perch.length -1 ) {
         textAlign(CENTER);
@@ -352,6 +398,7 @@ class Upgrades {
         fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
+        healthPrice = 1337;
       }
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
         textAlign(CENTER);
@@ -360,6 +407,7 @@ class Upgrades {
         fill(BLACK);
         text(upgradeMaxText, width/2, height/2);
         textAlign(LEFT, CENTER);
+        coinPrice=1337;
       }
     }
     /*  if (perchTLState == 3 && perchTRState == 3 && perchBLState == 3 && perchBRState == 3) {
@@ -458,6 +506,7 @@ class DIF {
     if (select1 == highlight&&inputsPressed(keyDown)) {
       select1 = GREY;
       select2 = highlight;
+      Ding.play();
     }
     if (select2 == highlight) {
       tekstSize[1]= textBig;
@@ -466,6 +515,7 @@ class DIF {
     if (select2 == highlight&&inputsPressed(keyUp)) {
       select2 = GREY;
       select1 = highlight;
+      Ding.play();
     }//q om terug te gaan
     if (inputsPressed(keyQ)) {
       room= "mainM";
@@ -538,24 +588,28 @@ class Selection {
     }
     //Selection
     if (inputsPressed(LEFT)) {
+      Ding.play();
       xSelected--;
       if (xSelected < 0) {
         xSelected = options.length-1;
       }
     }
     if (inputsPressed(RIGHT)) {
+      Ding.play();
       xSelected++;
       if (xSelected >= options.length) {
         xSelected = 0;
       }
     }
     if (inputsPressed(UP) || (holdKeyTime > 20 && inputs.hasValue(UP) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
+      Ding.play();
       ySelected[xSelected]--;
       if (ySelected[xSelected] < 0) {
         ySelected[xSelected] = options[0].length-1;
       }
     }
     if (inputsPressed(DOWN) || (holdKeyTime > 20 && inputs.hasValue(DOWN) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
+      Ding.play();
       ySelected[xSelected]++;
       if (ySelected[xSelected] >= options[0].length) {
         ySelected[xSelected] = 0;
