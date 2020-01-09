@@ -146,6 +146,12 @@ class MainM {
       tekstSize[3]= textBig;
     }
     //Down in het menu
+    if (select1 == highlight&&inputsPressed(keyUp) ) {
+      Ding.play();
+      select1 = GREY;
+      select2 = GREY;
+      select3 = highlight;
+    }
     if (select1 == highlight&&inputsPressed(keyDown) ) {
       Ding.play();
       select1 = GREY;
@@ -171,7 +177,12 @@ class MainM {
       select2 = highlight;
       select3 = GREY;
     }
-
+    if (select3 == highlight&&inputsPressed(keyDown) ) {
+      Ding.play();
+      select1 = highlight;
+      select2 = GREY;
+      select3 = GREY;
+    }
     // spatie om naar andere rooms te gaan
     if (select1==highlight&&room == "mainM" && inputsPressed(keySpace) ) {
       room = "difficulty";

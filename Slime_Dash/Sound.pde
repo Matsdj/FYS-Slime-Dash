@@ -129,25 +129,6 @@ void soundUpdate() {
       Dede.play();
     }
   }
-  //interface selectie geluiden
- /* if (inputs.hasValue(DOWN)==true && main.highlight==main.select1 && room=="mainM") {
-    Ding.play();
-  }
-  if (inputs.hasValue(UP)==true && main.highlight==main.select2 && room=="mainM") {
-    Ding.play();
-  }    
-  if (inputs.hasValue(DOWN)==true && main.highlight==main.select2 && room=="mainM") {
-    Ding.play();
-  }  
-  if (inputs.hasValue(UP)==true && main.highlight==main.select3 && room=="mainM") {
-    Ding.play();
-  }
-  if (inputs.hasValue(DOWN)==true && dif.highlight==dif.select1 && room=="difficulty") {
-    Ding.play();
-  }
-  if (inputs.hasValue(UP)==true && dif.highlight==dif.select2 && room=="difficulty") {
-    Ding.play();
-  }*/
   if (room =="game") {
     //march geluid bij startup en wanneer de horde groter wordt
     if (time ==0 &&hordeMarch.isPlaying() == false&&march[0] ==true) {
