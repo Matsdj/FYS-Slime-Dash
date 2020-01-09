@@ -68,6 +68,12 @@ void setup() {
   if (dataFile("lastUser.txt").isFile() == true) {
     loginOptions = append(loginOptions, "Load last User");
     lastUser = loadStrings("lastUser.txt");
+    String userNameWithoutSpaces = lastUser[0];
+    //While loop to remove spaces at the end of the String
+    while(userNameWithoutSpaces.charAt(userNameWithoutSpaces.length()-1) == ' '){
+      userNameWithoutSpaces = userNameWithoutSpaces.substring(0,userNameWithoutSpaces.length()-1);
+    }
+    loginOptions = append(loginOptions, "Load: "+userNameWithoutSpaces);
   }
   String[][] askIfLoginOptions = {loginOptions};
   askIfLogin = new Selection(askIfLoginOptions, width/2, height/2);
