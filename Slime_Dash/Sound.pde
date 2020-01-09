@@ -81,7 +81,7 @@ void soundUpdate() {
   }
   //hoofdmenu muziek
   if (Hoofdmenu.isPlaying() == false) {
-    if (room == "mainM") {
+    if (room == "mainM" || room == "start" || room == "login" || room == "password") {
       Hoofdmenu.play();
       GameSlow.stop();
       GameMid.stop();

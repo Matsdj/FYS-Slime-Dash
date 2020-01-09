@@ -542,24 +542,32 @@ class Selection {
       if (xSelected < 0) {
         xSelected = options.length-1;
       }
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
     }
     if (inputsPressed(RIGHT)) {
       xSelected++;
       if (xSelected >= options.length) {
         xSelected = 0;
       }
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
     }
     if (inputsPressed(UP) || (holdKeyTime > 20 && inputs.hasValue(UP) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
       ySelected[xSelected]--;
       if (ySelected[xSelected] < 0) {
         ySelected[xSelected] = options[0].length-1;
       }
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
     }
     if (inputsPressed(DOWN) || (holdKeyTime > 20 && inputs.hasValue(DOWN) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
       ySelected[xSelected]++;
       if (ySelected[xSelected] >= options[0].length) {
         ySelected[xSelected] = 0;
       }
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
     }
     //Drawing Selection
     textAlign(CENTER, CENTER);
