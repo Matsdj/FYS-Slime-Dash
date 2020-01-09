@@ -122,6 +122,7 @@ class HostileMelee {
       }
       killCount++;
       dead = true;
+      interfaces.score += ENEMYSCORE;
       createParticle(x+size/2, y+size/2, size, 10, color(255, 0, 0), 0, 2, 50, true, 60, "", 100);
       speedModifier = 0.001;
       shake(globalScale/2);
