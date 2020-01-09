@@ -206,6 +206,10 @@ class Player {
 
       //checks input if the player goes left or right
       //the speed multiplier makes the player go increasingly faster, until max movement speed is reached
+      if (inputsPressed.hasValue(LEFT) == true || inputsPressed.hasValue(RIGHT) == true) {
+        moveSpeed = MOVESPEED;
+      }
+
       if (inputs.hasValue(LEFT) == true) {
         moveLeft = true;
         moving = true;
