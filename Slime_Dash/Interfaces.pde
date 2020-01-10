@@ -76,7 +76,7 @@ class Pause {
     text("Score "+ floor(interfaces.score), pauseTxtX, height/2);
     text("Coins "+ floor(coins), pauseTxtX, height/1.6);
     //NAVIGATION
-        Navigation("A","Continue",color(255,255,0),"B","Main Menu",color(255,0,0));
+        Navigation(main.tekstX,"A","Continue",color(255,255,0),"B","Main Menu",color(255,0,0));
   }
 }
 
@@ -193,7 +193,7 @@ class MainM {
     textSize(tekstSize[3]);
     text("Highscores", tekstX, tekstY*2);
     //NAVIGATION
-    Navigation("A","Select",color(255,255,0),"","",0);
+    Navigation(main.tekstX,"A","Select",color(255,255,0),"","",0);
     image(slimeDash, width/4+shake, height/100, width/3, height/3);
   }
 }
@@ -428,7 +428,7 @@ class Upgrades {
     image(perchBR, perchRight, perchDown, perchW, perchH);
     text("Coin Value : "+perchBRState, perchRight+xOffset, perchDown-yOffset/4);
     text(coinPrice, perchRight+xOffset, perchDown+yOffset);
-    Navigation("A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+    Navigation(main.tekstX,"A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
     text(floor(coins), width - 100, 50);
     stroke(BLACK);
     fill(YELLOW);
@@ -507,7 +507,7 @@ class DIF {
     fill(select2);
     text("Tutorial Mode", tekstX, tekstY*1.5);
     textSize(tekstSize[2]);
-    Navigation("A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+    Navigation(main.tekstX,"A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
   }
 }
 //Mats
@@ -614,7 +614,7 @@ class Selection {
         }
       }
     }
-    Navigation("A","Select",color(255,255,0),"B","Back",color(255,0,0));
+    Navigation(main.tekstX,"A","Select",color(255,255,0),"B","Back",color(255,0,0));
     stroke(BLACK);
     fill(WHITE);
   }
@@ -639,27 +639,27 @@ class Selection {
   }
 }
 
-void Navigation(String NavLeftButton, String NavLeftdescription, color buttonColorLeft, String NavRightButton, String NavRightDescription, color buttonColorRight) {
+void Navigation(float posLeft, String NavLeftButton, String NavLeftdescription, color buttonColorLeft,String NavRightButton, String NavRightDescription, color buttonColorRight) {
   //navigatieknoppen met een soort "text stroke" effect
   textAlign(CORNER);
   textSize(main.tekstSize[2]);
   //press A voor select
   fill(BLACK);
-  text(NavLeftButton, main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
-  text(NavLeftButton, main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
+  text(NavLeftButton, posLeft+generalTextOffset, main.navTextY+generalTextOffset);
+  text(NavLeftButton, posLeft-generalTextOffset, main.navTextY-generalTextOffset);
   fill(buttonColorLeft);
-  text(NavLeftButton, main.tekstX, main.navTextY);
-  text("  " +NavLeftdescription, main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
-  text("  " +NavLeftdescription, main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
+  text(NavLeftButton, posLeft, main.navTextY);
+  text("  " +NavLeftdescription, posLeft+generalTextOffset, main.navTextY+generalTextOffset);
+  text("  " +NavLeftdescription, posLeft-generalTextOffset, main.navTextY-generalTextOffset);
   //press B voor back
   fill(BLACK);
-  text(NavRightButton, main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
-  text(NavRightButton, main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
-  text("  " +NavLeftdescription, main.tekstX, main.navTextY);
+  text(NavRightButton, posLeft*2+generalTextOffset, main.navTextY+generalTextOffset);
+  text(NavRightButton, posLeft*2-generalTextOffset, main.navTextY-generalTextOffset);
+  text("  " +NavLeftdescription, posLeft, main.navTextY);
   fill(buttonColorRight);
-  text(NavRightButton, main.tekstX*2, main.navTextY);
-  text("  "+NavRightDescription, main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
-  text("  "+NavRightDescription, main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
+  text(NavRightButton, posLeft*2, main.navTextY);
+  text("  "+NavRightDescription, posLeft*2+generalTextOffset, main.navTextY+generalTextOffset);
+  text("  "+NavRightDescription, posLeft*2-generalTextOffset, main.navTextY-generalTextOffset);
   fill(BLACK);
-  text("  "+NavRightDescription, main.tekstX*2, main.navTextY);
+  text("  "+NavRightDescription, posLeft*2, main.navTextY);
 }

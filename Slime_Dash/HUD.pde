@@ -5,6 +5,7 @@ final color BLACK = color(0);
 final color WHITE = color(255);
 final color GREY = color(180);
 float HighscoreOffline = 0;
+
 void interfacesSetup() {
   interfaces = new HUD();
 }
@@ -95,22 +96,22 @@ class HUD {
     if (health==69) {
       createParticle(healthBarX, scoreY, 0, 15, color(WHITE), color(WHITE), 1, 0, false, 30, "NICE ;)", 1);
     }
+    //als de player damage cooldown heeft wordt de healthbar donkerrood
     if (player.dmgCooldown >=0) {
       healthC = color(150, 0, 0);
     } else {
       healthC = color(RED);
     }
-    /*wanneer enemy collision heeft met player dan damage*/
+    /*wanneer enemy collision heeft met player dan damage, geluid en particles*/
     if (player.enemyDamage==true&& death==false) {
       /*verander deze om enemy damage aan te passen*/
-      //healthMult is voor de damageREDuction als je een upgrade koopt
+      //healthMult is voor de damagereduction als je de healthupgrade koopt
       if (meleeDamage==true) {
         meleeDmg.play();
         health = health-(MELEE_DAMAGE*healthMult);
         createParticle(player.x, player.y, 0, 10, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(MELEE_DAMAGE*healthMult), 1);
         meleeDamage=false;
       }
-      // health = health-(MagicBarricadeDMG*healthMult);
       if ( arrowDamage==true) {
         arrowHit.play();
         health = health-(ARROW_DAMAGE*healthMult);
@@ -134,6 +135,7 @@ class HUD {
     }
 
     //dash bar
+    //particles wanneer een dashcharge is geladen
     if (charge1==true) {
       createParticle(healthBarLength*0.25, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }
@@ -143,6 +145,7 @@ class HUD {
     if (charge3==true) {
       createParticle(healthBarLength*0.75, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
     }
+    //dashcharges worden hier gemaakt
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
 
       dashL = healthBarLength*0.25;
@@ -179,7 +182,7 @@ class HUD {
     if (health <= NO_HEALTH) {
       getHighscore =true;
       death = true;
-      health = 0;
+      health = NO_HEALTH;
     }
     if (Highscore!= 0) {
       getHighscore =false;
@@ -207,7 +210,7 @@ class HUD {
         march[1]= true;
         march[2]= true;
         march[3]= true;
-      }
+      }//death in de tutorial?
       if (inputsPressed(keyB)==true && room=="game2") {
         death = false;
         Dede.stop();
@@ -215,28 +218,25 @@ class HUD {
         room = "game2";
         march[0] = false;
       }
-    }
-  }
-  void draw() {
-    //tutorial
+    }    //tutorial
     //if statement voor tutorial mode plaatjes
     if (room=="game2") {
       fill(circleColor);
       ellipseMode(RADIUS);
       stroke(BLACK);
       strokeWeight(5);
-      textSize(50);
+      textSize(main.tekstSize[1]);
       tint(155);
       imageMode(CENTER);
       //tutorial plaatjes en button
-      //jump
+      //jump tutorial
       if (traveledDistance >0 && traveledDistance <5) {
         tutText = "B";
         ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
         fill(BLACK);
         text(tutText, player.x-(globalScale*2), player.y-100);
         image(playerSprite[4], player.x, player.y-120);
-      } //dash
+      } //dash tutorial
       else if (traveledDistance >5 &&traveledDistance <22) {
         circleColor = color(RED);
         tutText = "A";
@@ -244,7 +244,7 @@ class HUD {
         fill(BLACK);
         text(tutText, player.x-(globalScale*2), player.y-100);
         image(playerSprite[5], player.x, player.y-120);
-      } //dash door enemy
+      } //dash door enemy tutorial
       else if (traveledDistance >25 && traveledDistance <55) {
         circleColor = color(RED);
         tutText = "A";
@@ -254,7 +254,7 @@ class HUD {
         image(playerSprite[5], player.x, player.y-120);
         image(enemySprite[0], player.x+globalScale, player.y-120);
         image(enemyDeathSprite, player.x+globalScale*2, player.y-120);
-      } //dash voor vuur uit
+      } //dash voor vuur uit tutorial
       else if (traveledDistance >90 && traveledDistance <133) {
         circleColor = color(RED);
         tutText = "A";
@@ -269,6 +269,8 @@ class HUD {
     }
     imageMode(CORNER);
     tint(WHITE);
+  }
+  void draw() {
     //healthbar
     /*healthbar backdrop*/
     fill(BLACK, 50);
