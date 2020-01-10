@@ -76,27 +76,7 @@ class Pause {
     text("Score "+ floor(interfaces.score), pauseTxtX, height/2);
     text("Coins "+ floor(coins), pauseTxtX, height/1.6);
     //NAVIGATION
-    textSize(main.tekstSize[2]);
-    textAlign(LEFT);
-    fill(BLACK);
-    text("A", main.tekstX+2, main.navTextY+generalTextOffset);
-    text("A", main.tekstX-2, main.navTextY-generalTextOffset);
-    fill(RED);
-    text("A", main.tekstX, main.navTextY);
-    text("  " +"Continue", main.tekstX+2, main.navTextY+generalTextOffset);
-    text("  " +"Continue", main.tekstX-2, main.navTextY-generalTextOffset);
-    fill(BLACK);
-    text("  " +"Continue", main.tekstX, main.navTextY);
-    //YELLOW back
-    fill(BLACK);
-    text("B", main.tekstX*2+2, main.navTextY+generalTextOffset);
-    text("B", main.tekstX*2-2, main.navTextY-generalTextOffset);
-    fill(YELLOW);
-    text("B", main.tekstX*2, main.navTextY);
-    text("  "+"Menu", main.tekstX*2+2, main.navTextY+generalTextOffset);
-    text("  "+"Menu", main.tekstX*2-2, main.navTextY-generalTextOffset);
-    fill(BLACK);
-    text("  "+"Menu", main.tekstX*2, main.navTextY);
+        Navigation("A","Continue",color(255,255,0),"B","Main Menu",color(255,0,0));
   }
 }
 
@@ -203,7 +183,6 @@ class MainM {
   void draw() {
     //text
     textAlign(LEFT, CENTER);
-    textSize(tekstSize[2]/2);
     textSize(tekstSize[0]);
     fill(select1);
     text("Play", tekstX, tekstY);
@@ -213,16 +192,8 @@ class MainM {
     fill(select3);
     textSize(tekstSize[3]);
     text("Highscores", tekstX, tekstY*2);
-    textSize(tekstSize[2]);
-    fill(BLACK);
-    text("A", main.tekstX+2, main.navTextY+generalTextOffset);
-    text("A", main.tekstX-2, main.navTextY-generalTextOffset);
-    fill(RED);
-    text("A", main.tekstX, main.navTextY);
-    text("  " +"Select", main.tekstX-2, main.navTextY-generalTextOffset);
-    text("  " +"Select", main.tekstX+2, main.navTextY+generalTextOffset);
-    fill(BLACK);
-    text("  " +"Select", main.tekstX, main.navTextY);
+    //NAVIGATION
+    Navigation("A","Select",color(255,255,0),"","",0);
     image(slimeDash, width/4+shake, height/100, width/3, height/3);
   }
 }
@@ -457,24 +428,7 @@ class Upgrades {
     image(perchBR, perchRight, perchDown, perchW, perchH);
     text("Coin Value : "+perchBRState, perchRight+xOffset, perchDown-yOffset/4);
     text(coinPrice, perchRight+xOffset, perchDown+yOffset);
-    textSize(main.tekstSize[2]);
-    fill(BLACK);
-    text("A", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
-    text("A", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
-    fill(RED);
-    text("A", main.tekstX, main.navTextY);
-    text("  " +"Select", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
-    text("  " +"Select", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
-    fill(BLACK);
-    text("B", main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
-    text("B", main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
-    text("  " +"Select", main.tekstX, main.navTextY);
-    fill(YELLOW);
-    text("B", main.tekstX*2, main.navTextY);
-    text("  "+"Back", main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
-    text("  "+"Back", main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
-    fill(BLACK);
-    text("  "+"Back", main.tekstX*2, main.navTextY);
+    Navigation("A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
     text(floor(coins), width - 100, 50);
     stroke(BLACK);
     fill(YELLOW);
@@ -546,7 +500,6 @@ class DIF {
   void draw() {
     //text
     textAlign(LEFT, CENTER);
-    textSize(tekstSize[2]/2);
     textSize(tekstSize[0]);
     fill(select1);
     text("Normal Mode", tekstX, tekstY);
@@ -554,38 +507,18 @@ class DIF {
     fill(select2);
     text("Tutorial Mode", tekstX, tekstY*1.5);
     textSize(tekstSize[2]);
-    //NAVIGATION
-    //A=select
-    fill(BLACK);
-    text("A", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
-    text("A", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
-    fill(RED);
-    text("A", main.tekstX, main.tekstY*2.8);
-    text("  " +"Select", main.tekstX-2, main.navTextY-generalTextOffset);
-    text("  " +"Select", main.tekstX+2, main.navTextY+generalTextOffset);
-    fill(BLACK);
-    text("  " +"Select", main.tekstX, main.navTextY);
-    //B=back
-    fill(BLACK);
-    text("B", tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
-    text("B", tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
-    fill(YELLOW);
-    text("B", tekstX*2, tekstY*2.8);
-    text("  "+"Back", tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
-    text("  "+"Back", tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
-    fill(BLACK);
-    text("  "+"Back", tekstX*2, main.navTextY);
+    Navigation("A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
   }
 }
 //Mats
-void startingOptions(){
-    String[] loginOptions = {"Login", "Create Account", "Offline"};
+void startingOptions() {
+  String[] loginOptions = {"Login", "Create Account", "Offline"};
   if (dataFile("lastUser.txt").isFile() == true) {
     lastUser = loadStrings("lastUser.txt");
     String userNameWithoutSpaces = lastUser[0];
     //While loop to remove spaces at the end of the String
-    while(userNameWithoutSpaces.charAt(userNameWithoutSpaces.length()-1) == ' '){
-      userNameWithoutSpaces = userNameWithoutSpaces.substring(0,userNameWithoutSpaces.length()-1);
+    while (userNameWithoutSpaces.charAt(userNameWithoutSpaces.length()-1) == ' ') {
+      userNameWithoutSpaces = userNameWithoutSpaces.substring(0, userNameWithoutSpaces.length()-1);
     }
     loginOptions = append(loginOptions, "Load: "+userNameWithoutSpaces);
   }
@@ -635,8 +568,6 @@ class Selection {
       if (xSelected < 0) {
         xSelected = options.length-1;
       }
-      if (Ding.isPlaying()) Ding.stop();
-      Ding.play();
     }
     if (inputsPressed(RIGHT)) {
       Ding.play();
@@ -644,8 +575,6 @@ class Selection {
       if (xSelected >= options.length) {
         xSelected = 0;
       }
-      if (Ding.isPlaying()) Ding.stop();
-      Ding.play();
     }
     if (inputsPressed(UP) || (holdKeyTime > 20 && inputs.hasValue(UP) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
       Ding.play();
@@ -653,8 +582,6 @@ class Selection {
       if (ySelected[xSelected] < 0) {
         ySelected[xSelected] = options[0].length-1;
       }
-      if (Ding.isPlaying()) Ding.stop();
-      Ding.play();
     }
     if (inputsPressed(DOWN) || (holdKeyTime > 20 && inputs.hasValue(DOWN) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
       Ding.play();
@@ -662,8 +589,6 @@ class Selection {
       if (ySelected[xSelected] >= options[0].length) {
         ySelected[xSelected] = 0;
       }
-      if (Ding.isPlaying()) Ding.stop();
-      Ding.play();
     }
     //Drawing Selection
     textAlign(CENTER, CENTER);
@@ -689,25 +614,7 @@ class Selection {
         }
       }
     }
-    textAlign(CORNER);
-    textSize(main.tekstSize[2]);
-    fill(BLACK);
-    text("A", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
-    text("A", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
-    fill(RED);
-    text("A", main.tekstX, main.navTextY);
-    text("  " +"Select", main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
-    text("  " +"Select", main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
-    fill(BLACK);
-    text("B", main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
-    text("B", main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
-    text("  " +"Select", main.tekstX, main.navTextY);
-    fill(YELLOW);
-    text("B", main.tekstX*2, main.navTextY);
-    text("  "+"Back", main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
-    text("  "+"Back", main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
-    fill(BLACK);
-    text("  "+"Back", main.tekstX*2, main.navTextY);
+    Navigation("A","Select",color(255,255,0),"B","Back",color(255,0,0));
     stroke(BLACK);
     fill(WHITE);
   }
@@ -730,4 +637,29 @@ class Selection {
     }
     return 0;
   }
+}
+
+void Navigation(String NavLeftButton, String NavLeftdescription, color buttonColorLeft, String NavRightButton, String NavRightDescription, color buttonColorRight) {
+  //navigatieknoppen met een soort "text stroke" effect
+  textAlign(CORNER);
+  textSize(main.tekstSize[2]);
+  //press A voor select
+  fill(BLACK);
+  text(NavLeftButton, main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
+  text(NavLeftButton, main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
+  fill(buttonColorLeft);
+  text(NavLeftButton, main.tekstX, main.navTextY);
+  text("  " +NavLeftdescription, main.tekstX+generalTextOffset, main.navTextY+generalTextOffset);
+  text("  " +NavLeftdescription, main.tekstX-generalTextOffset, main.navTextY-generalTextOffset);
+  //press B voor back
+  fill(BLACK);
+  text(NavRightButton, main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
+  text(NavRightButton, main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
+  text("  " +NavLeftdescription, main.tekstX, main.navTextY);
+  fill(buttonColorRight);
+  text(NavRightButton, main.tekstX*2, main.navTextY);
+  text("  "+NavRightDescription, main.tekstX*2+generalTextOffset, main.navTextY+generalTextOffset);
+  text("  "+NavRightDescription, main.tekstX*2-generalTextOffset, main.navTextY-generalTextOffset);
+  fill(BLACK);
+  text("  "+NavRightDescription, main.tekstX*2, main.navTextY);
 }
