@@ -12,8 +12,6 @@ class Block {
     x = enteredValueX;
     y = enteredValueY;
     size = globalScale;
-    blockCenterX = x+size/2;
-    blockCenterY = y+size/2;
     c = enteredValueC;
     moving = enteredValueMoving;
     vx = speed;
@@ -38,6 +36,8 @@ class Block {
     active = false;
   }
   void update() {
+    blockCenterX = x+size/2;
+    blockCenterY = y+size/2;
     if (x < width) {
       if (cracked) {
         //Cracked break under player
@@ -83,7 +83,7 @@ class Block {
   void draw() {
     if (x < width && c != ALLOW_VERTICAL_MOVEMENT) {
       if (c == DIRT) {
-        if (blockCollision(blockCenterX, blockCenterY, 1, id) == null) {
+        if (blockCollision(blockCenterX, blockCenterY-size, 1, id) == null) {
           sprite = grassSprite;
         } else {
           sprite = dirtSprite;
@@ -102,9 +102,9 @@ class Block {
     for (float backgroundY = y+size*1.5; ((blockCollision(blockCenterX, backgroundY, hitbox, id) == null || blockCollision(blockCenterX, backgroundY, hitbox, id).moving || blockCollision(blockCenterX, backgroundY, hitbox, id).cracked) && backgroundY < height); backgroundY+= globalScale) {
       tint(100);
       if (sprite == grassSprite) {
-        image(dirtSprite, x+shake, backgroundY);
+        image(dirtSprite, x+shake, backgroundY-size/2);
       } else
-        image(sprite, x+shake, backgroundY);
+        image(sprite, x+shake, backgroundY-size/2);
       tint(255);
       backgroundBlocks +=1;
     }
