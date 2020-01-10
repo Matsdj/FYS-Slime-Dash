@@ -8,9 +8,9 @@ void playerSetup() {
 
 Player player;
 class Player {
-  float size, x, y, hitX, hitY, hitSize, hitboxRatio, moveSpeed, vx, vy, 
-    dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, parSize, 
-    parGrav, parSpeed, jumpedHeight, spriteWidth, spriteHeight, xTween, yTween, blobEffect;
+  float size, x, y, hitX, hitY, hitSize, moveSpeed, vx, vy, 
+    dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, 
+    jumpedHeight, spriteWidth, spriteHeight, xTween, yTween, blobEffect;
 
   int dashCooldown, dashCooldownMax, maxJumpAmount, dmgCooldown, keyUp, frameCounter, deathFramerate, jumpedAmount, crownFade;
   boolean moving, dashActive, enemyDamage, moveLeft, dmgBlink, smashedGround, onGround;
@@ -21,34 +21,47 @@ class Player {
   final int DASH_COOLDOWN_START = DASH_COOLDOWN_CHARGE;
   final float DAMAGED_SHAKE_DIAMETER = globalScale/5;
 
-  final int DASH_TIME = 8;
-  final int DMG_COOLDOWN = 30;
-  final int ANIMATION_FRAMERATE = 10;
-  final int PLAYER_WALK_FRAME_AMOUNT = 4;
-  final int PLAYER_DEATH_FRAME_MAX = 10;
-  final int DMG_BLINK_FRAMERATE = 6;
-  final int CROWN_FADE_STANDARD = 255;
-  final int CROWN_FADE_SPEED = 3;
+  final int DASH_TIME = 8, 
+    DMG_COOLDOWN = 30, 
+    ANIMATION_FRAMERATE = 10, 
+    PLAYER_WALK_FRAME_AMOUNT = 4, 
+    PLAYER_DEATH_FRAME_MAX = 10, 
+    DMG_BLINK_FRAMERATE = 6, 
+    CROWN_FADE_STANDARD = 255, 
+    CROWN_FADE_SPEED = 3, 
+    PAR_LIFE = 60; //Amount of frames fall particles live
 
-  final float JUMPSPEED = globalScale/3.5; //jump force
-  final float MAX_JUMP_HEIGHT = globalScale * 3;
-  final float DASHSPEED = globalScale/1.6; //dash speed
-  final float MOVESPEED = globalScale/80; //starting speed
-  final float SPEEDMULT = 1.2;
-  final float SPEEDSLOWDOWN = 0.85; //slowdown rate on normal ground
-  final float ICESLOWDOWN = 0.98; //this is the slowdown of the player if he walks on ice
-  final float MAXMOVESPEED = globalScale/8; //max player walking speed
-  final float GRAVITY = globalScale/42; //speed at witch player falls
-  final float MAX_VY = globalScale/2;
+
+  final float PLAYER_SIZE = globalScale-1, 
+    HITBOX_RATIO = 4, //size of the hitbox is defined by this 
+    JUMPSPEED = globalScale/3.5, //jump force
+    MAX_JUMP_HEIGHT = globalScale * 3, 
+    DASHSPEED = globalScale/1.6, //dash speed
+    MOVESPEED = globalScale/80, //starting speed
+    SPEEDMULT = 1.2, 
+    SPEEDSLOWDOWN = 0.85, //slowdown rate on normal ground
+    ICESLOWDOWN = 0.98, //this is the slowdown of the player if he walks on ice
+    MAXMOVESPEED = globalScale/8, //max player walking speed
+    GRAVITY = globalScale/42, //speed at witch player falls
+    MAX_VY = globalScale/2, 
+    X_SPAWN = globalScale * 4, //spawn coords
+    Y_SPAWN = globalScale * 2, 
+    PAR_SIZE = globalScale / 7, //particle finals
+    PAR_GRAV = globalScale/256, 
+    PAR_SPEED = globalScale/18, 
+    PAR_AMOUNT = 3; //amount of particles is vy/PAR_AMOUNT
+
+  final color PAR_COLOR_ONE = color(#FF9455), 
+    PAR_COLOR_TWO = color(#FF5555);
+
 
   Player() {
     jumpedHeight = -MAX_JUMP_HEIGHT;
     deathFramerate = 0;
-    size = globalScale-1;
-    x = globalScale * 4; //spawn cords
-    y = globalScale * 2;
-    hitboxRatio = 4;  //size of the hitbox is defined by this
-    hitSize = size - size/hitboxRatio;
+    size = PLAYER_SIZE;
+    x = X_SPAWN; //spawn cords
+    y = Y_SPAWN;
+    hitSize = size - size/HITBOX_RATIO;
     moveSpeed = MOVESPEED;
     slowDown = SPEEDSLOWDOWN;
     vx = 0;
@@ -64,9 +77,6 @@ class Player {
     maxJumpAmount = jumpUpgradeState; // +1 jumpUpgradeState to activate dubble jump;
     jumpedAmount = 0;
     smashedGround = false;
-    parSize = globalScale / 7;
-    parGrav = globalScale/256;
-    parSpeed = globalScale/18;
     xTween = 0;
     yTween = 0;
     blobEffect = 0;
@@ -89,7 +99,7 @@ class Player {
       }
     } else dmgBlink = true;
 
-    //death animatie
+    //death animation
     if (interfaces.death) {
       deathFramerate++;
       if (deathFramerate % ANIMATION_FRAMERATE==0 && frameCounter != PLAYER_DEATH_FRAME_MAX-1) {
@@ -122,7 +132,7 @@ class Player {
       frameCounter = 4;
     }
 
-    //walking animatie
+    //walking animation
     else if (moving && inputs.hasValue(LEFT) == true || inputs.hasValue(RIGHT) == true) {
       if (frameCount % ANIMATION_FRAMERATE == 0) {
         frameCounter++;
@@ -204,8 +214,9 @@ class Player {
     ////////Movement//////////////////////////
     if (!interfaces.death) {
 
-      //checks input if the player goes left or right
-      //the speed multiplier makes the player go increasingly faster, until max movement speed is reached
+      /*checks input if the player goes left or right
+       the speed multiplier makes the player go increasingly faster, until max movement speed is reached*/
+
       if (inputsPressed.hasValue(LEFT) == true || inputsPressed.hasValue(RIGHT) == true) {
         moveSpeed = MOVESPEED;
       }
@@ -242,7 +253,8 @@ class Player {
         vx = -MAXMOVESPEED;
       }
 
-      //jump mechanics
+      //jump mechanics, when the jumping key is pressed the player will go up. It will then count how high it goes, until a certain height is hit.
+      //This gives the player the ability to control how high they jump
       if (jumpedHeight > -MAX_JUMP_HEIGHT && keyUp == 1) {
         vy = keyUp * -JUMPSPEED;
         jumpedHeight += vy;
@@ -253,7 +265,8 @@ class Player {
         jumpedHeight = -MAX_JUMP_HEIGHT;
       }
 
-      //Dash abilty////////////////
+      //Dash abilty/////////////////////////
+
       if (inputsPressed(keyZ) == true && dashCooldown >= DASH_COOLDOWN_CHARGE || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
           DashSlime.rate(random(0.8, 1.2));
@@ -297,7 +310,7 @@ class Player {
     //when theres collision going to happen next frame, the player will be placed next to the block because of the while statement
     if (blockCollision(x+vx, y, size) != null) {
       while (blockCollision(x+sign(vx), y, size) == null) {
-        x += sign(vx);
+        x += sign(vx); //executed until the player is right next too a block
       }
       if (dashActive) {
         shake(globalScale/3);
@@ -334,7 +347,7 @@ class Player {
       //ground smash effect
       if (onGround && smashedGround) {
         smashedGround = false;
-        createParticle(x+size/2, y+size/2, size, parSize, color(#FF9455), color(#FF5555), parGrav, parSpeed, true, 60, "", vy/3);
+        createParticle(x+size/2, y+size/2, size, PAR_SIZE, PAR_COLOR_ONE, PAR_COLOR_TWO, PAR_GRAV, PAR_SPEED, true, PAR_LIFE, "", vy/PAR_AMOUNT);
       }
       vy = 0;
       slowDown = SPEEDSLOWDOWN;
@@ -371,8 +384,8 @@ class Player {
   //same method, only here the smaller hitbox is used for enemies and obstacles
   boolean hitboxCollision(float cX, float cY, float cWidth, float cHeight) {
     //hitbox follows the player. The size of the hitbox depends on the hitboxRatio
-    hitX = x + size/(hitboxRatio*2);
-    hitY = y + size/(hitboxRatio*2);
+    hitX = x + size/(HITBOX_RATIO*2);
+    hitY = y + size/(HITBOX_RATIO*2);
 
     if (hitX + hitSize >= cX && hitX <= cX + cWidth && hitY + hitSize >= cY && hitY <= cY + cHeight) {
       return true;
