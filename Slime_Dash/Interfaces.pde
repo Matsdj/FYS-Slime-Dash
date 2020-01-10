@@ -578,6 +578,37 @@ class DIF {
   }
 }
 //Mats
+void startingOptions(){
+    String[] loginOptions = {"Login", "Create Account", "Offline"};
+  if (dataFile("lastUser.txt").isFile() == true) {
+    lastUser = loadStrings("lastUser.txt");
+    String userNameWithoutSpaces = lastUser[0];
+    //While loop to remove spaces at the end of the String
+    while(userNameWithoutSpaces.charAt(userNameWithoutSpaces.length()-1) == ' '){
+      userNameWithoutSpaces = userNameWithoutSpaces.substring(0,userNameWithoutSpaces.length()-1);
+    }
+    loginOptions = append(loginOptions, "Load: "+userNameWithoutSpaces);
+  }
+  String[][] askIfLoginOptions = {loginOptions};
+  askIfLogin = new Selection(askIfLoginOptions, width/2, height/2);
+  String[] letters = {" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+  String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+  String[] characters = concat(letters, numbers);
+
+  //Creating Account name Selection
+  String[][] accountNameStrings = new String[10][letters.length];
+  for (int i = 0; i < accountNameStrings.length; i++) {
+    accountNameStrings[i] = letters;
+  }
+  accountName = new Selection(accountNameStrings, width/2, height/2);
+
+  //Creating Account password Selection
+  String[][] accountPasswordStrings = new String[10][characters.length];
+  for (int i = 0; i < accountPasswordStrings.length; i++) {
+    accountPasswordStrings[i] = characters;
+  }
+  accountPassword = new Selection(accountPasswordStrings, width/2, height/2);
+}
 class Selection {
   int xSelected = 0, centerX, centerY;
   int[] ySelected;

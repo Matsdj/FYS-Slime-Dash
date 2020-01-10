@@ -3,26 +3,24 @@ int activeBlocks = 0;
 int backgroundBlocks = 0;
 class Block {
   final float BREAK_TIME_MAX = 10;
-  float x, y, size, speed = globalScale/30, vx = 0, breakTime = BREAK_TIME_MAX;
+  float x, y, size, speed = globalScale/30, vx = 0, breakTime = BREAK_TIME_MAX, blockCenterX, blockCenterY;
   int id = -1;
   color c = BRICK;
   PImage sprite;
   boolean active = false, moving = false, cracked = false, enableVerticalMovement = false;
-  void blockSetup(float ix, float iy, color ic, boolean iMoving, boolean iCracked, boolean iAllowVertical) {
-    x = ix;
-    y = iy;
+  void blockSetup(float enteredValueX, float enteredValueY, color enteredValueC, boolean enteredValueMoving, boolean enteredValueCracked, boolean enteredValueAllowVertical) {
+    x = enteredValueX;
+    y = enteredValueY;
     size = globalScale;
-    c = ic;
-    moving = iMoving;
+    blockCenterX = x+size/2;
+    blockCenterY = y+size/2;
+    c = enteredValueC;
+    moving = enteredValueMoving;
     vx = speed;
     active = true;
-    cracked = iCracked;
-    /*
-    if (y < height-globalScale)
-     cracked = true;
-     */
+    cracked = enteredValueCracked;
     breakTime = BREAK_TIME_MAX;
-    enableVerticalMovement = iAllowVertical;
+    enableVerticalMovement = enteredValueAllowVertical;
     if (c == BRICK) {
       sprite = brickSprite;
     } else if (c == STONE) {
@@ -60,7 +58,7 @@ class Block {
           player.vy = 0;
         }
         if (active == false) {
-          createParticle(x+size/2, y+size/2, size, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
+          createParticle(blockCenterX, blockCenterY, size, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
         }
       }
       //Allow Vertical Movement
@@ -85,7 +83,7 @@ class Block {
   void draw() {
     if (x < width && c != ALLOW_VERTICAL_MOVEMENT) {
       if (c == DIRT) {
-        if (blockCollision(x+size/2, y-size/2, 1, id) == null) {
+        if (blockCollision(blockCenterX, blockCenterY, 1, id) == null) {
           sprite = grassSprite;
         } else {
           sprite = dirtSprite;
@@ -100,14 +98,13 @@ class Block {
     }
   }
   void drawBackgroundBlocks() {
-    float hitbox = 1, 
-      xScroll = x+size/2;
-    for (float i = y+globalScale; ((blockCollision(xScroll, i, hitbox, id) == null || blockCollision(xScroll, i, hitbox, id).moving || blockCollision(xScroll, i, hitbox, id).cracked) && i < height); i+= globalScale) {
+    float hitbox = 1;
+    for (float backgroundY = y+size*1.5; ((blockCollision(blockCenterX, backgroundY, hitbox, id) == null || blockCollision(blockCenterX, backgroundY, hitbox, id).moving || blockCollision(blockCenterX, backgroundY, hitbox, id).cracked) && backgroundY < height); backgroundY+= globalScale) {
       tint(100);
       if (sprite == grassSprite) {
-        image(dirtSprite, x+shake, i);
+        image(dirtSprite, x+shake, backgroundY);
       } else
-        image(sprite, x+shake, i);
+        image(sprite, x+shake, backgroundY);
       tint(255);
       backgroundBlocks +=1;
     }
@@ -198,7 +195,7 @@ void drawBackgroundBlocks() {
   backgroundBlocks = 0;
   //loopt door de lijst en tekent elk achtergrond block
   for (int i = 0; i<blocks.length; i++) {
-    if (blocks[i].active &! blocks[i].moving) {
+    if (blocks[i].active &! (blocks[i].moving || blocks[i].cracked)) {
       blocks[i].drawBackgroundBlocks();
     }
   }

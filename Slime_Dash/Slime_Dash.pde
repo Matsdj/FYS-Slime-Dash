@@ -62,85 +62,14 @@ void setup() {
   assetSetup();
   upgradeSetup();
   gameReset();
-  //particle system
-  //  ps = new ParticleSystem(new PVector(width/2, 50));
-  String[] loginOptions = {"Login", "Create Account", "Offline"};
-  if (dataFile("lastUser.txt").isFile() == true) {
-    loginOptions = append(loginOptions, "Load last User");
-    lastUser = loadStrings("lastUser.txt");
-    String userNameWithoutSpaces = lastUser[0];
-    //While loop to remove spaces at the end of the String
-    while(userNameWithoutSpaces.charAt(userNameWithoutSpaces.length()-1) == ' '){
-      userNameWithoutSpaces = userNameWithoutSpaces.substring(0,userNameWithoutSpaces.length()-1);
-    }
-    loginOptions = append(loginOptions, "Load: "+userNameWithoutSpaces);
-  }
-  String[][] askIfLoginOptions = {loginOptions};
-  askIfLogin = new Selection(askIfLoginOptions, width/2, height/2);
-  String[] letters = {" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-  String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-  String[] characters = concat(letters, numbers);
-
-  //Creating Account name Selection
-  String[][] accountNameStrings = new String[10][letters.length];
-  for (int i = 0; i < accountNameStrings.length; i++) {
-    accountNameStrings[i] = letters;
-  }
-  accountName = new Selection(accountNameStrings, width/2, height/2);
-
-  //Creating Account password Selection
-  String[][] accountPasswordStrings = new String[10][characters.length];
-  for (int i = 0; i < accountPasswordStrings.length; i++) {
-    accountPasswordStrings[i] = characters;
-  }
-  accountPassword = new Selection(accountPasswordStrings, width/2, height/2);
+  startingOptions();
 }
 //GAME
 void updateGame() {
   if (frameCount % frameRate == 0) {
     secondsPlayed ++; //increases every second
   }
-  if (speedModifier < 1) {
-    speedModifier += 0.01;
-  } else {
-    speedModifier = 1;
-  }
-  if (room != "game2") {
-    time += 1*speedModifier;
-  }
-  //ScrollSpeed
-  globalScrollSpeed = 1+time/100000*globalScale;
-  globalScrollSpeed = constrain(globalScrollSpeed, 0, MAX_SCROLL_SPEED);
-  playerCatchUp = player.DASHSPEED*(pow(player.x, 5)/pow(width*1.2, 5));
-  if (player.x > 0) {
-    globalScrollSpeed += playerCatchUp;
-  }
-  if (player.x > width-globalScale) {
-    globalScrollSpeed += player.vx;
-  }
-  //tutorial mode
-  if (room == "game2") {
-    float scrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
-    if (scrollSpeed > 0) {
-      globalScrollSpeed = scrollSpeed;
-    } else {
-      globalScrollSpeed = 0;
-    }
-  }
-  globalScrollSpeed *= speedModifier;
-  //Vertical Distance
-  globalVerticalSpeed = floor(globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3)));
-  if (globalVerticalSpeed > 0 && !allowVerticalMovement) {
-    globalVerticalSpeed = 0;
-  }
-  if (VerticalDistance + globalVerticalSpeed <= 0) {
-    globalVerticalSpeed = -VerticalDistance;
-  }
-  VerticalDistance += globalVerticalSpeed*speedModifier;
-  allowVerticalMovement = false;
-  globalVerticalSpeed *= speedModifier;
-  //input cooldown
-
+  UpdateGlobalSpeeds();
   //Adds Terrain
   mapUpdate();
   //Terrain Update
@@ -316,4 +245,46 @@ void draw() {
   }
   debug();
   inputsPressedUpdate();
+}
+
+void UpdateGlobalSpeeds() {
+  if (speedModifier < 1) {
+    speedModifier += 0.01;
+  } else {
+    speedModifier = 1;
+  }
+  if (room != "game2") {
+    time += 1*speedModifier;
+  }
+  //ScrollSpeed
+  globalScrollSpeed = 1+time/100000*globalScale;
+  globalScrollSpeed = constrain(globalScrollSpeed, 0, MAX_SCROLL_SPEED);
+  playerCatchUp = player.DASHSPEED*(pow(player.x, 5)/pow(width*1.2, 5));
+  if (player.x > 0) {
+    globalScrollSpeed += playerCatchUp;
+  }
+  if (player.x > width-globalScale) {
+    globalScrollSpeed += player.vx;
+  }
+  //tutorial mode
+  if (room == "game2") {
+    float scrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
+    if (scrollSpeed > 0) {
+      globalScrollSpeed = scrollSpeed;
+    } else {
+      globalScrollSpeed = 0;
+    }
+  }
+  globalScrollSpeed *= speedModifier;
+  //Vertical Distance
+  globalVerticalSpeed = floor(globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3)));
+  if (globalVerticalSpeed > 0 && !allowVerticalMovement) {
+    globalVerticalSpeed = 0;
+  }
+  if (VerticalDistance + globalVerticalSpeed <= 0) {
+    globalVerticalSpeed = -VerticalDistance;
+  }
+  VerticalDistance += globalVerticalSpeed*speedModifier;
+  allowVerticalMovement = false;
+  globalVerticalSpeed *= speedModifier;
 }
