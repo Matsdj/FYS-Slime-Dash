@@ -217,6 +217,8 @@ class HostileRanged {
     if (dead) {
       reset();
       interfaces.score += ENEMYSCORE;
+    } else if (x < 0 - globalScale *2) {
+      reset();
     }
     if (isActive) {
       for (int iArrow = 0; iArrow < ARROW_AMOUNT; iArrow++) {
