@@ -89,7 +89,7 @@ class PCoin {
     if (player.Collision(x - (0.5 * globalScale), y - (0.5 * globalScale), size)) {
       reset();
       coins += coinValue;
-      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(YELLOW), color(YELLOW), -0.5, 0, false, 30, "+"+coinValue, 1);
+      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(YELLOW), color(YELLOW), -0.5, 0, false, PARTICLE_LIFE_SHORT, "+"+coinValue, 1);
     }
 
     if (x < 0 - globalScale * 2) {
@@ -135,7 +135,7 @@ class PHealth {
     if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
       reset();
       interfaces.health += GAIN_HEALTH;
-      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(0,255,0), color(0,255,0), -0.5, 0, false, 30, "+"+GAIN_HEALTH, 1);
+      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(0,255,0), color(0,255,0), -0.5, 0, false, PARTICLE_LIFE_SHORT, "+"+GAIN_HEALTH, 1);
     }
 
     if (x < 0 - globalScale * 2) {

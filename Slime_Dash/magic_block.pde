@@ -96,7 +96,7 @@ class Magic1 {
       player.enemyDamage=true;
       player.dmgCooldown = player.DMG_COOLDOWN;
       interfaces.health = interfaces.health - MagicBarricadeDMG;
-      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), 0, 0, false, 30, "-"+floor(MagicBarricadeDMG), 1);
+      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), 0, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(MagicBarricadeDMG), 1);
       shake(player.DAMAGED_SHAKE_DIAMETER);
     }
     x -= globalScrollSpeed;
@@ -239,7 +239,7 @@ class Magic2 {
 
 void magicSwitchSetup()
 {
-
+  switchA = false;
   magicSwitchs = new MagicSwitch[100];
 }
 void magicSwitchUpdate() {

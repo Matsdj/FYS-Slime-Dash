@@ -1,8 +1,12 @@
 //Mats
 int activeBlocks = 0;
 int backgroundBlocks = 0;
+final color CRACKED_BLOCK_PARTICLE_COLOR_LIGHT = color(100);
+final color CRACKED_BLOCK_PARTICLE_COLOR_DARK = color(200);
 class Block {
-  final float BREAK_TIME_MAX = 10;
+  final int BREAK_TIME_MAX = 10, 
+    BREAK_PARTICLE_COUNT = 100;
+
   float x, y, size, speed = globalScale/30, vx = 0, breakTime = BREAK_TIME_MAX, blockCenterX, blockCenterY;
   int id = -1;
   color c = BRICK;
@@ -60,7 +64,7 @@ class Block {
           Thud.play();
         }
         if (active == false) {
-          createParticle(blockCenterX, blockCenterY, size, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
+          createParticle(blockCenterX, blockCenterY, size, PARTICLE_SIZE, CRACKED_BLOCK_PARTICLE_COLOR_LIGHT, CRACKED_BLOCK_PARTICLE_COLOR_DARK, PARTICLE_GRAVITY, PARTICLE_SPEED, true, PARTICLE_LIFE, NO_TEXT, BREAK_PARTICLE_COUNT);
         }
       }
       //Allow Vertical Movement

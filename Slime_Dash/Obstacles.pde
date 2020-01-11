@@ -91,16 +91,16 @@ void burnUpdate() {
     burndamage = burndamage +1;
     burntimer = burntimer+1;
     if (burntimer >= 60) {
-      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(YELLOW), color(RED), -0.5, 0, false, 30, "-1", 1);
+      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(YELLOW), color(RED), -0.5, 0, false, PARTICLE_LIFE_SHORT, "-1", 1);
       slimeBurn.play();
       burntimer-=60;
       interfaces.health = interfaces.health-1;
     }
-    createParticle(player.x+player.size/2, player.y+player.size/2, player.size, 5, color(#FFF300), color(#FF9900), -.05, 2, true, 60, "", 1);
+    createParticle(player.x+player.size/2, player.y+player.size/2, player.size, PARTICLE_SIZE_SMALL, color(#FFF300), color(#FF9900), -.05, 2, true, PARTICLE_LIFE, NO_TEXT, 1);
 
     if (player.dashActive==true) {
       burn = false;
-      createParticle(player.x+player.size/2, player.y+player.size/2, player.size, 15, color(#FFF300), color(#FF9900), -.2, 2, true, 60, "", 3);
+      createParticle(player.x+player.size/2, player.y+player.size/2, player.size, PARTICLE_SIZE_LARGE, color(#FFF300), color(#FF9900), -.2, 2, true, PARTICLE_LIFE, NO_TEXT, 3);
     } else if (interfaces.death) {
       burn = false;
     }

@@ -123,7 +123,7 @@ class HostileMelee {
       killCount++;
       dead = true;
       interfaces.score += ENEMYSCORE;
-      createParticle(x+size/2, y+size/2, size, 10, color(255, 0, 0), 0, 2, 50, true, 60, "", 100);
+      createParticle(x+size/2, y+size/2, size, PARTICLE_SIZE, color(255, 0, 0), color(0), PARTICLE_GRAVITY, PARTICLE_SPEED_HIGH, true, PARTICLE_LIFE, NO_TEXT, 100);
       speedModifier = 0.001;
       shake(globalScale/2);
     } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
@@ -203,7 +203,7 @@ class HostileRanged {
       damage.play();
       killCount++;
       dead = true;
-      createParticle(x+size/2, y+size/2, size, 10, color(255, 0, 0), 0, 2, 50, true, 60, "", 100);
+      createParticle(x+size/2, y+size/2, size, PARTICLE_SIZE, color(255, 0, 0), 0, PARTICLE_GRAVITY, PARTICLE_SPEED_HIGH, true, PARTICLE_LIFE, NO_TEXT, 100);
       speedModifier = 0.0001;
       shake(globalScale/2);
     } 

@@ -347,7 +347,7 @@ class Player {
       //ground smash effect
       if (onGround && smashedGround) {
         smashedGround = false;
-        createParticle(x+size/2, y+size/2, size, PAR_SIZE, PAR_COLOR_ONE, PAR_COLOR_TWO, PAR_GRAV, PAR_SPEED, true, PAR_LIFE, "", vy/PAR_AMOUNT);
+        createParticle(x+size/2, y+size/2, size, PAR_SIZE, PAR_COLOR_ONE, PAR_COLOR_TWO, PAR_GRAV, PAR_SPEED, true, PAR_LIFE, NO_TEXT, vy/PAR_AMOUNT);
       }
       vy = 0;
       slowDown = SPEEDSLOWDOWN;

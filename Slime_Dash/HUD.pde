@@ -1,10 +1,8 @@
 //Laurens
-final color RED = color(255, 0, 0);
-final color YELLOW = color(255, 255, 0);
-final color BLACK = color(0);
-final color WHITE = color(255);
-final color GREY = color(180);
-final int PARTICLE_TEXT_SIZE = 50;
+final color RED = color(255, 0, 0), YELLOW = color(255, 255, 0), BLACK = color(0), WHITE = color(255), GREY = color(180);
+final int PARTICLE_TEXT_SIZE = 50, PARTICLE_SIZE = 10, PARTICLE_SIZE_SMALL = 5, PARTICLE_SIZE_LARGE = 15, PARTICLE_SPEED = 5, PARTICLE_SPEED_HIGH = 10, PARTICLE_LIFE = 60, PARTICLE_LIFE_SHORT = 30;
+final float PARTICLE_GRAVITY = 0.4;
+final String NO_TEXT = "";
 float HighscoreOffline = 0;
 
 void interfacesSetup() {
@@ -95,7 +93,7 @@ class HUD {
     //healthbar laat damage cooldown zien door donkerrood te worden
     //easter egg
     if (health==69) {
-      createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, false, 30, "NICE ;)", 1);
+      createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, false, PARTICLE_LIFE_SHORT, "NICE ;)", 1);
     }
     //als de player damage cooldown heeft wordt de healthbar donkerrood
     if (player.dmgCooldown >=0) {
@@ -110,24 +108,24 @@ class HUD {
       if (meleeDamage==true) {
         meleeDmg.play();
         health = health-(MELEE_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(MELEE_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(MELEE_DAMAGE*healthMult), 1);
         meleeDamage=false;
       }
       if ( arrowDamage==true) {
         arrowHit.play();
         health = health-(ARROW_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(ARROW_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(ARROW_DAMAGE*healthMult), 1);
         arrowDamage=false;
       }
       if ( archerDamage==true) {
         health = health-(ARCHER_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(ARCHER_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(ARCHER_DAMAGE*healthMult), 1);
         archerDamage=false;
       }
       if ( spikeDamage==true) {
         spikeDmg.play();
         health = health-(SPIKE_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(SPIKE_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(SPIKE_DAMAGE*healthMult), 1);
         spikeDamage=false;
       }
 
@@ -138,13 +136,13 @@ class HUD {
     //dash bar
     //particles wanneer een dashcharge is geladen
     if (charge1==true) {
-      createParticle(healthBarLength*0.25, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
+      createParticle(healthBarLength*0.25, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, 100);
     }
     if (charge2==true) {
-      createParticle(healthBarLength*0.5, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
+      createParticle(healthBarLength*0.5, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT , 100);
     }
     if (charge3==true) {
-      createParticle(healthBarLength*0.75, dashY, 0, 10, color(0, 100, 200), color(0, 100, 255), .01, 5, false, 30, "", 100);
+      createParticle(healthBarLength*0.75, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT , 100);
     }
     //dashcharges worden hier gemaakt
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
@@ -307,7 +305,7 @@ class HUD {
     text(floor(score), scoreX, scoreY);
     //particles die meer worden aan wanneer je aan de rechterkant van het scherm zit
     float catchUpX = width+50, catchUpY = scoreY+20, catchUpSize = constrain(floor(playerCatchUp/1.3), 0, 100), catchUpGravity = -0.1, catchUpSpeed = floor(playerCatchUp), catchUpAmount = 1;
-    createParticle(catchUpX, catchUpY, 0, catchUpSize, color(WHITE), color(200), catchUpGravity, catchUpSpeed, false, 60, "", catchUpAmount);
+    createParticle(catchUpX, catchUpY, 0, catchUpSize, color(WHITE), color(200), catchUpGravity, catchUpSpeed, false, PARTICLE_LIFE, NO_TEXT, catchUpAmount);
     stroke(BLACK);
     strokeWeight(2);
     line(width-(width/8), scoreY+20, width, scoreY+20);
@@ -364,9 +362,6 @@ void createParticle(float x, float y, float particleArea, float particleSize, co
     particles[freeParticleIndex()].enableParticle(x, y, particleArea, particleSize, kleurMin, kleurMax, gravity, speed, collision, life, text);
   }
 }
-void particleDashable(float x, float y, float area) {
-  createParticle(x, y, area, 5, color(0, 255, 0), color(100, 255, 100), 0, 2, false, 30, "", 1);
-}
 //checkt of de particle actief is en kijkt voor een vrije plek in de particle array
 int freeParticleIndex() {
   for (int i = 0; i < particles.length; i++) {
@@ -422,7 +417,7 @@ class Particle {
     if (text == "") {
       a = random(-PI, PI);
     } else {
-      a = 0;
+      a = PI;
     }
     speed = random(speed/10, speed);
     vx = sin(a)*speed;
@@ -440,13 +435,13 @@ class Particle {
         vy = 0;
       }
     }
-    x -= vx*speedModifier+globalScrollSpeed;
-    y += vy*speedModifier+globalVerticalSpeed;
+    x -= vx+globalScrollSpeed;
+    y += vy+globalVerticalSpeed;
     vy += gravity;
     if (life <= 0) {
       active = false;
     } else {
-      life--;
+      life-=1;
     }
   }
   void draw() {
