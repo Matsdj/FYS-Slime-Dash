@@ -174,6 +174,7 @@ float getScore(int userId, float currentScore) {
         currentScore = msql.getFloat("score");
       } else if (msql.getFloat("score") < currentScore ) {
         msql.query("UPDATE zlokhorc.Highscores SET score = " +currentScore+ " WHERE Users_id = "+ user.id );
+        interfaces.newHighscore=" !!!";
       }
     }
   }

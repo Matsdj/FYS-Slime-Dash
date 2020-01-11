@@ -40,7 +40,7 @@ class HUD {
   //game over
   boolean getHighscore=false;
   float Highscore = 0;
-  String gOver;
+  String gOver, newHighscore;
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
 
@@ -78,8 +78,8 @@ class HUD {
     scoreSize = width*0.025;
     scoreNormal = width*0.025;
     score = 0;
-    //coins
-
+    //highscore
+    newHighscore = "";
     //game over
     gOver = "";
     gOverX = width/2;
@@ -332,10 +332,12 @@ class HUD {
     text(gOver, gOverX-generalTextOffset, gOverY-generalTextOffset);
     //highscore
     fill(#A300FC, goFadeIn);
-    text("highscore " + floor(Highscore), gOverX-generalTextOffset, gOverY+148);
+    text("highscore "+floor(Highscore), gOverX-generalTextOffset, gOverY+148);
+    text("              "+newHighscore, gOverX-generalTextOffset, gOverY+148);
     fill(YELLOW, goFadeIn);
     text(gOver, gOverX+generalTextOffset, gOverY+generalTextOffset);
     text("highscore " + floor(Highscore), gOverX+generalTextOffset, gOverY+152);
+    text("              "+newHighscore, gOverX-generalTextOffset, gOverY+152);
     fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
     text("highscore " + floor(Highscore), gOverX, gOverY+150);
