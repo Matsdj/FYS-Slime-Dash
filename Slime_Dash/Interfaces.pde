@@ -80,13 +80,9 @@ class Pause {
     textSize(INFO_SIZE);
     text("Score "+ floor(interfaces.score), scoreX, scoreY);
     text("Coins "+ floor(coins), pauseTxtX, coinsY);
-    //NAVIGATION
     Navigation(menu.tekstX, "A", "Continue", color(YELLOW), "B", "Main Menu", color(RED));
   }
 }
-
-
-
 void upgradeSetup() {
   upgrade = new Upgrades();
 }
@@ -271,6 +267,7 @@ class Upgrades {
         textAlign(LEFT, CENTER);
         healthPrice = 1337;
       }
+
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
         textAlign(CENTER);
         fill(WHITE);
@@ -324,7 +321,6 @@ class Upgrades {
     image(coin, width - 175, 30, 40, 40);
   }
 }
-
 //Mats
 void startingOptions() {
   String[] loginOptions = {"Login", "Create Account", "Offline"};
@@ -453,7 +449,7 @@ class Selection {
     return 0;
   }
 }
-
+//hier worden de navigatieteksten die onderaan het schermstaan aangemaakt
 void Navigation(float posLeft, String NavLeftButton, String NavLeftdescription, color buttonColorLeft, String NavRightButton, String NavRightDescription, color buttonColorRight) {
   //navigatieknoppen met een soort "text stroke" effect
   textAlign(CORNER);
@@ -504,10 +500,12 @@ class Menus {
     select3 = GREY;
     navTextY = (height/3)*2.8;
   }
+  //bij deze methode vul je de rooms in waar je naartoe wil gaan vanuit het menu
   void MenuUpdates(String currentRoom, String nextRoom1, String nextRoom2, String nextRoom3) {
-    if (inputsPressed(keyQ)){
-    room="mainM";
+    if (inputsPressed(keyQ)) {
+      room="mainM";
     }
+    //dit zorgt er allemaal voor dat wanneer tekst geselecteerd wordt hij groter en wit wordt gehighlight
     if (select1 == HIGHLIGHT) {
       tekstSize[0] =TEXT_BIG;
       tekstSize[1] =TEXT_NORMAL;
@@ -561,24 +559,21 @@ class Menus {
       select2 = GREY;
       select3 = GREY;
     }
-    // spatie om naar andere rooms te gaan
+    // spatie om naar de volgende rooms te gaan, geluid speelt
     if (select1==HIGHLIGHT&&room == currentRoom && inputsPressed(keySpace) ) {
       room = nextRoom1;
       SpeedUp.play();
-      cooldown= COOLDOWN_MAX;
     }
     if (select2==HIGHLIGHT &&room == currentRoom && inputsPressed(keySpace)) {
       room = nextRoom2;
       SpeedUp.play();
-      cooldown= COOLDOWN_MAX;
     }
     if (select3==HIGHLIGHT &&room == currentRoom && inputsPressed(keySpace)) {
       room = nextRoom3;
       SpeedUp.play();
-      cooldown= COOLDOWN_MAX;
     }
   }
-
+  //hier wordt menutekst aangemaakt je kan dit invullen voor verschillende rooms
   void menuDraw(String direction1, String direction2, String direction3) {
     textAlign(LEFT, CENTER);
     textSize(tekstSize[0]);
