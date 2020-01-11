@@ -459,6 +459,12 @@ class DIF {
     highlight = color(WHITE);
     select1 = highlight;
     select2 = GREY;
+    select3 = GREY;
+    tekstSize[0] = textBig;
+    tekstSize[1] = textNorm;
+    tekstSize[2] = 40;
+    tekstSize[3] = textNorm;
+    
   }
   void update() {
     if (select1 == highlight) {
@@ -537,16 +543,16 @@ class DIF {
   void draw() {
     //text
     textAlign(LEFT, CENTER);
-    textSize(main.tekstSize[0]);
+    textSize(tekstSize[0]);
     fill(select1);
     text("Normal Mode", tekstX, tekstY);
-    textSize(main.tekstSize[1]);
+    textSize(tekstSize[1]);
     fill(select2);
     text("Tutorial Mode", tekstX, tekstY*1.5);
     fill(select3);
-    textSize(main.tekstSize[3]);
+    textSize(tekstSize[3]);
     text("Highscores", tekstX, tekstY*2);
-    textSize(main.tekstSize[2]);
+    textSize(tekstSize[2]);
     Navigation(main.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
   }
 }
