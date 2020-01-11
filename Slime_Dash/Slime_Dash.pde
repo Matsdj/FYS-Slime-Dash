@@ -36,8 +36,8 @@ void gameReset() {
   hordeSetup();
   playerSetup();
   blinkSetup();
+  menuSetup();
   interfacesSetup();
-  mainMSetup();
   hostileSetup();
   magicBlockSetup();
   arrowSetup();
@@ -47,7 +47,6 @@ void gameReset() {
   pauseSetup();
   pickupSetup();
   mapSetup();
-  difSetup();
   particleSetup();
 }
 
@@ -56,6 +55,7 @@ void setup() {
   //fullScreen(P2D);
   smooth(0);
   frameRate(60);
+
   globalScale = height/12;
   //database
   CreateDatabaseConnection();
@@ -148,17 +148,20 @@ void draw() {
   } else if (room == "mainM") {
     bgUpdate();
     bgDraw();
-    main.update();
-    main.draw();
-    interfaces.death = false;
+    menu.MenuUpdates("mainM", "difficulty", "upgrades", "achievements");
+    menu.menuDraw("Play", "Upgrades", "Achievements");
+    Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "", "", 0);
+    image(slimeDash, width/4+shake, height/100, width/3, height/3);
+     interfaces.death = false;
     if (inputsPressed(72)) {
       room = "achievements";
     }
   } else if (room == "difficulty") {
     bgUpdate();
     bgDraw();
-    dif.draw();
-    dif.update();
+    menu.MenuUpdates("difficulty", "game", "game2", "Highscores");
+    menu.menuDraw("Normal Mode", "Tutorial Mode", "Highscores");
+    Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
   } else if (room == "upgrades") {
     bgUpdate();
     bgDraw();
@@ -194,10 +197,10 @@ void draw() {
     bgDraw();
     accountPassword.draw();
     text("Login password for ", width/2, height/4);
-    textSize(textBig);
+    textSize(TEXT_BIG);
     textAlign(CENTER, CENTER);
-    text(accountName.selection(), width/2, height/4+textBig);
-    textSize(textNorm);
+    text(accountName.selection(), width/2, height/4+TEXT_BIG);
+    textSize(TEXT_NORMAL);
 
     if (wrongPassword) {
       loginFade--; //fades the login failed text
@@ -283,14 +286,16 @@ void UpdateGlobalSpeeds() {
   }
   globalScrollSpeed *= speedModifier;
   //Vertical Distance
-  globalVerticalSpeed = floor(globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3)));
+  globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
   if (globalVerticalSpeed > 0 && !allowVerticalMovement) {
     globalVerticalSpeed = 0;
   }
   if (VerticalDistance + globalVerticalSpeed <= 0) {
     globalVerticalSpeed = -VerticalDistance;
   }
-  VerticalDistance += globalVerticalSpeed*speedModifier;
-  allowVerticalMovement = false;
   globalVerticalSpeed *= speedModifier;
+  globalVerticalSpeed = round(globalVerticalSpeed);
+  VerticalDistance += globalVerticalSpeed;
+  allowVerticalMovement = false;
+  
 }

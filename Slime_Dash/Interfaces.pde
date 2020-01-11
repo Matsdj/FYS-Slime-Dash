@@ -6,7 +6,7 @@
  Q = terug (B)
  SPACE = verder (A)
  */
-int  textNorm = 50, textBig = 75, generalTextOffset =2;
+final int  TEXT_NORMAL = 50, TEXT_BIG = 75, generalTextOffset =2;
 int jumpUpgradeState = 0;
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
@@ -15,7 +15,8 @@ void pauseSetup() {
 Pause pause;
 
 class Pause {
-  float pauseV, fade, pauseBackX, pauseBackY, pauseTxtY, pauseTxtX;
+  final int HEADER_SIZE = 100, INFO_SIZE = 60; 
+  float pauseV, fade, pauseBackX, pauseBackY, pauseTxtY, pauseTxtX, scoreX, scoreY, coinsX, coinsY, headersize;
   Pause() {
     //fade voor pause
     fade = 2;
@@ -23,6 +24,10 @@ class Pause {
     pauseBackX = pauseBackY = 0;
     pauseTxtX = width/2;
     pauseTxtY = height/4;
+    scoreX = pauseTxtX;
+    scoreY = height/2;
+    coinsX = pauseTxtX;
+    coinsY = height/1.6;
   }
 
   void update() {
@@ -70,134 +75,14 @@ class Pause {
     rect(pauseBackX, pauseBackY, width, height);
     fill(WHITE);
     textAlign(CENTER);
-    textSize(100);
+    textSize(HEADER_SIZE);
     text("PAUSED", pauseTxtX, pauseTxtY);
-    textSize(60);
-    text("Score "+ floor(interfaces.score), pauseTxtX, height/2);
-    text("Coins "+ floor(coins), pauseTxtX, height/1.6);
-    //NAVIGATION
-    Navigation(main.tekstX, "A", "Continue", color(255, 255, 0), "B", "Main Menu", color(255, 0, 0));
+    textSize(INFO_SIZE);
+    text("Score "+ floor(interfaces.score), scoreX, scoreY);
+    text("Coins "+ floor(coins), pauseTxtX, coinsY);
+    Navigation(menu.tekstX, "A", "Continue", color(YELLOW), "B", "Main Menu", color(RED));
   }
 }
-
-//main Menu///////////////////////
-void mainMSetup() {
-  main = new MainM();
-}
-MainM main;
-
-class MainM {
-
-  float sizeW, sizeH, tekstX, tekstY, navTextY ;
-  int  select1, select2, select3;
-  color highlight;
-  float[] tekstSize = new float[4];
-  MainM() {
-    sizeH = height/7;
-    sizeW = width/2.8;
-    background(0);
-    tekstSize[0] = 75;
-    tekstSize[1] = 50;
-    tekstSize[2] = 40;
-    tekstSize[3] = 50;
-    tekstX = width/4;
-    tekstY = height/3;
-    highlight = color(WHITE);
-    select1 = highlight;
-    select2 = GREY;
-    select3 = GREY;
-    navTextY = (height/3)*2.8;
-  }
-  void update() {
-
-    if (select1 == highlight) {
-      tekstSize[0] =textBig;
-      tekstSize[1] =textNorm;
-      tekstSize[3]= textNorm;
-    }    
-    if (select2 == highlight) {
-      tekstSize[1]= textBig;
-      tekstSize[0]= textNorm;
-      tekstSize[3]= textNorm;
-    }    
-    if (select3 == highlight) {
-      tekstSize[0]= textNorm;
-      tekstSize[1]= textNorm;
-      tekstSize[3]= textBig;
-    }
-    //Down in het menu
-    if (select1 == highlight&&inputsPressed(keyUp) ) {
-      Ding.play();
-      select1 = GREY;
-      select2 = GREY;
-      select3 = highlight;
-    }
-    if (select1 == highlight&&inputsPressed(keyDown) ) {
-      Ding.play();
-      select1 = GREY;
-      select2 = highlight;
-      select3 = GREY;
-    }
-    if (select2 == highlight&&inputsPressed(keyDown) ) {
-      Ding.play();
-      select1 = GREY;
-      select2 = GREY;
-      select3 = highlight;
-    }
-    //Up in het menu
-    if (select2 == highlight&&inputsPressed(keyUp) ) {
-      Ding.play();
-      select1 = highlight;
-      select2 = GREY;
-      select3 = GREY;
-    }
-    if (select3 == highlight&&inputsPressed(keyUp) ) {
-      Ding.play();
-      select1 = GREY;
-      select2 = highlight;
-      select3 = GREY;
-    }
-    if (select3 == highlight&&inputsPressed(keyDown) ) {
-      Ding.play();
-      select1 = highlight;
-      select2 = GREY;
-      select3 = GREY;
-    }
-    // spatie om naar andere rooms te gaan
-    if (select1==highlight&&room == "mainM" && inputsPressed(keySpace) ) {
-      room = "difficulty";
-      SpeedUp.play();
-      cooldown= COOLDOWN_MAX;
-    }
-    if (select2==highlight &&room == "mainM" && inputsPressed(keySpace)) {
-      room = "upgrades";
-      SpeedUp.play();
-      cooldown= COOLDOWN_MAX;
-    }
-    if (select3==highlight &&room == "mainM" && inputsPressed(keySpace)) {
-      room = "achievements";
-      SpeedUp.play();
-      cooldown= COOLDOWN_MAX;
-    }
-  }
-  void draw() {
-    //text
-    textAlign(LEFT, CENTER);
-    textSize(tekstSize[0]);
-    fill(select1);
-    text("Play", tekstX, tekstY);
-    textSize(tekstSize[1]);
-    fill(select2);
-    text("Upgrades", tekstX, tekstY*1.5);
-    fill(select3);
-    textSize(tekstSize[3]);
-    text("Achievements", tekstX, tekstY*2);
-    //NAVIGATION
-    Navigation(main.tekstX, "A", "Select", color(255, 255, 0), "", "", 0);
-    image(slimeDash, width/4+shake, height/100, width/3, height/3);
-  }
-}
-
 void upgradeSetup() {
   upgrade = new Upgrades();
 }
@@ -246,18 +131,22 @@ class Upgrades {
     if (room=="upgrades") {
       if (inputsPressed(keyDown) && perchSelectY == perchUp) {
         perchSelectY = perchDown;
+        if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
       if (inputsPressed(keyUp) && perchSelectY == perchDown) {
         perchSelectY = perchUp;
+        if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
       if (inputsPressed(keyRight) && perchSelectX == perchLeft) {
         perchSelectX = perchRight;
+        if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
       if (inputsPressed(keyLeft) && perchSelectX == perchRight) {
         perchSelectX = perchLeft;
+        if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
       // ff quick coin cheat
@@ -382,6 +271,7 @@ class Upgrades {
         textAlign(LEFT, CENTER);
         healthPrice = 1337;
       }
+
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
         textAlign(CENTER);
         fill(WHITE);
@@ -428,132 +318,11 @@ class Upgrades {
     image(perchBR, perchRight, perchDown, perchW, perchH);
     text("Coin Value : "+perchBRState, perchRight+xOffset, perchDown-yOffset/4);
     text(coinPrice, perchRight+xOffset, perchDown+yOffset);
-    Navigation(main.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+    Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
     text(floor(coins), width - 100, 50);
     stroke(BLACK);
     fill(YELLOW);
     image(coin, width - 175, 30, 40, 40);
-  }
-}
-////////////////// difficultekstY scherm//////////////
-
-void difSetup() {
-  dif = new DIF();
-}
-DIF dif;
-
-class DIF {
-  float sizeW, sizeH, tekstX, tekstY;
-  int  select1, select2, select3;
-  color highlight;
-  PImage slimeDash;
-  float[] tekstSize = new float[4];
-
-  DIF() {
-    textFont(font);
-    sizeH = height/7;
-    sizeW = width/2.8;
-    background(0);
-    tekstX = width/4;
-    tekstY = height/3;
-    highlight = color(WHITE);
-    select1 = highlight;
-    select2 = GREY;
-    select3 = GREY;
-    tekstSize[0] = textBig;
-    tekstSize[1] = textNorm;
-    tekstSize[2] = 40;
-    tekstSize[3] = textNorm;
-    
-  }
-  void update() {
-    if (select1 == highlight) {
-      tekstSize[0] =textBig;
-      tekstSize[1] =textNorm;
-      tekstSize[3]= textNorm;
-    }    
-    if (select2 == highlight) {
-      tekstSize[1]= textBig;
-      tekstSize[0]= textNorm;
-      tekstSize[3]= textNorm;
-    }    
-    if (select3 == highlight) {
-      tekstSize[0]= textNorm;
-      tekstSize[1]= textNorm;
-      tekstSize[3]= textBig;
-    }
-    //Down in het menu
-    if (select1 == highlight&&inputsPressed(keyUp) ) {
-      Ding.play();
-      select1 = GREY;
-      select2 = GREY;
-      select3 = highlight;
-    }
-    if (select1 == highlight&&inputsPressed(keyDown) ) {
-      Ding.play();
-      select1 = GREY;
-      select2 = highlight;
-      select3 = GREY;
-    }
-    if (select2 == highlight&&inputsPressed(keyDown) ) {
-      Ding.play();
-      select1 = GREY;
-      select2 = GREY;
-      select3 = highlight;
-    }
-    //Up in het menu
-    if (select2 == highlight&&inputsPressed(keyUp) ) {
-      Ding.play();
-      select1 = highlight;
-      select2 = GREY;
-      select3 = GREY;
-    }
-    if (select3 == highlight&&inputsPressed(keyUp) ) {
-      Ding.play();
-      select1 = GREY;
-      select2 = highlight;
-      select3 = GREY;
-    }
-    if (select3 == highlight&&inputsPressed(keyDown) ) {
-      Ding.play();
-      select1 = highlight;
-      select2 = GREY;
-      select3 = GREY;
-    }//q om terug te gaan
-    if (inputsPressed(keyQ)) {
-      room= "mainM";
-      cooldown=COOLDOWN_MAX;
-    }//normal game
-    if (select1==highlight&&room == "difficulty" && inputsPressed(keySpace) ) {
-      room = "game";
-      SpeedUp.play();
-      cooldown=COOLDOWN_MAX;
-    }//tutorial game
-    if (select2==highlight &&room == "difficulty" && inputsPressed(keySpace)) {
-      room = "game2";
-      SpeedUp.play();
-      cooldown=COOLDOWN_MAX;
-    }    
-    if (select3==highlight &&room == "difficulty" && inputsPressed(keySpace)) {
-      room = "Highscores";
-      SpeedUp.play();
-      cooldown= COOLDOWN_MAX;
-    }
-  }
-  void draw() {
-    //text
-    textAlign(LEFT, CENTER);
-    textSize(tekstSize[0]);
-    fill(select1);
-    text("Normal Mode", tekstX, tekstY);
-    textSize(tekstSize[1]);
-    fill(select2);
-    text("Tutorial Mode", tekstX, tekstY*1.5);
-    fill(select3);
-    textSize(tekstSize[3]);
-    text("Highscores", tekstX, tekstY*2);
-    textSize(tekstSize[2]);
-    Navigation(main.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
   }
 }
 //Mats
@@ -609,6 +378,7 @@ class Selection {
     }
     //Selection
     if (inputsPressed(LEFT)) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       xSelected--;
       if (xSelected < 0) {
@@ -616,6 +386,7 @@ class Selection {
       }
     }
     if (inputsPressed(RIGHT)) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       xSelected++;
       if (xSelected >= options.length) {
@@ -623,6 +394,7 @@ class Selection {
       }
     }
     if (inputsPressed(UP) || (holdKeyTime > 20 && inputs.hasValue(UP) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       ySelected[xSelected]--;
       if (ySelected[xSelected] < 0) {
@@ -630,6 +402,7 @@ class Selection {
       }
     }
     if (inputsPressed(DOWN) || (holdKeyTime > 20 && inputs.hasValue(DOWN) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       ySelected[xSelected]++;
       if (ySelected[xSelected] >= options[0].length) {
@@ -640,18 +413,18 @@ class Selection {
     textAlign(CENTER, CENTER);
     for (int ix = 0; ix < options.length; ix++) {
       for (int iy = 0; iy < options[0].length; iy++) {
-        int dist = textBig;
+        int dist = TEXT_BIG;
         if (iy == ySelected[ix]) {
-          textSize(textBig);
+          textSize(TEXT_BIG);
         } else {
-          textSize(textNorm);
+          textSize(TEXT_NORMAL);
         }
         float yLoc = centerY+(dist*(iy-ySelected[ix]));
         float xLoc = centerX+(dist*(ix-xSelected));
         if (iy == ySelected[ix] && ix == xSelected && options[ix][iy].length() == 1) {
           fill(BLACK, 100);
           noStroke();
-          rect(xLoc-textBig/2, yLoc-textBig/2, textBig, textBig);
+          rect(xLoc-TEXT_BIG/2, yLoc-TEXT_BIG/2, TEXT_BIG, TEXT_BIG);
         }
         fill(WHITE, 255-pow(ySelected[ix]-iy, 2)*10);
         text(options[ix][iy], xLoc, yLoc);
@@ -660,7 +433,7 @@ class Selection {
         }
       }
     }
-    Navigation(main.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+    Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
     stroke(BLACK);
     fill(WHITE);
   }
@@ -684,28 +457,147 @@ class Selection {
     return 0;
   }
 }
-
+//hier worden de navigatieteksten die onderaan het schermstaan aangemaakt
 void Navigation(float posLeft, String NavLeftButton, String NavLeftdescription, color buttonColorLeft, String NavRightButton, String NavRightDescription, color buttonColorRight) {
   //navigatieknoppen met een soort "text stroke" effect
   textAlign(CORNER);
-  textSize(main.tekstSize[2]);
+  textSize(menu.tekstSize[2]);
   //press A voor select
   fill(BLACK);
-  text(NavLeftButton, posLeft+generalTextOffset, main.navTextY+generalTextOffset);
-  text(NavLeftButton, posLeft-generalTextOffset, main.navTextY-generalTextOffset);
+  text(NavLeftButton, posLeft+generalTextOffset, menu.navTextY+generalTextOffset);
+  text(NavLeftButton, posLeft-generalTextOffset, menu.navTextY-generalTextOffset);
   fill(buttonColorLeft);
-  text(NavLeftButton, posLeft, main.navTextY);
-  text("  " +NavLeftdescription, posLeft+generalTextOffset, main.navTextY+generalTextOffset);
-  text("  " +NavLeftdescription, posLeft-generalTextOffset, main.navTextY-generalTextOffset);
+  text(NavLeftButton, posLeft, menu.navTextY);
+  text("  " +NavLeftdescription, posLeft+generalTextOffset, menu.navTextY+generalTextOffset);
+  text("  " +NavLeftdescription, posLeft-generalTextOffset, menu.navTextY-generalTextOffset);
   //press B voor back
   fill(BLACK);
-  text(NavRightButton, posLeft*2+generalTextOffset, main.navTextY+generalTextOffset);
-  text(NavRightButton, posLeft*2-generalTextOffset, main.navTextY-generalTextOffset);
-  text("  " +NavLeftdescription, posLeft, main.navTextY);
+  text(NavRightButton, posLeft*2+generalTextOffset, menu.navTextY+generalTextOffset);
+  text(NavRightButton, posLeft*2-generalTextOffset, menu.navTextY-generalTextOffset);
+  text("  " +NavLeftdescription, posLeft, menu.navTextY);
   fill(buttonColorRight);
-  text(NavRightButton, posLeft*2, main.navTextY);
-  text("  "+NavRightDescription, posLeft*2+generalTextOffset, main.navTextY+generalTextOffset);
-  text("  "+NavRightDescription, posLeft*2-generalTextOffset, main.navTextY-generalTextOffset);
+  text(NavRightButton, posLeft*2, menu.navTextY);
+  text("  "+NavRightDescription, posLeft*2+generalTextOffset, menu.navTextY+generalTextOffset);
+  text("  "+NavRightDescription, posLeft*2-generalTextOffset, menu.navTextY-generalTextOffset);
   fill(BLACK);
-  text("  "+NavRightDescription, posLeft*2, main.navTextY);
+  text("  "+NavRightDescription, posLeft*2, menu.navTextY);
+}
+void menuSetup() {
+  menu = new Menus();
+}
+Menus menu;
+class Menus {
+
+
+  float sizeW, sizeH, tekstX, tekstY, navTextY ;
+  int  select1, select2, select3;
+  color HIGHLIGHT;
+  float[] tekstSize = new float[4];
+  Menus() {
+    sizeH = height/7;
+    sizeW = width/2.8;
+    tekstSize[0] = 75;
+    tekstSize[1] = 50;
+    tekstSize[2] = 40;
+    tekstSize[3] = 50;
+    tekstX = width/4;
+    tekstY = height/3;
+    HIGHLIGHT = color(WHITE);
+    select1 = HIGHLIGHT;
+    select2 = GREY;
+    select3 = GREY;
+    navTextY = (height/3)*2.8;
+  }
+  //bij deze methode vul je de rooms in waar je naartoe wil gaan vanuit het menu
+  void MenuUpdates(String currentRoom, String nextRoom1, String nextRoom2, String nextRoom3) {
+    if (inputsPressed(keyQ)) {
+      room="mainM";
+    }
+    //dit zorgt er allemaal voor dat wanneer tekst geselecteerd wordt hij groter en wit wordt gehighlight
+    if (select1 == HIGHLIGHT) {
+      tekstSize[0] =TEXT_BIG;
+      tekstSize[1] =TEXT_NORMAL;
+      tekstSize[3]= TEXT_NORMAL;
+    }    
+    if (select2 == HIGHLIGHT) {
+      tekstSize[1]= TEXT_BIG;
+      tekstSize[0]= TEXT_NORMAL;
+      tekstSize[3]= TEXT_NORMAL;
+    }    
+    if (select3 == HIGHLIGHT) {
+      tekstSize[0]= TEXT_NORMAL;
+      tekstSize[1]= TEXT_NORMAL;
+      tekstSize[3]= TEXT_BIG;
+    }
+    //Down in het menu
+    if (select1 == HIGHLIGHT&&inputsPressed(keyUp) ) {
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
+      select1 = GREY;
+      select2 = GREY;
+      select3 = HIGHLIGHT;
+    }
+    if (select1 == HIGHLIGHT&&inputsPressed(keyDown) ) {
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
+      select1 = GREY;
+      select2 = HIGHLIGHT;
+      select3 = GREY;
+    }
+    if (select2 == HIGHLIGHT&&inputsPressed(keyDown) ) {
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
+      select1 = GREY;
+      select2 = GREY;
+      select3 = HIGHLIGHT;
+    }
+    //Up in het menu
+    if (select2 == HIGHLIGHT&&inputsPressed(keyUp) ) {
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
+      select1 = HIGHLIGHT;
+      select2 = GREY;
+      select3 = GREY;
+    }
+    if (select3 == HIGHLIGHT&&inputsPressed(keyUp) ) {
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
+      select1 = GREY;
+      select2 = HIGHLIGHT;
+      select3 = GREY;
+    }
+    if (select3 == HIGHLIGHT&&inputsPressed(keyDown) ) {
+      if (Ding.isPlaying()) Ding.stop();
+      Ding.play();
+      select1 = HIGHLIGHT;
+      select2 = GREY;
+      select3 = GREY;
+    }
+    // spatie om naar de volgende rooms te gaan, geluid speelt
+    if (select1==HIGHLIGHT&&room == currentRoom && inputsPressed(keySpace) ) {
+      room = nextRoom1;
+      SpeedUp.play();
+    }
+    if (select2==HIGHLIGHT &&room == currentRoom && inputsPressed(keySpace)) {
+      room = nextRoom2;
+      SpeedUp.play();
+    }
+    if (select3==HIGHLIGHT &&room == currentRoom && inputsPressed(keySpace)) {
+      room = nextRoom3;
+      SpeedUp.play();
+    }
+  }
+  //hier wordt menutekst aangemaakt je kan dit invullen voor verschillende rooms
+  void menuDraw(String direction1, String direction2, String direction3) {
+    textAlign(LEFT, CENTER);
+    textSize(tekstSize[0]);
+    fill(select1);
+    text(direction1, tekstX, tekstY);
+    textSize(tekstSize[1]);
+    fill(select2);
+    text(direction2, tekstX, tekstY*1.5);
+    fill(select3);
+    textSize(tekstSize[3]);
+    text(direction3, tekstX, tekstY*2);
+  }
 }

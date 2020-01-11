@@ -66,7 +66,7 @@ class Spike {
   {
     /* stroke(0);
      fill (255, 0, 0);
-     
+
      triangle(x+size/4, y, x+size/2, y+size, x, y+size);
      triangle(x+size/4*3, y, x+size/2, y+size, x+size, y+size);*/
     image(spikeSprite, x+shake, y);
@@ -91,7 +91,8 @@ void burnUpdate() {
     burndamage = burndamage +1;
     burntimer = burntimer+1;
     if (burntimer >= 60) {
-      createParticle(player.x, player.y, 0, 10, color(YELLOW), color(RED), -0.5, 0, false, 30, "-1", 1);
+      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(YELLOW), color(RED), -0.5, 0, false, 30, "-1", 1);
+      slimeBurn.play();
       burntimer-=60;
       interfaces.health = interfaces.health-1;
     }
@@ -198,7 +199,7 @@ class Flame {
   {
     /* stroke(0);
      fill (127);
-     
+
      triangle(x+size/2, y+size/5*4, x+size, y+size, x, y+size);
      if (timeflame>timeflamemax/2) {
      fill (194, 38, 31);

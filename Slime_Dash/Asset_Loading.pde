@@ -234,4 +234,5 @@ public void assetSetup() {
   healthbar = loadImage("./sprites/HUD/healthbar.png");
   dashbar = loadImage("./sprites/HUD/dashbar.png");
   fire = loadImage("./sprites/HUD/fire.png");
+  textFont(font);
 }
