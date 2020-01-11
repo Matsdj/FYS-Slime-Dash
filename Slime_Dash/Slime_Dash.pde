@@ -167,10 +167,16 @@ void draw() {
   } else if (room == "Highscores") {
     bgUpdate();
     bgDraw();
+    if (inputsPressed(keyQ)==true) {
+      room = "mainM";
+    }
   } else if (room == "achievements") {
     bgUpdate();
     bgDraw();
     drawAch();
+    if (inputsPressed(keyQ)==true) {
+      room = "mainM";
+    }
   } else if (room == "login") {
     bgUpdate();
     bgDraw();
