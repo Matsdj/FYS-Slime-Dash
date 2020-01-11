@@ -92,6 +92,7 @@ void burnUpdate() {
     burntimer = burntimer+1;
     if (burntimer >= 60) {
       createParticle(player.x, player.y, 0, 10, color(YELLOW), color(RED), -0.5, 0, false, 30, "-1", 1);
+      slimeBurn.play();
       burntimer-=60;
       interfaces.health = interfaces.health-1;
     }
