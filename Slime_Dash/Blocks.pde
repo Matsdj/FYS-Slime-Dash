@@ -45,6 +45,7 @@ class Block {
           breakTime--;
           if (breakTime < 0) {
             active = false;
+            Thud.play();
           }
         }
         //Cracked break because of dash
@@ -56,6 +57,7 @@ class Block {
           active = false;
           player.jumpedHeight = -player.MAX_JUMP_HEIGHT;
           player.vy = 0;
+          Thud.play();
         }
         if (active == false) {
           createParticle(blockCenterX, blockCenterY, size, 10, color(100), color(200), 0.2, 5, true, 60, "", 100);
@@ -66,7 +68,6 @@ class Block {
         allowVerticalMovement = true;
       }
     }
-    //Push away player
     pushAwayPlayer();
     //Move block
     y += globalVerticalSpeed;
@@ -99,12 +100,12 @@ class Block {
   }
   void drawBackgroundBlocks() {
     float hitbox = 1;
-    for (float backgroundY = y+size*1.5; (blockCollision(blockCenterX, backgroundY, hitbox, id) == null && backgroundY < height); backgroundY+= globalScale) {
+    for (float backgroundY = y+size; ((blockCollision(blockCenterX, backgroundY, hitbox, id) == null || blockCollision(blockCenterX, backgroundY, hitbox, id).moving) && backgroundY < height); backgroundY+= globalScale) {
       tint(100);
       if (sprite == grassSprite) {
-        image(dirtSprite, x+shake, backgroundY-size/2);
+        image(dirtSprite, x+shake, backgroundY);
       } else
-        image(sprite, x+shake, backgroundY-size/2);
+        image(sprite, x+shake, backgroundY);
       tint(255);
       backgroundBlocks +=1;
     }

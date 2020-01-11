@@ -286,14 +286,16 @@ void UpdateGlobalSpeeds() {
   }
   globalScrollSpeed *= speedModifier;
   //Vertical Distance
-  globalVerticalSpeed = floor(globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3)));
+  globalVerticalSpeed = globalScale*(pow(height/2-(player.y+globalScale*2), 3)/pow(height/2, 3));
   if (globalVerticalSpeed > 0 && !allowVerticalMovement) {
     globalVerticalSpeed = 0;
   }
   if (VerticalDistance + globalVerticalSpeed <= 0) {
     globalVerticalSpeed = -VerticalDistance;
   }
-  VerticalDistance += globalVerticalSpeed*speedModifier;
-  allowVerticalMovement = false;
   globalVerticalSpeed *= speedModifier;
+  globalVerticalSpeed = round(globalVerticalSpeed);
+  VerticalDistance += globalVerticalSpeed;
+  allowVerticalMovement = false;
+  
 }

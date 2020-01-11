@@ -4,6 +4,7 @@ final color YELLOW = color(255, 255, 0);
 final color BLACK = color(0);
 final color WHITE = color(255);
 final color GREY = color(180);
+final int PARTICLE_TEXT_SIZE = 50;
 float HighscoreOffline = 0;
 
 void interfacesSetup() {
@@ -94,7 +95,7 @@ class HUD {
     //healthbar laat damage cooldown zien door donkerrood te worden
     //easter egg
     if (health==69) {
-      createParticle(healthBarX, scoreY, 0, 15, color(WHITE), color(WHITE), 1, 0, false, 30, "NICE ;)", 1);
+      createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, false, 30, "NICE ;)", 1);
     }
     //als de player damage cooldown heeft wordt de healthbar donkerrood
     if (player.dmgCooldown >=0) {
@@ -109,24 +110,24 @@ class HUD {
       if (meleeDamage==true) {
         meleeDmg.play();
         health = health-(MELEE_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, 10, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(MELEE_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(MELEE_DAMAGE*healthMult), 1);
         meleeDamage=false;
       }
       if ( arrowDamage==true) {
         arrowHit.play();
         health = health-(ARROW_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, 10, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(ARROW_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(ARROW_DAMAGE*healthMult), 1);
         arrowDamage=false;
       }
       if ( archerDamage==true) {
         health = health-(ARCHER_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, 10, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(ARCHER_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(ARCHER_DAMAGE*healthMult), 1);
         archerDamage=false;
       }
       if ( spikeDamage==true) {
         spikeDmg.play();
         health = health-(SPIKE_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, 10, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(SPIKE_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, 30, "-"+floor(SPIKE_DAMAGE*healthMult), 1);
         spikeDamage=false;
       }
 
@@ -452,6 +453,7 @@ class Particle {
     if (text == "") {
       rect(x, y, size, size);
     } else {
+      textSize(size);
       text(text, x, y);
     }
   }
