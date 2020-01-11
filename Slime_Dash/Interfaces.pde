@@ -76,7 +76,7 @@ class Pause {
     text("Score "+ floor(interfaces.score), pauseTxtX, height/2);
     text("Coins "+ floor(coins), pauseTxtX, height/1.6);
     //NAVIGATION
-        Navigation(main.tekstX,"A","Continue",color(255,255,0),"B","Main Menu",color(255,0,0));
+    Navigation(main.tekstX, "A", "Continue", color(255, 255, 0), "B", "Main Menu", color(255, 0, 0));
   }
 }
 
@@ -173,9 +173,9 @@ class MainM {
       room = "upgrades";
       SpeedUp.play();
       cooldown= COOLDOWN_MAX;
-    }    
+    }
     if (select3==highlight &&room == "mainM" && inputsPressed(keySpace)) {
-      room = "Highscores";
+      room = "achievements";
       SpeedUp.play();
       cooldown= COOLDOWN_MAX;
     }
@@ -191,9 +191,9 @@ class MainM {
     text("Upgrades", tekstX, tekstY*1.5);
     fill(select3);
     textSize(tekstSize[3]);
-    text("Highscores", tekstX, tekstY*2);
+    text("Achievements", tekstX, tekstY*2);
     //NAVIGATION
-    Navigation(main.tekstX,"A","Select",color(255,255,0),"","",0);
+    Navigation(main.tekstX, "A", "Select", color(255, 255, 0), "", "", 0);
     image(slimeDash, width/4+shake, height/100, width/3, height/3);
   }
 }
@@ -428,7 +428,7 @@ class Upgrades {
     image(perchBR, perchRight, perchDown, perchW, perchH);
     text("Coin Value : "+perchBRState, perchRight+xOffset, perchDown-yOffset/4);
     text(coinPrice, perchRight+xOffset, perchDown+yOffset);
-    Navigation(main.tekstX,"A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+    Navigation(main.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
     text(floor(coins), width - 100, 50);
     stroke(BLACK);
     fill(YELLOW);
@@ -444,19 +444,16 @@ DIF dif;
 
 class DIF {
   float sizeW, sizeH, tekstX, tekstY;
-  int  select1, select2;
+  int  select1, select2, select3;
   color highlight;
   PImage slimeDash;
-  float[] tekstSize = new float[3];
+  float[] tekstSize = new float[4];
 
   DIF() {
     textFont(font);
     sizeH = height/7;
     sizeW = width/2.8;
     background(0);
-    tekstSize[0] = textBig;
-    tekstSize[1] = textNorm;
-    tekstSize[2] = 40;
     tekstX = width/4;
     tekstY = height/3;
     highlight = color(WHITE);
@@ -467,20 +464,55 @@ class DIF {
     if (select1 == highlight) {
       tekstSize[0] =textBig;
       tekstSize[1] =textNorm;
-    }//naar beneden in menu
-    if (select1 == highlight&&inputsPressed(keyDown)) {
-      select1 = GREY;
-      select2 = highlight;
-      Ding.play();
-    }
+      tekstSize[3]= textNorm;
+    }    
     if (select2 == highlight) {
       tekstSize[1]= textBig;
       tekstSize[0]= textNorm;
-    }//naar boven in het menu
-    if (select2 == highlight&&inputsPressed(keyUp)) {
-      select2 = GREY;
-      select1 = highlight;
+      tekstSize[3]= textNorm;
+    }    
+    if (select3 == highlight) {
+      tekstSize[0]= textNorm;
+      tekstSize[1]= textNorm;
+      tekstSize[3]= textBig;
+    }
+    //Down in het menu
+    if (select1 == highlight&&inputsPressed(keyUp) ) {
       Ding.play();
+      select1 = GREY;
+      select2 = GREY;
+      select3 = highlight;
+    }
+    if (select1 == highlight&&inputsPressed(keyDown) ) {
+      Ding.play();
+      select1 = GREY;
+      select2 = highlight;
+      select3 = GREY;
+    }
+    if (select2 == highlight&&inputsPressed(keyDown) ) {
+      Ding.play();
+      select1 = GREY;
+      select2 = GREY;
+      select3 = highlight;
+    }
+    //Up in het menu
+    if (select2 == highlight&&inputsPressed(keyUp) ) {
+      Ding.play();
+      select1 = highlight;
+      select2 = GREY;
+      select3 = GREY;
+    }
+    if (select3 == highlight&&inputsPressed(keyUp) ) {
+      Ding.play();
+      select1 = GREY;
+      select2 = highlight;
+      select3 = GREY;
+    }
+    if (select3 == highlight&&inputsPressed(keyDown) ) {
+      Ding.play();
+      select1 = highlight;
+      select2 = GREY;
+      select3 = GREY;
     }//q om terug te gaan
     if (inputsPressed(keyQ)) {
       room= "mainM";
@@ -495,19 +527,27 @@ class DIF {
       room = "game2";
       SpeedUp.play();
       cooldown=COOLDOWN_MAX;
+    }    
+    if (select3==highlight &&room == "difficulty" && inputsPressed(keySpace)) {
+      room = "Highscores";
+      SpeedUp.play();
+      cooldown= COOLDOWN_MAX;
     }
   }
   void draw() {
     //text
     textAlign(LEFT, CENTER);
-    textSize(tekstSize[0]);
+    textSize(main.tekstSize[0]);
     fill(select1);
     text("Normal Mode", tekstX, tekstY);
-    textSize(tekstSize[1]);
+    textSize(main.tekstSize[1]);
     fill(select2);
     text("Tutorial Mode", tekstX, tekstY*1.5);
-    textSize(tekstSize[2]);
-    Navigation(main.tekstX,"A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+    fill(select3);
+    textSize(main.tekstSize[3]);
+    text("Highscores", tekstX, tekstY*2);
+    textSize(main.tekstSize[2]);
+    Navigation(main.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
   }
 }
 //Mats
@@ -614,7 +654,7 @@ class Selection {
         }
       }
     }
-    Navigation(main.tekstX,"A","Select",color(255,255,0),"B","Back",color(255,0,0));
+    Navigation(main.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
     stroke(BLACK);
     fill(WHITE);
   }
@@ -639,7 +679,7 @@ class Selection {
   }
 }
 
-void Navigation(float posLeft, String NavLeftButton, String NavLeftdescription, color buttonColorLeft,String NavRightButton, String NavRightDescription, color buttonColorRight) {
+void Navigation(float posLeft, String NavLeftButton, String NavLeftdescription, color buttonColorLeft, String NavRightButton, String NavRightDescription, color buttonColorRight) {
   //navigatieknoppen met een soort "text stroke" effect
   textAlign(CORNER);
   textSize(main.tekstSize[2]);
