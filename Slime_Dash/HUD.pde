@@ -225,7 +225,7 @@ class HUD {
       ellipseMode(RADIUS);
       stroke(BLACK);
       strokeWeight(5);
-      textSize(main.tekstSize[1]);
+      textSize(menu.tekstSize[1]);
       tint(155);
       imageMode(CENTER);
       //tutorial plaatjes en button
@@ -339,15 +339,15 @@ class HUD {
     text("highscore " + floor(Highscore), gOverX, gOverY+150);
     //NAVIGATION 
     textAlign(LEFT);
-    textSize(main.tekstSize[2]);
+    textSize(menu.tekstSize[2]);
     fill(WHITE, goFadeIn);
-    text("Sta", main.tekstX, main.navTextY);
+    text("Sta", menu.tekstX, menu.navTextY);
     fill(BLACK, goFadeIn);
-    text("  " +"Retry", main.tekstX+50, main.navTextY);
+    text("  " +"Retry", menu.tekstX+50, menu.navTextY);
     fill(WHITE, goFadeIn);
-    text("Sel", main.tekstX*2, main.navTextY);
+    text("Sel", menu.tekstX*2, menu.navTextY);
     fill(BLACK, goFadeIn);
-    text("  "+"Menu", main.tekstX*2+50, main.navTextY);
+    text("  "+"Menu", menu.tekstX*2+50, menu.navTextY);
   }
 }
 //PARTICLES////////////////////////////////////////
