@@ -1,7 +1,11 @@
 import de.bezier.data.sql.*;
 MySQL msql;
 // This is a data model class to reflect the content of the User entity from the database.
-final int LOGIN_FADE_START = 255;
+final int LOGIN_FADE_START = 255, 
+  ACH_TEXT_SIZE = 30;
+
+final color ACH_COMPLETED_COLOR = color(0, 255, 0);
+
 boolean wrongPassword = false;
 String loginFailText;
 int achRecordCount = 0, loginFade;
@@ -106,6 +110,7 @@ void updateAchievements() { //make sure to run this function once and not severa
 
           dbAch.get(iAch).progress = int(interfaces.score);
           if (dbAch.get(iAch).progress >= dbAch.get(iAch).requiredScore) {
+            dbAch.get(iAch).progress = dbAch.get(iAch).requiredScore;
             coins += dbAch.get(iAch).reward;
             dbAch.get(iAch).completed = true;
           }
@@ -118,6 +123,7 @@ void updateAchievements() { //make sure to run this function once and not severa
 
           dbAch.get(iAch).progress += killCount;
           if (dbAch.get(iAch).progress >= dbAch.get(iAch).requiredScore) {
+            dbAch.get(iAch).progress = dbAch.get(iAch).requiredScore;
             coins += dbAch.get(iAch).reward;
             dbAch.get(iAch).completed = true;
           }
@@ -131,13 +137,23 @@ void updateAchievements() { //make sure to run this function once and not severa
 
 
 void drawAch() {
-  for (int iAch = 0; iAch < achRecordCount; iAch++) {
+  if (offline) {
+    textSize(ACH_TEXT_SIZE);
     fill(RED);
-    textSize(30);
+    text("Online mode required!", width / 8, height / 5);
+  }
+
+  for (int iAch = 0; iAch < achRecordCount; iAch++) {
+    if (dbAch.get(iAch).completed) {
+      fill(ACH_COMPLETED_COLOR);
+    } else {
+      fill(YELLOW);
+    }
+    textSize(ACH_TEXT_SIZE);
     if (dbAch.get(iAch).scoreType == 1) {
-      text("Get " + dbAch.get(iAch).requiredScore + " score: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 6 + globalScale * iAch);
+      text("Get " + dbAch.get(iAch).requiredScore + " score: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
     } else if (dbAch.get(iAch).scoreType == 2) {
-      text("Dash through " + dbAch.get(iAch).requiredScore + " enemies: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 6 + globalScale * iAch);
+      text("Dash through " + dbAch.get(iAch).requiredScore + " enemies: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
     }
   }
 
