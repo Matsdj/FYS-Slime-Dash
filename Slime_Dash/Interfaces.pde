@@ -131,18 +131,22 @@ class Upgrades {
     if (room=="upgrades") {
       if (inputsPressed(keyDown) && perchSelectY == perchUp) {
         perchSelectY = perchDown;
+        if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
       if (inputsPressed(keyUp) && perchSelectY == perchDown) {
         perchSelectY = perchUp;
+        if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
       if (inputsPressed(keyRight) && perchSelectX == perchLeft) {
         perchSelectX = perchRight;
+        if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
       if (inputsPressed(keyLeft) && perchSelectX == perchRight) {
         perchSelectX = perchLeft;
+        if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
       // ff quick coin cheat
@@ -374,6 +378,7 @@ class Selection {
     }
     //Selection
     if (inputsPressed(LEFT)) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       xSelected--;
       if (xSelected < 0) {
@@ -381,6 +386,7 @@ class Selection {
       }
     }
     if (inputsPressed(RIGHT)) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       xSelected++;
       if (xSelected >= options.length) {
@@ -388,6 +394,7 @@ class Selection {
       }
     }
     if (inputsPressed(UP) || (holdKeyTime > 20 && inputs.hasValue(UP) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       ySelected[xSelected]--;
       if (ySelected[xSelected] < 0) {
@@ -395,6 +402,7 @@ class Selection {
       }
     }
     if (inputsPressed(DOWN) || (holdKeyTime > 20 && inputs.hasValue(DOWN) && (holdKeyTime/5f == floor(holdKeyTime/5f)))) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       ySelected[xSelected]++;
       if (ySelected[xSelected] >= options[0].length) {
@@ -523,18 +531,21 @@ class Menus {
     }
     //Down in het menu
     if (select1 == HIGHLIGHT&&inputsPressed(keyUp) ) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       select1 = GREY;
       select2 = GREY;
       select3 = HIGHLIGHT;
     }
     if (select1 == HIGHLIGHT&&inputsPressed(keyDown) ) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       select1 = GREY;
       select2 = HIGHLIGHT;
       select3 = GREY;
     }
     if (select2 == HIGHLIGHT&&inputsPressed(keyDown) ) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       select1 = GREY;
       select2 = GREY;
@@ -542,18 +553,21 @@ class Menus {
     }
     //Up in het menu
     if (select2 == HIGHLIGHT&&inputsPressed(keyUp) ) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       select1 = HIGHLIGHT;
       select2 = GREY;
       select3 = GREY;
     }
     if (select3 == HIGHLIGHT&&inputsPressed(keyUp) ) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       select1 = GREY;
       select2 = HIGHLIGHT;
       select3 = GREY;
     }
     if (select3 == HIGHLIGHT&&inputsPressed(keyDown) ) {
+      if (Ding.isPlaying()) Ding.stop();
       Ding.play();
       select1 = HIGHLIGHT;
       select2 = GREY;
