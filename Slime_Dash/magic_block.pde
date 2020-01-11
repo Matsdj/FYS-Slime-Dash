@@ -3,6 +3,7 @@
 final int MAGIC_FRAME_AMOUNT = 3;
 final int MAGIC_TYPE_AMOUNT = 2;
 final int MAGIC_FRAMERATE = 10;
+final int SWITCH_FRAME_AMOUNT = 2;
 
 float MagicBarricadeDMG = 0;
 boolean switchA = false;
@@ -270,7 +271,7 @@ void magicSwitchDraw() {
 
 class MagicSwitch {
   float x, y, size;
-
+  int switchFrame;
 
   MagicSwitch(float inputX, float inputY) {
 
@@ -302,27 +303,18 @@ class MagicSwitch {
     if (SwitchTimer<=0) {
       SwitchTimerA = false;
     }
+
+    if (switchA==false) {
+      switchFrame = 1;
+    }
+    if (switchA==true) {
+      switchFrame = 0;
+    }
   }
-
-
-
 
   //tekent de switch
   void draw()
   {
-    stroke(0);
-    fill (255, 0, 0);
-
-
-    fill (140);
-    quad(x+shake, y+size, x+0.3*size+shake, y+0.8*size, x+size-0.3*size+shake, y+0.8*size, x+size+shake, y+size);
-    if (switchA==false) {
-      fill(0, 0, 255);
-      quad(x+0.3*size+shake, y+0.8*size, x+size-0.3*size+shake, y+0.8*size, x+size-0.4*size+shake, y+0.7*size, x+0.4*size+shake, y+0.7*size);
-    }
-    if (switchA==true) {
-      fill(255, 0, 0);
-      quad(x+0.3*size+shake, y+0.8*size, x+size-0.3*size+shake, y+0.8*size, x+size-0.4*size+shake, y+0.7*size, x+0.4*size+shake, y+0.7*size);
-    }
+    image(switchSprite[switchFrame], x, y);
   }
 }

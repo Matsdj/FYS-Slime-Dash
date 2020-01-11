@@ -9,6 +9,7 @@ PImage playerWalkBlink;
 PImage crownSprite;
 PImage[] flamethrowerSprite;
 PImage[][] magicSprite;
+PImage[] switchSprite;
 PImage magicStaticSprite;
 PImage spikeSprite;
 PImage[] bgHouse;
@@ -157,6 +158,12 @@ public void assetSetup() {
       magicSprite[iSprite][jSprite] = loadImage("sprites/obstacles/magic"+ iSprite +"-"+ jSprite +".png");
       magicSprite[iSprite][jSprite].resize(magicSpriteWidth, magicSpriteHeight);
     }
+  }
+
+  switchSprite = new PImage[SWITCH_FRAME_AMOUNT];
+  for (int iSprite = 0; iSprite < SWITCH_FRAME_AMOUNT; iSprite++) {
+    switchSprite[iSprite] = loadImage("sprites/obstacles/switch"+ iSprite +".png");
+    switchSprite[iSprite].resize(int(globalScale), int(globalScale));
   }
 
   magicStaticSprite = loadImage("sprites/obstacles/magicStatic.png");
