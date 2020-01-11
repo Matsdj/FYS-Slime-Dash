@@ -6,7 +6,7 @@
  Q = terug (B)
  SPACE = verder (A)
  */
-int  textNorm = 50, textBig = 75, generalTextOffset =2;
+final int  TEXT_NORMAL = 50, TEXT_BIG = 75, generalTextOffset =2;
 int jumpUpgradeState = 0;
 //PAUSE//////////////////////////////////////////
 void pauseSetup() {
@@ -15,7 +15,8 @@ void pauseSetup() {
 Pause pause;
 
 class Pause {
-  float pauseV, fade, pauseBackX, pauseBackY, pauseTxtY, pauseTxtX;
+  final int HEADER_SIZE = 100, INFO_SIZE = 60; 
+  float pauseV, fade, pauseBackX, pauseBackY, pauseTxtY, pauseTxtX,scoreX,scoreY, coinsX,coinsY, headersize;
   Pause() {
     //fade voor pause
     fade = 2;
@@ -23,6 +24,10 @@ class Pause {
     pauseBackX = pauseBackY = 0;
     pauseTxtX = width/2;
     pauseTxtY = height/4;
+    scoreX = pauseTxtX;
+    scoreY = height/2;
+    coinsX = pauseTxtX;
+    coinsY = height/1.6;
   }
 
   void update() {
@@ -70,13 +75,13 @@ class Pause {
     rect(pauseBackX, pauseBackY, width, height);
     fill(WHITE);
     textAlign(CENTER);
-    textSize(100);
+    textSize(HEADER_SIZE);
     text("PAUSED", pauseTxtX, pauseTxtY);
-    textSize(60);
-    text("Score "+ floor(interfaces.score), pauseTxtX, height/2);
-    text("Coins "+ floor(coins), pauseTxtX, height/1.6);
+    textSize(INFO_SIZE);
+    text("Score "+ floor(interfaces.score), scoreX, scoreY);
+    text("Coins "+ floor(coins), pauseTxtX, coinsY);
     //NAVIGATION
-    Navigation(main.tekstX, "A", "Continue", color(255, 255, 0), "B", "Main Menu", color(255, 0, 0));
+    Navigation(main.tekstX, "A", "Continue", color(YELLOW), "B", "Main Menu", color(RED));
   }
 }
 
@@ -90,7 +95,7 @@ class MainM {
 
   float sizeW, sizeH, tekstX, tekstY, navTextY ;
   int  select1, select2, select3;
-  color highlight;
+  color HIGHLIGHT;
   float[] tekstSize = new float[4];
   MainM() {
     sizeH = height/7;
@@ -102,79 +107,79 @@ class MainM {
     tekstSize[3] = 50;
     tekstX = width/4;
     tekstY = height/3;
-    highlight = color(WHITE);
-    select1 = highlight;
+    HIGHLIGHT = color(WHITE);
+    select1 = HIGHLIGHT;
     select2 = GREY;
     select3 = GREY;
     navTextY = (height/3)*2.8;
   }
   void update() {
 
-    if (select1 == highlight) {
-      tekstSize[0] =textBig;
-      tekstSize[1] =textNorm;
-      tekstSize[3]= textNorm;
+    if (select1 == HIGHLIGHT) {
+      tekstSize[0] =TEXT_BIG;
+      tekstSize[1] =TEXT_NORMAL;
+      tekstSize[3]= TEXT_NORMAL;
     }    
-    if (select2 == highlight) {
-      tekstSize[1]= textBig;
-      tekstSize[0]= textNorm;
-      tekstSize[3]= textNorm;
+    if (select2 == HIGHLIGHT) {
+      tekstSize[1]= TEXT_BIG;
+      tekstSize[0]= TEXT_NORMAL;
+      tekstSize[3]= TEXT_NORMAL;
     }    
-    if (select3 == highlight) {
-      tekstSize[0]= textNorm;
-      tekstSize[1]= textNorm;
-      tekstSize[3]= textBig;
+    if (select3 == HIGHLIGHT) {
+      tekstSize[0]= TEXT_NORMAL;
+      tekstSize[1]= TEXT_NORMAL;
+      tekstSize[3]= TEXT_BIG;
     }
     //Down in het menu
-    if (select1 == highlight&&inputsPressed(keyUp) ) {
+    if (select1 == HIGHLIGHT&&inputsPressed(keyUp) ) {
       Ding.play();
       select1 = GREY;
       select2 = GREY;
-      select3 = highlight;
+      select3 = HIGHLIGHT;
     }
-    if (select1 == highlight&&inputsPressed(keyDown) ) {
+    if (select1 == HIGHLIGHT&&inputsPressed(keyDown) ) {
       Ding.play();
       select1 = GREY;
-      select2 = highlight;
+      select2 = HIGHLIGHT;
       select3 = GREY;
     }
-    if (select2 == highlight&&inputsPressed(keyDown) ) {
+    if (select2 == HIGHLIGHT&&inputsPressed(keyDown) ) {
       Ding.play();
       select1 = GREY;
       select2 = GREY;
-      select3 = highlight;
+      select3 = HIGHLIGHT;
     }
     //Up in het menu
-    if (select2 == highlight&&inputsPressed(keyUp) ) {
+    if (select2 == HIGHLIGHT&&inputsPressed(keyUp) ) {
       Ding.play();
-      select1 = highlight;
+      select1 = HIGHLIGHT;
       select2 = GREY;
       select3 = GREY;
     }
-    if (select3 == highlight&&inputsPressed(keyUp) ) {
+    if (select3 == HIGHLIGHT&&inputsPressed(keyUp) ) {
       Ding.play();
       select1 = GREY;
-      select2 = highlight;
+      select2 = HIGHLIGHT;
       select3 = GREY;
     }
-    if (select3 == highlight&&inputsPressed(keyDown) ) {
+    if (select3 == HIGHLIGHT&&inputsPressed(keyDown) ) {
       Ding.play();
-      select1 = highlight;
+      select1 = HIGHLIGHT;
       select2 = GREY;
       select3 = GREY;
     }
     // spatie om naar andere rooms te gaan
-    if (select1==highlight&&room == "mainM" && inputsPressed(keySpace) ) {
+    if (select1==HIGHLIGHT&&room == "mainM" && inputsPressed(keySpace) ) {
       room = "difficulty";
       SpeedUp.play();
       cooldown= COOLDOWN_MAX;
     }
-    if (select2==highlight &&room == "mainM" && inputsPressed(keySpace)) {
+    if (select2==HIGHLIGHT &&room == "mainM" && inputsPressed(keySpace)) {
       room = "upgrades";
       SpeedUp.play();
       cooldown= COOLDOWN_MAX;
     }
-    if (select3==highlight &&room == "mainM" && inputsPressed(keySpace)) {
+    if (select3==HIGHLIGHT &&room == "mainM" && inputsPressed(keySpace)) {
       room = "achievements";
       SpeedUp.play();
       cooldown= COOLDOWN_MAX;
@@ -445,7 +450,7 @@ DIF dif;
 class DIF {
   float sizeW, sizeH, tekstX, tekstY;
   int  select1, select2, select3;
-  color highlight;
+ final color HIGHLIGHT;
   PImage slimeDash;
   float[] tekstSize = new float[4];
 
@@ -456,67 +461,67 @@ class DIF {
     background(0);
     tekstX = width/4;
     tekstY = height/3;
-    highlight = color(WHITE);
-    select1 = highlight;
+    HIGHLIGHT = color(WHITE);
+    select1 = HIGHLIGHT;
     select2 = GREY;
     select3 = GREY;
-    tekstSize[0] = textBig;
-    tekstSize[1] = textNorm;
+    tekstSize[0] = TEXT_BIG;
+    tekstSize[1] = TEXT_NORMAL;
     tekstSize[2] = 40;
-    tekstSize[3] = textNorm;
+    tekstSize[3] = TEXT_NORMAL;
     
   }
   void update() {
-    if (select1 == highlight) {
-      tekstSize[0] =textBig;
-      tekstSize[1] =textNorm;
-      tekstSize[3]= textNorm;
+    if (select1 == HIGHLIGHT) {
+      tekstSize[0] =TEXT_BIG;
+      tekstSize[1] =TEXT_NORMAL;
+      tekstSize[3]= TEXT_NORMAL;
     }    
-    if (select2 == highlight) {
-      tekstSize[1]= textBig;
-      tekstSize[0]= textNorm;
-      tekstSize[3]= textNorm;
+    if (select2 == HIGHLIGHT) {
+      tekstSize[1]= TEXT_BIG;
+      tekstSize[0]= TEXT_NORMAL;
+      tekstSize[3]= TEXT_NORMAL;
     }    
-    if (select3 == highlight) {
-      tekstSize[0]= textNorm;
-      tekstSize[1]= textNorm;
-      tekstSize[3]= textBig;
+    if (select3 == HIGHLIGHT) {
+      tekstSize[0]= TEXT_NORMAL;
+      tekstSize[1]= TEXT_NORMAL;
+      tekstSize[3]= TEXT_BIG;
     }
     //Down in het menu
-    if (select1 == highlight&&inputsPressed(keyUp) ) {
+    if (select1 == HIGHLIGHT&&inputsPressed(keyUp) ) {
       Ding.play();
       select1 = GREY;
       select2 = GREY;
-      select3 = highlight;
+      select3 = HIGHLIGHT;
     }
-    if (select1 == highlight&&inputsPressed(keyDown) ) {
+    if (select1 == HIGHLIGHT&&inputsPressed(keyDown) ) {
       Ding.play();
       select1 = GREY;
-      select2 = highlight;
+      select2 = HIGHLIGHT;
       select3 = GREY;
     }
-    if (select2 == highlight&&inputsPressed(keyDown) ) {
+    if (select2 == HIGHLIGHT&&inputsPressed(keyDown) ) {
       Ding.play();
       select1 = GREY;
       select2 = GREY;
-      select3 = highlight;
+      select3 = HIGHLIGHT;
     }
     //Up in het menu
-    if (select2 == highlight&&inputsPressed(keyUp) ) {
+    if (select2 == HIGHLIGHT&&inputsPressed(keyUp) ) {
       Ding.play();
-      select1 = highlight;
+      select1 = HIGHLIGHT;
       select2 = GREY;
       select3 = GREY;
     }
-    if (select3 == highlight&&inputsPressed(keyUp) ) {
+    if (select3 == HIGHLIGHT&&inputsPressed(keyUp) ) {
       Ding.play();
       select1 = GREY;
-      select2 = highlight;
+      select2 = HIGHLIGHT;
       select3 = GREY;
     }
-    if (select3 == highlight&&inputsPressed(keyDown) ) {
+    if (select3 == HIGHLIGHT&&inputsPressed(keyDown) ) {
       Ding.play();
-      select1 = highlight;
+      select1 = HIGHLIGHT;
       select2 = GREY;
       select3 = GREY;
     }//q om terug te gaan
@@ -524,17 +529,17 @@ class DIF {
       room= "mainM";
       cooldown=COOLDOWN_MAX;
     }//normal game
-    if (select1==highlight&&room == "difficulty" && inputsPressed(keySpace) ) {
+    if (select1==HIGHLIGHT&&room == "difficulty" && inputsPressed(keySpace) ) {
       room = "game";
       SpeedUp.play();
       cooldown=COOLDOWN_MAX;
     }//tutorial game
-    if (select2==highlight &&room == "difficulty" && inputsPressed(keySpace)) {
+    if (select2==HIGHLIGHT &&room == "difficulty" && inputsPressed(keySpace)) {
       room = "game2";
       SpeedUp.play();
       cooldown=COOLDOWN_MAX;
     }    
-    if (select3==highlight &&room == "difficulty" && inputsPressed(keySpace)) {
+    if (select3==HIGHLIGHT &&room == "difficulty" && inputsPressed(keySpace)) {
       room = "Highscores";
       SpeedUp.play();
       cooldown= COOLDOWN_MAX;
@@ -640,18 +645,18 @@ class Selection {
     textAlign(CENTER, CENTER);
     for (int ix = 0; ix < options.length; ix++) {
       for (int iy = 0; iy < options[0].length; iy++) {
-        int dist = textBig;
+        int dist = TEXT_BIG;
         if (iy == ySelected[ix]) {
-          textSize(textBig);
+          textSize(TEXT_BIG);
         } else {
-          textSize(textNorm);
+          textSize(TEXT_NORMAL);
         }
         float yLoc = centerY+(dist*(iy-ySelected[ix]));
         float xLoc = centerX+(dist*(ix-xSelected));
         if (iy == ySelected[ix] && ix == xSelected && options[ix][iy].length() == 1) {
           fill(BLACK, 100);
           noStroke();
-          rect(xLoc-textBig/2, yLoc-textBig/2, textBig, textBig);
+          rect(xLoc-TEXT_BIG/2, yLoc-TEXT_BIG/2, TEXT_BIG, TEXT_BIG);
         }
         fill(WHITE, 255-pow(ySelected[ix]-iy, 2)*10);
         text(options[ix][iy], xLoc, yLoc);

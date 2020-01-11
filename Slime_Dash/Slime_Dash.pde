@@ -194,10 +194,10 @@ void draw() {
     bgDraw();
     accountPassword.draw();
     text("Login password for ", width/2, height/4);
-    textSize(textBig);
+    textSize(TEXT_BIG);
     textAlign(CENTER, CENTER);
-    text(accountName.selection(), width/2, height/4+textBig);
-    textSize(textNorm);
+    text(accountName.selection(), width/2, height/4+TEXT_BIG);
+    textSize(TEXT_NORMAL);
 
     if (wrongPassword) {
       loginFade--; //fades the login failed text
