@@ -226,12 +226,13 @@ class HUD {
       ellipseMode(RADIUS);
       stroke(BLACK);
       strokeWeight(5);
-      textSize(menu.tekstSize[1]);
+      textSize(PARTICLE_TEXT_SIZE);
       tint(155);
       imageMode(CENTER);
       //tutorial plaatjes en button
       //jump tutorial
       if (traveledDistance >0 && traveledDistance <5) {
+        println(5);
         tutText = "B";
         ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
         fill(BLACK);

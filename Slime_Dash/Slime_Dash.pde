@@ -36,7 +36,6 @@ void gameReset() {
   hordeSetup();
   playerSetup();
   blinkSetup();
-  menuSetup();
   interfacesSetup();
   hostileSetup();
   magicBlockSetup();
@@ -47,6 +46,7 @@ void gameReset() {
   pauseSetup();
   pickupSetup();
   mapSetup();
+  menuSetup();
   particleSetup();
 }
 
@@ -85,7 +85,7 @@ void updateGame() {
   arrowUpdate();
   hostileUpdate();
   //Overlay
-  interfaces.update();
+
   particleUpdate();
   //Player
   player.update();
@@ -140,11 +140,13 @@ void draw() {
     pause.update();
     updateGame();
     drawGame();
+    interfaces.update();
   } else if (room =="game2") {
     globalScrollSpeed = player.DASHSPEED*(pow(player.x-width/2, 1)/pow(width/2, 1));
     pause.update();
     updateGame();
     drawGame();
+    interfaces.update();
   } else if (room == "mainM") {
     bgUpdate();
     bgDraw();
@@ -152,7 +154,7 @@ void draw() {
     menu.menuDraw("Play", "Upgrades", "Achievements");
     Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "", "", 0);
     image(slimeDash, width/4+shake, height/100, width/3, height/3);
-     interfaces.death = false;
+    interfaces.death = false;
     if (inputsPressed(72)) {
       room = "achievements";
     }
@@ -297,5 +299,4 @@ void UpdateGlobalSpeeds() {
   globalVerticalSpeed = round(globalVerticalSpeed);
   VerticalDistance += globalVerticalSpeed;
   allowVerticalMovement = false;
-  
 }
