@@ -36,7 +36,7 @@ boolean hasCrown = false;
 
 int houseSpriteWidth, houseSpriteHeight, wallSpriteWidth, wallSpriteHeight, cloudSpriteWidth, cloudSpriteHeight, sunSpriteSize, 
   meleeSpriteWidth, meleeSpriteHeight, playerSpriteWidth, playerSpriteHeight, skySpriteSize, hordeSpriteWidth, hordeSpriteHeight, flamethrowerSpriteWidth, flamethrowerSpriteHeight, 
-  arrowSpriteWidth, arrowSpriteHeight, magicSpriteWidth, magicSpriteHeight, crownOffset;
+  arrowSpriteWidth, arrowSpriteHeight, magicSpriteWidth, magicSpriteHeight, crownOffset, fireWidth, fireHeight;
 float pushPlayerSpriteR, pushPlayerSpriteL, pushPlayerSpriteUp;
 
 //Blocks
@@ -234,5 +234,7 @@ public void assetSetup() {
   healthbar = loadImage("./sprites/HUD/healthbar.png");
   dashbar = loadImage("./sprites/HUD/dashbar.png");
   fire = loadImage("./sprites/HUD/fire.png");
+  fireWidth = int(globalScale*3);
+  fireHeight = fireWidth;
   textFont(font);
 }

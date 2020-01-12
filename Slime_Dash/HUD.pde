@@ -21,6 +21,7 @@ class HUD {
   float tutX, tutY, buttonSize;
   String tutText;
   color circleColor = YELLOW;
+  float buttonX, buttonY, buttontextX, buttontextY, tutorialImgY, TutImgX, tutDashX;
   //HEALTHBAR
   final int NO_HEALTH = 0;
   final float MAX_HEALTH = 100;
@@ -39,7 +40,6 @@ class HUD {
   String gOver, newHighscore;
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
-
   float nice = 69;
   //coins
 
@@ -49,6 +49,12 @@ class HUD {
     tutY = height/4;
     tutText = "";
     buttonSize = 35;
+    buttonX = globalScale*1.7;
+    buttonY = 115;
+    buttontextY = 100;
+    tutorialImgY = 120;
+    TutImgX = globalScale*2;
+    tutDashX = globalScale*1.5;
     //healthbar
     healthBarX = 30+(globalScale/18);
     healthBarY = 40;
@@ -96,8 +102,7 @@ class HUD {
     //healthbar laat damage cooldown zien door donkerrood te worden
     //easter egg
     if (health==nice) {
-      createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, 
-        false, PARTICLE_LIFE_SHORT, "NICE ;)", FEEDBACK_PARTICLE_AMOUNT);
+      createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, false, PARTICLE_LIFE_SHORT, "NICE ;)", FEEDBACK_PARTICLE_AMOUNT);
     }
     //als de player damage cooldown heeft wordt de healthbar donkerrood
     if (player.dmgCooldown >=0) {
@@ -187,7 +192,7 @@ class HUD {
       death = true;
       health = NO_HEALTH;
     }
-    if (Highscore!= 0) {
+    if (Highscore!= NO_HEALTH) {
       getHighscore =false;
     } //navigatie in game over scherm
     if (death == true) {
@@ -196,7 +201,7 @@ class HUD {
       gOver = "Game over";
       goFadeIn += 2;
       /*stops player movement*/
-      player.moveSpeed = 0;
+      player.moveSpeed = NO_HEALTH;
       //Q om naar main menu te gaan
       if (inputsPressed(keyM)) {
         Dede.stop();
@@ -235,39 +240,39 @@ class HUD {
       //jump tutorial
       if (traveledDistance >0 && traveledDistance <5) {
         tutText = "B";
-        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, buttonSize, buttonSize);
+        ellipse(player.x-buttonX, player.y-buttonY, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, player.x-(globalScale*2), player.y-100);
-        image(playerSprite[4], player.x, player.y-120);
+        text(tutText, player.x-TutImgX, player.y-buttontextY);
+        image(playerSprite[4], player.x, player.y-tutorialImgY);
       } //dash tutorial
       else if (traveledDistance >5 &&traveledDistance <22) {
         circleColor = color(RED);
         tutText = "A";
-        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, buttonSize, buttonSize);
+        ellipse(player.x-buttonX, player.y-buttonY, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, player.x-(globalScale*2), player.y-100);
-        image(playerSprite[5], player.x, player.y-120);
+        text(tutText, player.x-TutImgX, player.y-buttontextY);
+        image(playerSprite[5], player.x, player.y-tutorialImgY);
       } //dash door enemy tutorial
       else if (traveledDistance >25 && traveledDistance <55) {
         circleColor = color(RED);
         tutText = "A";
-        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, buttonSize, buttonSize);
+        ellipse(player.x-buttonX, player.y-buttonY, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, player.x-(globalScale*2), player.y-100);
-        image(playerSprite[5], player.x, player.y-120);
-        image(enemySprite[0], player.x+globalScale, player.y-120);
-        image(enemyDeathSprite, player.x+globalScale*2, player.y-120);
+        text(tutText, player.x-TutImgX, player.y-buttontextY);
+        image(playerSprite[5], player.x, player.y-tutorialImgY);
+        image(enemySprite[0], player.x+globalScale, player.y-tutorialImgY);
+        image(enemyDeathSprite, player.x+TutImgX, player.y-tutorialImgY);
       } //dash voor vuur uit tutorial
       else if (traveledDistance >90 && traveledDistance <133) {
         circleColor = color(RED);
         tutText = "A";
-        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, buttonSize, buttonSize);
+        ellipse(player.x-buttonX, player.y-buttonY, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, player.x-(globalScale*2), player.y-100);
-        image(fire, player.x, player.y-190, globalScale*3, globalScale*3);
-        image(playerSprite[6], player.x, player.y-120);
-        image(playerSprite[5], player.x+globalScale*1.5, player.y-120);
-        image(playerSprite[1], player.x+globalScale*3, player.y-120);
+        text(tutText, player.x-TutImgX, player.y-buttontextY);
+        image(fire, player.x, player.y-190, fireWidth, fireHeight);
+        image(playerSprite[6], player.x, player.y-tutorialImgY);
+        image(playerSprite[5], player.x+tutDashX, player.y-tutorialImgY);
+        image(playerSprite[1], player.x+fireWidth, player.y-tutorialImgY);
       }
     }
     imageMode(CORNER);
