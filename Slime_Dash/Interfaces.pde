@@ -88,6 +88,10 @@ void upgradeSetup() {
 }
 Upgrades upgrade;
 
+final int DASH_PRICE = 50, 
+  HEALTH_PRICE = 30, 
+  COIN_PRICE = 50;
+
 class Upgrades {
   float upgradetekstLow, upgradetekstHigh;
   int perchW = 320, perchH = 213, yOffset = perchH/2, xOffset=perchW/8, 
@@ -96,9 +100,9 @@ class Upgrades {
     perchSelectX, perchSelectY, 
     perchTLState, perchTRState, perchBLState, perchBRState, 
     doubleJumpPrice = 200, 
-    dashPrice = 50, 
-    healthPrice = 30, 
-    coinPrice = 50;
+    dashPrice = DASH_PRICE, 
+    healthPrice = HEALTH_PRICE, 
+    coinPrice = COIN_PRICE;
   String upgradeMaxText = "UPGRADE ALREADY MAXED";
   PImage[] perch = new PImage[4];
   int curPerch = 0;
@@ -157,9 +161,9 @@ class Upgrades {
       if (perchTLState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice) {
           perchTLState = 3;
-          updateUpgrades(ID_DJUMP, perchTLState);
-          perchTL = perch[perchTLState];
           coins -= doubleJumpPrice;
+          updateUpgrades(ID_DJUMP, perchTLState);
+          perchTL = perch[perchTLState];      
           if (perchTLState >=1) jumpUpgradeState = 1;
           player.maxJumpAmount = jumpUpgradeState;
           SpeedUp.play();
@@ -178,11 +182,11 @@ class Upgrades {
       if (perchTRState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice) {
           perchTRState++;
+          coins -= dashPrice;
           updateUpgrades(ID_DASH, perchTRState);
           perchTR = perch[perchTRState];
           player.dashCooldownMax = player.DASH_COOLDOWN_CHARGE * upgrade.perchTRState;
           cooldown = COOLDOWN_UPGRADE;
-          coins -= dashPrice;
           if (offline ==true)dashPrice = dashPrice *2;
           textAlign(CENTER);
           fill(WHITE);
@@ -206,10 +210,10 @@ class Upgrades {
       if (perchBLState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && coins >= healthPrice) {
           perchBLState++;
+          coins -= healthPrice;
           updateUpgrades(ID_HEALTH, perchBLState);
           perchBL = perch[perchBLState];
           cooldown = COOLDOWN_UPGRADE;
-          coins -= healthPrice;
           if (offline ==true)healthPrice = healthPrice *2;
           if (perchBLState==1)interfaces.healthMult =0.8;
           if (perchBLState==2)interfaces.healthMult =0.7;
@@ -238,10 +242,10 @@ class Upgrades {
       if (perchBRState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && coins >= coinPrice) {
           perchBRState++;
+          coins -= coinPrice;
           updateUpgrades(ID_COINS, perchBRState);
           perchBR = perch[perchBRState];
           cooldown = COOLDOWN_UPGRADE;
-          coins -= coinPrice;
           if (perchBRState ==1) coinValue =2;
           if (perchBRState ==2) coinValue =3;
           if (perchBRState ==3) coinValue =4;

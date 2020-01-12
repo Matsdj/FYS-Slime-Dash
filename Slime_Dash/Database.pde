@@ -72,6 +72,7 @@ ArrayList<RecordUser> dbUsers;
 int positionYSpacing = 36;        // The spacing height between lines
 
 ///Achievements//////////////////
+//chris
 
 void GetAchievements() {
   dbAch = new ArrayList<recordAchievements>();
@@ -270,7 +271,9 @@ void drawHScores() {
   }
 }
 
-//upgrades
+//upgrades//////////////
+//chris
+
 void getUpgrades() {
   if ( msql.connect() )
   {
@@ -285,13 +288,21 @@ void getUpgrades() {
         upgrade.perchBLState = msql.getInt("level");
         break;
       case ID_DASH:
-        upgrade.perchTRState = msql.getInt("level");
+        if (msql.getInt("level") == 0) {
+          upgrade.perchTRState = 1;
+        } else {
+          upgrade.perchTRState = msql.getInt("level");
+        }
         break;
       case ID_COINS:
         upgrade.perchBRState = msql.getInt("level");
         break;
       }
     }
+
+    upgrade.dashPrice = DASH_PRICE * int((pow(2, float(upgrade.perchTRState))));
+    upgrade.coinPrice = COIN_PRICE * int((pow(2, float(upgrade.perchBRState))));
+    upgrade.healthPrice = HEALTH_PRICE * int((pow(2, float(upgrade.perchBLState))));
   }
 }
 
@@ -300,6 +311,12 @@ void updateUpgrades(int upgradeIndex, int newLevel) {
     if ( msql.connect() )
     {
       msql.query( "UPDATE Player_Upgrades SET level = "+newLevel+" WHERE Upgrades_id = "+upgradeIndex+" AND Users_id = "+user.id+";" );
+
+      updateUser();
+
+      upgrade.dashPrice = DASH_PRICE * int((pow(2, float(upgrade.perchTRState))));
+      upgrade.coinPrice = COIN_PRICE * int((pow(2, float(upgrade.perchBRState))));
+      upgrade.healthPrice = HEALTH_PRICE * int((pow(2, float(upgrade.perchBLState))));
     }
   }
 }
@@ -313,6 +330,7 @@ void createUpgrades(int userID) {
   }
 }
 
+//users///////////////
 //chris
 
 class account {
