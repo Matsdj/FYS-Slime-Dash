@@ -51,8 +51,8 @@ void gameReset() {
 }
 
 void setup() {
-  size(1280, 720, P2D);
-  //fullScreen(P2D);
+  //size(1280, 720, P2D);
+  fullScreen(P2D);
   smooth(0);
   frameRate(60);
 
@@ -150,6 +150,7 @@ void draw() {
   } else if (room == "mainM") {
     bgUpdate();
     bgDraw();
+    upgrade.update();
     menu.MenuUpdates("mainM", "difficulty", "upgrades", "achievements");
     menu.menuDraw("Play", "Upgrades", "Achievements");
     Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "", "", 0);

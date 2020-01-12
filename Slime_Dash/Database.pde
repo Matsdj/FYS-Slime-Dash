@@ -170,13 +170,13 @@ void drawAch() {
     }
     textSize(ACH_TEXT_SIZE);
     if (dbAch.get(iAch).scoreType == SCORE_TYPE) {
-      text("Get " + dbAch.get(iAch).requiredScore + " score: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
+      text("Get " + dbAch.get(iAch).requiredScore + " score: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore +" reward: "+ dbAch.get(iAch).reward, width / 8, height / 5 + globalScale * iAch);
     } else if (dbAch.get(iAch).scoreType == ENEMY_TYPE) {
-      text("Dash through " + dbAch.get(iAch).requiredScore + " enemies: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
+      text("Dash through " + dbAch.get(iAch).requiredScore + " enemies: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore +" reward: "+ dbAch.get(iAch).reward, width / 8, height / 5 + globalScale * iAch);
     } else if (dbAch.get(iAch).scoreType == HEART_TYPE) {
-      text("Pickup " + dbAch.get(iAch).requiredScore + " hearts: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
+      text("Pickup " + dbAch.get(iAch).requiredScore + " hearts: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore +" reward: "+ dbAch.get(iAch).reward, width / 8, height / 5 + globalScale * iAch);
     } else if (dbAch.get(iAch).scoreType == BLOCK_TYPE) {
-      text("Break " + dbAch.get(iAch).requiredScore + " blocks: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
+      text("Break " + dbAch.get(iAch).requiredScore + " blocks: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore +" reward: "+ dbAch.get(iAch).reward, width / 8, height / 5 + globalScale * iAch);
     }
   }
 }
