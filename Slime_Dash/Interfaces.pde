@@ -104,7 +104,7 @@ class Upgrades {
   int curPerch = 0;
   PImage perchTL, perchTR, perchBL, perchBR;
   PImage perchSelect;
-  int upgradeNotificationsX = width/2,upgradeNotificationsY = height/2;
+  int upgradeNotificationsX = width/2, upgradeNotificationsY = height/2;
   Upgrades() {
     perch[0] = loadImage("./sprites/menus/perch0.png");
     perch[1] = loadImage("./sprites/menus/perch1.png");
@@ -153,13 +153,13 @@ class Upgrades {
       // ff quick coin cheat
       if (keyPressed && key == '=') {
         coins += 10;
-      }
+      }//double jump
       if (perchTLState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice) {
           perchTLState = 3;
           perchTL = perch[perchTLState];
           coins -= doubleJumpPrice;
-          jumpUpgradeState = 1;
+          if (perchTLState >=1) jumpUpgradeState = 1;
           player.maxJumpAmount = jumpUpgradeState;
           SpeedUp.play();
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
@@ -170,7 +170,7 @@ class Upgrades {
           text("YOU CAN'T AFFORD THAT", upgradeNotificationsX, upgradeNotificationsY);
           textAlign(LEFT, CENTER);
         }
-      }
+      }//dash charges
       if (perchTRState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice) {
           perchTRState++;
@@ -194,7 +194,7 @@ class Upgrades {
           text("YOU CAN'T AFFORD THAT", upgradeNotificationsX, upgradeNotificationsY);
           textAlign(LEFT, CENTER);
         }
-      }
+      }//health upgrade
       if (perchBLState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && coins >= healthPrice) {
           perchBLState++;
@@ -220,14 +220,16 @@ class Upgrades {
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
-      }
+      }//coin upgrade
       if (perchBRState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && coins >= coinPrice) {
           perchBRState++;
           perchBR = perch[perchBRState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= coinPrice;
-          coinValue ++;
+          if (perchBRState ==1) coinValue =2;
+          if (perchBRState ==2) coinValue =3;
+          if (perchBRState ==3) coinValue =4;
           coinPrice = coinPrice * 2;
           textAlign(CENTER);
           fill(WHITE);

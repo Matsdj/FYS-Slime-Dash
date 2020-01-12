@@ -30,7 +30,7 @@ class HUD {
   //dashbar
   float dashmain, dashH, dashL, dashL2, dashX, dashY, dashX2, dashL3, dashX3;
   final float DASHCHARGE_PARTICLE_AMOUNT = 100, DASHCHARGE_PARTICLE_GRAVITY = 0.01;
-  float[] dashChargeX = new float[3];
+  float[] dashChargeX = new float[4];
   boolean charge1 = false, charge2 = false, charge3 = false;
   //score
   float scoreX, scoreY, scoreSize, score, scoreNormal;
