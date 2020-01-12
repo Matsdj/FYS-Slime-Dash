@@ -193,6 +193,7 @@ class Player {
     spriteHeight = playerSpriteHeight + yTween;
   }
 
+
   //Boolean that checks if the player is inside of a block
   boolean insideBlock() {
     if (blockCollision(x, y, size) != null && (y+size) > blockCollision(x, y, size).y) {
@@ -210,6 +211,7 @@ class Player {
     dmgCooldown--;
 
     blockTypeDetection();
+
 
     ////////Movement//////////////////////////
     if (!interfaces.death) {
@@ -237,7 +239,7 @@ class Player {
         moveSpeed = MOVESPEED;
       }
 
-      //checks the same for jumping
+      //checks the same for jumping, and changes keyup to 1
       if (inputs.hasValue(UP) == true) {
         keyUp = 1;
         if (SlimeJump.isPlaying() ==false) {
@@ -253,7 +255,7 @@ class Player {
         vx = -MAXMOVESPEED;
       }
 
-      //jump mechanics, when the jumping key is pressed the player will go up. It will then count how high it goes, until a certain height is hit.
+      //jump mechanics, when the jumping key is pressed the player will go up. It will then count how high it goes, until a certain height is hit
       //This gives the player the ability to control how high they jump
       if (jumpedHeight > -MAX_JUMP_HEIGHT && keyUp == 1) {
         vy = keyUp * -JUMPSPEED;
@@ -267,6 +269,7 @@ class Player {
 
       //Dash abilty/////////////////////////
 
+      //Checks if the cooldown is full and if you pressed the Z key. Then it will keep executing till dashtime becomes 0
       if (inputsPressed(keyZ) == true && dashCooldown >= DASH_COOLDOWN_CHARGE || dashActive && dashTime > 0) {
         if (DashSlime.isPlaying() ==false) {
           DashSlime.rate(random(0.8, 1.2));
@@ -312,7 +315,7 @@ class Player {
       while (blockCollision(x+sign(vx), y, size) == null) {
         x += sign(vx); //executed until the player is right next too a block
       }
-      if (dashActive) {
+      if (dashActive) { //Activates a shake when player dashes against a wall
         shake(globalScale/3);
         if (Thud.isPlaying() ==false) {
           Thud.play();
@@ -320,7 +323,7 @@ class Player {
       }
 
       vx = 0;
-    } else if (room == "game2" && x+vx <= 0) {
+    } else if (room == "game2" && x+vx <= 0) { //When in tutorial mode, the left side of the screen will also be a wall
       while (x + sign(vx) > 0) {
         x += sign(vx);
       }
@@ -330,6 +333,7 @@ class Player {
     if (!interfaces.death) {
       x+= vx*speedModifier;
     }
+
     //Vertical collision
     //works like horizontal collision, only now with vy
     if (blockCollision(x, y+vy, size) != null) {
@@ -394,9 +398,10 @@ class Player {
 
   void draw() {
     playerAnimation();
-    if (moveLeft) {
+    if (moveLeft) { //If the player looks left, the image will be flipped using scale and push/popmatrix
       pushMatrix();
       scale(-1.0, 1.0);
+      //x is negative, because the matrix of the image is fully flipped. x coords are thus turned
       image(playerSprite[frameCounter], -xSpriteL-playerSprite[0].width+shake, ySprite, spriteWidth, spriteHeight);
       if (hasCrown) {
         tint(255, crownFade);
@@ -431,7 +436,8 @@ void blinkSetup() {
 }
 
 void blinkUpdate() {
-  //adds new dash blink every given frame amount while the dash is active
+
+  //adds new dash blink every given frame amount while the dash is active or when you can dash
   for (int iBlink = 0; iBlink < MAX_BLINK_AMOUNT; iBlink ++) {
     if (((player.dashActive && player.dashTime % BLINK_FRAMERATE == 0) || (player.dashCooldown >= player.DASH_COOLDOWN_CHARGE && frameCount % WALK_BLINK_FRAMERATE == 0)) && !dashBlink[iBlink].isActive && !interfaces.death) {
       dashBlink[iBlink].activate();
@@ -455,7 +461,7 @@ void blinkDraw() {
 }
 
 class dashBlinks {
-  final int DASH_BLINK_FADE_V = 15;
+  final int DASH_BLINK_FADE_V = 15; //fade of image speed
   final int WALK_BLINK_FADE_V = 30;
 
   int dashBlinkCooldown, walkFrame;

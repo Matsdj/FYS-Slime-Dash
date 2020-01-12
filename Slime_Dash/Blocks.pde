@@ -65,6 +65,7 @@ class Block {
         }
         if (active == false) {
           createParticle(blockCenterX, blockCenterY, size, PARTICLE_SIZE, CRACKED_BLOCK_PARTICLE_COLOR_LIGHT, CRACKED_BLOCK_PARTICLE_COLOR_DARK, PARTICLE_GRAVITY, PARTICLE_SPEED, true, PARTICLE_LIFE, NO_TEXT, BREAK_PARTICLE_COUNT);
+          blockBreakCount++;
         }
       }
       //Allow Vertical Movement

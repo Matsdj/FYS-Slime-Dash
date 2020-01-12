@@ -2,13 +2,17 @@ import de.bezier.data.sql.*;
 MySQL msql;
 // This is a data model class to reflect the content of the User entity from the database.
 final int LOGIN_FADE_START = 255, 
-  ACH_TEXT_SIZE = 30;
+  ACH_TEXT_SIZE = 30, 
+  SCORE_TYPE = 1, 
+  ENEMY_TYPE = 2, 
+  HEART_TYPE = 3, 
+  BLOCK_TYPE = 4;
 
 final color ACH_COMPLETED_COLOR = color(0, 255, 0);
 
 boolean wrongPassword = false;
 String loginFailText;
-int achRecordCount = 0, loginFade;
+int achRecordCount = 0, loginFade, heartCount = 0, blockBreakCount = 0;
 
 void databaseSetup() {
   println(msql.connect());
@@ -105,7 +109,7 @@ void updateAchievements() { //make sure to run this function once and not severa
 
         //updates score based achievements, checks if ach has new progress, is correct scoretype and if its already completed
 
-        if (dbAch.get(iAch).scoreType == 1 && dbAch.get(iAch).progress < int(interfaces.score)) {
+        if (dbAch.get(iAch).scoreType == SCORE_TYPE && dbAch.get(iAch).progress < int(interfaces.score)) {
           msql.query( "UPDATE Achievements_Progres SET progres = " + int(interfaces.score) + " WHERE Users_id = " + user.id + " AND Achievements_id = "+ dbAch.get(iAch).id );
 
           dbAch.get(iAch).progress = int(interfaces.score);
@@ -117,24 +121,34 @@ void updateAchievements() { //make sure to run this function once and not severa
         }
 
         //updates enemie kill based achievements
+        updateAch(killCount, ENEMY_TYPE, iAch);
 
-        if (dbAch.get(iAch).scoreType == 2 && dbAch.get(iAch).progress < dbAch.get(iAch).progress + killCount) {
-          msql.query( "UPDATE Achievements_Progres SET progres = " + (dbAch.get(iAch).progress + killCount) + " WHERE Users_id = " + user.id + " AND Achievements_id = "+ dbAch.get(iAch).id );
+        //updates heart pickup achievements
+        updateAch(heartCount, HEART_TYPE, iAch);
 
-          dbAch.get(iAch).progress += killCount;
-          if (dbAch.get(iAch).progress >= dbAch.get(iAch).requiredScore) {
-            dbAch.get(iAch).progress = dbAch.get(iAch).requiredScore;
-            coins += dbAch.get(iAch).reward;
-            dbAch.get(iAch).completed = true;
-          }
-        }
+        //updates block break achievement
+        updateAch(blockBreakCount, BLOCK_TYPE, iAch);
       }
     }
 
     killCount = 0; //resets the enemie kills
+    heartCount = 0;
+    blockBreakCount = 0;
   }
 }
 
+void updateAch(int count, int scoretype, int index) {
+  if (dbAch.get(index).scoreType == scoretype && dbAch.get(index).progress < dbAch.get(index).progress + count) {
+    msql.query( "UPDATE Achievements_Progres SET progres = " + (dbAch.get(index).progress + count) + " WHERE Users_id = " + user.id + " AND Achievements_id = "+ dbAch.get(index).id );
+
+    dbAch.get(index).progress += count;
+    if (dbAch.get(index).progress >= dbAch.get(index).requiredScore) {
+      dbAch.get(index).progress = dbAch.get(index).requiredScore;
+      coins += dbAch.get(index).reward;
+      dbAch.get(index).completed = true;
+    }
+  }
+}
 
 void drawAch() {
   if (offline) {
@@ -150,17 +164,16 @@ void drawAch() {
       fill(YELLOW);
     }
     textSize(ACH_TEXT_SIZE);
-    if (dbAch.get(iAch).scoreType == 1) {
+    if (dbAch.get(iAch).scoreType == SCORE_TYPE) {
       text("Get " + dbAch.get(iAch).requiredScore + " score: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
-    } else if (dbAch.get(iAch).scoreType == 2) {
+    } else if (dbAch.get(iAch).scoreType == ENEMY_TYPE) {
       text("Dash through " + dbAch.get(iAch).requiredScore + " enemies: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
+    } else if (dbAch.get(iAch).scoreType == HEART_TYPE) {
+      text("Pickup " + dbAch.get(iAch).requiredScore + " hearts: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
+    } else if (dbAch.get(iAch).scoreType == BLOCK_TYPE) {
+      text("Break " + dbAch.get(iAch).requiredScore + " blocks: progres = " + dbAch.get(iAch).progress +"/" + dbAch.get(iAch).requiredScore, width / 8, height / 5 + globalScale * iAch);
     }
   }
-
-  //for testing
-  /*if (mousePressed) {
-   updateAchievements();
-   }*/
 }
 
 //Laurens

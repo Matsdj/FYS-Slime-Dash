@@ -25,7 +25,7 @@ void bgSetup() {
   for (int iSprite = 0; iSprite < MAX_HOUSES; iSprite++) {
     bgHouses[iSprite] = new BgHouses();
 
-    //places the first set of houses on the background
+    //places the first set of houses on the background, chooses a random house sprite
     if (iSprite - 1 >= 0) {
       bgHouses[iSprite].reset(bgHouses[iSprite - 1].x + houseSpriteWidth, int(random(0, BG_HOUSES_AMOUNT)));
     } else 
@@ -104,7 +104,6 @@ void bgUpdate() {
 
 void bgDraw() { 
   //draws a blue sky in bg
-
   for (int iSky = 0; iSky < SKY_AMOUNT; iSky++) {
     image(bgSky, 0 + bgSky.width * iSky, 0);
   }
@@ -257,12 +256,12 @@ void sunDraw() {
 //Sky color shift////////////////////
 int redSkyTransition = 0;
 int blueSkyTransition = 0;
-void skyChange() {
-  final int RED_MAX = 40;
-  final int BLUE_MAX = 100;
-  final color RED_SKY = color(200, 0, 0);
-  final color BLUE_SKY = color(0, 0, 60);
+final int RED_MAX = 40;
+final int BLUE_MAX = 100;
+final color RED_SKY = color(200, 0, 0);
+final color BLUE_SKY = color(0, 0, 60);
 
+void skyChange() {
   //if the player arrives at the part where the music shifts, the sky will turn red
   if (time>=slow && time<mid) {
     redSkyTransition++;
