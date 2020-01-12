@@ -95,10 +95,10 @@ class Upgrades {
     perchUp=height/8, perchDown=height - height/8 - perchH, 
     perchSelectX, perchSelectY, 
     perchTLState, perchTRState, perchBLState, perchBRState, 
-    doubleJumpPrice = 100, 
-    dashPrice = 20, 
-    healthPrice = 20, 
-    coinPrice = 20;
+    doubleJumpPrice = 200, 
+    dashPrice = 50, 
+    healthPrice = 30, 
+    coinPrice = 50;
   String upgradeMaxText = "UPGRADE ALREADY MAXED";
   PImage[] perch = new PImage[4];
   int curPerch = 0;
