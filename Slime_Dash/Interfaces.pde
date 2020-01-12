@@ -129,35 +129,38 @@ class Upgrades {
     upgradetekstHigh = perchUp*1.35;
   }
   void update() {
-    if (inputsPressed(keyQ)) {
-      room= "mainM";
-      cooldown=COOLDOWN_MAX;
-    }
+    if (room == "upgrades") {
+      if (inputsPressed(keyQ)) {
+        room= "mainM";
+        cooldown=COOLDOWN_MAX;
+      }
 
-    if (inputsPressed(keyDown) && perchSelectY == perchUp) {
-      perchSelectY = perchDown;
-      if (Ding.isPlaying()) Ding.stop();
-      Ding.play();
+      if (inputsPressed(keyDown) && perchSelectY == perchUp) {
+        perchSelectY = perchDown;
+        if (Ding.isPlaying()) Ding.stop();
+        Ding.play();
+      }
+      if (inputsPressed(keyUp) && perchSelectY == perchDown) {
+        perchSelectY = perchUp;
+        if (Ding.isPlaying()) Ding.stop();
+        Ding.play();
+      }
+      if (inputsPressed(keyRight) && perchSelectX == perchLeft) {
+        perchSelectX = perchRight;
+        if (Ding.isPlaying()) Ding.stop();
+        Ding.play();
+      }
+      if (inputsPressed(keyLeft) && perchSelectX == perchRight) {
+        perchSelectX = perchLeft;
+        if (Ding.isPlaying()) Ding.stop();
+        Ding.play();
+      }
+      // ff quick coin cheat
+      if (keyPressed && key == '=') {
+        coins += 10;
+      }
     }
-    if (inputsPressed(keyUp) && perchSelectY == perchDown) {
-      perchSelectY = perchUp;
-      if (Ding.isPlaying()) Ding.stop();
-      Ding.play();
-    }
-    if (inputsPressed(keyRight) && perchSelectX == perchLeft) {
-      perchSelectX = perchRight;
-      if (Ding.isPlaying()) Ding.stop();
-      Ding.play();
-    }
-    if (inputsPressed(keyLeft) && perchSelectX == perchRight) {
-      perchSelectX = perchLeft;
-      if (Ding.isPlaying()) Ding.stop();
-      Ding.play();
-    }
-    // ff quick coin cheat
-    if (keyPressed && key == '=') {
-      coins += 10;
-    }//double jump
+    //double jump
     if (perchTLState < perch.length - 1) {
       if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice) {
         perchTLState = 3;
