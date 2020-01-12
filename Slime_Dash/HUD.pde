@@ -15,16 +15,14 @@ class HUD {
   boolean arrowDamage = false;
   boolean archerDamage = false;
   boolean spikeDamage = false;
-  final int MELEE_DAMAGE = 25;
-  final int ARROW_DAMAGE = 15;
-  final int ARCHER_DAMAGE = 25;
-  final int SPIKE_DAMAGE = 15;
+  final int MELEE_DAMAGE = 25, ARROW_DAMAGE = 15, ARCHER_DAMAGE = 25, SPIKE_DAMAGE = 15, FEEDBACK_PARTICLE_AMOUNT = 1;
+  final float FEEDBACK_PARTICLE_GRAVITY = -0.5;
   // tutorial
-  float tutX, tutY;
+  float tutX, tutY, buttonY = player.y-115, buttonX = player.x-(globalScale*2)+(width/100), buttonSize = 35, 
+    buttonTextX = player.x-(globalScale*2), buttonTextY = player.y-100, tutorialImageY = player.y-120;
   String tutText;
-  PImage[] tutorial = new PImage[4];
   color circleColor = YELLOW;
-  ;
+  float[] tutorialImageX = new float[5];
   //HEALTHBAR
   final int NO_HEALTH = 0;
   final float MAX_HEALTH = 100;
@@ -49,7 +47,11 @@ class HUD {
     tutX = width/2;
     tutY = height/4;
     tutText = "";
-    tutorial[0] = playerSprite[4];
+    tutorialImageX[0] = player.x;
+    tutorialImageX[1] = player.x+globalScale;
+    tutorialImageX[2] = player.x+globalScale*2;
+    tutorialImageX[3] = player.x+globalScale*1.5;
+    tutorialImageX[4] = player.x+globalScale*3;
     //healthbar
     healthBarX = 30+(globalScale/18);
     healthBarY = 40;
@@ -93,7 +95,7 @@ class HUD {
     //healthbar laat damage cooldown zien door donkerrood te worden
     //easter egg
     if (health==69) {
-      createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, false, PARTICLE_LIFE_SHORT, "NICE ;)", 1);
+      createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, false, PARTICLE_LIFE_SHORT, "NICE ;)", FEEDBACK_PARTICLE_AMOUNT);
     }
     //als de player damage cooldown heeft wordt de healthbar donkerrood
     if (player.dmgCooldown >=0) {
@@ -108,24 +110,24 @@ class HUD {
       if (meleeDamage==true) {
         meleeDmg.play();
         health = health-(MELEE_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(MELEE_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(MELEE_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
         meleeDamage=false;
       }
       if ( arrowDamage==true) {
         arrowHit.play();
         health = health-(ARROW_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(ARROW_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(ARROW_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
         arrowDamage=false;
       }
       if ( archerDamage==true) {
         health = health-(ARCHER_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(ARCHER_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(ARCHER_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
         archerDamage=false;
       }
       if ( spikeDamage==true) {
         spikeDmg.play();
         health = health-(SPIKE_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), -0.5, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(SPIKE_DAMAGE*healthMult), 1);
+        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(SPIKE_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
         spikeDamage=false;
       }
 
@@ -139,10 +141,10 @@ class HUD {
       createParticle(healthBarLength*0.25, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, 100);
     }
     if (charge2==true) {
-      createParticle(healthBarLength*0.5, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT , 100);
+      createParticle(healthBarLength*0.5, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, 100);
     }
     if (charge3==true) {
-      createParticle(healthBarLength*0.75, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT , 100);
+      createParticle(healthBarLength*0.75, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, 100);
     }
     //dashcharges worden hier gemaakt
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
@@ -225,46 +227,45 @@ class HUD {
       stroke(BLACK);
       strokeWeight(5);
       textSize(PARTICLE_TEXT_SIZE);
-      tint(155);
+      tint(GREY);
       imageMode(CENTER);
       //tutorial plaatjes en button
       //jump tutorial
       if (traveledDistance >0 && traveledDistance <5) {
-        println(5);
         tutText = "B";
-        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
+        ellipse(buttonX, buttonY, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, player.x-(globalScale*2), player.y-100);
-        image(playerSprite[4], player.x, player.y-120);
+        text(tutText, buttonTextX, buttonTextY);
+        image(playerSprite[4], tutorialImageX[0], tutorialImageY);
       } //dash tutorial
       else if (traveledDistance >5 &&traveledDistance <22) {
         circleColor = color(RED);
         tutText = "A";
-        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
+        ellipse(buttonX, buttonY, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, player.x-(globalScale*2), player.y-100);
-        image(playerSprite[5], player.x, player.y-120);
+        text(tutText, buttonTextX, buttonTextY);
+        image(playerSprite[5], tutorialImageX[0], tutorialImageY);
       } //dash door enemy tutorial
       else if (traveledDistance >25 && traveledDistance <55) {
         circleColor = color(RED);
         tutText = "A";
-        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
+        ellipse(buttonX, buttonY, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, player.x-(globalScale*2), player.y-100);
-        image(playerSprite[5], player.x, player.y-120);
-        image(enemySprite[0], player.x+globalScale, player.y-120);
-        image(enemyDeathSprite, player.x+globalScale*2, player.y-120);
+        text(tutText, buttonTextX, buttonTextY);
+        image(playerSprite[5], tutorialImageX[0], tutorialImageY);
+        image(enemySprite[0], tutorialImageX[1], tutorialImageY);
+        image(enemyDeathSprite, tutorialImageX[2], tutorialImageY);
       } //dash voor vuur uit tutorial
       else if (traveledDistance >90 && traveledDistance <133) {
         circleColor = color(RED);
         tutText = "A";
-        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, 35, 35);
+        ellipse(buttonX, buttonY, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, player.x-(globalScale*2), player.y-100);
-        image(fire, player.x, player.y-190, globalScale*3, globalScale*3);
-        image(playerSprite[6], player.x, player.y-120);
-        image(playerSprite[5], player.x+globalScale*1.5, player.y-120);
-        image(playerSprite[1], player.x+globalScale*3, player.y-120);
+        text(tutText, buttonTextX, buttonTextY);
+        image(fire, tutorialImageX[0], player.y-190, globalScale*3, globalScale*3);
+        image(playerSprite[6], tutorialImageX[0], tutorialImageY);
+        image(playerSprite[5], tutorialImageX[3], tutorialImageY);
+        image(playerSprite[1], tutorialImageX[4], tutorialImageY);
       }
     }
     imageMode(CORNER);

@@ -104,6 +104,7 @@ class Upgrades {
   int curPerch = 0;
   PImage perchTL, perchTR, perchBL, perchBR;
   PImage perchSelect;
+  int upgradeNotificationsX = width/2,upgradeNotificationsY = height/2;
   Upgrades() {
     perch[0] = loadImage("./sprites/menus/perch0.png");
     perch[1] = loadImage("./sprites/menus/perch1.png");
@@ -164,9 +165,9 @@ class Upgrades {
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
           textAlign(CENTER);
           fill(BLACK);
-          text("YOU CAN'T AFFORD THAT", width/2+generalTextOffset, height/2+generalTextOffset);
+          text("YOU CAN'T AFFORD THAT", upgradeNotificationsX+generalTextOffset, upgradeNotificationsY+generalTextOffset);
           fill(RED);
-          text("YOU CAN'T AFFORD THAT", width/2, height/2);
+          text("YOU CAN'T AFFORD THAT", upgradeNotificationsX, upgradeNotificationsY);
           textAlign(LEFT, CENTER);
         }
       }
@@ -180,17 +181,17 @@ class Upgrades {
           dashPrice = dashPrice * 2;
           textAlign(CENTER);
           fill(WHITE);
-          text("DASH CHARGES INCREASED", width/2+generalTextOffset, height/2+generalTextOffset);
+          text("DASH CHARGES INCREASED", upgradeNotificationsX+generalTextOffset, upgradeNotificationsY+generalTextOffset);
           fill(BLACK);
-          text("DASH CHARGES INCREASED", width/2, height/2);
+          text("DASH CHARGES INCREASED", upgradeNotificationsX, upgradeNotificationsY);
           textAlign(LEFT, CENTER);
           SpeedUp.play();
         } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
           textAlign(CENTER);
           fill(BLACK);
-          text("YOU CAN'T AFFORD THAT", width/2+generalTextOffset, height/2+generalTextOffset);
+          text("YOU CAN'T AFFORD THAT", upgradeNotificationsX+generalTextOffset, upgradeNotificationsY+generalTextOffset);
           fill(RED);
-          text("YOU CAN'T AFFORD THAT", width/2, height/2);
+          text("YOU CAN'T AFFORD THAT", upgradeNotificationsX, upgradeNotificationsY);
           textAlign(LEFT, CENTER);
         }
       }
