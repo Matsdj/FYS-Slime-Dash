@@ -198,6 +198,7 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }
+      dashPrice = dashPrice * perchTRState;
       player.dashCooldownMax = player.DASH_COOLDOWN_CHARGE * upgrade.perchTRState;
       perchTR = perch[perchTRState];
       //health upgrade
@@ -227,6 +228,7 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }
+      healthPrice = healthPrice * perchBLState;
       perchBL = perch[perchBLState];
       if (perchBLState==1)interfaces.healthMult =0.8;
       if (perchBLState==2)interfaces.healthMult =0.7;
@@ -257,7 +259,8 @@ class Upgrades {
           text("YOU CAN'T AFFORD THAT", width/2, height/2);
           textAlign(LEFT, CENTER);
         }
-      }        
+      }   
+      coinPrice = coinPrice * perchBRState;
       perchBR = perch[perchBRState];   
       if (perchBRState ==1) coinValue =2;
       if (perchBRState ==2) coinValue =3;
