@@ -41,7 +41,8 @@ class HUD {
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
   float nice = 69;
-  //coins
+  //highscore
+  float highscoreY,goScoreY;
 
   HUD() {
     //tutorial
@@ -84,12 +85,14 @@ class HUD {
     score = 0;
     //highscore
     newHighscore = "";
+    highscoreY = 150;
     //game over
     gOver = "";
     gOverX = width/2;
     gOverY = height/2.3;
     gOSize = width*0.04;
     goFadeIn = 0;
+    goScoreY = 100;
   }
 
   void update() {
@@ -324,25 +327,25 @@ class HUD {
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
     text(gOver, gOverX-generalTextOffset-2, gOverY-generalTextOffset-generalTextOffset);
-    text("score " + floor(score), gOverX-generalTextOffset, gOverY+98);
+    text("score " + floor(score), gOverX-generalTextOffset, gOverY+goScoreY-generalTextOffset);
     fill(YELLOW, goFadeIn);
     text(gOver, gOverX+generalTextOffset, gOverY+generalTextOffset);
-    text("score " + floor(score), gOverX+generalTextOffset, gOverY+102);
+    text("score " + floor(score), gOverX+generalTextOffset, gOverY+goScoreY+generalTextOffset);
     fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
-    text("score " + floor(score), gOverX, gOverY+100);
+    text("score " + floor(score), gOverX, gOverY+goScoreY);
     text(gOver, gOverX-generalTextOffset, gOverY-generalTextOffset);
     //highscore
     fill(#A300FC, goFadeIn);
-    text("highscore "+floor(Highscore), gOverX-generalTextOffset, gOverY+148);
-    text("              "+newHighscore, gOverX-generalTextOffset, gOverY+148);
+    text("highscore "+floor(Highscore), gOverX-generalTextOffset, gOverY+highscoreY-generalTextOffset);
+    text("              "+newHighscore, gOverX-generalTextOffset, gOverY+highscoreY-generalTextOffset);
     fill(YELLOW, goFadeIn);
     text(gOver, gOverX+generalTextOffset, gOverY+generalTextOffset);
-    text("highscore " + floor(Highscore), gOverX+generalTextOffset, gOverY+152);
-    text("              "+newHighscore, gOverX-generalTextOffset, gOverY+152);
+    text("highscore " + floor(Highscore), gOverX+generalTextOffset, gOverY+highscoreY+generalTextOffset);
+    text("              "+newHighscore, gOverX-generalTextOffset, gOverY+highscoreY+generalTextOffset);
     fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
-    text("highscore " + floor(Highscore), gOverX, gOverY+150);
+    text("highscore " + floor(Highscore), gOverX, gOverY+highscoreY);
     //NAVIGATION
     textAlign(LEFT);
     textSize(menu.tekstSize[2]);
