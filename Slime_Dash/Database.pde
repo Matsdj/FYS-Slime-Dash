@@ -209,6 +209,52 @@ float getOnlineTempTime(int userId, float currentTime, int templateId) {
   return currentTime;
 }
 
+class Highscores {
+  public String name;
+  public int id;
+  public int score;
+  public Highscores(String name, int id, float score) {
+    this.score = int(score);
+    this.id = id;
+    this.name = name;
+  }
+}
+
+ArrayList<Highscores> hScore;
+int scorePos;
+
+void getHighscores() {
+  hScore = new ArrayList<Highscores>();
+
+  if ( msql.connect()) {
+    msql.query("SELECT u.name, u.id, max(h.score) FROM Highscores h INNER JOIN Users u ON u.id = h.Users_id GROUP BY h.score desc, u.name, u.id;");
+    while (msql.next()) {
+      hScore.add(new Highscores(msql.getString("name"), msql.getInt("id"), msql.getFloat("max(h.score)")));
+    }
+
+    for (int iScore = 0; iScore < hScore.size(); iScore++) {      
+      if (user.id == hScore.get(iScore).id) {
+        scorePos = iScore+1;
+        break;
+      }
+    }
+  }
+}
+
+final int SCORE_LIST_AMOUNT = 10;
+
+void drawHScores() {
+  final float HIGHSCORE_X = globalScale, 
+    HIGHSCORE_Y = globalScale;
+
+  fill(YELLOW);
+  textSize(TEXT_NORMAL);
+
+  for (int iScore = 0; iScore < SCORE_LIST_AMOUNT; iScore++) {
+    text(hScore.get(iScore).name + ": "+ hScore.get(iScore).score, HIGHSCORE_X, HIGHSCORE_Y + globalScale * iScore);
+  }
+  text("You are in position "+ scorePos +"!", HIGHSCORE_X, height - globalScale);
+}
 
 //collin
 
@@ -247,6 +293,7 @@ void createUser(String userName, String password) {
       msql.query("INSERT INTO Highscores (Users_id, score, time) VALUES (" + user.id + ", 0, 0);");
 
       GetAchievements();
+      getHighscores();
       offline = false;
       println("Welcome, " + userName + "!");
       wrongPassword = false;
@@ -273,6 +320,7 @@ void loginUser(String userName, String password) {
       coins = user.coins;
 
       GetAchievements();
+      getHighscores();
       offline = false;
       println("Welcome, " + user.name + "!");
       wrongPassword = false;

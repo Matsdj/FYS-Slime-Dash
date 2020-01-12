@@ -172,6 +172,7 @@ void draw() {
   } else if (room == "Highscores") {
     bgUpdate();
     bgDraw();
+    drawHScores();
     Navigation(menu.tekstX, "", "", color(255, 255, 0), "B", "Back", color(255, 0, 0));
     if (inputsPressed(keyQ)==true) {
       room = "mainM";
