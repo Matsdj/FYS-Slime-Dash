@@ -244,18 +244,25 @@ void getHighscores() {
 final int SCORE_LIST_AMOUNT = 10;
 
 void drawHScores() {
-  final float HIGHSCORE_X = globalScale, 
-    HIGHSCORE_Y = globalScale;
+  final float HIGHSCORE_X = width/4, 
+    HIGHSCORE_Y = height/6;
 
-  fill(YELLOW);
+
   textSize(TEXT_NORMAL);
   if (!offline) {
+    fill(0, 70);
+    rect(0, 0, width, height);
     for (int iScore = 0; iScore < SCORE_LIST_AMOUNT; iScore++) {
-      text(hScore.get(iScore).name + ": "+ hScore.get(iScore).score, HIGHSCORE_X, HIGHSCORE_Y + globalScale * iScore);
+      if (user.id == hScore.get(iScore).id) {
+        fill(WHITE);
+      } else
+        fill(255-(iScore*10), 255-(iScore*25), iScore*10);
+      text(iScore+1 +". " +hScore.get(iScore).name + ": "+ hScore.get(iScore).score, HIGHSCORE_X, HIGHSCORE_Y + (globalScale/1.5) * iScore);
     }
-    text("You are in position "+ scorePos +"!", HIGHSCORE_X, height - globalScale);
+    fill(WHITE);
+    text("Your position: "+ scorePos +"!", HIGHSCORE_X, height - (globalScale*3));
   } else {
-    text("You need to be online!", HIGHSCORE_X, height - globalScale);
+    text("You need to be online!", HIGHSCORE_X, height - (globalScale*3));
   }
 }
 

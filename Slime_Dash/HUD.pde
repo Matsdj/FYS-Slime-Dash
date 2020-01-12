@@ -42,7 +42,7 @@ class HUD {
   boolean death;
   float nice = 69;
   //highscore
-  float highscoreY,goScoreY;
+  float highscoreY, goScoreY;
 
   HUD() {
     //tutorial
@@ -85,7 +85,7 @@ class HUD {
     score = 0;
     //highscore
     newHighscore = "";
-    highscoreY = 150;
+    highscoreY = 200;
     //game over
     gOver = "";
     gOverX = width/2;
@@ -347,6 +347,8 @@ class HUD {
     fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
     text("highscore " + floor(Highscore), gOverX, gOverY+highscoreY);
+    fill(255);
+    text("Your position: "+ scorePos +"!", width/2, height - (globalScale*3));
     //NAVIGATION
     textAlign(LEFT);
     textSize(menu.tekstSize[2]);

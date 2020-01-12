@@ -241,9 +241,9 @@ void sunSetup() {
   sunY = -globalScale;
 }
 
-final float SUN_DOWN_MAX_RED = globalScale * 3; //positions at which the sun stops with going down
-final float SUN_DOWN_MAX_BLUE = globalScale * 6;
 void sunUpdate() {
+  final float SUN_DOWN_MAX_RED = globalScale * 3; //positions at which the sun stops with going down
+  final float SUN_DOWN_MAX_BLUE = globalScale * 6;
   //makes the sun set after certain time stamps
   if (time>=slow && sunY < SUN_DOWN_MAX_RED) {
     sunY++;
