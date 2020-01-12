@@ -9,6 +9,7 @@ class Block {
 
   float x, y, size, speed = globalScale/30, vx = speed, breakTime = BREAK_TIME_MAX, centerX, centerY;
   int id = -1;
+  float deletedAt = -globalScale*10;
   color c = BRICK;
   PImage sprite;
   boolean active = false, moving = false, cracked = false, enableVerticalMovement = false;
@@ -75,33 +76,19 @@ class Block {
     pushAwayPlayer();
     //Move block
     y += globalVerticalSpeed;
-    if (x > -globalScale) {
-      x -= globalScrollSpeed;
-    }
+    x -= globalScrollSpeed;
   }
-  void movingUpdate() {
-    if (blockCollision(x+vx, y, size, id, true) != null || x <= 0) {
-      vx *= -1;
-      //Fix for bug in wich the right moving block would slowly move into the block left to it
-      if (vx < 0 && blockCollision(x+vx,y,size,id,false) != null){
-      int otherBlockId = blockCollision(x+vx,y,size,id,false).id;
-        while (blockCollision(x,y,size,id,false) != null && blockCollision(x,y,size,id,false).id == otherBlockId){
-          x++;
-        }
-      }
-      //Makes all the moving blocks that are next to it move as well
-      for (int checkDist = round(sign(vx)*size); blockCollision(centerX+checkDist, centerY, 1, id, false) != null; checkDist += round(sign(vx)*size)) {
-        blocks[blockCollision(centerX+checkDist, centerY, 1, id, false).id].vx *= -1;
-      }
-    }
-  }
+
   void moving() {
+    if (blockCollision(x+vx, y, size, id) != null) {
+      vx *= -1;
+    }
     x += vx*speedModifier;
   }
   void draw() {
     if (x < width && c != ALLOW_VERTICAL_MOVEMENT) {
       if (c == DIRT) {
-        if (blockCollision(centerX, centerY-size, 1, id, false) == null) {
+        if (blockCollision(centerX, centerY-size, 1, id) == null) {
           sprite = grassSprite;
         } else {
           sprite = dirtSprite;
@@ -117,7 +104,7 @@ class Block {
   }
   void drawBackgroundBlocks() {
     float hitbox = 1;
-    for (float backgroundY = y+size; ((blockCollision(centerX, backgroundY, hitbox, id, false) == null || blockCollision(centerX, backgroundY, hitbox, id, false).moving) && backgroundY < height); backgroundY+= globalScale) {
+    for (float backgroundY = y+size; ((blockCollision(centerX, backgroundY, hitbox, id) == null || blockCollision(centerX, backgroundY, hitbox, id).moving) && backgroundY < height); backgroundY+= globalScale) {
       tint(100);
       if (sprite == grassSprite) {
         image(dirtSprite, x+shake, backgroundY);
@@ -146,9 +133,9 @@ class Block {
 //Lijst met blocks
 Block[] blocks = new Block[1000];
 //Loops through all the blocks to see if there is one at the given position
-Block blockCollision(float x, float y, float size, float blockId, boolean excludeMoving) {
+Block blockCollision(float x, float y, float size, float blockId) {
   for (int i = 0; i < blocks.length; i++) {
-    if ((blocks[i].x < x+size && blocks[i].x+blocks[i].size > x && blocks[i].y < y+size && blocks[i].y+blocks[i].size > y) && blocks[i].active && blocks[i].id != blockId && (excludeMoving && blocks[i].moving) == false) {
+    if ((blocks[i].x < x+size && blocks[i].x+blocks[i].size > x && blocks[i].y < y+size && blocks[i].y+blocks[i].size > y) && blocks[i].active && blocks[i].id != blockId) {
       return blocks[i];
     }
   }
@@ -156,7 +143,7 @@ Block blockCollision(float x, float y, float size, float blockId, boolean exclud
 }
 //als je geen blockId invult default het naar -1
 Block blockCollision(float x, float y, float size) {
-  return blockCollision(x, y, size, -1, false);
+  return blockCollision(x, y, size, -1);
 }
 //Block Setup
 void blockSetup() {
@@ -186,15 +173,14 @@ void blockUpdate() {
     if (blocks[i].id != i) {
       blocks[i].id = i;
     }
-    //Removes the block when it is 1 block outside the screen
-    if (blocks[i].active && blocks[i].x <= -globalScale) {
+    //Removes the block when it is 10 blocks outside the screen
+    if (blocks[i].active && blocks[i].x <= blocks[i].deletedAt) {
       blocks[i].active = false;
     }
   }
   //loopt door de lijst en beweegt elke moving block
   for (int i = 0; i<blocks.length; i++) {
     if (blocks[i].moving) {
-      blocks[i].movingUpdate();
       blocks[i].moving();
     }
   }
