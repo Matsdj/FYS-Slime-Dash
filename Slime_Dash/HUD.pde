@@ -1,5 +1,5 @@
 //Laurens
-final color RED = color(255, 0, 0), YELLOW = color(255, 255, 0), BLACK = color(0), WHITE = color(255), GREY = color(180);
+final color RED = color(255, 0, 0), DARK_RED = color(150, 0, 0), YELLOW = color(255, 255, 0), BLACK = color(0), WHITE = color(255), GREY = color(180);
 final int PARTICLE_TEXT_SIZE = 50, PARTICLE_SIZE = 10, PARTICLE_SIZE_SMALL = 5, PARTICLE_SIZE_LARGE = 15, PARTICLE_SPEED = 5, PARTICLE_SPEED_HIGH = 10, PARTICLE_LIFE = 60, PARTICLE_LIFE_SHORT = 30;
 final float PARTICLE_GRAVITY = 0.4;
 final String NO_TEXT = "";
@@ -16,7 +16,7 @@ class HUD {
   boolean archerDamage = false;
   boolean spikeDamage = false;
   final int MELEE_DAMAGE = 25, ARROW_DAMAGE = 15, ARCHER_DAMAGE = 25, SPIKE_DAMAGE = 15, FEEDBACK_PARTICLE_AMOUNT = 1;
-  final float FEEDBACK_PARTICLE_GRAVITY = -0.5;
+  final float FEEDBACK_PARTICLE_GRAVITY = -0.5, FEEDBACK_PARTICLE_AREA= 0, FEEDBACK_PARTICLE_SPEED= 0;
   // tutorial
   float tutX, tutY, buttonY = player.y-115, buttonX = player.x-(globalScale*2)+(width/100), buttonSize = 35, 
     buttonTextX = player.x-(globalScale*2), buttonTextY = player.y-100, tutorialImageY = player.y-120;
@@ -30,6 +30,8 @@ class HUD {
   color healthC = color(RED, 255);
   //dashbar
   float dashmain, dashH, dashL, dashL2, dashX, dashY, dashX2, dashL3, dashX3;
+  final float DASHCHARGE_PARTICLE_AMOUNT = 100, DASHCHARGE_PARTICLE_GRAVITY = 0.01;
+  float[] dashChargeX = new float[3];
   boolean charge1 = false, charge2 = false, charge3 = false;
   //score
   float scoreX, scoreY, scoreSize, score, scoreNormal;
@@ -40,6 +42,7 @@ class HUD {
   float gOverX, gOverY, goFadeIn, gOSize;
   boolean death;
 
+  float nice = 69;
   //coins
 
   HUD() {
@@ -68,6 +71,9 @@ class HUD {
     dashL = dashX;
     dashL2 = dashX2;
     dashL3 = dashX3;
+    dashChargeX[0] = healthBarLength*.25;
+    dashChargeX[1] = healthBarLength*.5;
+    dashChargeX[2] = healthBarLength*.75;
     dashX = healthBarX;
     dashX2 = healthBarLength*0.35;
     dashX3 = healthBarLength*0.6;
@@ -91,15 +97,18 @@ class HUD {
   void update() {
     //score
     scoreSize = width*0.025+constrain(playerCatchUp*2, 0, 100);
+    if (death==false&&room=="game") {
+      score +=globalScrollSpeed/globalScale*10;
+    }
     //healthbar
     //healthbar laat damage cooldown zien door donkerrood te worden
     //easter egg
-    if (health==69) {
+    if (health==nice) {
       createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, false, PARTICLE_LIFE_SHORT, "NICE ;)", FEEDBACK_PARTICLE_AMOUNT);
     }
     //als de player damage cooldown heeft wordt de healthbar donkerrood
     if (player.dmgCooldown >=0) {
-      healthC = color(150, 0, 0);
+      healthC = color(DARK_RED);
     } else {
       healthC = color(RED);
     }
@@ -110,58 +119,58 @@ class HUD {
       if (meleeDamage==true) {
         meleeDmg.play();
         health = health-(MELEE_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(MELEE_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
+        createParticle(player.x, player.y, FEEDBACK_PARTICLE_AREA, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, FEEDBACK_PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, "-"+floor(MELEE_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
         meleeDamage=false;
       }
       if ( arrowDamage==true) {
         arrowHit.play();
         health = health-(ARROW_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(ARROW_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
+        createParticle(player.x, player.y, FEEDBACK_PARTICLE_AREA, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, FEEDBACK_PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, "-"+floor(ARROW_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
         arrowDamage=false;
       }
       if ( archerDamage==true) {
         health = health-(ARCHER_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(ARCHER_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
+        createParticle(player.x, player.y, FEEDBACK_PARTICLE_AREA, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, FEEDBACK_PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, "-"+floor(ARCHER_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
         archerDamage=false;
       }
       if ( spikeDamage==true) {
         spikeDmg.play();
         health = health-(SPIKE_DAMAGE*healthMult);
-        createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, 0, false, PARTICLE_LIFE_SHORT, "-"+floor(SPIKE_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
+        createParticle(player.x, player.y, FEEDBACK_PARTICLE_AREA, PARTICLE_TEXT_SIZE, color(BLACK), color(RED), FEEDBACK_PARTICLE_GRAVITY, FEEDBACK_PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, "-"+floor(SPIKE_DAMAGE*healthMult), FEEDBACK_PARTICLE_AMOUNT);
         spikeDamage=false;
       }
 
       player.enemyDamage= false;
       healthC = color(WHITE);
     }
-
+    if (health > MAX_HEALTH) health = MAX_HEALTH;
     //dash bar
     //particles wanneer een dashcharge is geladen
     if (charge1==true) {
-      createParticle(healthBarLength*0.25, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, 100);
+      createParticle(dashChargeX[0], dashY, FEEDBACK_PARTICLE_AREA, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), DASHCHARGE_PARTICLE_GRAVITY, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, DASHCHARGE_PARTICLE_AMOUNT);
     }
     if (charge2==true) {
-      createParticle(healthBarLength*0.5, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, 100);
+      createParticle(dashChargeX[1], dashY, FEEDBACK_PARTICLE_AREA, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), DASHCHARGE_PARTICLE_GRAVITY, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, DASHCHARGE_PARTICLE_AMOUNT);
     }
     if (charge3==true) {
-      createParticle(healthBarLength*0.75, dashY, 0, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), .01, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, 100);
+      createParticle(dashChargeX[3], dashY, FEEDBACK_PARTICLE_AREA, PARTICLE_SIZE, color(0, 100, 200), color(0, 100, 255), DASHCHARGE_PARTICLE_GRAVITY, PARTICLE_SPEED, false, PARTICLE_LIFE_SHORT, NO_TEXT, DASHCHARGE_PARTICLE_AMOUNT);
     }
     //dashcharges worden hier gemaakt
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE) {
 
-      dashL = healthBarLength*0.25;
+      dashL = dashChargeX[0];
     } else dashL=dashX;
     if (player.dashCooldown ==player.DASH_COOLDOWN_CHARGE-1) {
       charge1=true;
     } else charge1=false;
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE*2) {
-      dashL2 = healthBarLength*0.5;
+      dashL2 = dashChargeX[1];
     } else dashL2=dashX2;
     if (player.dashCooldown == player.DASH_COOLDOWN_CHARGE*2-1) {
       charge2=true;
     } else charge2=false;
     if (player.dashCooldown >=player.DASH_COOLDOWN_CHARGE*3) {
-      dashL3 = healthBarLength*0.75;
+      dashL3 = dashChargeX[2];
     } else dashL3 = dashX3;
     if (player.dashCooldown ==player.DASH_COOLDOWN_CHARGE*3-1) {
       charge3=true;
@@ -278,7 +287,6 @@ class HUD {
     rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*((constrain(MAX_HEALTH, NO_HEALTH, MAX_HEALTH))/MAX_HEALTH), globalScale*0.7);
     /*actual health indicator*/
     fill(healthC);
-    if (health > MAX_HEALTH) health = MAX_HEALTH;
     rect(healthBarX+(globalScale/3), healthBarY+(globalScale/3), healthBarLength*((constrain(health, NO_HEALTH, MAX_HEALTH))/MAX_HEALTH), globalScale*0.7);
     /*health border*/
     image(healthbar, healthBarX, healthBarY, globalScale*4.6, globalScale*1.4);
@@ -297,9 +305,6 @@ class HUD {
     line(dashX2, dashY, dashL2, dashY);
     line(dashX3, dashY, dashL3, dashY);
     //score
-    if (death==false&&room=="game") {
-      score +=globalScrollSpeed/globalScale*10;
-    }
     textAlign(RIGHT);
     fill(BLACK);
     textSize(scoreSize);
@@ -320,7 +325,7 @@ class HUD {
     fill(#A300FC, goFadeIn);
     textAlign(CENTER);
     textSize(constrain(goFadeIn, 1, gOSize));
-    text(gOver, gOverX-generalTextOffset-2, gOverY-generalTextOffset-2);
+    text(gOver, gOverX-generalTextOffset-2, gOverY-generalTextOffset-generalTextOffset);
     text("score " + floor(score), gOverX-generalTextOffset, gOverY+98);
     fill(YELLOW, goFadeIn);
     text(gOver, gOverX+generalTextOffset, gOverY+generalTextOffset);
@@ -340,7 +345,7 @@ class HUD {
     fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
     text("highscore " + floor(Highscore), gOverX, gOverY+150);
-    //NAVIGATION 
+    //NAVIGATION
     textAlign(LEFT);
     textSize(menu.tekstSize[2]);
     fill(WHITE, goFadeIn);

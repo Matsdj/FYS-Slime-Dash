@@ -461,7 +461,7 @@ class Selection {
 //hier worden de navigatieteksten die onderaan het schermstaan aangemaakt
 void Navigation(float posLeft, String NavLeftButton, String NavLeftdescription, color buttonColorLeft, String NavRightButton, String NavRightDescription, color buttonColorRight) {
   //navigatieknoppen met een soort "text stroke" effect
-  textAlign(CORNER);
+  textAlign(LEFT);
   textSize(menu.tekstSize[2]);
   //press A voor select
   fill(BLACK);
