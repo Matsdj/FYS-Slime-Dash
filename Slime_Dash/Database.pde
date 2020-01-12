@@ -249,11 +249,14 @@ void drawHScores() {
 
   fill(YELLOW);
   textSize(TEXT_NORMAL);
-
-  for (int iScore = 0; iScore < SCORE_LIST_AMOUNT; iScore++) {
-    text(hScore.get(iScore).name + ": "+ hScore.get(iScore).score, HIGHSCORE_X, HIGHSCORE_Y + globalScale * iScore);
+  if (!offline) {
+    for (int iScore = 0; iScore < SCORE_LIST_AMOUNT; iScore++) {
+      text(hScore.get(iScore).name + ": "+ hScore.get(iScore).score, HIGHSCORE_X, HIGHSCORE_Y + globalScale * iScore);
+    }
+    text("You are in position "+ scorePos +"!", HIGHSCORE_X, height - globalScale);
+  } else {
+    text("You need to be online!", HIGHSCORE_X, height - globalScale);
   }
-  text("You are in position "+ scorePos +"!", HIGHSCORE_X, height - globalScale);
 }
 
 //collin
