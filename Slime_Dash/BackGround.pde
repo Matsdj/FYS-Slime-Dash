@@ -148,7 +148,7 @@ class BgHouses {
 }
 
 //walls/////////////////
-/*Creates a wall on the background, just like houses, only with TIME_SLOWer speed*/
+/*Creates a wall on the background, just like houses, only with slower speed*/
 class BgWall {
   final int BG_WALL_SCROLLSPEED = 3;
   float x, y, vx;
