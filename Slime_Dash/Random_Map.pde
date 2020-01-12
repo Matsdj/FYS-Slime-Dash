@@ -33,13 +33,16 @@ final color COLOR_SAME_RANDOM = color(255, 200, 200);
 void mapSetup() {
   startTemplate = loadImage("templates/start.png");
   tutorialTemplate = loadImage("templates/tutorial.png");
+  //Getting all the files
   String[] filesStart = (new java.io.File(dataPath("templates/start"))).list();
   String[] filesMid = (new java.io.File(dataPath("templates/mid"))).list();
   String[] filesEnd = (new java.io.File(dataPath("templates/end"))).list();
   String[] filesAlways = (new java.io.File(dataPath("templates/always"))).list();
   String[] filesTest = (new java.io.File(dataPath("templates/test"))).list();
+  //Getting amount of images and creating an array with the same size
   int imageCount = filesStart.length + (filesAlways.length);
   templateListStart = new PImage[imageCount];
+  //Loading images
   for (int i = 0; i < imageCount; i++) {
     if (i < filesStart.length) {
       templateListStart[i] = loadImage("templates/start/"+filesStart[i]);
@@ -47,8 +50,10 @@ void mapSetup() {
       templateListStart[i] = loadImage("templates/always/"+filesAlways[i-filesStart.length]);
     }
   }
+  //Getting amount of images and creating an array with the same size
   imageCount = filesMid.length + (filesAlways.length);
   templateListMid = new PImage[imageCount];
+  //Loading images
   for (int i = 0; i < imageCount; i++) {
     if (i < filesMid.length) {
       templateListMid[i] = loadImage("templates/mid/"+filesMid[i]);
@@ -56,8 +61,10 @@ void mapSetup() {
       templateListMid[i] = loadImage("templates/always/"+filesAlways[i-filesMid.length]);
     }
   }
+  //Getting amount of images and creating an array with the same size
   imageCount = filesEnd.length + (filesAlways.length);
   templateListEnd = new PImage[imageCount];
+  //Loading images
   for (int i = 0; i < imageCount; i++) {
     if (i < filesEnd.length) {
       templateListEnd[i] = loadImage("templates/end/"+filesEnd[i]);
@@ -65,25 +72,28 @@ void mapSetup() {
       templateListEnd[i] = loadImage("templates/always/"+filesAlways[i-filesEnd.length]);
     }
   }
+  //Getting amount of images and creating an array with the same size
   imageCount = filesTest.length;
   templateListTest = new PImage[imageCount];
+  //Loading images
   for (int i = 0; i < filesTest.length; i++) {
     templateListTest[i] = loadImage("templates/test/"+filesTest[i]);
   }
+  //Resets
   GenerateDistance = 0;
-  //Traveled Distance
   traveledDistance = 0;
   VerticalDistance = 0;
 }
 //Looks if it has generated to the edge of the screen
 void mapUpdate() {
-  if (traveledDistance == 0) {
+  //Deze if statement zorgt ervoor dat het niet de tutorial template nog een keer genereerd.
+  if (GenerateDistance == 0) {
     if (room == "game2") {
       makeMap(tutorialTemplate);
     }
     makeMap(startTemplate);
-    traveledDistance += 0.000001;
   }
+  //This makes it so the tutorial transitions into normal mode
   if (GenerateDistance < width/globalScale) {
     if (room == "game2") {
       room = "game";
@@ -99,6 +109,7 @@ void mapUpdate() {
 void makeMap(PImage template) {
   PImage mapTemplate;
   if (template == null) {
+    //Descides wich templates to use depending on the globalScrollSpeed
     if (testTemplates) {
       int randomTemplateIndex = floor(random(templateListTest.length));
       mapTemplate = templateListTest[randomTemplateIndex];
@@ -128,6 +139,7 @@ void makeMap(PImage template) {
         y = (templateY-(mapTemplate.height-height/globalScale-1))*globalScale+VerticalDistance;
       //color of pixel in picture
       color col = mapTemplate.pixels[loc];
+      //If the color is COLOR_SAME_RANDOM al the pixels with the exact same color as the pixel to the right of it have the same chance to be generated
       if (col == COLOR_SAME_RANDOM) {
         colSameChance = mapTemplate.pixels[loc+1];
         if (random(255) <= alpha(mapTemplate.pixels[loc+1])) {
@@ -141,6 +153,7 @@ void makeMap(PImage template) {
           col = color(255, 0);
         }
       }
+      //Depending on pixel color places correct object
       if (random(255) <= alpha(col)) {
         col = color(red(col), green(col), blue(col), 255);
         //Places Blocks,Spikes etc.

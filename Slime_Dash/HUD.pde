@@ -408,18 +408,18 @@ class Particle {
   int LifeMax = 60;
 
   // setup van de particle
-  void enableParticle(float ix, float iy, float area, float iSize, color kleurMin, color kleurMax, float iGravity, float speed, boolean iCollision, int iLife, String iText) {
-    x = ix;
-    y = iy;
-    size = iSize;
+  void enableParticle(float enteredValueX, float enteredValueY, float area, float enteredValueSize, color kleur1, color kleur2, float enteredValueGravity, float speed, boolean enteredValueCollision, int enteredValueLife, String enteredValueText) {
+    x = enteredValueX;
+    y = enteredValueY;
+    size = enteredValueSize;
     float per = random(1);
-    float r = min(red(kleurMin), red(kleurMax))+ per *(max(red(kleurMin), red(kleurMax))-min(red(kleurMin), red(kleurMax)));
-    float g = min(green(kleurMin), green(kleurMax))+ per *(max(green(kleurMin), green(kleurMax))-min(green(kleurMin), green(kleurMax)));
-    float b = min(blue(kleurMin), blue(kleurMax))+ per *(max(blue(kleurMin), blue(kleurMax))-min(blue(kleurMin), blue(kleurMax)));
+    float r = min(red(kleur1), red(kleur2))+ per *(max(red(kleur1), red(kleur2))-min(red(kleur1), red(kleur2)));
+    float g = min(green(kleur1), green(kleur2))+ per *(max(green(kleur1), green(kleur2))-min(green(kleur1), green(kleur2)));
+    float b = min(blue(kleur1), blue(kleur2))+ per *(max(blue(kleur1), blue(kleur2))-min(blue(kleur1), blue(kleur2)));
     kleur = color(r, g, b);
-    gravity = iGravity;
-    text = iText;
-    collision = iCollision;
+    gravity = enteredValueGravity;
+    text = enteredValueText;
+    collision = enteredValueCollision;
     //Direction
     float a;
     if (text == "") {
@@ -433,7 +433,7 @@ class Particle {
     x -= sin(a)*random(area/2);
     y += cos(a)*random(area/2);
     active = true;
-    LifeMax = iLife;
+    LifeMax = enteredValueLife;
     life = LifeMax;
   }
   void update() {

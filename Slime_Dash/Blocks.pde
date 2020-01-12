@@ -7,7 +7,7 @@ class Block {
   final int BREAK_TIME_MAX = 10, 
     BREAK_PARTICLE_COUNT = 100;
 
-  float x, y, size, speed = globalScale/30, vx = 0, breakTime = BREAK_TIME_MAX, blockCenterX, blockCenterY;
+  float x, y, size, speed = globalScale/30, vx = speed, breakTime = BREAK_TIME_MAX, centerX, centerY;
   int id = -1;
   color c = BRICK;
   PImage sprite;
@@ -18,7 +18,6 @@ class Block {
     size = globalScale;
     c = enteredValueC;
     moving = enteredValueMoving;
-    vx = speed;
     active = true;
     cracked = enteredValueCracked;
     breakTime = BREAK_TIME_MAX;
@@ -40,8 +39,8 @@ class Block {
     active = false;
   }
   void update() {
-    blockCenterX = x+size/2;
-    blockCenterY = y+size/2;
+    centerX = x+size/2;
+    centerY = y+size/2;
     if (x < width) {
       if (cracked) {
         //Cracked break under player
@@ -64,7 +63,7 @@ class Block {
           Thud.play();
         }
         if (active == false) {
-          createParticle(blockCenterX, blockCenterY, size, PARTICLE_SIZE, CRACKED_BLOCK_PARTICLE_COLOR_LIGHT, CRACKED_BLOCK_PARTICLE_COLOR_DARK, PARTICLE_GRAVITY, PARTICLE_SPEED, true, PARTICLE_LIFE, NO_TEXT, BREAK_PARTICLE_COUNT);
+          createParticle(centerX, centerY, size, PARTICLE_SIZE, CRACKED_BLOCK_PARTICLE_COLOR_LIGHT, CRACKED_BLOCK_PARTICLE_COLOR_DARK, PARTICLE_GRAVITY, PARTICLE_SPEED, true, PARTICLE_LIFE, NO_TEXT, BREAK_PARTICLE_COUNT);
           blockBreakCount++;
         }
       }
@@ -80,16 +79,29 @@ class Block {
       x -= globalScrollSpeed;
     }
   }
-  void moving() {
-    if (blockCollision(x+vx, y, size, id) != null) {
+  void movingUpdate() {
+    if (blockCollision(x+vx, y, size, id, true) != null || x <= 0) {
       vx *= -1;
+      //Fix for bug in wich the right moving block would slowly move into the block left to it
+      if (vx < 0 && blockCollision(x+vx,y,size,id,false) != null){
+      int otherBlockId = blockCollision(x+vx,y,size,id,false).id;
+        while (blockCollision(x,y,size,id,false) != null && blockCollision(x,y,size,id,false).id == otherBlockId){
+          x++;
+        }
+      }
+      //Makes all the moving blocks that are next to it move as well
+      for (int checkDist = round(sign(vx)*size); blockCollision(centerX+checkDist, centerY, 1, id, false) != null; checkDist += round(sign(vx)*size)) {
+        blocks[blockCollision(centerX+checkDist, centerY, 1, id, false).id].vx *= -1;
+      }
     }
+  }
+  void moving() {
     x += vx*speedModifier;
   }
   void draw() {
     if (x < width && c != ALLOW_VERTICAL_MOVEMENT) {
       if (c == DIRT) {
-        if (blockCollision(blockCenterX, blockCenterY-size, 1, id) == null) {
+        if (blockCollision(centerX, centerY-size, 1, id, false) == null) {
           sprite = grassSprite;
         } else {
           sprite = dirtSprite;
@@ -105,7 +117,7 @@ class Block {
   }
   void drawBackgroundBlocks() {
     float hitbox = 1;
-    for (float backgroundY = y+size; ((blockCollision(blockCenterX, backgroundY, hitbox, id) == null || blockCollision(blockCenterX, backgroundY, hitbox, id).moving) && backgroundY < height); backgroundY+= globalScale) {
+    for (float backgroundY = y+size; ((blockCollision(centerX, backgroundY, hitbox, id, false) == null || blockCollision(centerX, backgroundY, hitbox, id, false).moving) && backgroundY < height); backgroundY+= globalScale) {
       tint(100);
       if (sprite == grassSprite) {
         image(dirtSprite, x+shake, backgroundY);
@@ -116,11 +128,11 @@ class Block {
     }
   }
   void pushAwayPlayer() {
-    float blockCenterX = x+size/2, 
-      blockCenterY = y+size/2, 
+    float centerX = x+size/2, 
+      centerY = y+size/2, 
       playerCenterX = player.x+player.size/2, 
       playerCenterY = player.y+player.size/2;
-    if (dist(blockCenterX, blockCenterY, playerCenterX, playerCenterY) < globalScale*PI/2) {
+    if (dist(centerX, centerY, playerCenterX, playerCenterY) < globalScale*PI/2) {
       float Cx = player.x-x;
       float Cy = player.y-y;
       float a = atan2(Cx, Cy);
@@ -134,19 +146,17 @@ class Block {
 //Lijst met blocks
 Block[] blocks = new Block[1000];
 //Loops through all the blocks to see if there is one at the given position
-Block blockCollision(float x, float y, float size, float blockId) {
-  Block Collision = null;
-
+Block blockCollision(float x, float y, float size, float blockId, boolean excludeMoving) {
   for (int i = 0; i < blocks.length; i++) {
-    if ((blocks[i].x < x+size && blocks[i].x+blocks[i].size > x && blocks[i].y < y+size && blocks[i].y+blocks[i].size > y) && blocks[i].active && blocks[i].id != blockId) {
-      Collision = blocks[i];
+    if ((blocks[i].x < x+size && blocks[i].x+blocks[i].size > x && blocks[i].y < y+size && blocks[i].y+blocks[i].size > y) && blocks[i].active && blocks[i].id != blockId && (excludeMoving && blocks[i].moving) == false) {
+      return blocks[i];
     }
   }
-  return Collision;
+  return null;
 }
 //als je geen blockId invult default het naar -1
 Block blockCollision(float x, float y, float size) {
-  return blockCollision(x, y, size, -1);
+  return blockCollision(x, y, size, -1, false);
 }
 //Block Setup
 void blockSetup() {
@@ -183,7 +193,8 @@ void blockUpdate() {
   }
   //loopt door de lijst en beweegt elke moving block
   for (int i = 0; i<blocks.length; i++) {
-    if (blocks[i].moving && blocks[i].x < width) {
+    if (blocks[i].moving) {
+      blocks[i].movingUpdate();
       blocks[i].moving();
     }
   }
