@@ -183,7 +183,7 @@ class Upgrades {
           player.dashCooldownMax = player.DASH_COOLDOWN_CHARGE * upgrade.perchTRState;
           cooldown = COOLDOWN_UPGRADE;
           coins -= dashPrice;
-          dashPrice = dashPrice * perchTRState;
+          if (offline ==true)dashPrice = dashPrice *2;
           textAlign(CENTER);
           fill(WHITE);
           text("DASH CHARGES INCREASED", upgradeNotificationsX+generalTextOffset, upgradeNotificationsY+generalTextOffset);
@@ -200,7 +200,6 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }
-      dashPrice = dashPrice * perchTRState;
       player.dashCooldownMax = player.DASH_COOLDOWN_CHARGE * upgrade.perchTRState;
       perchTR = perch[perchTRState];
       //health upgrade
@@ -211,7 +210,7 @@ class Upgrades {
           perchBL = perch[perchBLState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= healthPrice;
-          healthPrice = healthPrice * perchBLState;
+          if (offline ==true)healthPrice = healthPrice *2;
           if (perchBLState==1)interfaces.healthMult =0.8;
           if (perchBLState==2)interfaces.healthMult =0.7;
           if (perchBLState==3)interfaces.healthMult =0.5;
@@ -231,7 +230,6 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }
-      healthPrice = healthPrice * perchBLState;
       perchBL = perch[perchBLState];
       if (perchBLState==1)interfaces.healthMult =0.8;
       if (perchBLState==2)interfaces.healthMult =0.7;
@@ -247,7 +245,7 @@ class Upgrades {
           if (perchBRState ==1) coinValue =2;
           if (perchBRState ==2) coinValue =3;
           if (perchBRState ==3) coinValue =4;
-          coinPrice = coinPrice * perchBRState;
+          if (offline ==true)coinPrice = coinPrice *2;
           textAlign(CENTER);
           fill(WHITE);
           text("COIN VALUE INCREASED", width/2+generalTextOffset, height/2+generalTextOffset);
@@ -264,7 +262,6 @@ class Upgrades {
           textAlign(LEFT, CENTER);
         }
       }   
-      coinPrice = coinPrice * perchBRState;
       perchBR = perch[perchBRState];   
       if (perchBRState ==1) coinValue =2;
       if (perchBRState ==2) coinValue =3;
