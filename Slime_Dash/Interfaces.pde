@@ -157,6 +157,7 @@ class Upgrades {
       if (perchTLState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice) {
           perchTLState = 3;
+          updateUpgrades(ID_DJUMP, perchTLState);
           perchTL = perch[perchTLState];
           coins -= doubleJumpPrice;
           if (perchTLState >=1) jumpUpgradeState = 1;
@@ -177,6 +178,7 @@ class Upgrades {
       if (perchTRState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice) {
           perchTRState++;
+          updateUpgrades(ID_DASH, perchTRState);
           perchTR = perch[perchTRState];
           player.dashCooldownMax = player.DASH_COOLDOWN_CHARGE * upgrade.perchTRState;
           cooldown = COOLDOWN_UPGRADE;
@@ -204,6 +206,7 @@ class Upgrades {
       if (perchBLState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && coins >= healthPrice) {
           perchBLState++;
+          updateUpgrades(ID_HEALTH, perchBLState);
           perchBL = perch[perchBLState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= healthPrice;
@@ -235,6 +238,7 @@ class Upgrades {
       if (perchBRState < perch.length - 1) {
         if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && coins >= coinPrice) {
           perchBRState++;
+          updateUpgrades(ID_COINS, perchBRState);
           perchBR = perch[perchBRState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= coinPrice;

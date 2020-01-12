@@ -6,7 +6,11 @@ final int LOGIN_FADE_START = 255,
   SCORE_TYPE = 1, 
   ENEMY_TYPE = 2, 
   HEART_TYPE = 3, 
-  BLOCK_TYPE = 4;
+  BLOCK_TYPE = 4, 
+  ID_DJUMP = 1, 
+  ID_HEALTH = 2, 
+  ID_DASH = 3, 
+  ID_COINS = 4;
 
 final color ACH_COMPLETED_COLOR = color(0, 255, 0);
 
@@ -266,7 +270,48 @@ void drawHScores() {
   }
 }
 
-//collin
+//upgrades
+void getUpgrades() {
+  if ( msql.connect() )
+  {
+    msql.query( "SELECT Upgrades_id, level FROM Player_Upgrades WHERE Users_id = " + user.id );
+
+    while ( msql.next() ) {
+      switch (msql.getInt("Upgrades_id")) {
+      case ID_DJUMP:
+        upgrade.perchTLState = msql.getInt("level");
+        break;
+      case ID_HEALTH:
+        upgrade.perchBLState = msql.getInt("level");
+        break;
+      case ID_DASH:
+        upgrade.perchTRState = msql.getInt("level");
+        break;
+      case ID_COINS:
+        upgrade.perchBRState = msql.getInt("level");
+        break;
+      }
+    }
+  }
+}
+
+void updateUpgrades(int upgradeIndex, int newLevel) {
+  if ( msql.connect() )
+  {
+    msql.query( "UPDATE Player_Upgrades SET level = "+newLevel+" WHERE Upgrades_id = "+upgradeIndex+" AND Users_id = "+user.id+";" );
+  }
+}
+
+final int UPGRADE_AMOUNT = 4;
+void createUpgrades(int userID) {
+  if ( msql.connect() ) {
+    for (int iUpg = 1; iUpg <= UPGRADE_AMOUNT; iUpg++) {
+      msql.query("INSERT INTO Player_Upgrades VALUES ("+ userID +", "+ iUpg +", 0); ");
+    }
+  }
+}
+
+//chris
 
 class account {
   public int id;
@@ -302,8 +347,11 @@ void createUser(String userName, String password) {
 
       msql.query("INSERT INTO Highscores (Users_id, score, time) VALUES (" + user.id + ", 0, 0);");
 
+      createUpgrades(user.id);
       GetAchievements();
       getHighscores();
+      getUpgrades();
+
       offline = false;
       println("Welcome, " + userName + "!");
       wrongPassword = false;
@@ -331,6 +379,8 @@ void loginUser(String userName, String password) {
 
       GetAchievements();
       getHighscores();
+      getUpgrades();
+
       offline = false;
       println("Welcome, " + user.name + "!");
       wrongPassword = false;
