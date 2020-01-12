@@ -181,7 +181,7 @@ class Upgrades {
           player.dashCooldownMax = player.DASH_COOLDOWN_CHARGE * upgrade.perchTRState;
           cooldown = COOLDOWN_UPGRADE;
           coins -= dashPrice;
-          dashPrice = dashPrice * 2;
+          dashPrice = dashPrice * perchTRState;
           textAlign(CENTER);
           fill(WHITE);
           text("DASH CHARGES INCREASED", upgradeNotificationsX+generalTextOffset, upgradeNotificationsY+generalTextOffset);
@@ -207,7 +207,7 @@ class Upgrades {
           perchBL = perch[perchBLState];
           cooldown = COOLDOWN_UPGRADE;
           coins -= healthPrice;
-          healthPrice = healthPrice * 2;
+          healthPrice = healthPrice * perchBLState;
           if (perchBLState==1)interfaces.healthMult =0.8;
           if (perchBLState==2)interfaces.healthMult =0.7;
           if (perchBLState==3)interfaces.healthMult =0.5;
@@ -241,7 +241,7 @@ class Upgrades {
           if (perchBRState ==1) coinValue =2;
           if (perchBRState ==2) coinValue =3;
           if (perchBRState ==3) coinValue =4;
-          coinPrice = coinPrice * 2;
+          coinPrice = coinPrice * perchBRState;
           textAlign(CENTER);
           fill(WHITE);
           text("COIN VALUE INCREASED", width/2+generalTextOffset, height/2+generalTextOffset);
