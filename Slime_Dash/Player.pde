@@ -7,6 +7,9 @@ void playerSetup() {
 }
 
 Player player;
+
+/*The player can move left, right and can jump smoothly. He can also use a dash ability to move faster and kill enemies.
+ This class also handles collision with blocks*/
 class Player {
   float size, x, y, hitX, hitY, hitSize, moveSpeed, vx, vy, 
     dashSpeed, dashTime, slowDown, movingBlockSpeed, ySprite, xSpriteL, xSpriteR, 
@@ -460,6 +463,7 @@ void blinkDraw() {
   }
 }
 
+/*This class is placed whenever the player can/is dashing. It makes an image of the player that slowly fades away for an afterimage effect */
 class dashBlinks {
   final int DASH_BLINK_FADE_V = 15; //fade of image speed
   final int WALK_BLINK_FADE_V = 30;

@@ -124,6 +124,7 @@ void bgDraw() {
 }
 
 //houses///////////////
+/*creates a house with a random sprite that moves on the background*/
 class BgHouses {
   final int BG_HOUSES_SCROLLSPEED = 2; //the speed at witch the houses move is the globalScroll speed divided by this number
   float x, y, vx;
@@ -147,6 +148,7 @@ class BgHouses {
 }
 
 //walls/////////////////
+/*Creates a wall on the background, just like houses, only with slower speed*/
 class BgWall {
   final int BG_WALL_SCROLLSPEED = 3;
   float x, y, vx;
@@ -167,6 +169,7 @@ class BgWall {
 }
 
 //clouds////////////
+/*makes a cloud that moves from the right to the left side of the screen. Once you hit a certain time stamp, dragons can be seen instead of clouds */
 class BgCloud {
   final int DRAGON_FRAME_RATE = 15;
   final int DRAGON_SPAWN_CHANCE = 10;
@@ -230,6 +233,7 @@ class BgCloud {
 }
 
 //sun//////////////////
+/*Draws sun sprite, which goes down on certain time stamps too simulate the sun going down*/
 float sunX, sunY;
 
 void sunSetup() {
@@ -237,10 +241,9 @@ void sunSetup() {
   sunY = -globalScale;
 }
 
+final float SUN_DOWN_MAX_RED = globalScale * 3; //positions at which the sun stops with going down
+final float SUN_DOWN_MAX_BLUE = globalScale * 6;
 void sunUpdate() {
-  final float SUN_DOWN_MAX_RED = globalScale * 3;
-  final float SUN_DOWN_MAX_BLUE = globalScale * 6;
-
   //makes the sun set after certain time stamps
   if (time>=slow && sunY < SUN_DOWN_MAX_RED) {
     sunY++;
@@ -254,6 +257,7 @@ void sunDraw() {
 
 
 //Sky color shift////////////////////
+/*This function makes the color of the screen change depending on the in-game time, using a fill on a rectangle that covers the screen. For example dark blue too simulate night*/
 int redSkyTransition = 0;
 int blueSkyTransition = 0;
 final int RED_MAX = 40;
