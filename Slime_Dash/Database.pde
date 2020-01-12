@@ -72,6 +72,7 @@ ArrayList<RecordUser> dbUsers;
 int positionYSpacing = 36;        // The spacing height between lines
 
 ///Achievements//////////////////
+//chris
 
 void GetAchievements() {
   dbAch = new ArrayList<recordAchievements>();
@@ -270,7 +271,9 @@ void drawHScores() {
   }
 }
 
-//upgrades
+//upgrades//////////////
+//chris
+
 void getUpgrades() {
   if ( msql.connect() )
   {
@@ -327,6 +330,7 @@ void createUpgrades(int userID) {
   }
 }
 
+//users///////////////
 //chris
 
 class account {
