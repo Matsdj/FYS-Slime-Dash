@@ -250,11 +250,14 @@ void drawHScores() {
 
   textSize(TEXT_NORMAL);
   if (!offline) {
-    fill(0,70);
+    fill(0, 70);
     rect(0, 0, width, height);
     for (int iScore = 0; iScore < SCORE_LIST_AMOUNT; iScore++) {
-      fill(255-(iScore*10), 255-(iScore*25), iScore*10);
-      text(hScore.get(iScore).name + ": "+ hScore.get(iScore).score, HIGHSCORE_X, HIGHSCORE_Y + (globalScale/1.5) * iScore);
+      if (user.id == hScore.get(iScore).id) {
+        fill(WHITE);
+      } else
+        fill(255-(iScore*10), 255-(iScore*25), iScore*10);
+      text(iScore+1 +". " +hScore.get(iScore).name + ": "+ hScore.get(iScore).score, HIGHSCORE_X, HIGHSCORE_Y + (globalScale/1.5) * iScore);
     }
     fill(WHITE);
     text("Your position: "+ scorePos +"!", HIGHSCORE_X, height - (globalScale*3));
