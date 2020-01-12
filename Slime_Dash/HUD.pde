@@ -18,11 +18,9 @@ class HUD {
   final int MELEE_DAMAGE = 25, ARROW_DAMAGE = 15, ARCHER_DAMAGE = 25, SPIKE_DAMAGE = 15, FEEDBACK_PARTICLE_AMOUNT = 1;
   final float FEEDBACK_PARTICLE_GRAVITY = -0.5, FEEDBACK_PARTICLE_AREA= 0, FEEDBACK_PARTICLE_SPEED= 0;
   // tutorial
-  float tutX, tutY, buttonY = player.y-115, buttonX = player.x-(globalScale*2)+(width/100), buttonSize = 35, 
-    buttonTextX = player.x-(globalScale*2), buttonTextY = player.y-100, tutorialImageY = player.y-120;
+  float tutX, tutY, buttonSize;
   String tutText;
   color circleColor = YELLOW;
-  float[] tutorialImageX = new float[5];
   //HEALTHBAR
   final int NO_HEALTH = 0;
   final float MAX_HEALTH = 100;
@@ -50,18 +48,12 @@ class HUD {
     tutX = width/2;
     tutY = height/4;
     tutText = "";
-    tutorialImageX[0] = player.x;
-    tutorialImageX[1] = player.x+globalScale;
-    tutorialImageX[2] = player.x+globalScale*2;
-    tutorialImageX[3] = player.x+globalScale*1.5;
-    tutorialImageX[4] = player.x+globalScale*3;
+    buttonSize = 35;
     //healthbar
     healthBarX = 30+(globalScale/18);
     healthBarY = 40;
     healthBarLength = globalScale*4;
     healthBarHeight = globalScale*0.8;
-    healthBarCurve = 20;
-    healthBarCurveNormal = 20;
     /*als je jou object of enemy damage wil laten gebruik je health*/
     health = MAX_HEALTH;
     healthMult = 1;
@@ -104,7 +96,8 @@ class HUD {
     //healthbar laat damage cooldown zien door donkerrood te worden
     //easter egg
     if (health==nice) {
-      createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, false, PARTICLE_LIFE_SHORT, "NICE ;)", FEEDBACK_PARTICLE_AMOUNT);
+      createParticle(healthBarX, scoreY, 0, PARTICLE_TEXT_SIZE, color(WHITE), color(WHITE), 1, 0, 
+        false, PARTICLE_LIFE_SHORT, "NICE ;)", FEEDBACK_PARTICLE_AMOUNT);
     }
     //als de player damage cooldown heeft wordt de healthbar donkerrood
     if (player.dmgCooldown >=0) {
@@ -242,39 +235,39 @@ class HUD {
       //jump tutorial
       if (traveledDistance >0 && traveledDistance <5) {
         tutText = "B";
-        ellipse(buttonX, buttonY, buttonSize, buttonSize);
+        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, buttonTextX, buttonTextY);
-        image(playerSprite[4], tutorialImageX[0], tutorialImageY);
+        text(tutText, player.x-(globalScale*2), player.y-100);
+        image(playerSprite[4], player.x, player.y-120);
       } //dash tutorial
       else if (traveledDistance >5 &&traveledDistance <22) {
         circleColor = color(RED);
         tutText = "A";
-        ellipse(buttonX, buttonY, buttonSize, buttonSize);
+        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, buttonTextX, buttonTextY);
-        image(playerSprite[5], tutorialImageX[0], tutorialImageY);
+        text(tutText, player.x-(globalScale*2), player.y-100);
+        image(playerSprite[5], player.x, player.y-120);
       } //dash door enemy tutorial
       else if (traveledDistance >25 && traveledDistance <55) {
         circleColor = color(RED);
         tutText = "A";
-        ellipse(buttonX, buttonY, buttonSize, buttonSize);
+        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, buttonTextX, buttonTextY);
-        image(playerSprite[5], tutorialImageX[0], tutorialImageY);
-        image(enemySprite[0], tutorialImageX[1], tutorialImageY);
-        image(enemyDeathSprite, tutorialImageX[2], tutorialImageY);
+        text(tutText, player.x-(globalScale*2), player.y-100);
+        image(playerSprite[5], player.x, player.y-120);
+        image(enemySprite[0], player.x+globalScale, player.y-120);
+        image(enemyDeathSprite, player.x+globalScale*2, player.y-120);
       } //dash voor vuur uit tutorial
       else if (traveledDistance >90 && traveledDistance <133) {
         circleColor = color(RED);
         tutText = "A";
-        ellipse(buttonX, buttonY, buttonSize, buttonSize);
+        ellipse(player.x-(globalScale*2)+(width/100), player.y-115, buttonSize, buttonSize);
         fill(BLACK);
-        text(tutText, buttonTextX, buttonTextY);
-        image(fire, tutorialImageX[0], player.y-190, globalScale*3, globalScale*3);
-        image(playerSprite[6], tutorialImageX[0], tutorialImageY);
-        image(playerSprite[5], tutorialImageX[3], tutorialImageY);
-        image(playerSprite[1], tutorialImageX[4], tutorialImageY);
+        text(tutText, player.x-(globalScale*2), player.y-100);
+        image(fire, player.x, player.y-190, globalScale*3, globalScale*3);
+        image(playerSprite[6], player.x, player.y-120);
+        image(playerSprite[5], player.x+globalScale*1.5, player.y-120);
+        image(playerSprite[1], player.x+globalScale*3, player.y-120);
       }
     }
     imageMode(CORNER);
