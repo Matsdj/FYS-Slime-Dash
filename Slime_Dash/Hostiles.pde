@@ -1,4 +1,5 @@
 //Chris
+
 HostileMelee[] hostileMelee;
 HostileRanged[] hostileRanged;
 
@@ -70,6 +71,7 @@ class HostileMelee {
     reset();
   }
 
+  //resets the hostile when he gets killed or goes offscreen
   void reset() {
     isActive = false;
     x = -globalScale *10;
@@ -77,6 +79,7 @@ class HostileMelee {
     vx = 0;
   }
 
+  //places it down on given x and y
   void activate(float activatex, float activatey) {
     isActive = true;
     dead = false;
@@ -86,7 +89,7 @@ class HostileMelee {
   }
 
   void enemyAnimation() {
-    //sprites 32*34
+    //sprites 32*34. If the enemy is dead, an helmet sprite will be places instead
     if (dead) {
       image(enemyDeathSprite, x, y - globalScale/32*2);
     } else if (vx<0) {
@@ -102,7 +105,7 @@ class HostileMelee {
     x -= globalScrollSpeed;
     y += globalVerticalSpeed;
 
-    //makes the enemy change direction when hitting a wall or a hole in the ground
+    //makes the enemy change direction when hitting a wall or a hole in the ground by looking infront of him with x velocity
     if (blockCollision(x+vx, y, size) != null) {
       while (blockCollision(x+sign(vx), y, size) == null) {
         x += sign(vx);
@@ -126,7 +129,7 @@ class HostileMelee {
       createParticle(x+size/2, y+size/2, size, PARTICLE_SIZE, color(255, 0, 0), color(0), PARTICLE_GRAVITY, PARTICLE_SPEED_HIGH, true, PARTICLE_LIFE, NO_TEXT, 100);
       speedModifier = 0.001;
       shake(globalScale/2);
-    } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) {
+    } else if (player.hitboxCollision(x, y, size, size) && player.dmgCooldown < 0 && !dead) { //damages the player when he hits an enemy
       player.enemyDamage = true;
       interfaces.meleeDamage = true;
       player.dmgCooldown = player.DMG_COOLDOWN;

@@ -46,6 +46,7 @@ void hordeDraw() {
   }
 }
 
+/*This class makes a single part of the horde that follows you. For every time stamp, a new part walks forward*/
 class Horde {
   int hordeIndex;
   float x, hordeActivate;
@@ -54,7 +55,7 @@ class Horde {
     hordeIndex = HordeIndex;
     x = hordeX;
 
-    //checks the time that the horde has to become bigger
+    //checks the time that the horde has to become bigger depending on the given index from the setup for loop
     switch (hordeIndex) {
     case 0:
       hordeActivate = 0;
@@ -83,6 +84,8 @@ class Horde {
   }
 
   void draw() {
-    image(hordeSprite[hordeIndex][hordeFrameCounter], x+shake, hordeY);
+    if (time > hordeActivate) {
+      image(hordeSprite[hordeIndex][hordeFrameCounter], x+shake, hordeY);
+    }
   }
 }
