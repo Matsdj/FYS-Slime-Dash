@@ -23,7 +23,7 @@ SoundFile arrowRelease;
 SoundFile spikeDmg;
 SoundFile miniMarch;
 SoundFile slimeBurn;
-float slow = 2500, mid = 6000;
+final float TIME_SLOW = 2500, TIME_MID = 6000;
 boolean[] march = new boolean[4];
 void soundSetup() {
   //volume
@@ -96,24 +96,24 @@ void soundUpdate() {
   } else if ((room =="game"||room == "game2")) {
     Hoofdmenu.pause();
   }
-  //muziek wanneer time onder 'slow' zit
+  //muziek wanneer time onder 'TIME_SLOW' zit
   if (GameSlow.isPlaying() == false) {
-    if ((room =="game"||room == "game2")&&time<=slow) {
+    if ((room =="game"||room == "game2")&&time<=TIME_SLOW) {
       GameSlow.play();
     }
   }
-  //muziek wanneer time onder 'mid' en boven 'slow' zit
+  //muziek wanneer time onder 'TIME_MID' en boven 'TIME_SLOW' zit
   if (GameMid.isPlaying() == false) {
-    if ((room =="game"||room == "game2") && time>=slow && time<=mid) {
+    if ((room =="game"||room == "game2") && time>=TIME_SLOW && time<=TIME_MID) {
       GameSlow.stop();
       GameMid.play();
       GameMid.loop();
       miniMarch.rate(1);
     }
   }
-  //muziek wanneer time boven 'mid' zit
+  //muziek wanneer time boven 'TIME_MID' zit
   if (GameFast.isPlaying() == false) {
-    if ((room =="game"||room == "game2") && time>=mid) {
+    if ((room =="game"||room == "game2") && time>=TIME_MID) {
       GameMid.stop();
       SpeedUp.stop();
       GameFast.play();
@@ -139,17 +139,17 @@ void soundUpdate() {
       hordeMarch.play();
       march[0] =false;
     }  
-    if (time ==slow/2 &&hordeMarch.isPlaying() == false&&march[1] ==true) {
+    if (time ==TIME_SLOW/2 &&hordeMarch.isPlaying() == false&&march[1] ==true) {
       hordeMarch.rate(1.8);
       hordeMarch.play();
       march[1] =false;
     }  
-    if (time ==slow &&hordeMarch.isPlaying() == false&&march[2] ==true) {
+    if (time ==TIME_SLOW &&hordeMarch.isPlaying() == false&&march[2] ==true) {
       hordeMarch.rate(1.5);
       hordeMarch.play();
       march[2] =false;
     }  
-    if (time ==mid &&hordeMarch.isPlaying() == false&&march[3] ==true) {
+    if (time ==TIME_MID &&hordeMarch.isPlaying() == false&&march[3] ==true) {
       hordeMarch.rate(1);
       hordeMarch.play();
       march[3] =false;

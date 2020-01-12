@@ -148,7 +148,7 @@ class BgHouses {
 }
 
 //walls/////////////////
-/*Creates a wall on the background, just like houses, only with slower speed*/
+/*Creates a wall on the background, just like houses, only with TIME_SLOWer speed*/
 class BgWall {
   final int BG_WALL_SCROLLSPEED = 3;
   float x, y, vx;
@@ -199,7 +199,7 @@ class BgCloud {
     cloudType = int(random(0, BG_CLOUDS_AMOUNT));
 
     //chance of a dragon spawning in the background
-    if (int(random(0, DRAGON_SPAWN_CHANCE)) == 0 && time > slow) {
+    if (int(random(0, DRAGON_SPAWN_CHANCE)) == 0 && time > TIME_SLOW) {
       dragonSpawn = true;
     }
 
@@ -245,9 +245,9 @@ void sunUpdate() {
   final float SUN_DOWN_MAX_RED = globalScale * 3; //positions at which the sun stops with going down
   final float SUN_DOWN_MAX_BLUE = globalScale * 6;
   //makes the sun set after certain time stamps
-  if (time>=slow && sunY < SUN_DOWN_MAX_RED) {
+  if (time>=TIME_SLOW && sunY < SUN_DOWN_MAX_RED) {
     sunY++;
-  } else if (time>=mid && sunY < SUN_DOWN_MAX_BLUE) {
+  } else if (time>=TIME_MID && sunY < SUN_DOWN_MAX_BLUE) {
     sunY++;
   }
 }
@@ -267,14 +267,14 @@ final color BLUE_SKY = color(0, 0, 60);
 
 void skyChange() {
   //if the player arrives at the part where the music shifts, the sky will turn red
-  if (time>=slow && time<mid) {
+  if (time>=TIME_SLOW && time<TIME_MID) {
     redSkyTransition++;
     if (redSkyTransition > RED_MAX) {
       redSkyTransition = RED_MAX;
     }
     fill(RED_SKY, redSkyTransition);
     rect(0, 0, width, height);
-  } else if (time>=mid) { 
+  } else if (time>=TIME_MID) { 
     redSkyTransition--;
     if (redSkyTransition < 0) {
       redSkyTransition = 0;
@@ -284,7 +284,7 @@ void skyChange() {
   }
 
   //if the player arrives at the part where the music shifts agaim, the sky will turn dark blue (night time)
-  if (time>=mid && redSkyTransition == 0) {
+  if (time>=TIME_MID && redSkyTransition == 0) {
     blueSkyTransition++;
     if (blueSkyTransition > BLUE_MAX) {
       blueSkyTransition = BLUE_MAX;

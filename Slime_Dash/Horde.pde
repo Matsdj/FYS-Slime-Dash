@@ -63,13 +63,13 @@ class Horde {
       hordeActivate = 0;
       break;
     case 1:
-      hordeActivate = slow/2;
+      hordeActivate = TIME_SLOW/2;
       break;
     case 2:
-      hordeActivate = slow;
+      hordeActivate = TIME_SLOW;
       break;
     case 3:
-      hordeActivate = mid;
+      hordeActivate = TIME_MID;
       break;
     }
   }

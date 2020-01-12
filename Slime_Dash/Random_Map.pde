@@ -100,7 +100,7 @@ void makeMap(PImage template) {
     if (testTemplates) {
       int randomTemplateIndex = floor(random(templateListTest.length));
       mapTemplate = templateListTest[randomTemplateIndex];
-    } else if (time < mid) {
+    } else if (time < TIME_MID) {
       int randomTemplateIndex = floor(random(templateListStart.length));
       mapTemplate = templateListStart[randomTemplateIndex];
     } else {

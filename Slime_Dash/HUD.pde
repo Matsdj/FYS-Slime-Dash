@@ -339,16 +339,14 @@ class HUD {
     //highscore
     fill(#A300FC, goFadeIn);
     text("highscore "+floor(Highscore), gOverX-generalTextOffset, gOverY+highscoreY-generalTextOffset);
-    text("              "+newHighscore, gOverX-generalTextOffset, gOverY+highscoreY-generalTextOffset);
+    text("                       Pos:"+scorePos, gOverX-generalTextOffset, gOverY+highscoreY-generalTextOffset);
     fill(YELLOW, goFadeIn);
     text(gOver, gOverX+generalTextOffset, gOverY+generalTextOffset);
     text("highscore " + floor(Highscore), gOverX+generalTextOffset, gOverY+highscoreY+generalTextOffset);
-    text("              "+newHighscore, gOverX-generalTextOffset, gOverY+highscoreY+generalTextOffset);
+    text("                       Pos:"+scorePos, gOverX-generalTextOffset, gOverY+highscoreY+generalTextOffset);
     fill(BLACK, goFadeIn);
     text(gOver, gOverX, gOverY);
     text("highscore " + floor(Highscore), gOverX, gOverY+highscoreY);
-    fill(255);
-    text("Your position: "+ scorePos +"!", width/2, height - (globalScale*3));
     //NAVIGATION
     textAlign(LEFT);
     textSize(menu.tekstSize[2]);
