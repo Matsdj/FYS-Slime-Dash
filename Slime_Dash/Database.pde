@@ -296,9 +296,11 @@ void getUpgrades() {
 }
 
 void updateUpgrades(int upgradeIndex, int newLevel) {
-  if ( msql.connect() )
-  {
-    msql.query( "UPDATE Player_Upgrades SET level = "+newLevel+" WHERE Upgrades_id = "+upgradeIndex+" AND Users_id = "+user.id+";" );
+  if (!offline) {
+    if ( msql.connect() )
+    {
+      msql.query( "UPDATE Player_Upgrades SET level = "+newLevel+" WHERE Upgrades_id = "+upgradeIndex+" AND Users_id = "+user.id+";" );
+    }
   }
 }
 
