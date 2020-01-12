@@ -186,6 +186,7 @@ class HUD {
       Highscore = floor(getScore(user.id, score));
       updateUser();
       updateAchievements();
+      getHighscores();
     } else if (getHighscore ==true && offline) {
       Highscore = HighscoreOffline;
     }

@@ -225,7 +225,7 @@ int scorePos;
 
 void getHighscores() {
   hScore = new ArrayList<Highscores>();
-
+  hScore.clear();
   if ( msql.connect()) {
     msql.query("SELECT u.name, u.id, max(h.score) FROM Highscores h INNER JOIN Users u ON u.id = h.Users_id GROUP BY h.score desc, u.name, u.id;");
     while (msql.next()) {
