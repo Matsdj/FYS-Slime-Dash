@@ -364,7 +364,7 @@ void startingOptions() {
     lastUser = loadStrings("lastUser.txt");
     String userNameWithoutSpaces = lastUser[0];
     //While loop to remove spaces at the end of the String
-    while (userNameWithoutSpaces.charAt(userNameWithoutSpaces.length()-1) == ' ') {
+    while (userNameWithoutSpaces.charAt(userNameWithoutSpaces.length()-1) == ' ' && userNameWithoutSpaces.length() > 1) {
       userNameWithoutSpaces = userNameWithoutSpaces.substring(0, userNameWithoutSpaces.length()-1);
     }
     loginOptions = append(loginOptions, "Load: "+userNameWithoutSpaces);

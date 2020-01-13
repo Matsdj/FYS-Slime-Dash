@@ -217,9 +217,6 @@ void draw() {
       fill(RED, loginFade);
       text(loginFailText, width/2, height/3);
       fill(255);
-    } else {
-      String[] Account = {accountName.selection(), accountPassword.selection()};
-      saveStrings("data/lastUser.txt", Account);
     }
 
     if (inputsPressed(keySpace)) {
