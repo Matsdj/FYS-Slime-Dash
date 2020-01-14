@@ -157,9 +157,9 @@ void draw() {
     } else if (room == "mainM") {
       bgUpdate();
       bgDraw();
-      upgrade.update();
       menu.MenuUpdates("mainM", "difficulty", "upgrades", "achievements");
       menu.menuDraw("Play", "Upgrades", "Achievements");
+      upgrade.update();
       Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "", "", 0);
       image(slimeDash, width/4+shake, height/100, width/3, height/3);
       interfaces.death = false;
@@ -181,11 +181,15 @@ void draw() {
       bgUpdate();
       bgDraw();
       drawHScores();
+      if (!offline){
       Navigation(menu.tekstX, "A", "All Highscores", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+      } else {
+      Navigation(menu.tekstX, "", "", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+      }
       if (inputsPressed(keyQ)==true) {
         room = "mainM";
       }
-      if (inputsPressed(keySpace)==true) {
+      if (inputsPressed(keySpace)==true &! offline) {
         room = "AllHighscores";
       }
     } else if (room == "AllHighscores") {
