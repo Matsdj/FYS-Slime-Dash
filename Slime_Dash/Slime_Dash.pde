@@ -22,10 +22,6 @@ final int COOLDOWN_MAX=15, COOLDOWN_MIN=0;
 final int COOLDOWN_UPGRADE=30;
 int cooldown;
 int secondsPlayed;
-Selection askIfLogin;
-Selection accountName;
-Selection accountPassword;
-String[] lastUser;
 
 void gameReset() {
   burn = false;
@@ -185,6 +181,17 @@ void draw() {
       bgUpdate();
       bgDraw();
       drawHScores();
+      Navigation(menu.tekstX, "A", "All Highscores", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+      if (inputsPressed(keyQ)==true) {
+        room = "mainM";
+      }
+      if (inputsPressed(keySpace)==true) {
+        room = "AllHighscores";
+      }
+    } else if (room == "AllHighscores") {
+      bgUpdate();
+      bgDraw();
+      highscores.draw();
       Navigation(menu.tekstX, "", "", color(255, 255, 0), "B", "Back", color(255, 0, 0));
       if (inputsPressed(keyQ)==true) {
         room = "mainM";

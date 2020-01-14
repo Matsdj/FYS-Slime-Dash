@@ -358,6 +358,10 @@ class Upgrades {
   }
 }
 //Mats
+Selection askIfLogin;
+Selection accountName;
+Selection accountPassword;
+String[] lastUser;
 void startingOptions() {
   String[] loginOptions = {"Login", "Create Account", "Offline"};
   if (dataFile("lastUser.txt").isFile() == true) {
@@ -445,18 +449,19 @@ class Selection {
     textAlign(CENTER, CENTER);
     for (int ix = 0; ix < options.length; ix++) {
       for (int iy = 0; iy < options[0].length; iy++) {
-        int dist = TEXT_BIG;
+        int textSize;
         if (iy == ySelected[ix]) {
-          textSize(TEXT_BIG);
+          textSize = TEXT_BIG;
         } else {
-          textSize(TEXT_NORMAL);
+          textSize= TEXT_NORMAL;
         }
-        float yLoc = centerY+(dist*(iy-ySelected[ix]));
-        float xLoc = centerX+(dist*(ix-xSelected));
+        textSize(textSize);
+        float yLoc = centerY+(textSize*(iy-ySelected[ix]));
+        float xLoc = centerX+(textSize*(ix-xSelected));
         if (iy == ySelected[ix] && ix == xSelected && options[ix][iy].length() == 1) {
           fill(BLACK, 100);
           noStroke();
-          rect(xLoc-TEXT_BIG/2, yLoc-TEXT_BIG/2, TEXT_BIG, TEXT_BIG);
+          rect(xLoc-textSize/2, yLoc-textSize/2, textSize, textSize);
         }
         fill(WHITE, 255-pow(ySelected[ix]-iy, 2)*10);
         text(options[ix][iy], xLoc, yLoc);
