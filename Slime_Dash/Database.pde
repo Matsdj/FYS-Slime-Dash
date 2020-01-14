@@ -374,7 +374,7 @@ void createUser(String userName, String password) {
       GetAchievements();
       getHighscores();
       getUpgrades();
-      String[] Account = {accountName.selection(), accountPassword.selection()};
+      String[] Account = {user.name, user.password};
       saveStrings("data/lastUser.txt", Account);
 
       offline = false;
@@ -405,7 +405,7 @@ void loginUser(String userName, String password) {
       GetAchievements();
       getHighscores();
       getUpgrades();
-      String[] Account = {accountName.selection(), accountPassword.selection()};
+      String[] Account = {user.name, user.password};
       saveStrings("data/lastUser.txt", Account);
 
       offline = false;

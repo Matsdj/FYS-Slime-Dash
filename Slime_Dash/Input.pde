@@ -53,6 +53,7 @@ int keyZ = 90, keyT = 84;
 //DEBUG///////////////////////////////////////////////
 boolean debug = false, 
   testTemplates = false;
+final int DEBUG_TEXT = 25;
 void debug() {
   if (inputsPressed(96)) {
     if (debug == false) {
@@ -62,26 +63,31 @@ void debug() {
     }
   }
   if (debug == true) {
+    String debugText;
     textAlign(LEFT);
     fill(255, 255, 255);
-    textSize(25);
-    text("Fps:"+frameRate, 0, 200);
+    textSize(DEBUG_TEXT);
+    debugText ="Fps:"+frameRate;
     String inputsString = "Inputs:";
     for (int i = 0; i < inputs.size(); i++) {
       inputsString += inputs.get(i) + "|";
     }
-    text(inputsString, 0, 250);
-    text("Time:"+time, 0, 275);
-    text("ScrollSpeed:"+globalScrollSpeed, 0, 300);
-    text("Height:"+VerticalDistance, 0, 325);
-    text("TravelDist:"+traveledDistance, 0, 350);
-    text("Room:"+room, 0, 375);
-    text("P.insideblock:"+player.insideBlock(), 0, 400);
-    text("ActiveBlocks:"+activeBlocks, 0, 425);
-    text("TestTemplates:"+testTemplates, 0, 450);
-    text("AllowVertical:"+ allowVerticalMovement, 0, 475);
-    text("VerticalDistance:"+ VerticalDistance, 0, 500);
-    text(interfaces.scoreSize, 0, 525);
+    debugText += ","+inputsString;
+    debugText += ",Time:"+time;
+    debugText += ",ScrollSpeed:"+globalScrollSpeed;
+    debugText += ",Height:"+VerticalDistance;
+    debugText += ",TravelDist:"+traveledDistance;
+    debugText += ",Room:"+room;
+    debugText += ",P.insideblock:"+player.insideBlock();
+    debugText += ",ActiveBlocks:"+activeBlocks;
+    debugText += ",TestTemplates:"+testTemplates;
+    debugText += ",AllowVertical:"+ allowVerticalMovement;
+    debugText += ",VerticalDistance:"+ VerticalDistance;
+    debugText += ","+interfaces.scoreSize;
+    String[] debugArray = debugText.split(",");
+    for (int i = 0; i < debugArray.length; i++){
+      text(debugArray[i],0,i*DEBUG_TEXT+height/4);
+    }
     if (mousePressed) {
       player.x = mouseX-player.size/2;
       player.y = mouseY-player.size/2;
