@@ -213,7 +213,7 @@ class HUD {
         room= "mainM";
       }
       /* B om opnieuw te proberen in beide modes*/
-      if (inputsPressed(keyB)==true && room=="game") {
+      if (inputsPressed.hasValue(keyB)==true && room=="game") {
         death = false;
         Dede.stop();
         gameReset();
@@ -267,7 +267,7 @@ class HUD {
         image(enemySprite[0], player.x+globalScale, player.y-tutorialImgY);
         image(enemyDeathSprite, player.x+TutImgX, player.y-tutorialImgY);
       } //dash voor vuur uit tutorial
-      else if (traveledDistance >90 && traveledDistance <117) {
+      else if (traveledDistance >90 && traveledDistance <133) {
         circleColor = color(RED);
         tutText = "A";
         ellipse(player.x-buttonX, player.y-buttonY, buttonSize, buttonSize);

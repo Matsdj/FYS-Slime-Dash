@@ -1,7 +1,7 @@
- /*ig101-5
+/*ig101-5
  Chris - 500828243,
  Collin - 500833247,
- Iva zno - 500831163,
+ Ivano - 500831163,
  Mats - 500827411,
  Laurens - 500821318
  */
@@ -159,7 +159,7 @@ void draw() {
     upgrade.update();
     menu.MenuUpdates("mainM", "difficulty", "upgrades", "achievements");
     menu.menuDraw("Play", "Upgrades", "Achievements");
-    Navigation(menu.tekstX, "A", "Select", color(RED), "", "", 0);
+    Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "", "", 0);
     image(slimeDash, width/4+shake, height/100, width/3, height/3);
     interfaces.death = false;
     if (inputsPressed(72)) {
@@ -170,7 +170,7 @@ void draw() {
     bgDraw();
     menu.MenuUpdates("difficulty", "game", "game2", "Highscores");
     menu.menuDraw("Normal Mode", "Tutorial Mode", "Highscores");
-    Navigation(menu.tekstX, "A", "Select", color(RED), "B", "Back", color(YELLOW));
+    Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
   } else if (room == "upgrades") {
     bgUpdate();
     bgDraw();
@@ -180,7 +180,7 @@ void draw() {
     bgUpdate();
     bgDraw();
     drawHScores();
-    Navigation(menu.tekstX, "", "", color(RED), "B", "Back", color(YELLOW));
+    Navigation(menu.tekstX, "", "", color(255, 255, 0), "B", "Back", color(255, 0, 0));
     if (inputsPressed(keyQ)==true) {
       room = "mainM";
     }
@@ -188,7 +188,7 @@ void draw() {
     bgUpdate();
     bgDraw();
     drawAch();
-    Navigation(menu.tekstX, "", "", color(RED), "B", "Back", color(YELLOW));
+    Navigation(menu.tekstX, "", "", color(255, 255, 0), "B", "Back", color(255, 0, 0));
     if (inputsPressed(keyQ)==true) {
       room = "mainM";
     }
