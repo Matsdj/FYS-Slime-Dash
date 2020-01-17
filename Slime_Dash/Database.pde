@@ -229,25 +229,23 @@ class Highscores {
 }
 
 ArrayList<Highscores> hScore;
-Selection highscores;
 int scorePos;
 
 void getHighscores() {
   hScore = new ArrayList<Highscores>();
   hScore.clear();
   if ( msql.connect()) {
-    msql.query("SELECT count(*) FROM Highscores h INNER JOIN Users u ON u.id = h.Users_id;");
-    msql.next();
-    String[][] highscoreOptions = new String[1][msql.getInt(1)];
     msql.query("SELECT u.name, u.id, max(h.score) FROM Highscores h INNER JOIN Users u ON u.id = h.Users_id GROUP BY h.score desc, u.name, u.id;");
-    for (int i = 0; msql.next(); i++) {
+    while (msql.next()) {
       hScore.add(new Highscores(msql.getString("name"), msql.getInt("id"), msql.getFloat("max(h.score)")));
-      highscoreOptions[0][i] = i+". "+msql.getString("name")+": "+msql.getFloat("max(h.score)");
-      if (msql.getInt("id") == user.id){
-        scorePos = i+1;
+    }
+
+    for (int iScore = 0; iScore < hScore.size(); iScore++) {      
+      if (user.id == hScore.get(iScore).id) {
+        scorePos = iScore+1;
+        break;
       }
     }
-    highscores = new Selection(highscoreOptions,width/2,height/2);
   }
 }
 
@@ -376,8 +374,6 @@ void createUser(String userName, String password) {
       GetAchievements();
       getHighscores();
       getUpgrades();
-      String[] Account = {user.name, user.password};
-      saveStrings("data/lastUser.txt", Account);
 
       offline = false;
       println("Welcome, " + userName + "!");
@@ -407,8 +403,6 @@ void loginUser(String userName, String password) {
       GetAchievements();
       getHighscores();
       getUpgrades();
-      String[] Account = {user.name, user.password};
-      saveStrings("data/lastUser.txt", Account);
 
       offline = false;
       println("Welcome, " + user.name + "!");

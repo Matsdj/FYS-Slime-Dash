@@ -135,22 +135,22 @@ class Upgrades {
         cooldown=COOLDOWN_MAX;
       }
 
-      if (perchSelectY == perchUp && inputsPressed(keyDown)) {
+      if (inputsPressed(keyDown) && perchSelectY == perchUp) {
         perchSelectY = perchDown;
         if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
-      if (perchSelectY == perchDown && inputsPressed(keyUp)) {
+      if (inputsPressed(keyUp) && perchSelectY == perchDown) {
         perchSelectY = perchUp;
         if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
-      if (perchSelectX == perchLeft && inputsPressed(keyRight)) {
+      if (inputsPressed(keyRight) && perchSelectX == perchLeft) {
         perchSelectX = perchRight;
         if (Ding.isPlaying()) Ding.stop();
         Ding.play();
       }
-      if (perchSelectX == perchRight && inputsPressed(keyLeft)) {
+      if (inputsPressed(keyLeft) && perchSelectX == perchRight) {
         perchSelectX = perchLeft;
         if (Ding.isPlaying()) Ding.stop();
         Ding.play();
@@ -162,7 +162,7 @@ class Upgrades {
     }
     //double jump
     if (perchTLState < perch.length - 1) {
-      if (perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice && inputsPressed(keySpace)) {
+      if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && coins >= doubleJumpPrice) {
         perchTLState = 3;
         coins -= doubleJumpPrice;
         updateUpgrades(ID_DJUMP, perchTLState);
@@ -170,7 +170,7 @@ class Upgrades {
         if (perchTLState >=1) jumpUpgradeState = 1;
         player.maxJumpAmount = jumpUpgradeState;
         SpeedUp.play();
-      } else if (perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3 && inputsPressed(keySpace)) {
+      } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState < 3) {
         textAlign(CENTER);
         fill(BLACK);
         text("YOU CAN'T AFFORD THAT", upgradeNotificationsX+generalTextOffset, upgradeNotificationsY+generalTextOffset);
@@ -186,7 +186,7 @@ class Upgrades {
     perchTL = perch[perchTLState];
     //dash charges
     if (perchTRState < perch.length - 1) {
-      if (perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice && inputsPressed(keySpace)) {
+      if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && coins >= dashPrice) {
         perchTRState++;
         coins -= dashPrice;
         updateUpgrades(ID_DASH, perchTRState);
@@ -201,7 +201,7 @@ class Upgrades {
         text("DASH CHARGES INCREASED", upgradeNotificationsX, upgradeNotificationsY);
         textAlign(LEFT, CENTER);
         SpeedUp.play();
-      } else if (perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3 && inputsPressed(keySpace)) {
+      } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState < 3) {
         textAlign(CENTER);
         fill(BLACK);
         text("YOU CAN'T AFFORD THAT", upgradeNotificationsX+generalTextOffset, upgradeNotificationsY+generalTextOffset);
@@ -214,7 +214,7 @@ class Upgrades {
     perchTR = perch[perchTRState];
     //health upgrade
     if (perchBLState < perch.length - 1) {
-      if (perchSelectX == perchLeft && perchSelectY == perchDown && coins >= healthPrice && inputsPressed(keySpace)) {
+      if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && coins >= healthPrice) {
         perchBLState++;
         coins -= healthPrice;
         updateUpgrades(ID_HEALTH, perchBLState);
@@ -231,7 +231,7 @@ class Upgrades {
         text("HEALTH INCREASED", width/2, height/2);
         textAlign(LEFT, CENTER);
         SpeedUp.play();
-      } else if (perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3 && inputsPressed(keySpace)) {
+      } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState < 3) {
         textAlign(CENTER);
         fill(BLACK);
         text("YOU CAN'T AFFORD THAT", width/2+generalTextOffset, height/2+generalTextOffset);
@@ -246,7 +246,7 @@ class Upgrades {
     if (perchBLState==3)interfaces.healthMult =0.5;
     //coin upgrade
     if (perchBRState < perch.length - 1) {
-      if (perchSelectX == perchRight && perchSelectY == perchDown && coins >= coinPrice && inputsPressed(keySpace)) {
+      if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && coins >= coinPrice) {
         perchBRState++;
         coins -= coinPrice;
         updateUpgrades(ID_COINS, perchBRState);
@@ -263,7 +263,7 @@ class Upgrades {
         text("COIN VALUE INCREASED", width/2, height/2);
         textAlign(LEFT, CENTER);
         SpeedUp.play();
-      } else if (perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3 && inputsPressed(keySpace)) {
+      } else if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState < 3) {
         textAlign(CENTER);
         fill(BLACK);
         text("YOU CAN'T AFFORD THAT", width/2+generalTextOffset, height/2+generalTextOffset);
@@ -276,7 +276,7 @@ class Upgrades {
     if (perchBRState ==1) coinValue =2;
     if (perchBRState ==2) coinValue =3;
     if (perchBRState ==3) coinValue =4;
-    if (perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState == perch.length -1 && inputsPressed(keySpace)) {
+    if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchUp && perchTLState == perch.length -1 ) {
       textAlign(CENTER);
       fill(WHITE);
       text(upgradeMaxText, width/2+generalTextOffset, height/2+generalTextOffset);
@@ -285,7 +285,7 @@ class Upgrades {
       textAlign(LEFT, CENTER);
       doubleJumpPrice = 1337;
     }
-    if (perchSelectX == perchRight && perchSelectY == perchUp && perchTRState == perch.length -1 && inputsPressed(keySpace)) {
+    if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchUp && perchTRState == perch.length -1 ) {
       textAlign(CENTER);
       fill(WHITE);
       text(upgradeMaxText, width/2+generalTextOffset, height/2+generalTextOffset);
@@ -294,7 +294,7 @@ class Upgrades {
       textAlign(LEFT, CENTER);
       dashPrice = 1337;
     }
-    if (perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState == perch.length -1 && inputsPressed(keySpace)) {
+    if (inputsPressed.hasValue(keySpace) && perchSelectX == perchLeft && perchSelectY == perchDown && perchBLState == perch.length -1 ) {
       textAlign(CENTER);
       fill(WHITE);
       text(upgradeMaxText, width/2+generalTextOffset, height/2+generalTextOffset);
@@ -304,7 +304,7 @@ class Upgrades {
       healthPrice = 1337;
     }
 
-    if (perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 && inputsPressed(keySpace)) {
+    if (inputsPressed.hasValue(keySpace) && perchSelectX == perchRight && perchSelectY == perchDown && perchBRState == perch.length -1 ) {
       textAlign(CENTER);
       fill(WHITE);
       text(upgradeMaxText, width/2+generalTextOffset, height/2+generalTextOffset);
@@ -358,17 +358,13 @@ class Upgrades {
   }
 }
 //Mats
-Selection askIfLogin;
-Selection accountName;
-Selection accountPassword;
-String[] lastUser;
 void startingOptions() {
   String[] loginOptions = {"Login", "Create Account", "Offline"};
   if (dataFile("lastUser.txt").isFile() == true) {
     lastUser = loadStrings("lastUser.txt");
     String userNameWithoutSpaces = lastUser[0];
     //While loop to remove spaces at the end of the String
-    while (userNameWithoutSpaces.charAt(userNameWithoutSpaces.length()-1) == ' ' && userNameWithoutSpaces.length() > 1) {
+    while (userNameWithoutSpaces.charAt(userNameWithoutSpaces.length()-1) == ' ') {
       userNameWithoutSpaces = userNameWithoutSpaces.substring(0, userNameWithoutSpaces.length()-1);
     }
     loginOptions = append(loginOptions, "Load: "+userNameWithoutSpaces);
@@ -449,21 +445,20 @@ class Selection {
     textAlign(CENTER, CENTER);
     for (int ix = 0; ix < options.length; ix++) {
       for (int iy = 0; iy < options[0].length; iy++) {
-        int textSize;
+        int dist = TEXT_BIG;
         if (iy == ySelected[ix]) {
-          textSize = TEXT_BIG;
+          textSize(TEXT_BIG);
         } else {
-          textSize= TEXT_NORMAL;
+          textSize(TEXT_NORMAL);
         }
-        textSize(textSize);
-        float yLoc = centerY+(textSize*(iy-ySelected[ix]));
-        float xLoc = centerX+(textSize*(ix-xSelected));
+        float yLoc = centerY+(dist*(iy-ySelected[ix]));
+        float xLoc = centerX+(dist*(ix-xSelected));
         if (iy == ySelected[ix] && ix == xSelected && options[ix][iy].length() == 1) {
           fill(BLACK, 100);
           noStroke();
-          rect(xLoc-textSize/2, yLoc-textSize/2, textSize, textSize);
+          rect(xLoc-TEXT_BIG/2, yLoc-TEXT_BIG/2, TEXT_BIG, TEXT_BIG);
         }
-        fill(WHITE, 255-pow(ySelected[ix]-iy, 2)*5);
+        fill(WHITE, 255-pow(ySelected[ix]-iy, 2)*10);
         text(options[ix][iy], xLoc, yLoc);
         if (options[ix][iy] == " ") {
           text('_', xLoc, yLoc);
