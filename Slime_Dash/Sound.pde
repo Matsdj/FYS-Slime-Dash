@@ -60,6 +60,8 @@ void soundSetup() {
   miniMarch.amp(.6);
   miniMarch.rate(.7);
    slimeBurn.amp(.5);
+   Thud.amp(0.6);
+   meleeDmg.amp(1.4);
 }
 void soundUpdate() {
   if (room == "game" && miniMarch.isPlaying()==false) {

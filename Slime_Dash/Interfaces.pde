@@ -465,7 +465,7 @@ class Selection {
         }
       }
     }
-    Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+    Navigation(menu.tekstX, "A", "Select", color(RED), "B", "Back", color(YELLOW));
     stroke(BLACK);
     fill(WHITE);
   }

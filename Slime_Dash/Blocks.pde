@@ -49,6 +49,7 @@ class Block {
           breakTime--;
           if (breakTime < 0) {
             active = false;
+            if (Thud.isPlaying()) Thud.stop();
             Thud.play();
           }
         }
@@ -61,6 +62,7 @@ class Block {
           active = false;
           player.jumpedHeight = -player.MAX_JUMP_HEIGHT;
           player.vy = 0;
+          if (Thud.isPlaying()) Thud.stop();
           Thud.play();
         }
         if (active == false) {
