@@ -163,9 +163,6 @@ void draw() {
       Navigation(menu.tekstX, "A", "Select", color(YELLOW), "", "", 0);
       image(slimeDash, width/4+shake, height/100, width/3, height/3);
       interfaces.death = false;
-      if (inputsPressed(72)) {
-        room = "achievements";
-      }
     } else if (room == "difficulty") {
       bgUpdate();
       bgDraw();
