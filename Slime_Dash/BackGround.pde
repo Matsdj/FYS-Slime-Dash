@@ -127,10 +127,11 @@ void bgDraw() {
 /*creates a house with a random sprite that moves on the background*/
 class BgHouses {
   final int BG_HOUSES_SCROLLSPEED = 2; //the speed at witch the houses move is the globalScroll speed divided by this number
+  final float HOUSE_Y =  globalScale * 4;
   float x, y, vx;
   int houseType;
   BgHouses() {
-    y = globalScale * 4;
+    y = HOUSE_Y;
   }
 
   // function that can reset position and type of house for a single instance of this class

@@ -12,6 +12,7 @@ final float ENEMYSCORE = 200;
 final int ENEMY_SPRITE_AMOUNT = 2;
 
 void hostileSetup() {
+  //initialisation hostiles
   hostileMelee = new HostileMelee[HOSTILE_AMOUNT];
   hostileRanged = new HostileRanged[HOSTILE_AMOUNT];
 
@@ -20,6 +21,8 @@ void hostileSetup() {
     hostileRanged[iHostile] = new HostileRanged();
   }
 }
+
+//function that places an enemy in the game on x and y when its called by random map
 void addHostileMelee(float x, float y) {
   for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
     if (!hostileMelee[iHostile].isActive) {
@@ -38,6 +41,7 @@ void addHostileRanged(float x, float y) {
   }
 }
 
+//updates and draws only active hostiles
 void hostileUpdate() {
   for (int iHostile = 0; iHostile < HOSTILE_AMOUNT; iHostile++) {
     if (hostileMelee[iHostile].isActive) {
@@ -58,6 +62,7 @@ void hostileDraw() {
     }
   }
 }
+
 class HostileMelee {
   final float WALK_SPEED = globalScale/32;
   int enemyWalkFrame;
