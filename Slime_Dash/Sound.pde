@@ -25,6 +25,7 @@ SoundFile miniMarch;
 SoundFile slimeBurn;
 final float TIME_SLOW = 2500, TIME_MID = 6000;
 boolean[] march = new boolean[4];
+float lowValue, highValue;
 void soundSetup() {
   //volume
   float volume = 1;
@@ -60,15 +61,17 @@ void soundSetup() {
   miniMarch.amp(.6);
   miniMarch.rate(.7);
    slimeBurn.amp(.5);
+   lowValue=.5;
+   highValue=1;
 }
 void soundUpdate() {
   if (room == "game" && miniMarch.isPlaying()==false) {
     miniMarch.play();
   }
   if (speedModifier !=1) {
-    GameSlow.rate(constrain(speedModifier*3, 0.5, 1));
-    GameMid.rate(constrain(speedModifier*3, 0.5, 1));
-    GameFast.rate(constrain(speedModifier*3, 0.5, 1));
+    GameSlow.rate(constrain(speedModifier*3, lowValue, highValue));
+    GameMid.rate(constrain(speedModifier*3, lowValue, highValue));
+    GameFast.rate(constrain(speedModifier*3, lowValue, highValue));
   }
   //marching geluiden worden in de tutorial uitgezet
   if (room =="game2") {
