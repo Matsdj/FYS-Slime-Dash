@@ -326,15 +326,17 @@ class Player {
           Thud.play();
         }
       }
-
       vx = 0; //stops movement
-    } else if (room == "game2" && x+vx <= 0) { //When in tutorial mode, the left side of the screen will also be considered as a wall
+
+      //When in tutorial mode, the left side of the screen will also be considered as a wall
+    } else if (room == "game2" && x+vx <= 0) { 
       while (x + sign(vx) > 0) {
         x += sign(vx);
       }
       vx = 0;
     }
 
+    //x movement update
     if (!interfaces.death) {
       x+= vx*speedModifier;
     }
@@ -345,6 +347,8 @@ class Player {
       while (blockCollision(x, y+sign(vy), size) == null) {
         y += sign(vy);
       }
+      
+      //resets certain values that give the player the ability to jump
       if (vy > 0) {
         onGround = true;
         jumpedHeight = 0;
@@ -365,6 +369,7 @@ class Player {
       smashedGround = true;
     }
 
+    //y movement update
     if (!dashActive) {
       y += vy;
     }
@@ -522,7 +527,7 @@ class dashBlinks {
   }
 
   void draw() {
-    tint(255, dashBlinkCooldown); //makes the after image transparent
+    tint(FULL_OPACITY, dashBlinkCooldown); //makes the after image transparent
 
     //makes dash blink point in right direction
     if (pointLeft) {
@@ -539,7 +544,7 @@ class dashBlinks {
       } else
         image(playerBlinkSprite[walkFrame], x, y);
     }
-    tint(255);
+    tint(FULL_OPACITY);
   }
 }
 

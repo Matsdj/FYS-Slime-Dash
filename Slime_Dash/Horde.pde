@@ -86,9 +86,12 @@ class Horde {
   void update() {
     hordeY += globalVerticalSpeed;
 
+    //moves horde forward once given time is reached in a game
     if (!interfaces.death && x < 0 && time > hordeActivate) {
       x += HORDE_VX;
     }
+
+    //moves horde backwards when you die
     if (interfaces.death && x > -hordeSpriteWidth) {
       x -= HORDE_VX;
     }
