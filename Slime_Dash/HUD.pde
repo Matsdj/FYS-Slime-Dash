@@ -361,8 +361,6 @@ class HUD {
   }
 }
 //PARTICLES////////////////////////////////////////
-
-//Mats en Laurens
 Particle[] particles = new Particle[10000];
 //variablen die je kan invullen terwijl je je particles creert
 void createParticle(float x, float y, float particleArea, float particleSize, color kleurMin, color kleurMax, float gravity, float speed, boolean collision, int life, String text, float count) {
@@ -412,6 +410,7 @@ class Particle {
     x = enteredValueX;
     y = enteredValueY;
     size = enteredValueSize;
+    //zorgt ervoor dat er binnen de 2 aangegeven kleurwaarden wordt gerandomised
     float per = random(1);
     float r = min(red(kleur1), red(kleur2))+ per *(max(red(kleur1), red(kleur2))-min(red(kleur1), red(kleur2)));
     float g = min(green(kleur1), green(kleur2))+ per *(max(green(kleur1), green(kleur2))-min(green(kleur1), green(kleur2)));
@@ -437,15 +436,18 @@ class Particle {
     life = LifeMax;
   }
   void update() {
+    //checkt collision met alle blocks
     if (collision) {
       if (blockCollision(x, y, size) != null) {
         vx = 0;
         vy = 0;
       }
     }
+    //zorgt ervoor dat de particles meescrollen met de map
     x -= vx+globalScrollSpeed;
     y += vy+globalVerticalSpeed;
     vy += gravity;
+    //zorgt ervoor dat de particles faden
     if (life <= 0) {
       active = false;
     } else {
@@ -456,6 +458,7 @@ class Particle {
     noStroke();
     float alpha = 255*life/LifeMax;
     fill(kleur, alpha);
+    //als er geen tekst is in createparticle dan zijn de particles squares
     if (text == "") {
       rect(x, y, size, size);
     } else {
@@ -465,7 +468,7 @@ class Particle {
   }
 }
 
-//Collin
+//Collin en Mats
 float shake =0, shakeResistance = 0.8;
 
 void shakeUpdate() {

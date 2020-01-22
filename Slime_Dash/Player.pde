@@ -52,7 +52,9 @@ class Player {
     PAR_SIZE = globalScale / 7, //particle finals
     PAR_GRAV = globalScale/256, 
     PAR_SPEED = globalScale/18, 
-    PAR_AMOUNT = 3; //amount of particles is vy/PAR_AMOUNT
+    PAR_AMOUNT = 3, 
+    HEALTH_LOSS_FALL = 10, //amount of particles is vy/PAR_AMOUNT
+    WALL_HIT_SHAKE = globalScale / 3;
 
   final color PAR_COLOR_ONE = color(#FF9455), 
     PAR_COLOR_TWO = color(#FF5555);
@@ -319,20 +321,22 @@ class Player {
         x += sign(vx); //executed until the player is right next too a block
       }
       if (dashActive) { //Activates a shake when player dashes against a wall
-        shake(globalScale/3);
+        shake(WALL_HIT_SHAKE);
         if (Thud.isPlaying() ==false) {
           Thud.play();
         }
       }
+      vx = 0; //stops movement
 
-      vx = 0;
-    } else if (room == "game2" && x+vx <= 0) { //When in tutorial mode, the left side of the screen will also be a wall
+      //When in tutorial mode, the left side of the screen will also be considered as a wall
+    } else if (room == "game2" && x+vx <= 0) { 
       while (x + sign(vx) > 0) {
         x += sign(vx);
       }
       vx = 0;
     }
 
+    //x movement update
     if (!interfaces.death) {
       x+= vx*speedModifier;
     }
@@ -343,6 +347,8 @@ class Player {
       while (blockCollision(x, y+sign(vy), size) == null) {
         y += sign(vy);
       }
+      
+      //resets certain values that give the player the ability to jump
       if (vy > 0) {
         onGround = true;
         jumpedHeight = 0;
@@ -363,13 +369,14 @@ class Player {
       smashedGround = true;
     }
 
+    //y movement update
     if (!dashActive) {
       y += vy;
     }
 
     //if you fall out of the map, you die
     if (y>height) {
-      interfaces.health -=10;
+      interfaces.health -=HEALTH_LOSS_FALL;
       interfaces.death =true;
     }
 
@@ -464,6 +471,7 @@ void blinkDraw() {
 }
 
 /*This class is placed whenever the player can/is dashing. It makes an image of the player that slowly fades away for an afterimage effect */
+final int FULL_OPACITY = 255;
 class dashBlinks {
   final int DASH_BLINK_FADE_V = 15; //fade of image speed
   final int WALK_BLINK_FADE_V = 30;
@@ -477,8 +485,8 @@ class dashBlinks {
   }
 
   void reset() {
-    x = -globalScale * 10;
-    y = -globalScale * 10;
+    x = -globalScale;
+    y = -globalScale;
     isActive = false;
   }
 
@@ -486,7 +494,7 @@ class dashBlinks {
     walkFrame = player.frameCounter;
     isActive = true;
     y = player.ySprite;
-    dashBlinkCooldown = 255; //reset to full opacity
+    dashBlinkCooldown = FULL_OPACITY; //reset to full opacity
 
     //looks if the player was looking left or right so that the after image faces the right way
     if (player.moveLeft) {
@@ -519,7 +527,7 @@ class dashBlinks {
   }
 
   void draw() {
-    tint(255, dashBlinkCooldown); //makes the after image transparent
+    tint(FULL_OPACITY, dashBlinkCooldown); //makes the after image transparent
 
     //makes dash blink point in right direction
     if (pointLeft) {
@@ -536,15 +544,15 @@ class dashBlinks {
       } else
         image(playerBlinkSprite[walkFrame], x, y);
     }
-    tint(255);
+    tint(FULL_OPACITY);
   }
 }
 
 //if a number is below 0, it returns -1, and if its above, it returns 1. This is used to detect in witch direction the player goes
-int sign(float v) {
-  int vel = 0;
-  if (v < 0) vel = -1;
-  else if (v > 0) vel = 1;
+int sign(float number) {
+  int signium = 0;
+  if (number < 0) signium = -1;
+  else if (number > 0) signium = 1;
 
-  return vel;
+  return signium;
 }

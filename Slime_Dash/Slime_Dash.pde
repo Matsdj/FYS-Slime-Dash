@@ -160,18 +160,15 @@ void draw() {
       menu.MenuUpdates("mainM", "difficulty", "upgrades", "achievements");
       menu.menuDraw("Play", "Upgrades", "Achievements");
       upgrade.update();
-      Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "", "", 0);
+      Navigation(menu.tekstX, "A", "Select", color(YELLOW), "", "", BLACK);
       image(slimeDash, width/4+shake, height/100, width/3, height/3);
       interfaces.death = false;
-      if (inputsPressed(72)) {
-        room = "achievements";
-      }
     } else if (room == "difficulty") {
       bgUpdate();
       bgDraw();
       menu.MenuUpdates("difficulty", "game", "game2", "Highscores");
       menu.menuDraw("Normal Mode", "Tutorial Mode", "Highscores");
-      Navigation(menu.tekstX, "A", "Select", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+      Navigation(menu.tekstX, "A", "Select", color(YELLOW), "B", "Back", color(RED));
     } else if (room == "upgrades") {
       bgUpdate();
       bgDraw();
@@ -181,10 +178,10 @@ void draw() {
       bgUpdate();
       bgDraw();
       drawHScores();
-      if (!offline){
-      Navigation(menu.tekstX, "A", "All Highscores", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+      if (!offline) {
+        Navigation(menu.tekstX, "A", "All Highscores", color(YELLOW), "B", "Back", color(RED));
       } else {
-      Navigation(menu.tekstX, "", "", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+        Navigation(menu.tekstX, "", "", color(YELLOW), "B", "Back", color(RED));
       }
       if (inputsPressed(keyQ)==true) {
         room = "mainM";
@@ -196,7 +193,7 @@ void draw() {
       bgUpdate();
       bgDraw();
       highscores.draw();
-      Navigation(menu.tekstX, "", "", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+      Navigation(menu.tekstX, "", "", color(YELLOW), "B", "Back", color(YELLOW));
       if (inputsPressed(keyQ)==true) {
         room = "mainM";
       }
@@ -204,7 +201,7 @@ void draw() {
       bgUpdate();
       bgDraw();
       drawAch();
-      Navigation(menu.tekstX, "", "", color(255, 255, 0), "B", "Back", color(255, 0, 0));
+      Navigation(menu.tekstX, "", "", color(YELLOW), "B", "Back", color(YELLOW));
       if (inputsPressed(keyQ)==true) {
         room = "mainM";
       }

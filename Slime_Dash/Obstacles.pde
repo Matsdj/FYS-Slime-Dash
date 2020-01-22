@@ -66,7 +66,7 @@ class Spike {
   {
     /* stroke(0);
      fill (255, 0, 0);
-
+     
      triangle(x+size/4, y, x+size/2, y+size, x, y+size);
      triangle(x+size/4*3, y, x+size/2, y+size, x+size, y+size);*/
     image(spikeSprite, x+shake, y);
@@ -200,7 +200,7 @@ class Flame {
   {
     /* stroke(0);
      fill (127);
-
+     
      triangle(x+size/2, y+size/5*4, x+size, y+size, x, y+size);
      if (timeflame>timeflamemax/2) {
      fill (194, 38, 31);

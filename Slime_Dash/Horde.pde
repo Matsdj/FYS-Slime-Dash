@@ -1,18 +1,21 @@
 //Chris
 
-final int HORDE_STAGES = 4;
-final int HORDE_STAGE_SPRITE_AMOUNT = 2;
-final int HORDE_FRAMERATE = 60;
+final int HORDE_STAGES = 4, 
+  HORDE_STAGE_SPRITE_AMOUNT = 2, 
+  HORDE_FRAMERATE = 60, 
+  H_STAGE_FARMER = 0, 
+  H_STAGE_SMALL = 1, 
+  H_STAGE_MEDIUM = 2, 
+  H_STAGE_LARGE = 3;
 
 Horde[] horde;
 
 int hordeFrameCounter, hordeFramerate;
-float hordeX, hordeY, hordeVX;
+float hordeX, hordeY;
 
 void hordeSetup() {
   hordeX = -hordeSpriteWidth;
   hordeY = -hordeSpriteHeight - globalScale + height;
-  hordeVX = globalScale/32;
   hordeFrameCounter = 0;
   hordeFramerate = HORDE_FRAMERATE;
 
@@ -23,11 +26,14 @@ void hordeSetup() {
 }
 
 void hordeUpdate() {
+
+  //makes horde walk faster when the scrollspeed goes higher
   hordeFramerate = HORDE_FRAMERATE / int(globalScrollSpeed+1);
   if (hordeFramerate < 1) {
     hordeFramerate = 1;
   }
 
+  //swicthes frames of horde every amount of frames given with hordeFramerate
   if (frameCount % hordeFramerate == 0) {
     hordeFrameCounter ++;
     if (hordeFrameCounter >= HORDE_STAGE_SPRITE_AMOUNT) {
@@ -41,6 +47,8 @@ void hordeUpdate() {
 }
 
 void hordeDraw() {
+
+  //loop goes from highest to lowest. This makes it so that the beginning parts of de horde draw on top of the others 
   if (room != "game2") {
     for (int iSprite = HORDE_STAGES-1; iSprite >= 0; iSprite--) {
       horde[iSprite].draw();
@@ -50,6 +58,7 @@ void hordeDraw() {
 
 /*This class makes a single part of the horde that follows you. For every time stamp, a new part walks forward*/
 class Horde {
+  final float HORDE_VX =  globalScale/32;
   int hordeIndex;
   float x, hordeActivate;
 
@@ -59,16 +68,16 @@ class Horde {
 
     //checks the time that the horde has to become bigger depending on the given index from the setup for loop
     switch (hordeIndex) {
-    case 0:
+    case H_STAGE_FARMER:
       hordeActivate = 0;
       break;
-    case 1:
+    case H_STAGE_SMALL:
       hordeActivate = TIME_SLOW/2;
       break;
-    case 2:
+    case H_STAGE_MEDIUM:
       hordeActivate = TIME_SLOW;
       break;
-    case 3:
+    case H_STAGE_LARGE:
       hordeActivate = TIME_MID;
       break;
     }
@@ -77,11 +86,14 @@ class Horde {
   void update() {
     hordeY += globalVerticalSpeed;
 
+    //moves horde forward once given time is reached in a game
     if (!interfaces.death && x < 0 && time > hordeActivate) {
-      x += hordeVX;
+      x += HORDE_VX;
     }
+
+    //moves horde backwards when you die
     if (interfaces.death && x > -hordeSpriteWidth) {
-      x -= hordeVX;
+      x -= HORDE_VX;
     }
   }
 
