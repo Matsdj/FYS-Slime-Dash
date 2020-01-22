@@ -160,7 +160,7 @@ void draw() {
       menu.MenuUpdates("mainM", "difficulty", "upgrades", "achievements");
       menu.menuDraw("Play", "Upgrades", "Achievements");
       upgrade.update();
-      Navigation(menu.tekstX, "A", "Select", color(YELLOW), "", "", 0);
+      Navigation(menu.tekstX, "A", "Select", color(YELLOW), "", "", BLACK);
       image(slimeDash, width/4+shake, height/100, width/3, height/3);
       interfaces.death = false;
     } else if (room == "difficulty") {
