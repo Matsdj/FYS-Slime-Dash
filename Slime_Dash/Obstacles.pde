@@ -86,6 +86,7 @@ void flameSetup()
 
   flames = new Flame[100];
 }
+//regelt de burndamage
 void burnUpdate() {
   if (burn == true&&burndamage <= totalburndamage*60) {
     burndamage = burndamage +1;
@@ -168,7 +169,7 @@ class Flame {
   //controleerd op player aanraking
   void update() {
     timeflame = timeflame+1;
-
+//geeft damage en activeerd de burn
     if (timeflame>timeflamemax/2) {
       if ( player.hitboxCollision(x, y, size, size)) {
         interfaces.health = interfaces.health-0.5;

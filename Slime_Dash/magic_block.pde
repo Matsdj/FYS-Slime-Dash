@@ -87,6 +87,7 @@ class Magic1 {
       if (interfaces.death==false) {
         Electric.play();
       }
+      // zorgt ervoor dat je health gehalveerd word en onder de 40 -20 health
       if (interfaces.health <= 40) {
         MagicBarricadeDMG = 20;
       }
@@ -188,7 +189,7 @@ class Magic2 {
       if (interfaces.death==false) {
         Electric.play();
       }
-
+//regelt de damage
       if (interfaces.health <= 40) {
         MagicBarricadeDMG = 20;
       }
@@ -290,6 +291,7 @@ class MagicSwitch {
         doorDown.amp(0.3);
         doorDown.play();
       }
+      //zorgt voor een delay tussen 2 overschakelingen
       SwitchTimer = SwitchTimerMax;
       switchA = !switchA;
       SwitchTimerA = true;
