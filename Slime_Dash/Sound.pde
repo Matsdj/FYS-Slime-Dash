@@ -51,7 +51,7 @@ void soundSetup() {
   arrowRelease = new SoundFile(this, "sounds/arrowRelease.mp3");
   spikeDmg = new SoundFile(this, "sounds/spikeDmg.mp3");
   miniMarch = new SoundFile(this, "sounds/miniMarch.mp3");
-  slimeBurn = new SoundFile(this,"sounds/slimeBurn.mp3");
+  slimeBurn = new SoundFile(this, "sounds/slimeBurn.mp3");
   Hoofdmenu.amp(volume);
   damage.amp(.5);
   march[0]=true;
@@ -60,9 +60,9 @@ void soundSetup() {
   march[3]=true;
   miniMarch.amp(.6);
   miniMarch.rate(.7);
-   slimeBurn.amp(.5);
-   lowValue=.5;
-   highValue=1;
+  slimeBurn.amp(.5);
+  lowValue=.5;
+  highValue=1;
 }
 void soundUpdate() {
   if (room == "game" && miniMarch.isPlaying()==false) {

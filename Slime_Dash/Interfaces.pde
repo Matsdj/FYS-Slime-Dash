@@ -567,12 +567,12 @@ class Menus {
       tekstSize[3]= TEXT_BIG;
     }
     //Down in het menu
-    if (select1 == HIGHLIGHT&&inputsPressed(keyUp) ) {
+    if (select3 == HIGHLIGHT&&inputsPressed(keyDown) ) {
       if (Ding.isPlaying()) Ding.stop();
       Ding.play();
-      select1 = GREY;
+      select1 = HIGHLIGHT;
       select2 = GREY;
-      select3 = HIGHLIGHT;
+      select3 = GREY;
     }
     if (select1 == HIGHLIGHT&&inputsPressed(keyDown) ) {
       if (Ding.isPlaying()) Ding.stop();
@@ -603,13 +603,14 @@ class Menus {
       select2 = HIGHLIGHT;
       select3 = GREY;
     }
-    if (select3 == HIGHLIGHT&&inputsPressed(keyDown) ) {
+    if (select1 == HIGHLIGHT&&inputsPressed(keyUp) ) {
       if (Ding.isPlaying()) Ding.stop();
       Ding.play();
-      select1 = HIGHLIGHT;
+      select1 = GREY;
       select2 = GREY;
-      select3 = GREY;
+      select3 = HIGHLIGHT;
     }
+
     // spatie om naar de volgende rooms te gaan, geluid speelt
     if (select1==HIGHLIGHT&&room == currentRoom && inputsPressed(keySpace) ) {
       room = nextRoom1;
@@ -625,16 +626,16 @@ class Menus {
     }
   }
   //hier wordt menutekst aangemaakt je kan dit invullen voor verschillende rooms
-  void menuDraw(String direction1, String direction2, String direction3) {
+  void menuDraw(String roomname1, String roomname2, String roomname3) {
     textAlign(LEFT, CENTER);
     textSize(tekstSize[0]);
     fill(select1);
-    text(direction1, tekstX, tekstY);
+    text(roomname1, tekstX, tekstY);
     textSize(tekstSize[1]);
     fill(select2);
-    text(direction2, tekstX, tekstY*1.5);
+    text(roomname2, tekstX, tekstY*1.5);
     fill(select3);
     textSize(tekstSize[3]);
-    text(direction3, tekstX, tekstY*2);
+    text(roomname3, tekstX, tekstY*2);
   }
 }

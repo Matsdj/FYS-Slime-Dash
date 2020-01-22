@@ -85,8 +85,8 @@ void debug() {
     debugText += ",VerticalDistance:"+ VerticalDistance;
     debugText += ","+interfaces.scoreSize;
     String[] debugArray = debugText.split(",");
-    for (int i = 0; i < debugArray.length; i++){
-      text(debugArray[i],0,i*DEBUG_TEXT+height/4);
+    for (int i = 0; i < debugArray.length; i++) {
+      text(debugArray[i], 0, i*DEBUG_TEXT+height/4);
     }
     if (mousePressed) {
       player.x = mouseX-player.size/2;

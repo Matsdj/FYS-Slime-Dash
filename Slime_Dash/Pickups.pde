@@ -135,7 +135,7 @@ class PHealth {
     if (player.Collision(x - (collisionCorrector * globalScale), y - (collisionCorrector * globalScale), size)) {
       reset();
       interfaces.health += GAIN_HEALTH;
-      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(0,255,0), color(0,255,0), -0.5, 0, false, PARTICLE_LIFE_SHORT, "+"+GAIN_HEALTH, 1);
+      createParticle(player.x, player.y, 0, PARTICLE_TEXT_SIZE, color(0, 255, 0), color(0, 255, 0), -0.5, 0, false, PARTICLE_LIFE_SHORT, "+"+GAIN_HEALTH, 1);
       heartCount++; //for databases
     }
 

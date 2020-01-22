@@ -243,11 +243,11 @@ void getHighscores() {
     for (int i = 0; msql.next(); i++) {
       hScore.add(new Highscores(msql.getString("name"), msql.getInt("id"), msql.getFloat("max(h.score)")));
       highscoreOptions[0][i] = i+". "+msql.getString("name")+": "+msql.getFloat("max(h.score)");
-      if (msql.getInt("id") == user.id){
+      if (msql.getInt("id") == user.id) {
         scorePos = i+1;
       }
     }
-    highscores = new Selection(highscoreOptions,width/2,height/2);
+    highscores = new Selection(highscoreOptions, width/2, height/2);
   }
 }
 

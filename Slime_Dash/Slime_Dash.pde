@@ -178,10 +178,10 @@ void draw() {
       bgUpdate();
       bgDraw();
       drawHScores();
-      if (!offline){
-      Navigation(menu.tekstX, "A", "All Highscores", color(YELLOW), "B", "Back", color(RED));
+      if (!offline) {
+        Navigation(menu.tekstX, "A", "All Highscores", color(YELLOW), "B", "Back", color(RED));
       } else {
-      Navigation(menu.tekstX, "", "", color(YELLOW), "B", "Back", color(RED));
+        Navigation(menu.tekstX, "", "", color(YELLOW), "B", "Back", color(RED));
       }
       if (inputsPressed(keyQ)==true) {
         room = "mainM";

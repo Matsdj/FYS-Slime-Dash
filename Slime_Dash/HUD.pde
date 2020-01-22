@@ -361,8 +361,6 @@ class HUD {
   }
 }
 //PARTICLES////////////////////////////////////////
-
-//Mats en Laurens
 Particle[] particles = new Particle[10000];
 //variablen die je kan invullen terwijl je je particles creert
 void createParticle(float x, float y, float particleArea, float particleSize, color kleurMin, color kleurMax, float gravity, float speed, boolean collision, int life, String text, float count) {
